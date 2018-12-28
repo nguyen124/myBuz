@@ -8,9 +8,10 @@ import { FooterComponent } from './footer/footer.component';
 import { BodyComponent } from './body/body.component';
 import { ItemsComponent } from './items/items.component';
 import { UserComponent } from './user/user.component';
-import { FileUtils} from './utils/FileUtils';
+import { FileUtils } from './utils/FileUtils';
 import { DatePipe } from './date-pipe.pipe';
-import { FilterComponent } from './filter/filter.component'
+import { FilterComponent } from './filter/filter.component';
+import { ItemService } from './services/item.services';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,7 @@ import { FilterComponent } from './filter/filter.component'
   imports: [
     BrowserModule, FormsModule, FileUtils
   ],
-  providers: [],
+  providers: [ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

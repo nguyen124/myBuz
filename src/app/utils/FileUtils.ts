@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class FileUtils {
 
-  getFileType(path: string): string {
+  static getFileType(path: string): string {
     let picRegex = /^.*\.(JPG|JPEG)$/i;
     let videoRegex = /^.*\.(MOV)$/i;
     let gifRegex = /^.*\.(GIF)$/i;
