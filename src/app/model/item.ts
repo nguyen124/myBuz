@@ -1,11 +1,12 @@
 export interface IItem {
-  id: number;
   code?: string;
   title: string;
   description?: string;
   url: string;
   modifiedDate: string;
-  viewed: string;  
+  viewed: string;
+  createdBy: string;
+  commentedBy: string;  
 }
 
 // export class Item implements IItem {

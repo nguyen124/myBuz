@@ -1,8 +1,3 @@
 ul#listItemsDetails {
     list-style-type: none;
 }
-
-ul#listItemsDetails li {
-    float: left;
-    padding: 10px;
-}

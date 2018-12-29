@@ -12,6 +12,8 @@ import { FileUtils } from './utils/FileUtils';
 import { DatePipe } from './date-pipe.pipe';
 import { FilterComponent } from './filter/filter.component';
 import { ItemService } from './services/item.services';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,7 @@ import { ItemService } from './services/item.services';
     FilterComponent
   ],
   imports: [
-    BrowserModule, FormsModule, FileUtils
+    BrowserModule, FormsModule, FileUtils, HttpClientModule
   ],
   providers: [ItemService],
   bootstrap: [AppComponent]

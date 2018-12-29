@@ -18,7 +18,9 @@ export class ItemsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.items = this._itemService.getItems();
+    this._itemService.getItems().subscribe((items) => {
+      this.items = items;
+    });
   }
 
   getFileType(item: any) {
