@@ -10,6 +10,6 @@ export class ItemService {
 
     }
     getItems(): Observable<IItem[]> {
-        return this._http.get<IItem[]>("http://localhost:3000/svc/items");       
+        return this._http.get<IItem[]>("http://localhost:3000/svc/items");
     }
 }

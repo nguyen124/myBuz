@@ -10,21 +10,27 @@
         <!-- <span>date: {{item.modifiedDate | date: fulldate}}</span> -->
       </div>
       <div>
-        <a href="#" class="d-block">
+        <a href="#" (click)="viewItemDetails()" class="d-block" data-toggle="modal" data-target="#exampleModal">
           <!-- <img *ngIf="getFileType(item.media) == 'pic'" class="img-fluid img-thumbnail" src="{{item.media}}" alt=""> -->
           <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
         </a>
       </div>
-      <div class="mb-2">Comments(5555) - Points(444)</div>
+      <div>Comments(5555) - Points(444)</div>
+      <div class="mb-2">
+        <a href="#" class="mr-1">Tag1</a>
+        <a href="#" class="mr-1">Tag2</a>
+        <a href="#" class="mr-1">Tag3</a>
+      </div>
       <button class="btn btn-success mr-2 mb-2 btn-sm">Up</button>
       <button class="btn btn-success mr-2 btn-sm mb-2">Down</button>
       <button class="btn btn-success btn-sm mb-2">Comment</button>
-        
-      
-
-
     </div>
+    <app-item [item]="item"></app-item>
   </ng-container>
+  <!-- <div *ngIf="showWaitingMessage">
+    <h1 class="alert-info">The funs are coming! Please wait...</h1>
+  </div> -->
+
 </div>
 <!-- 
 <button (click)="getItems()">Refresh</button> -->
