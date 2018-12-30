@@ -13,6 +13,7 @@ export class ItemsComponent implements OnInit {
   items: IItem[];
   selectedRadioValue: string = "all";
   showWaitingMessage = false;
+  currentItem: IItem;
   //outline = "col-lg-3 col-md-4 col-xs-6 pb-3"
   constructor(private _itemService: ItemService) {
 
@@ -43,7 +44,7 @@ export class ItemsComponent implements OnInit {
   onRadioChanged(selectedRadioValue: string) {
     this.selectedRadioValue = selectedRadioValue;
   }
-  viewItemDetails() {
-    //this.outline ="col-lg-6 col-md-6 col-xs-6 pb-3" 
+  viewItemDetails(itemToView) {
+    this.currentItem = itemToView;
   }
 }
