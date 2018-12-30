@@ -30,7 +30,7 @@
   <!-- <div *ngIf="showWaitingMessage">
     <h1 class="alert-info">The funs are coming! Please wait...</h1>
   </div> -->
-  <app-item [item]="currentItem"></app-item>
+  <app-item *ngIf="currentItem" [item]="currentItem"></app-item>
 </div>
 <!-- 
 <button (click)="getItems()">Refresh</button> -->

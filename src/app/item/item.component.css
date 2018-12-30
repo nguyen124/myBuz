@@ -2,3 +2,10 @@
     max-width: 100%;
     margin: 0.5rem;
 }
+
+.avatar {
+    vertical-align: middle;
+    width: 75px;
+    height: 75px;
+    border-radius: 5%;
+  }
