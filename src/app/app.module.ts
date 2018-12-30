@@ -13,6 +13,7 @@ import { DatePipe } from './date-pipe.pipe';
 import { FilterComponent } from './filter/filter.component';
 import { ItemService } from './services/item.services';
 import { HttpClientModule } from '@angular/common/http';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     ItemsComponent,
     UserComponent,
     DatePipe,
-    FilterComponent
+    FilterComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule, FormsModule, FileUtils, HttpClientModule

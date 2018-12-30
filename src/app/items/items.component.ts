@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileUtils } from '../utils/FileUtils';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
+import { IComment } from '../model/comment';
 
 @Component({
   selector: 'app-items',
@@ -14,6 +15,7 @@ export class ItemsComponent implements OnInit {
   selectedRadioValue: string = "all";
   showWaitingMessage = false;
   currentItem: IItem;
+  replies: IComment[];
   //outline = "col-lg-3 col-md-4 col-xs-6 pb-3"
   constructor(private _itemService: ItemService) {
 
@@ -46,5 +48,10 @@ export class ItemsComponent implements OnInit {
   }
   viewItemDetails(itemToView) {
     this.currentItem = itemToView;
+  }
+  showReplies(commentId) {
+    this.replies = [
+      { content: "hahah too funny ", url: "../../assets/gif/giphy3.gif", modifiedDate: '12/28/2019', commmentedBy: "5c2719491777ef460f90a767", itemId: "5c2719491777ef460f90a767", replyTo: null }
+    ]
   }
 }

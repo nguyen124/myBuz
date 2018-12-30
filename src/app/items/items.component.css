@@ -1,3 +1,10 @@
 ul#listItemsDetails {
     list-style-type: none;
 }
+
+.avatar {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    border-radius: 5%;
+}

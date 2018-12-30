@@ -5,12 +5,13 @@
   <ng-container *ngFor="let item of items">
     <div *ngIf="selectedRadioValue === 'all' || selectedRadioValue === item.viewed" class="col-lg-3 col-md-4 col-xs-6 pb-3">
       <div>
+        <img class="avatar d-inline float-left mr-2" src="../../assets/image/avatar1.jpg" alt="Avatar">
         <span>{{item.title | uppercase}}</span> <br>
         <!-- <span> Id: {{item.id }} - Index: {{i}} - Is first: {{isFirst}} - Is last: {{isLast}}</span> <br> -->
         <!-- <span>date: {{item.modifiedDate | date: fulldate}}</span> -->
       </div>
       <div>
-        <a href="#" (click)="viewItemDetails(item)" class="d-block" data-toggle="modal" data-target="#exampleModal">
+        <a href="#" (click)="viewItemDetails(item)" class="d-block" data-toggle="modal" data-target="#itemDetails">
           <!-- <img *ngIf="getFileType(item.media) == 'pic'" class="img-fluid img-thumbnail" src="{{item.media}}" alt=""> -->
           <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
         </a>

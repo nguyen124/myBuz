@@ -6,7 +6,7 @@ export interface IItem {
   modifiedDate: string;
   viewed: string;
   createdBy: string;
-  commentedBy: string;  
+  commentedBy: string;
 }
 
 // export class Item implements IItem {
