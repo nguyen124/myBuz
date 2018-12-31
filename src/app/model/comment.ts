@@ -4,5 +4,5 @@ export interface IComment {
     modifiedDate: string;    
     commmentedBy: string;
     itemId: string;
-    replyTo?: string;
+    replyTo?: Object;
 }

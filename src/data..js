@@ -312,11 +312,11 @@ var comments = [
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
         writtenBy: {
-            userId: "5c28486b1777ef460f90a774",
-            name: "Hai dap chai",
+            userId: "5c29accb2dd29f0ca6549a9f",
+            name: "Thanh Dep Gai",
             avatar: "../../assets/image/avatar1.jpg"
         },
-        itemId: "5c2719491777ef460f90a767",
+        itemId: "5c29af372dd29f0ca6549aaa",
         replyTo: null,
         point: 1000,
         replies: 1000
@@ -326,11 +326,11 @@ var comments = [
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
         writtenBy: {
-            userId: "5c28486b1777ef460f90a774",
+            userId: "5c29accb2dd29f0ca6549aa0",
             name: "Hai dap chai",
-            avatar: "../../assets/image/avatar1.jpg"
+            avatar: "../../assets/image/avatar2.jpg"
         },
-        itemId: "5c2719491777ef460f90a767",
+        itemId: "5c29af372dd29f0ca6549aaa",
         replyTo: null,
         point: 1000,
         replies: 1000
@@ -340,11 +340,11 @@ var comments = [
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
         writtenBy: {
-            userId: "5c28486b1777ef460f90a774",
-            name: "Hai dap chai",
-            avatar: "../../assets/image/avatar1.jpg"
+            userId: "5c29accb2dd29f0ca6549aa1",
+            name: "Nam dap chai",
+            avatar: "../../assets/image/avatar3.jpg"
         },
-        itemId: "5c2719491777ef460f90a767",
+        itemId: "5c29af372dd29f0ca6549aaa",
         replyTo: "5c29af922dd29f0ca6549aab",
         point: 1000,
         replies: 1000
@@ -354,11 +354,11 @@ var comments = [
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
         writtenBy: {
-            userId: "5c28486b1777ef460f90a774",
-            name: "Hai dap chai",
-            avatar: "../../assets/image/avatar1.jpg"
+            userId: "5c29accb2dd29f0ca6549aa2",
+            name: "Ka Dap Gai",
+            avatar: "../../assets/image/avatar4.jpg"
         },
-        itemId: "5c2719491777ef460f90a767",
+        itemId: "5c29af372dd29f0ca6549aaa",
         replyTo: "5c29afdc2dd29f0ca6549aac",
         point: 1000,
         replies: 1000

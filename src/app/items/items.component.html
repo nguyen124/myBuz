@@ -18,11 +18,9 @@
           <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
         </a>
       </div>
-      <div>Comments(5555) - Points(444)</div>
+      <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})</div>
       <div class="mb-2">
-        <a href="#" class="mr-1">Tag1</a>
-        <a href="#" class="mr-1">Tag2</a>
-        <a href="#" class="mr-1">Tag3</a>
+        <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>        
       </div>
       <button class="btn btn-success mr-2 mb-2 btn-sm">Up</button>
       <button class="btn btn-success mr-2 btn-sm mb-2">Down</button>

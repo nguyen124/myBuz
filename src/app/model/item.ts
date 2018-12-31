@@ -1,4 +1,5 @@
 export interface IItem {
+  _id: String;
   title: string;
   titleUrl: string;
   url: string;
