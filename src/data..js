@@ -1,20 +1,127 @@
 var items = [
-    { title: "Hello 3", description: "Hi Hai dap chai", url: "../../assets/image/img3.JPG", modifiedDate: "12/30/2019", viewed: "notSeen", createdBy: "5c27194f1777ef460f90a768", commentedBy: "5c2719491777ef460f90a767" },
-    { title: "Hello 1", description: "Hi Hai dap chai", url: "../../assets/image/img1.JPG", modifiedDate: "12/21/2019", viewed: "seen", createdBy: "5c2719491777ef460f90a767", commentedBy: "5c27194f1777ef460f90a768" },
-    { title: "Hello 2", description: "Hi Hai dap chai", url: "../../assets/image/img2.JPG", modifiedDate: "12/22/2019", viewed: "glanced", createdBy: "5c27194f1777ef460f90a768", commentedBy: "5c2719491777ef460f90a767" },
-    { title: "Hello 3", description: "Hi Hai dap chai", url: "../../assets/image/img3.JPG", modifiedDate: "12/23/2019", viewed: "seen", createdBy: "5c27194f1777ef460f90a768", commentedBy: "5c2719491777ef460f90a767" },
-    { title: "Hello 4", description: "Hi Hai dap chai", url: "../../assets/image/img4.JPG", modifiedDate: "12/24/2019", viewed: "seen", createdBy: "5c27194f1777ef460f90a768", commentedBy: "5c2719491777ef460f90a767" },
-    { title: "Hello 5", description: "Hi Hai dap chai", url: "../../assets/image/img5.JPG", modifiedDate: "12/25/2019", viewed: "glanced", createdBy: "5c2719491777ef460f90a767", commentedBy: "5c27194f1777ef460f90a768" },
-    { title: "Hello 6", description: "Hi Hai dap chai", url: "../../assets/image/img6.JPG", modifiedDate: "12/26/2019", viewed: "seen", createdBy: "5c2719491777ef460f90a767", commentedBy: "5c27194f1777ef460f90a768" },
-    { title: "Gif1   ", description: "Gif            ", url: "../../assets/gif/giphy1.gif", modifiedDate: "12/27/2019", viewed: "notSeen", createdBy: "5c2719491777ef460f90a767", commentedBy: "5c27194f1777ef460f90a768" },
-    { title: "Gif2   ", description: "Gif            ", url: "../../assets/gif/giphy2.gif", modifiedDate: "12/28/2019", viewed: "notSeen", createdBy: "5c27194f1777ef460f90a768", commentedBy: "5c2719491777ef460f90a767" },
-    { title: "Hello 2", description: "Hi Hai dap chai", url: "../../assets/image/img2.JPG", modifiedDate: "12/29/2019", viewed: "notSeen", createdBy: "5c27194f1777ef460f90a768", commentedBy: "5c2719491777ef460f90a767" }
+    {
+        title: "Hello 3",
+        titleUrl: "../../assets/image/img3.JPG",
+        url: "../../assets/image/img3.JPG",
+        thumbnail: "../../assets/image/img3.JPG",
+        modifiedDate: "1546185702286",
+        createdBy: {
+            userId: "5c28486b1777ef460f90a774",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar1.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    },
 ];
+
+var itemUserLogs = [
+    {
+        userId: "5c28486b1777ef460f90a774",
+        itemId: "5c28486b1777ef460f90a774",
+        action: [{ "upVote": 123123 }, { "seen": 123123 }, { "share": 123123 }, { "report": 123123 }]
+    },
+    {
+        userId: "5c28486b1777ef460f90a774",
+        itemId: "5c28486b1777ef460f90a774",
+        action: [{ "create": 123123 }, { "seen": !23123 }]
+    },
+    {
+        userId: "5c28486b1777ef460f90a774",
+        itemId: "5c28486b1777ef460f90a774",
+        action: [{ "downVote": 123123 }, { "report": 123123 }]
+    },
+    {
+        userId: "5c28486b1777ef460f90a774",
+        itemId: "5c28486b1777ef460f90a774",
+        action: [{ "glanced": 123123 }]
+    }
+];
+
+var commentUserLogs = [
+    {
+        userId: "5c28486b1777ef460f90a774",
+        commentId: "5c28486b1777ef460f90a774",
+        action: [
+            { upVote: 123123 }, { share: 123123 }, { report: 123123 }
+        ]
+    },
+    {
+        userId: "5c28486b1777ef460f90a774",
+        commentId: "5c28486b1777ef460f90a774",
+        action: [{ downVote: 123123 }, { report: 123123 }]
+    },
+    {
+        userId: "5c28486b1777ef460f90a774",
+        commentId: "5c28486b1777ef460f90a774",
+        action: [{
+            reply: 123123,
+            replyContent: "hahhaahahaha"
+        }]
+    }
+];
+
+var userUserLogs = [
+    {
+        firstUserId: "5c28486b1777ef460f90a774",
+        secondUserId: "5c28486b1777ef460f90a774",
+        action: [{ "follow": 123123 }]
+    },
+    {
+        firstUserId: "5c28486b1777ef460f90a774",
+        secondUserId: "5c28486b1777ef460f90a774",
+        action: [{ "unfollow": 123123 }]
+    }
+];
+
 var users = [
-    { email: "thanh@gmail.com", avatar: "../../assets/image/avatar1.jpg", userName: "kimthanh", password: "c26795be955e46a30cd11ef4432e462d68a613b1", joinedDate: "12/12/2012", rank: "pro", status: "active" },
-    { email: "nguyen@gmail.com", avatar: "../../assets/image/avatar1.jpg", userName: "haidapchai", password: "c26795be955e46a30cd11ef4432e462d68a613b1", joinedDate: "12/12/2012", rank: "pro", status: "active" }
+    {
+        email: "thanh@gmail.com",
+        avatar: "../../assets/image/avatar1.jpg",
+        userName: "kimthanh",
+        password: "c26795be955e46a30cd11ef4432e462d68a613b1",
+        joinedDate: "12/12/2012",
+        rank: "pro",
+        status: "active"
+    },
+    {
+        email: "nguyen@gmail.com",
+        avatar: "../../assets/image/avatar1.jpg",
+        userName: "haidapchai",
+        password: "c26795be955e46a30cd11ef4432e462d68a613b1",
+        joinedDate: "12/12/2012",
+        rank: "pro",
+        status: "active"
+    }
 ];
 
 var comments = [
-    { content: "hahah too funny ", url: "../../assets/gif/giphy3.gif", modifiedDate: "12/28/2019", commmentedBy: "5c2719491777ef460f90a767", itemId: "5c2719491777ef460f90a767", replyTo: null }
-]
+    {
+        content: "hahah too funny ",
+        url: "../../assets/gif/giphy3.gif",
+        modifiedDate: 234234243,
+        writtenBy: {
+            userId: "5c28486b1777ef460f90a774",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar1.jpg"
+        },
+        itemId: "5c2719491777ef460f90a767",
+        replyTo: "5c2719491777ef460f90a767",
+        point: 1000,
+        replies: 1000
+    }
+];
