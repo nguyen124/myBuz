@@ -1,9 +1,9 @@
 export interface IItem {
-  code?: string;
   title: string;
-  description?: string;
+  titleUrl: string;
   url: string;
-  modifiedDate: string;
+  thumbnail: string,
+  modifiedDate?: number;
   viewed: string;
   createdBy: string;
   commentedBy: string;

@@ -5,8 +5,10 @@
   <ng-container *ngFor="let item of items">
     <div *ngIf="selectedRadioValue === 'all' || selectedRadioValue === item.viewed" class="col-lg-3 col-md-4 col-xs-6 pb-3">
       <div>
-        <img class="avatar d-inline float-left mr-2" src="../../assets/image/avatar1.jpg" alt="Avatar">
-        <span>{{item.title | uppercase}}</span> <br>
+        <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
+        <div class="float-left pr-1 text-success">{{item.createdBy.name}} . {{item.createdBy.rank}}.
+          {{item.createdBy.followers}} followers </div> <br>
+        <div class="float-left pr-1 text-primary">{{item.title | uppercase}}</div>
         <!-- <span> Id: {{item.id }} - Index: {{i}} - Is first: {{isFirst}} - Is last: {{isLast}}</span> <br> -->
         <!-- <span>date: {{item.modifiedDate | date: fulldate}}</span> -->
       </div>

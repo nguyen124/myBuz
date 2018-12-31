@@ -1,14 +1,179 @@
 var items = [
     {
-        title: "Hello 3",
-        titleUrl: "../../assets/image/img3.JPG",
-        url: "../../assets/image/img3.JPG",
-        thumbnail: "../../assets/image/img3.JPG",
-        modifiedDate: "1546185702286",
+        title: "Hello 1",
+        titleUrl: "../../assets/image/title1.JPG",
+        url: "../../assets/image/img1.JPG",
+        thumbnail: "../../assets/image/img1.JPG",
+        modifiedDate: 1546234499247,
         createdBy: {
-            userId: "5c28486b1777ef460f90a774",
+            userId: "5c29accb2dd29f0ca6549a9f",
             name: "Hai dap chai",
             avatar: "../../assets/image/avatar1.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    }, {
+        title: "Hello 11",
+        titleUrl: "../../assets/image/title1.JPG",
+        url: "../../assets/image/img1.JPG",
+        thumbnail: "../../assets/image/img1.JPG",
+        modifiedDate: 1546234499247,
+        createdBy: {
+            userId: "5c29accb2dd29f0ca6549a9f",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar1.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    }, {
+        title: "Hello 2",
+        titleUrl: "../../assets/image/title2.JPG",
+        url: "../../assets/image/img3.JPG",
+        thumbnail: "../../assets/image/img3.JPG",
+        modifiedDate: 1546234499247,
+        createdBy: {
+            userId: "5c29accb2dd29f0ca6549aa0",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar2.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    }, {
+        title: "Hello 22",
+        titleUrl: "../../assets/image/title2.JPG",
+        url: "../../assets/image/img3.JPG",
+        thumbnail: "../../assets/image/img3.JPG",
+        modifiedDate: 1546234499247,
+        createdBy: {
+            userId: "5c29accb2dd29f0ca6549aa0",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar2.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    },
+    {
+        title: "Hello 3",
+        titleUrl: "../../assets/image/title3.JPG",
+        url: "../../assets/image/img3.JPG",
+        thumbnail: "../../assets/image/img3.JPG",
+        modifiedDate: 1546234499247,
+        createdBy: {
+            userId: "5c29accb2dd29f0ca6549aa1",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar3.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    },
+    {
+        title: "Hello 4",
+        titleUrl: "../../assets/image/title4.JPG",
+        url: "../../assets/image/img4.JPG",
+        thumbnail: "../../assets/image/img4.JPG",
+        modifiedDate: 1546234499247,
+        createdBy: {
+            userId: "5c29accb2dd29f0ca6549aa2",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar4.jpg",
+            rank: "pro",
+            followers: 1000
+        },
+        tags: ["tag1", "tag2", "tag3", "tag4"],
+        categories: ["Funny", "Wtf"],
+        point: 1000,
+        seen: 1500,
+        share: 200,
+        comment: 1000,
+        status: "active",
+        isAdult: false,
+        isSafeAtWork: true,
+        isSensitive: false,
+        creditBy: ["linkToCredit.com"],
+        isAutoPlayed: true,
+        hasSound: false,
+        length: 60
+    },
+    {
+        title: "Hello 5",
+        titleUrl: "../../assets/image/title5.JPG",
+        url: "../../assets/image/img5.JPG",
+        thumbnail: "../../assets/image/img5.JPG",
+        modifiedDate: 1546234499247,
+        createdBy: {
+            userId: "5c29accb2dd29f0ca6549aa3",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar5.jpg",
             rank: "pro",
             followers: 1000
         },
@@ -94,18 +259,50 @@ var users = [
         avatar: "../../assets/image/avatar1.jpg",
         userName: "kimthanh",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
-        joinedDate: "12/12/2012",
+        joinedDate: 1546234499247,
         rank: "pro",
-        status: "active"
+        status: "active",
+        followers: 1000
     },
     {
         email: "nguyen@gmail.com",
-        avatar: "../../assets/image/avatar1.jpg",
+        avatar: "../../assets/image/avatar2.jpg",
         userName: "haidapchai",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
-        joinedDate: "12/12/2012",
+        joinedDate: 1546235499247,
+        rank: "junior",
+        status: "blocked",
+        followers: 2000
+    },
+    {
+        email: "nam@gmail.com",
+        avatar: "../../assets/image/avatar3.jpg",
+        userName: "namdapchai",
+        password: "c26795be955e46a30cd11ef4432e462d68a613b1",
+        joinedDate: 1546236499247,
+        rank: "newbie",
+        status: "active",
+        followers: 3000
+    },
+    {
+        email: "ka@gmail.com",
+        avatar: "../../assets/image/avatar4.jpg",
+        userName: "kadapgai",
+        password: "c26795be955e46a30cd11ef4432e462d68a613b1",
+        joinedDate: 1546236499247,
         rank: "pro",
-        status: "active"
+        status: "active",
+        followers: 4000
+    },
+    {
+        email: "tan@gmail.com",
+        avatar: "../../assets/image/avatar5.jpg",
+        userName: "tandapchai",
+        password: "c26795be955e46a30cd11ef4432e462d68a613b1",
+        joinedDate: 1546236499247,
+        rank: "senior",
+        status: "active",
+        followers: 5000
     }
 ];
 
@@ -113,15 +310,58 @@ var comments = [
     {
         content: "hahah too funny ",
         url: "../../assets/gif/giphy3.gif",
-        modifiedDate: 234234243,
+        modifiedDate: 1546234499247,
         writtenBy: {
             userId: "5c28486b1777ef460f90a774",
             name: "Hai dap chai",
             avatar: "../../assets/image/avatar1.jpg"
         },
         itemId: "5c2719491777ef460f90a767",
-        replyTo: "5c2719491777ef460f90a767",
+        replyTo: null,
+        point: 1000,
+        replies: 1000
+    },
+    {
+        content: "Thanks captain",
+        url: "../../assets/gif/giphy3.gif",
+        modifiedDate: 1546234499247,
+        writtenBy: {
+            userId: "5c28486b1777ef460f90a774",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar1.jpg"
+        },
+        itemId: "5c2719491777ef460f90a767",
+        replyTo: null,
+        point: 1000,
+        replies: 1000
+    },
+    {
+        content: "what is so funny. I don't get it",
+        url: "../../assets/gif/giphy3.gif",
+        modifiedDate: 1546234499247,
+        writtenBy: {
+            userId: "5c28486b1777ef460f90a774",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar1.jpg"
+        },
+        itemId: "5c2719491777ef460f90a767",
+        replyTo: "5c29af922dd29f0ca6549aab",
+        point: 1000,
+        replies: 1000
+    },
+    {
+        content: "Watch Game of throne season 1 you will understand.",
+        url: "../../assets/gif/giphy3.gif",
+        modifiedDate: 1546234499247,
+        writtenBy: {
+            userId: "5c28486b1777ef460f90a774",
+            name: "Hai dap chai",
+            avatar: "../../assets/image/avatar1.jpg"
+        },
+        itemId: "5c2719491777ef460f90a767",
+        replyTo: "5c29afdc2dd29f0ca6549aac",
         point: 1000,
         replies: 1000
     }
+
 ];
