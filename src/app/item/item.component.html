@@ -8,7 +8,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pb-0">
         <div class="row text-lg-left">
           <div class="col-lg-6 col-md-6 col-xs-6 pb-3">
             <div>
@@ -26,14 +26,15 @@
             <div class="pb-4 d-flex" *ngFor="let comment of comments">
               <div class="w-100">
                 <img class="avatar d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
-                <div class="float-left pr-1 text-success">{{comment.writtenBy.name}}</div>
+                <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.name}}
+                  </span>. {{comment.point}} points</div>
                 <div><span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo.commenter}}</span>{{comment.content}}</div>
-
                 <div class="d-block mt-2">
-                  <button class="btn btn-success mr-2 mb-2 btn-sm">Reply</button>
-                  <button class="btn btn-success mr-2 mb-2 btn-sm">Up</button>
-                  <button class="btn btn-success mr-2 btn-sm mb-2">Down</button>
-                  <button class="btn btn-success mr-2 btn-sm mb-2" (click)="showReplies()">View 9 replies</button>
+                  <button class="btn btn-success mr-2 mb-2 btn-sm" (click)="upVote()"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                  <button class="btn btn-success mr-2 btn-sm mb-2" (click)="downVote()"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                  <button class="btn btn-success mr-2 btn-sm mb-2" (click)="showComments()"><i class="fa fa-comment-o" aria-hidden="true"></i></button>
+                  <button class="btn btn-success mr-2 btn-sm mb-2" (click)="showReplies()"><i class="fa fa-reply"
+                      aria-hidden="true"></i></button>
                 </div>
               </div>
             </div>
@@ -42,9 +43,25 @@
         </div>
 
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer p-0 row">
+        <div class="col-sm-12 col-lg-9 col-md-8">
+          <div class="card card-info">
+            <div class="card-block">
+              <textarea placeholder="Let comment something fun!" class="pb-cmnt-textarea"></textarea>
+            </div>
+          </div>
+        </div>
 
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form class="form-inline">
+          <div class="btn-group col-sm-12 col-lg-3 col-ld-4 mt-2 mr-1">
+            <button class="btn"><span class="fa fa-picture-o fa-lg"></span></button>
+            <button class="btn"><span class="fa fa-video-camera fa-lg"></span></button>
+            <button class="btn"><span class="fa fa-microphone fa-lg"></span></button>
+            <button class="btn btn-primary" type="button">Post</button>
+            <button class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </form>
       </div>
     </div>
   </div>

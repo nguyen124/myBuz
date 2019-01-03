@@ -35,23 +35,28 @@ export class ItemsComponent implements OnInit {
     return this.items.length;
   }
   getSeenItemsCount(): number {
-    return this.items.filter(e => e.viewed === "seen").length;
+    return 0;// this.items.filter(e => e.seen === "seen").length;
   }
   getNotSeenItemsCount(): number {
-    return this.items.filter(e => e.viewed === "notSeen").length;
+    return 0; //this.items.filter(e => e.viewed === "notSeen").length;
   }
   getGlancedItemsCount(): number {
-    return this.items.filter(e => e.viewed === "glanced").length;
+    return 0;// this.items.filter(e => e.viewed === "glanced").length;
   }
   onRadioChanged(selectedRadioValue: string) {
     this.selectedRadioValue = selectedRadioValue;
   }
-  viewItemDetails(itemToView) {
+  viewItemDetails(itemToView: IItem) {
     this.currentItem = itemToView;
   }
-  showReplies(commentId) {
+  showReplies(commentId: String) {
     this.replies = [
       { content: "hahah too funny ", url: "../../assets/gif/giphy3.gif", modifiedDate: '12/28/2019', commmentedBy: "5c2719491777ef460f90a767", itemId: "5c2719491777ef460f90a767", replyTo: null }
     ]
+  }
+  upVote(itemId: String, index: number): void {
+    this._itemService.upVoteItem(itemId).subscribe(item => {
+      this.items[index].point = item.point;
+    });
   }
 }
