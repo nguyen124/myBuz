@@ -59,4 +59,10 @@ export class ItemsComponent implements OnInit {
       this.items[index].point = item.point;
     });
   }
+
+  downVote(itemId: String, index: number): void {
+    this._itemService.downVoteItem(itemId).subscribe(item => {
+      this.items[index].point = item.point;
+    });
+  }
 }

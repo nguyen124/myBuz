@@ -6,21 +6,23 @@ import { IComment } from '../model/comment';
 
 
 @Injectable()
-export class ItemService {
-    host: String = "http://localhost:3000";
+export class ItemService {    
     constructor(private _http: HttpClient) {
 
     }
     getItems(): Observable<IItem[]> {
-        return this._http.get<IItem[]>(this.host + "/svc/items");
+        return this._http.get<IItem[]>("/svc/items");
     }
     getItemComments(itemId: String): Observable<IComment[]> {
-        return this._http.get<IComment[]>(this.host + "/svc/items/" + itemId + "/comments/");
+        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments/");
     }
     updateItem(item: Object): void {
-        this._http.put(this.host + "/svc/items", item);
+        this._http.put( "/svc/items", item);
     }
     upVoteItem(itemId: String): Observable<IItem> {
-        return this._http.put<IItem>(this.host + "/svc/items/upVote", { "id": itemId });
+        return this._http.put<IItem>("/svc/items/upVote", { "id": itemId });
+    }
+    downVoteItem(itemId: String): Observable<IItem> {
+        return this._http.put<IItem>("/svc/items/downVote", { "id": itemId });
     }
 }
