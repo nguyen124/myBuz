@@ -20,6 +20,9 @@ import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { AuthService } from './services/auth.service';
+import { RegisterComponent } from './register/register.component';
+import { routing } from './app.routing';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +37,8 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
     LoginComponent,
     AdminComponent,
     HomeComponent,
-    AlertComponent
+    AlertComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -42,23 +46,11 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
     FormsModule,
     FileUtils,
     HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'admin',
-        component: AdminComponent
-      },
-      {
-        path: '',
-        component: HomeComponent
-      }
-    ])
+    routing
   ],
   providers: [
     ItemService,
+    AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
   ],

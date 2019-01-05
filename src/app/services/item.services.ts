@@ -24,5 +24,5 @@ export class ItemService {
     }
     downVoteItem(itemId: String): Observable<IItem> {
         return this._http.put<IItem>("/svc/items/downVote", { "id": itemId });
-    }
+    }    
 }

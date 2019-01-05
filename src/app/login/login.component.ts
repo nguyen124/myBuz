@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  login(event: any) {
-    event.preventDefault();
+  login() {
+    //event.preventDefault();
     this.submitted = true;
     // stop here if form is invalid    
     if (this.loginForm.invalid) {
