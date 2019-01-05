@@ -11,7 +11,7 @@ import { UserService } from '../services/user-service.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
-  submitted = true;
+  submitted = false;
 
   constructor(private _formBuilder: FormBuilder, private _router: Router, private _userService: UserService) { }
 

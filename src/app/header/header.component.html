@@ -1,9 +1,12 @@
-<ul>
+<ul (loggingChanged)="onloggingChanged($event)">
   <li *ngFor="let menu of menus">
     <a href='#'>{{menu}}</a>
   </li>
-  <li>
+  <li *ngIf="!isLoggedIn">
     <a href="/login">Login</a>
+  </li>
+  <li *ngIf="isLoggedIn">
+    <a href="" (click)="logOut()">Logout</a>
   </li>
   <!-- <input [(ngModel)]='name'/>
   You Enter: {{name}} -->

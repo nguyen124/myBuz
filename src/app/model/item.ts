@@ -1,35 +1,23 @@
 export interface IItem {
-  _id: String;
+  _id: string;
   title: string;
   titleUrl: string;
   url: string;
   thumbnail: string,
   modifiedDate?: number;
-  createdBy?: Object;
-  tags?: String[];
-  categories?: String[];
-  creditBy?: String[];
-  point?: Number;
-  seen?: Number;
-  share?: Number;
-  comment?: Number;
-  status?: Boolean;
-  isAdult?: Boolean;
-  isSafeAtWork: Boolean;
-  isSensitive: Boolean;
-  isAutoPlayed: Boolean;
-  hasSound: Boolean;
-  length: Number;
+  createdBy?: object;
+  tags?: string[];
+  categories?: string[];
+  creditBy?: string[];
+  point?: number;
+  seen?: number;
+  share?: number;
+  comment?: number;
+  status?: boolean;
+  isAdult?: boolean;
+  isSafeAtWork: boolean;
+  isSensitive: boolean;
+  isAutoPlayed: boolean;
+  hasSound: boolean;
+  length: number;
 }
-
-// export class Item implements IItem {
-//   description?: string;
-
-//   count(): number {
-//     throw new Error("Method not implemented.");
-//   }
-
-//   constructor(public id: number, public code: string, public title: string, public url: string, public modifiedDate: string, public viewed: string) {
-
-//   }
-// }

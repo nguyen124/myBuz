@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 
@@ -10,11 +10,14 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
   providedIn: 'root'
 })
 export class AuthService implements CanActivate {
+  isLoggedIn: boolean = false;
+  @Output()
+  loggingEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private _router: Router, private _http: HttpClient) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (localStorage.getItem('currentUser')) {
+    if (this.isLoggedIn) {
       //logged in user
       return true;
     }
@@ -25,12 +28,19 @@ export class AuthService implements CanActivate {
 
   logOut() {
     localStorage.removeItem('currentUser');
+    this.isLoggedIn = false;
+    this.loggingEventEmitter.emit(this.isLoggedIn);
+  }
+  get f() {
+    return this.isLoggedIn;
   }
 
   logIn(username: String, password: String) {
     return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(user => {
       if (user && user.token) {
         localStorage.setItem('currentUser', JSON.stringify(user));
+        this.isLoggedIn = true;
+        this.loggingEventEmitter.emit(this.isLoggedIn);
       }
     })
   }
