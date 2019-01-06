@@ -1,28 +1,14 @@
-.modal-large {
-    max-width: 100%;
-    margin: 0.5rem;
+ul#listItemsDetails {
+    list-style-type: none;
 }
 
 .avatar {
     vertical-align: middle;
-    width: 75px;
-    height: 75px;
+    width: 25px;
+    height: 25px;
     border-radius: 5%;
 }
 
-.overflow-scroll {
-    max-height: 768px;
-    overflow-y: scroll;
-}
-
-.pb-cmnt-container {
-    font-family: Lato;
-    margin-top: 100px;
-}
-
-.pb-cmnt-textarea {
-    resize: none;    
-    height: 70px;
-    width: 100%;
-    border: 1px solid #F2F2F2;
+.voted {
+    background: #007bff;
 }

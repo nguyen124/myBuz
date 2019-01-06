@@ -16,9 +16,10 @@ export class ItemsComponent implements OnInit {
   selectedRadioValue: string = "all";
   showWaitingMessage = false;
   currentItem: IItem;
-  replies: IComment[];
+  hasVoted: boolean = false;
+
   //outline = "col-lg-3 col-md-4 col-xs-6 pb-3"
-  constructor(private _router: Router, private _itemService: ItemService) {
+  constructor(private _itemService: ItemService) {
 
   }
 
@@ -47,27 +48,5 @@ export class ItemsComponent implements OnInit {
   onRadioChanged(selectedRadioValue: string) {
     this.selectedRadioValue = selectedRadioValue;
   }
-  viewItemDetails(itemToView: IItem) {
-    this.currentItem = itemToView;
-  }
-  showReplies(commentId: String) {
-    this.replies = [
-      { content: "hahah too funny ", url: "../../assets/gif/giphy3.gif", modifiedDate: '12/28/2019', commmentedBy: "5c2719491777ef460f90a767", itemId: "5c2719491777ef460f90a767", replyTo: null }
-    ]
-  }
-  upVote(itemId: String, index: number): void {
-    if (localStorage.getItem('currentUser')) {
-      this._itemService.upVoteItem(itemId).subscribe(item => {
-        this.items[index].point = item.point;
-      });
-    } else {
-      this._router.navigate(['/login']);
-    }
-  }
 
-  downVote(itemId: String, index: number): void {
-    this._itemService.downVoteItem(itemId).subscribe(item => {
-      this.items[index].point = item.point;
-    });
-  }
 }

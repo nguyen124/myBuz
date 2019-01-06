@@ -2,38 +2,16 @@
 <app-filter *ngIf="items" [all]="getItemsCount()" (radionSelectionChanged)="onRadioChanged($event)"></app-filter><br><br>
 <div class="row text-lg-left">
   <!-- <div *ngFor="let item of items; trackBy:trackByItemCode; let i=index; let isFirst=first; let isLast=last" class="col-lg-3 col-md-4 col-xs-6"> -->
-  <ng-container *ngFor="let item of items; let idx = index">
-    <div *ngIf="selectedRadioValue === 'all' || selectedRadioValue === item.viewed" class="col-lg-3 col-md-4 col-xs-6 pb-3">
-      <div>
-        <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
-        <div class="float-left pr-1 text-success">{{item.createdBy.name}} . {{item.createdBy.rank}}.
-          {{item.createdBy.followers}} followers </div> <br>
-        <div class="float-left pr-1 text-primary">{{item.title | uppercase}}</div>
-        <!-- <span> Id: {{item.id }} - Index: {{i}} - Is first: {{isFirst}} - Is last: {{isLast}}</span> <br> -->
-        <!-- <span>date: {{item.modifiedDate | date: fulldate}}</span> -->
-      </div>
-      <div>
-        <a href="#" (click)="viewItemDetails(item)" class="d-block" data-toggle="modal" data-target="#itemDetails">
-          <!-- <img *ngIf="getFileType(item.media) == 'pic'" class="img-fluid img-thumbnail" src="{{item.media}}" alt=""> -->
-          <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
-        </a>
-      </div>
-      <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})</div>
-      <div class="mb-2">
-        <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
-      </div>
-      <button class="btn btn-success mr-2 mb-2 btn-sm" (click)="upVote(item._id, idx)"><i class="fa fa-thumbs-up"
-          aria-hidden="true"></i></button>
-      <button class="btn btn-success mr-2 btn-sm mb-2" (click)="downVote(item._id, idx)"><i class="fa fa-thumbs-down"
-          aria-hidden="true"></i></button>
-      <button class="btn btn-success btn-sm mb-2"><i class="fa fa-comment-o" aria-hidden="true"></i></button>
+  <ng-container *ngFor="let item of items;">
+    <div *ngIf="selectedRadioValue === 'all'" class="col-lg-3 col-md-4 col-xs-6 pb-3">
+      <app-item [item]="item"></app-item>
     </div>
 
   </ng-container>
   <!-- <div *ngIf="showWaitingMessage">
     <h1 class="alert-info">The funs are coming! Please wait...</h1>
   </div> -->
-  <app-item *ngIf="currentItem" [item]="currentItem"></app-item>
+  <!-- <app-itemModal *ngIf="currentItem" [item]="currentItem"></app-itemModal> -->
 </div>
 <!-- 
 <button (click)="getItems()">Refresh</button> -->

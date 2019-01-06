@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ItemComponent } from './item/item.component';
+import { ItemModalComponent } from './itemModal/itemModal.component';
 import { FooterComponent } from './footer/footer.component';
 import { ItemsComponent } from './items/items.component';
 import { UserComponent } from './user/user.component';
@@ -24,11 +24,12 @@ import { RegisterComponent } from './register/register.component';
 import { routing } from './app.routing';
 import { ParentAuthGuard } from './guard/parentGuard';
 import { ChildrenAuthGuard } from './guard/childrenGuard';
+import { ItemComponent } from './item/item.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ItemComponent,
+    ItemModalComponent,
     FooterComponent,
     ItemsComponent,
     UserComponent,
@@ -39,7 +40,8 @@ import { ChildrenAuthGuard } from './guard/childrenGuard';
     AdminComponent,
     HomeComponent,
     AlertComponent,
-    RegisterComponent
+    RegisterComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
