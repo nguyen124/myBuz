@@ -1,6 +1,6 @@
-import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable, EventEmitter, Output, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
+
 
 // The auth guard is used to prevent unauthenticated users from accessing restricted routes, in this example it's used in app.routing.ts to protect the home page route. For more information about angular 2 guards you can check out this post on the thoughtram blog.
 
@@ -9,28 +9,19 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements CanActivate {
-  isLoggedIn: boolean = false;
+export class AuthService {
+  isLoggedIn: boolean;
   @Output()
   loggingEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private _router: Router, private _http: HttpClient) { }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.isLoggedIn) {
-      //logged in user
-      return true;
-    }
-    // not logged in redirect to login
-    this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } })
-    return false;
-  }
+  constructor(private _http: HttpClient) { }
 
   logOut() {
     localStorage.removeItem('currentUser');
     this.isLoggedIn = false;
     this.loggingEventEmitter.emit(this.isLoggedIn);
   }
+  
   get f() {
     return this.isLoggedIn;
   }

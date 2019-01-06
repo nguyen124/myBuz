@@ -3,6 +3,7 @@ import { FileUtils } from '../utils/FileUtils';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
 import { IComment } from '../model/comment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-items',
@@ -17,7 +18,7 @@ export class ItemsComponent implements OnInit {
   currentItem: IItem;
   replies: IComment[];
   //outline = "col-lg-3 col-md-4 col-xs-6 pb-3"
-  constructor(private _itemService: ItemService) {
+  constructor(private _router: Router, private _itemService: ItemService) {
 
   }
 
@@ -55,9 +56,13 @@ export class ItemsComponent implements OnInit {
     ]
   }
   upVote(itemId: String, index: number): void {
-    this._itemService.upVoteItem(itemId).subscribe(item => {
-      this.items[index].point = item.point;
-    });
+    if (localStorage.getItem('currentUser')) {
+      this._itemService.upVoteItem(itemId).subscribe(item => {
+        this.items[index].point = item.point;
+      });
+    } else {
+      this._router.navigate(['/login']);
+    }
   }
 
   downVote(itemId: String, index: number): void {

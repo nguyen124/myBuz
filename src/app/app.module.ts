@@ -14,7 +14,6 @@ import { ItemService } from './services/item.services';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommentsComponent } from './comments/comments.component';
 import { LoginComponent } from './login/login.component';
-import { RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
@@ -23,6 +22,8 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './register/register.component';
 import { routing } from './app.routing';
+import { ParentAuthGuard } from './guard/parentGuard';
+import { ChildrenAuthGuard } from './guard/childrenGuard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,8 @@ import { routing } from './app.routing';
   providers: [
     ItemService,
     AuthService,
+    ParentAuthGuard,
+    ChildrenAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
   ],

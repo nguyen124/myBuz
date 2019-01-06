@@ -11,13 +11,14 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   constructor(private _authSvc: AuthService) {
-    _authSvc.loggingEventEmitter.subscribe(loggingStatus => {
-      this.isLoggedIn = loggingStatus;
-    })
+
   }
 
 
   ngOnInit() {
+    this._authSvc.loggingEventEmitter.subscribe(loggingStatus => {
+      this.isLoggedIn = loggingStatus;
+    })
     if (localStorage.getItem('currentUser')) {
       this.isLoggedIn = true;
     }
