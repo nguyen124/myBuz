@@ -196,24 +196,31 @@ var items = [
 
 var itemUserLogs = [
     {
-        userId: "5c28486b1777ef460f90a774",
-        itemId: "5c28486b1777ef460f90a774",
-        action: [{ "upVote": 123123 }, { "seen": 123123 }, { "share": 123123 }, { "report": 123123 }]
+        userId: "5c29accb2dd29f0ca6549a9f",
+        itemId: "5c29af372dd29f0ca6549aa4",
+        upVoted: 1546787179279,
+        seen: 1546787179279,
+        shared: 1546787179279,
+        reported: 1546787179279  //time
     },
     {
-        userId: "5c28486b1777ef460f90a774",
-        itemId: "5c28486b1777ef460f90a774",
-        action: [{ "create": 123123 }, { "seen": !23123 }]
+        userId: "5c29accb2dd29f0ca6549a9f",
+        itemId: "5c29af372dd29f0ca6549aa6",
+        upVoted: 1546787179279,
+        seen: 1546787179279,
     },
     {
-        userId: "5c28486b1777ef460f90a774",
-        itemId: "5c28486b1777ef460f90a774",
-        action: [{ "downVote": 123123 }, { "report": 123123 }]
+        userId: "5c29accb2dd29f0ca6549a9f",
+        itemId: "5c29af372dd29f0ca6549aa7",
+        upVoted: 1546787179279,
+        shared: 1546787179279,
+        reported: 1546787179279  //time
     },
     {
-        userId: "5c28486b1777ef460f90a774",
-        itemId: "5c28486b1777ef460f90a774",
-        action: [{ "glanced": 123123 }]
+        userId: "5c29accb2dd29f0ca6549a9f",
+        itemId: "5c29af372dd29f0ca6549aa8",
+        upVoted: 1546787179279,
+        glanced: 1546787179279  //time
     }
 ];
 

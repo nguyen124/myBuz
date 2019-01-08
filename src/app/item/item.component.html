@@ -14,9 +14,9 @@
 <div class="mb-2">
   <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
 </div>
-<button class="btn btn-success mr-2 mb-2 btn-sm" [ngClass]="upVotedClass" (click)="upVote(item._id)"><i class="fa fa-thumbs-up"
+<button class="btn btn-success mr-2 mb-2 btn-sm" [ngClass]="upVotedClass" (click)="upVote()"><i class="fa fa-thumbs-up"
     aria-hidden="true"></i></button>
-<button class="btn btn-success mr-2 btn-sm mb-2" [ngClass]="downVotedClass" (click)="downVote(item._id)"><i class="fa fa-thumbs-down"
+<button class="btn btn-success mr-2 btn-sm mb-2" [ngClass]="downVotedClass" (click)="downVote()"><i class="fa fa-thumbs-down"
     aria-hidden="true"></i></button>
 <button class="btn btn-success btn-sm mb-2"><i class="fa fa-comment-o" aria-hidden="true"></i></button>
 
