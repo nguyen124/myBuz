@@ -20,8 +20,8 @@ export class ItemService {
     updateItem(item: Object): void {
         this._http.put("/svc/items", item);
     }
-    upVoteItem(itemId: String, userId: String): Observable<IItem> {
-        return this._http.put<IItem>("/svc/items/upVote", { "itemId": itemId, "userId": userId });
+    upVoteItem(itemId: String, userId: String): Observable<any> {
+        return this._http.put("/svc/items/upVote", { "itemId": itemId, "userId": userId });
     }
 
     unUpVoteItem(itemId: String, userId: String): any {
