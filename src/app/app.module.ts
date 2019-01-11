@@ -25,6 +25,8 @@ import { routing } from './app.routing';
 import { ParentAuthGuard } from './guard/parentGuard';
 import { ChildrenAuthGuard } from './guard/childrenGuard';
 import { ItemComponent } from './item/item.component';
+import { ReactComponent } from './react/react.component';
+import { CommunicateService } from './services/communicate-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { ItemComponent } from './item/item.component';
     HomeComponent,
     AlertComponent,
     RegisterComponent,
-    ItemComponent
+    ItemComponent,
+    ReactComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { ItemComponent } from './item/item.component';
   providers: [
     ItemService,
     AuthService,
+    CommunicateService,
     ParentAuthGuard,
     ChildrenAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },

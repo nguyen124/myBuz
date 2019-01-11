@@ -6,7 +6,7 @@
 
 </div>
 <div>
-  <a href="#" class="d-block" data-toggle="modal" data-target="#itemDetails">
+  <a href="#" class="d-block" (click)="showItemModal()">
     <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
   </a>
 </div>
@@ -14,14 +14,7 @@
 <div class="mb-2">
   <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
 </div>
-<button class="btn btn-success mr-2 mb-2 btn-sm" [ngClass]="upVotedClass" (click)="upVote()"><i class="fa fa-thumbs-up"
-    aria-hidden="true"></i></button>
-<button class="btn btn-success mr-2 btn-sm mb-2" [ngClass]="downVotedClass" (click)="downVote()"><i class="fa fa-thumbs-down"
-    aria-hidden="true"></i></button>
-<button class="btn btn-success btn-sm mb-2"><i class="fa fa-comment-o" aria-hidden="true" data-toggle="modal"
-    data-target="#itemDetails"></i></button>
-
-<app-itemModal [item]="item"></app-itemModal>
+<app-react [item]="item"></app-react>
 <!--<div>
         <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
         <div class="float-left pr-1 text-success">{{item.createdBy.name}} . {{item.createdBy.rank}}.
