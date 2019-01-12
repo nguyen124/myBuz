@@ -11,7 +11,7 @@ export class CommentService {
 
     }
 
-    getUpvoteComments(commentId: String): Observable<IComment[]> {
+    getComments(commentId: String): Observable<IComment[]> {
         return this._http.get<IComment[]>("http://localhost:3000/svc/comments/" + commentId);
     }
 }

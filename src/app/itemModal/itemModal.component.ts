@@ -21,6 +21,9 @@ export class ItemModalComponent implements OnInit {
       this.item = item;
       console.log('itemModal just got updated item');
     });
+    this._itemService.getItemComments("5c29af372dd29f0ca6549aaa").subscribe((comments: IComment[]) => {
+      this.comments = comments;
+    });
   }
   ngOnDestroy() {
     this.subScription.unsubscribe();

@@ -15,12 +15,7 @@ export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
   user: IUser;
-  upVotedClass: string;
-  downVotedClass: string;
   itemUserLog: IItemUserLog;
-  extraUpVotePoint: number = 1;
-  extraDownVotePoint: number = 1;
-
   constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) {
   }
 
@@ -31,14 +26,14 @@ export class ReactComponent implements OnInit {
         if (itemUserLog) {
           this.itemUserLog = itemUserLog;
           if (itemUserLog.upVoted) {
-            this.upVotedClass = "voted";
-            this.extraDownVotePoint = 2;
+            this.item["upVotedClass"] = "voted";
+            this.item["extraDownVotePoint"] = 2;
           } else if (itemUserLog.downVoted) {
-            this.downVotedClass = "voted";
-            this.extraUpVotePoint = 2;
+            this.item["downVotedClass"] = "voted";
+            this.item["extraUpVotePoint"] = 2;
           } else {
-            this.extraUpVotePoint = 1;
-            this.extraDownVotePoint = 1;
+            this.item["extraUpVotePoint"] = 1;
+            this.item["extraDownVotePoint"] = 1;
           }
         }
       });
@@ -47,23 +42,23 @@ export class ReactComponent implements OnInit {
 
   upVote(): void {
     if (this.user) {
-      this.extraDownVotePoint = 2;
-      if (!this.upVotedClass) {
-        this.item.point += this.extraUpVotePoint;
+      this.item["extraDownVotePoint"] = 2;
+      if (!this.item["upVotedClass"]) {
+        this.item.point += this.item["extraUpVotePoint"];
         this._itemService.upVoteItem(this.item._id, this.user._id).subscribe(res => {
           console.log(res);
         });
-        this.upVotedClass = "voted";
+        this.item["upVotedClass"] = "voted";
       } else {
-        this.upVotedClass = "";
-        this.extraUpVotePoint = 1;
-        this.extraDownVotePoint = 1;
+        this.item["upVotedClass"] = "";
+        this.item["extraUpVotePoint"] = 1;
+        this.item["extraDownVotePoint"] = 1;
         this.item.point--;
         this._itemService.unUpVoteItem(this.item._id, this.user._id).subscribe(res => {
           console.log(res);
         });
       }
-      this.downVotedClass = "";
+      this.item["downVotedClass"] = "";
     } else {
       this._router.navigate(['/login']);
     }
@@ -71,24 +66,24 @@ export class ReactComponent implements OnInit {
 
   downVote(): void {
     if (this.user) {
-      this.extraUpVotePoint = 2;
-      if (!this.downVotedClass) {
-        this.item.point -= this.extraDownVotePoint;
+      this.item["extraUpVotePoint"] = 2;
+      if (!this.item["downVotedClass"]) {
+        this.item.point -= this.item["extraDownVotePoint"];
         this._itemService.downVoteItem(this.item._id, this.user._id).subscribe(res => {
           console.log(res);
         });
-        this.downVotedClass = "voted";
+        this.item["downVotedClass"] = "voted";
       } else {
-        this.extraUpVotePoint = 1;
-        this.extraDownVotePoint = 1;
-        this.downVotedClass = "";
+        this.item["extraUpVotePoint"] = 1;
+        this.item["extraDownVotePoint"] = 1;
+        this.item["downVotedClass"] = "";
         this.item.point++;
         this._itemService.unDownVoteItem(this.item._id, this.user._id).subscribe(res => {
           console.log(res);
         });
       }
 
-      this.upVotedClass = "";
+      this.item["upVotedClass"] = "";
     } else {
       this._router.navigate(['/login']);
     }

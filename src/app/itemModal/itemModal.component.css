@@ -21,8 +21,12 @@
 }
 
 .pb-cmnt-textarea {
-    resize: none;    
+    resize: none;
     height: 70px;
     width: 100%;
     border: 1px solid #F2F2F2;
+}
+
+.voted {
+    background: #007bff;
 }
