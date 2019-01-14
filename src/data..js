@@ -323,7 +323,7 @@ var comments = [
             name: "Thanh Dep Gai",
             avatar: "../../assets/image/avatar1.jpg"
         },
-        itemId: "5c29af372dd29f0ca6549aaa",
+        itemId: "5c29af372dd29f0ca6549aa4",
         replyTo: null,
         point: 1000,
         replies: 1000
@@ -337,7 +337,7 @@ var comments = [
             name: "Hai dap chai",
             avatar: "../../assets/image/avatar2.jpg"
         },
-        itemId: "5c29af372dd29f0ca6549aaa",
+        itemId: "5c29af372dd29f0ca6549aa4",
         replyTo: null,
         point: 1000,
         replies: 1000
@@ -351,7 +351,7 @@ var comments = [
             name: "Nam dap chai",
             avatar: "../../assets/image/avatar3.jpg"
         },
-        itemId: "5c29af372dd29f0ca6549aaa",
+        itemId: "5c29af372dd29f0ca6549aa4",
         replyTo: "5c29af922dd29f0ca6549aab",
         point: 1000,
         replies: 1000
@@ -365,10 +365,10 @@ var comments = [
             name: "Ka Dap Gai",
             avatar: "../../assets/image/avatar4.jpg"
         },
-        itemId: "5c29af372dd29f0ca6549aaa",
+        itemId: "5c29af372dd29f0ca6549aa4",
         replyTo: "5c29afdc2dd29f0ca6549aac",
         point: 1000,
         replies: 1000
-    }
+    },
 
 ];

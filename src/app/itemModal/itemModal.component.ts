@@ -13,18 +13,15 @@ export class ItemModalComponent implements OnInit {
 
   item: IItem;
   subScription: Subscription;
-  comments: IComment[];
-  constructor(private _itemService: ItemService, private _commService: CommunicateService) { }
+  constructor(private _commService: CommunicateService) { }
 
   ngOnInit() {
     this.subScription = this._commService.item$.subscribe(item => {
       this.item = item;
       console.log('itemModal just got updated item');
     });
-    this._itemService.getItemComments("5c29af372dd29f0ca6549aaa").subscribe((comments: IComment[]) => {
-      this.comments = comments;
-    });
   }
+
   ngOnDestroy() {
     this.subScription.unsubscribe();
   }

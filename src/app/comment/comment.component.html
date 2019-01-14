@@ -1,0 +1,5 @@
+<img class="avatar d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
+<div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.name}}
+  </span>. {{comment.point}} points</div>
+<div><span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo.commenter}}</span>{{comment.content}}</div>
+<app-comment-react [comment]="comment"></app-comment-react>

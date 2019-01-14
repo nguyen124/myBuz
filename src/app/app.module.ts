@@ -27,6 +27,9 @@ import { ChildrenAuthGuard } from './guard/childrenGuard';
 import { ItemComponent } from './item/item.component';
 import { ReactComponent } from './react/react.component';
 import { CommunicateService } from './services/communicate-service.service';
+import { CommentService } from './services/comment.services';
+import { CommentComponent } from './comment/comment.component';
+import { CommentReactComponent } from './comment-react/comment-react.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,9 @@ import { CommunicateService } from './services/communicate-service.service';
     AlertComponent,
     RegisterComponent,
     ItemComponent,
-    ReactComponent
+    ReactComponent,
+    CommentComponent,
+    CommentReactComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,7 @@ import { CommunicateService } from './services/communicate-service.service';
     ItemService,
     AuthService,
     CommunicateService,
+    CommentService,
     ParentAuthGuard,
     ChildrenAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
