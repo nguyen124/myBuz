@@ -30,6 +30,9 @@ import { CommunicateService } from './services/communicate-service.service';
 import { CommentService } from './services/comment.services';
 import { CommentComponent } from './comment/comment.component';
 import { CommentReactComponent } from './comment-react/comment-react.component';
+import { CommentReplyComponent } from './comment-reply/comment-reply.component';
+import { FocusDirective } from './focus.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,9 @@ import { CommentReactComponent } from './comment-react/comment-react.component';
     ItemComponent,
     ReactComponent,
     CommentComponent,
-    CommentReactComponent
+    CommentReactComponent,
+    CommentReplyComponent,
+    FocusDirective
   ],
   imports: [
     BrowserModule,

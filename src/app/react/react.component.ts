@@ -14,6 +14,8 @@ import { CommunicateService } from '../services/communicate-service.service';
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
+  @Input()
+  hideCommment: boolean;
   user: IUser;
   itemUserLog: IItemUserLog;
   constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) {
