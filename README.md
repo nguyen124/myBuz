@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-Please run `ng ser --proxy-config proxyconfig.json` 
+Please run `ng ser --proxy-config proxyconfig.json` to avoid CORS problem 
 This is back end: https://github.com/nguyen124/architect 
 
 ## Code scaffolding
