@@ -1,10 +1,14 @@
-# Architecture
+Hi Bros thanks for joining me to this adventure. This is the goal of project. We will create a user-generated content like 9GAG https://en.wikipedia.org/wiki/9GAG . Please feel free to contribute your idea and time. I hope we will go far together. My slogan is "I don't want to code for other people forever so why not try to do some shit". Hope you guys have the same passion.
+
+# Architecture . Front-end Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Please run `ng ser --proxy-config proxyconfig.json` 
+This is back end: https://github.com/nguyen124/architect 
 
 ## Code scaffolding
 
