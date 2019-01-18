@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IItem } from '../model/item';
 import { CommunicateService } from '../services/communicate-service.service';
 import { Subscription } from 'rxjs';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-itemModal',
   templateUrl: './itemModal.component.html',

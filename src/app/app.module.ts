@@ -30,7 +30,6 @@ import { CommunicateService } from './services/communicate-service.service';
 import { CommentService } from './services/comment.services';
 import { CommentComponent } from './comment/comment.component';
 import { CommentReactComponent } from './comment-react/comment-react.component';
-import { CommentReplyComponent } from './comment-reply/comment-reply.component';
 import { FocusDirective } from './focus.directive';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { FocusDirective } from './focus.directive';
     ReactComponent,
     CommentComponent,
     CommentReactComponent,
-    CommentReplyComponent,
     FocusDirective
   ],
   imports: [

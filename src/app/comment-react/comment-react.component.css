@@ -1,3 +1,25 @@
 .voted {
     background: #007bff;
 }
+
+.avatar-reply {
+    vertical-align: middle;
+    width: 45px;
+    height: 45px;
+    border-radius: 5%;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.fa {
+    font-size: 12px;
+}
+
+.btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}

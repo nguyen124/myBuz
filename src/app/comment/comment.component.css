@@ -4,3 +4,18 @@
     height: 75px;
     border-radius: 5%;
 }
+
+.voted {
+    background: #007bff;
+}
+
+.fa {
+    font-size: 12px;
+}
+
+.btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}

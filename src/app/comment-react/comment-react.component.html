@@ -1,8 +1,13 @@
-<div class="d-block mt-2">
-  <button class="btn btn-success mr-2 mb-2 btn-sm" [ngClass]="comment.upVotedClass" (click)="upVote()"><i class="fa fa-thumbs-up"
-      aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-2 btn-sm mb-2" [ngClass]="comment.downVotedClass" (click)="downVote()"><i class="fa fa-thumbs-down"
-      aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-2 btn-sm mb-2" (click)="showComments()"><i class="fa fa-comment-o" aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-2 btn-sm mb-2" (click)="showReplies()"><i class="fa fa-reply" aria-hidden="true"></i></button>
+<div class="clear-both mt-2">
+    <img class="avatar-reply d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
+    <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.name}}
+        </span>. {{comment.point}} points</div>
+    <div><span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>{{comment.content}}</div>
+    <div class="d-block mt-2">
+        <button class="btn btn-success mr-2 mb-2 btn-xs" [ngClass]="comment.upVotedClass" (click)="upVote()"><i class="fa fa-thumbs-up"
+                aria-hidden="true"></i></button>
+        <button class="btn btn-success mr-2 btn-xs mb-2" [ngClass]="comment.downVotedClass" (click)="downVote()"><i
+                class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+        <button class="btn btn-success mr-2 btn-xs mb-2" (click)="writeReply()"><i class="fa fa-reply" aria-hidden="true"></i></button>
+    </div>
 </div>

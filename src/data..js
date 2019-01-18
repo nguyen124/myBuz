@@ -315,6 +315,7 @@ var users = [
 
 var comments = [
     {
+        parentCommentId: "5c3bf906924df4e509804508",
         content: "hahah too funny ",
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
@@ -324,11 +325,12 @@ var comments = [
             avatar: "../../assets/image/avatar1.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: null,
+        replyTo:  "Hai Dep Trai",
         point: 1000,
         replies: 1000
     },
     {
+        parentCommentId: "5c3bf906924df4e509804509",
         content: "Thanks captain",
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
@@ -338,11 +340,12 @@ var comments = [
             avatar: "../../assets/image/avatar2.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: null,
+        replyTo: "Thanh Dep Gai",
         point: 1000,
         replies: 1000
     },
     {
+        parentCommentId: "5c3bf906924df4e509804508",
         content: "what is so funny. I don't get it",
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
@@ -352,11 +355,12 @@ var comments = [
             avatar: "../../assets/image/avatar3.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: "5c29af922dd29f0ca6549aab",
+        replyTo: "Thanh Dep Gai",
         point: 1000,
         replies: 1000
     },
     {
+        parentCommentId: "5c3bf906924df4e509804509",
         content: "Watch Game of throne season 1 you will understand.",
         url: "../../assets/gif/giphy3.gif",
         modifiedDate: 1546234499247,
@@ -366,9 +370,8 @@ var comments = [
             avatar: "../../assets/image/avatar4.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: "5c29afdc2dd29f0ca6549aac",
+        replyTo:  "Hai Dep Trai",
         point: 1000,
         replies: 1000
-    },
-
-];
+    }
+]

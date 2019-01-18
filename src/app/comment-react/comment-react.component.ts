@@ -15,77 +15,19 @@ export class CommentReactComponent implements OnInit {
   @Input()
   comment: IComment;
   user: IUser;
-  itemUserLog: ICommentUserLog;
-  constructor(private _router: Router, private _itemService: CommentService, private _commService: CommunicateService) {
+  commentUserLog: ICommentUserLog;
+  constructor(private _router: Router, private _commentService: CommentService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.user) {
-      this._itemService.getCommentUserLog(this.comment._id, this.user._id).subscribe(itemUserLog => {
-        if (itemUserLog) {
-          this.itemUserLog = itemUserLog;
-          if (itemUserLog.upVoted) {
-            this.comment["upVotedClass"] = "voted";
-            this.comment["extraDownVotePoint"] = 2;
-          } else if (itemUserLog.downVoted) {
-            this.comment["downVotedClass"] = "voted";
-            this.comment["extraUpVotePoint"] = 2;
-          } else {
-            this.comment["extraUpVotePoint"] = 1;
-            this.comment["extraDownVotePoint"] = 1;
-          }
-        }
-      });
-    }
+    this._commentService.getCommentInfo(this.comment);
   }
 
   upVote(): void {
-    if (this.user) {
-      this.comment["extraDownVotePoint"] = 2;
-      if (!this.comment["upVotedClass"]) {
-        this.comment.point += this.comment["extraUpVotePoint"];
-        this._itemService.upVoteComment(this.comment._id, this.user._id).subscribe(res => {
-          console.log(res);
-        });
-        this.comment["upVotedClass"] = "voted";
-      } else {
-        this.comment["upVotedClass"] = "";
-        this.comment["extraUpVotePoint"] = 1;
-        this.comment["extraDownVotePoint"] = 1;
-        this.comment.point--;
-        this._itemService.unUpVoteComment(this.comment._id, this.user._id).subscribe(res => {
-          console.log(res);
-        });
-      }
-      this.comment["downVotedClass"] = "";
-    } else {
-      this._router.navigate(['/login']);
-    }
+    this._commentService.upVote(this.comment);
   }
 
   downVote(): void {
-    if (this.user) {
-      this.comment["extraUpVotePoint"] = 2;
-      if (!this.comment["downVotedClass"]) {
-        this.comment.point -= this.comment["extraDownVotePoint"];
-        this._itemService.downVoteComment(this.comment._id, this.user._id).subscribe(res => {
-          console.log(res);
-        });
-        this.comment["downVotedClass"] = "voted";
-      } else {
-        this.comment["extraUpVotePoint"] = 1;
-        this.comment["extraDownVotePoint"] = 1;
-        this.comment["downVotedClass"] = "";
-        this.comment.point++;
-        this._itemService.unDownVoteComment(this.comment._id, this.user._id).subscribe(res => {
-          console.log(res);
-        });
-      }
-
-      this.comment["upVotedClass"] = "";
-    } else {
-      this._router.navigate(['/login']);
-    }
+    this._commentService.downVote(this.comment);
   }
 }
