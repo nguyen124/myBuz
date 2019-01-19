@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 import { IUser } from '../model/user';
 import { IItemUserLog } from '../model/itemUserLog';
+import { IComment } from '../model/comment';
 
 
 @Injectable()
@@ -84,8 +85,27 @@ export class ItemService {
         return this._http.get<IItem[]>("/svc/items");
     }
 
-    getItemComments(itemId: String): Observable<IItem[]> {
-        return this._http.get<IItem[]>("/svc/items/" + itemId + "/comments/");
+    // getItemComments(itemId: String): Observable<IItem[]> {
+    //     return this._http.get<IItem[]>("/svc/items/" + itemId + "/comments/");
+    // }
+
+    getCommentsOfItem(itemId: string): Observable<IComment[]> {
+        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
+    }
+
+    commentItem(itemId: string, content: string): Observable<any> {
+        return this._http.post<any>('/svc/items/comment', {
+            itemId: itemId,
+            content: content,
+            modifiedDate: (new Date()).getTime(),
+            writtenBy: {
+                userId: this.user._id,
+                userName: this.user.userName,
+                avatar: this.user.avatar
+            },
+            point: 0,
+            replies: 0
+        });
     }
 
     updateItem(item: Object): void {

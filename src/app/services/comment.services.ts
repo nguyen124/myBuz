@@ -85,12 +85,10 @@ export class CommentService {
         throw new Error("Method not implemented.");
     }
 
+
+
     getComments(commentId: String): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId);
-    }
-
-    getCommentsOfItem(itemId: string): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
     }
 
     getRepliesOfComment(commentId: string): Observable<IComment[]> {

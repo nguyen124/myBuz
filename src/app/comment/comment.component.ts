@@ -38,9 +38,8 @@ export class CommentComponent implements OnInit {
     this._commentService.downVote(this.comment);
   }
 
-  writeReply(commentId: string) {
+  writeReply() {
     $("#txtArea").focus();
-    this._commentService.writeReply(commentId);
   }
 
   showReplies(commentId: string) {
