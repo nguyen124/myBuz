@@ -15,6 +15,7 @@ export class CommentService {
     }
 
     getCommentInfo(comment: IComment): void {
+        this.user = JSON.parse(localStorage.getItem('currentUser'));
         if (this.user) {
             this.getCommentUserLog(comment._id, this.user._id).subscribe((commentUserLog: ICommentUserLog) => {
                 if (commentUserLog) {

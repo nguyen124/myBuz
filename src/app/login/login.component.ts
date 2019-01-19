@@ -13,9 +13,8 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-
-  constructor(private _formBuilder: FormBuilder, private _route: ActivatedRoute, private _router: Router, private _authService: AuthService) {
-
+  constructor(private _formBuilder: FormBuilder, private _route: ActivatedRoute, private _authService: AuthService) {
+    this.returnUrl = this._route.snapshot.queryParamMap.get('returnUrl') || '/';
   }
 
   ngOnInit() {
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
     // reset login status
     this._authService.logOut();
     // get return url from route parameters or default to home 
-    this.returnUrl = this._route.snapshot.queryParamMap['returnUrl'] || '/';
+
   }
 
   // convenience getter fro easy access to from fields
@@ -42,8 +41,8 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this._authService.logIn(this.f.username.value, this.f.password.value);
-    this._router.navigate([this.returnUrl]);
+    this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
+
     //console.log(form.value.username);
   }
 }

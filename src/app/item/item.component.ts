@@ -6,6 +6,7 @@ import { ItemService } from '../services/item.services';
 import { IUser } from '../model/user';
 import { IItemUserLog } from '../model/itemUserLog';
 import { CommunicateService } from '../services/communicate-service.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-item',
@@ -23,9 +24,14 @@ export class ItemComponent implements OnInit {
   // extraUpVotePoint: number = 1;
   // extraDownVotePoint: number = 1;
   //constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) { }
-  constructor(private _commService: CommunicateService) { }
+  constructor(private _commService: CommunicateService, private _authSvc: AuthService, private _itemSvc: ItemService) { }
 
   ngOnInit() {
+    this._authSvc.loggingEventEmitter.subscribe(loggingStatus => {
+      if (loggingStatus) {
+        this._itemSvc.getItemInfo(this.item);
+      }
+    });
   }
 
   showItemModal() {

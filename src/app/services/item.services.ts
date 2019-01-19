@@ -15,6 +15,7 @@ export class ItemService {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
     getItemInfo(comment: IItem): void {
+        this.user = JSON.parse(localStorage.getItem('currentUser'));
         if (this.user) {
             this.getItemUserLog(comment._id, this.user._id).subscribe((commentUserLog: IItemUserLog) => {
                 if (commentUserLog) {

@@ -14,7 +14,6 @@ export class HeaderComponent implements OnInit {
 
   }
 
-
   ngOnInit() {
     this._authSvc.loggingEventEmitter.subscribe(loggingStatus => {
       this.isLoggedIn = loggingStatus;
@@ -23,10 +22,9 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = true;
     }
   }
+
   logOut() {
     this._authSvc.logOut();
   }
-  onloggingChanged(logging: boolean) {
-    this.isLoggedIn = logging;
-  }
+
 }
