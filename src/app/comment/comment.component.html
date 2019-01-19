@@ -4,14 +4,14 @@
 
 <div><span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>{{comment.content}}</div>
 
-<div class="d-block mt-2">
-  <button class="btn btn-success mr-2 mb-2 btn-xs" [ngClass]="comment.upVotedClass" (click)="upVote(comment)"><i class="fa fa-thumbs-up"
+<div class="d-block mt-1">
+  <button class="btn btn-success mr-1 btn-xs" [ngClass]="comment.upVotedClass" (click)="upVote(comment)"><i class="fa fa-thumbs-up"
       aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-2 btn-xs mb-2" [ngClass]="comment.downVotedClass" (click)="downVote(comment)"><i
-      class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-2 btn-xs mb-2" (click)="writeReply(comment._id)"><i class="fa fa-reply" aria-hidden="true"></i></button>
-  <button *ngIf="!hideReply" class="btn btn-success mr-2 btn-xs mb-2" (click)="showReplies(comment._id)"><i class="fa fa-comment-o"
+  <button class="btn btn-success mr-1 btn-xs " [ngClass]="comment.downVotedClass" (click)="downVote(comment)"><i class="fa fa-thumbs-down"
       aria-hidden="true"></i></button>
+  <button class="btn btn-success mr-1 btn-xs" (click)="writeReply(comment._id)"><i class="fa fa-reply" aria-hidden="true"></i></button>
+  <button class="btn btn-success mr-1 btn-xs" [disabled]="isShowRepliesClicked" *ngIf="!hideReply" (click)="showReplies(comment._id)">9
+    replies</button>
 </div>
 
 <div *ngFor="let reply of replies;" class="pt-2 pl-4 clear-both">

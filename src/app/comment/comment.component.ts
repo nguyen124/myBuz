@@ -18,6 +18,7 @@ export class CommentComponent implements OnInit {
   replies: IComment[];
   user: IUser;
   commentUserLog: ICommentUserLog;
+  isShowRepliesClicked: boolean = false;
   constructor(private _router: Router, private _commentService: CommentService, private _commService: CommunicateService) {
   }
 
@@ -43,6 +44,7 @@ export class CommentComponent implements OnInit {
   }
 
   showReplies(commentId: string) {
+    this.isShowRepliesClicked = true;
     this._commentService.getRepliesOfComment(commentId).subscribe((replies) => {
       this.replies = replies;
     });;

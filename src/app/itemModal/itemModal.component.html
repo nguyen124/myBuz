@@ -2,16 +2,16 @@
   aria-hidden="true" (onShow)="showModal()">
   <div id="myModal" name="myModal" class="modal-dialog modal-large" role="document">
     <div class="modal-content">
-      <div class="modal-header pb-0 border-bottom-0">
-        <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
-        <h5 class="modal-title" id="exampleModalLabel">{{item.title}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body pb-0">
         <div class="row text-lg-left">
           <div class="col-lg-6 col-md-6 col-xs-6 pb-0">
+            <div>
+              <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
+              <h5 class="modal-title" id="exampleModalLabel">{{item.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             <div>
               <a href="#" class="d-block">
                 <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
@@ -19,8 +19,17 @@
             </div>
             <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})
             </div>
-            <app-react [item]="item" [hideCommment]="true" ngClass="float-right"></app-react>
+            <app-react [item]="item" [hideCommment]="true" ></app-react>
             <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
+
+            <div>
+              <textarea id="txtArea" placeholder="Let comment something fun!" class="pb-cmnt-textarea float-left "
+                (ngModelChange)="focusAfterModelUpdated($event)"></textarea>              
+              <button class="btn-xs btn-primary mt-1 mr-1 ml-1"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+              <button class="btn-xs btn-primary mt-1 mr-1 ml-1"><i class="fa fa-camera" aria-hidden="true"></i></button>
+              <button class="btn-xs btn-primary mt-1 mr-1 ml-1"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
+              <button class="btn-xs btn-success mt-1 mr-1 ml-1"><i class="fa fa-share-square" aria-hidden="true"></i></button>
+            </div>
           </div>
           <div class="col-lg-6 col-md-6 col-xs-6 pb-0 overflow-scroll">
             <app-comments [itemId]="item._id"></app-comments>
@@ -28,21 +37,7 @@
         </div>
 
       </div>
-      <div class="modal-footer border-top-0 p-0 row">
-        <div class="col-sm-12 col-lg-9 col-md-8">
-          <textarea id="txtArea" placeholder="Let comment something fun!" class="pb-cmnt-textarea" (ngModelChange)="focusAfterModelUpdated($event)"></textarea>
-        </div>
 
-        <form class="form-inline">
-          <div class="btn-group col-sm-12 col-lg-3 col-ld-4 mt-2 mr-1">
-            <button class="btn"><span class="fa fa-picture-o fa-lg"></span></button>
-            <button class="btn"><span class="fa fa-video-camera fa-lg"></span></button>
-            <button class="btn"><span class="fa fa-microphone fa-lg"></span></button>
-            <button class="btn btn-primary" type="button">Post</button>
-            <button class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 </div>

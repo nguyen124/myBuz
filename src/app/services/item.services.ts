@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { IItem } from '../model/item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { IComment as IItem } from '../model/comment';
 import { Router } from '@angular/router';
 import { IUser } from '../model/user';
 import { IItemUserLog } from '../model/itemUserLog';
