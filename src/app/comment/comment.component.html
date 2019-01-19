@@ -10,7 +10,7 @@
   <button class="btn btn-success mr-1 btn-xs " [ngClass]="comment.downVotedClass" (click)="downVote(comment)"><i class="fa fa-thumbs-down"
       aria-hidden="true"></i></button>
   <button class="btn btn-success mr-1 btn-xs" (click)="writeReply(comment._id)"><i class="fa fa-reply" aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-1 btn-xs" [disabled]="isShowRepliesClicked" *ngIf="!hideReply" (click)="showReplies(comment._id)">9
+  <button class="btn btn-success mr-1 btn-xs mt-1" [disabled]="isShowRepliesClicked" *ngIf="!hideReply" (click)="showReplies(comment._id)">9
     replies</button>
 </div>
 

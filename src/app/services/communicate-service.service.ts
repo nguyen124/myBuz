@@ -10,16 +10,19 @@ export class CommunicateService {
 
   // Observable navItem source
   private _itemSource = new BehaviorSubject<IItem>(null);
-  private _commentSource = new BehaviorSubject<IComment[]>(null);
+  private _commentSource = new BehaviorSubject<IComment>(null);
   // Observable navItem stream
   item$ = this._itemSource.asObservable();
-  comments$ = this._commentSource.asObservable();
+  comment$ = this._commentSource.asObservable();
   // service command
   changeItem(item: IItem) {
     this._itemSource.next(item);
   }
-  changeComments(replies: IComment[]) {
-    this._commentSource.next(replies);
+  // changeComments(replies: IComment[]) {
+  //   this._commentSource.next(replies);
+  // }
+  changeComment(comment: IComment) {
+    this._commentSource.next(comment);
   }
   constructor() { }
 }

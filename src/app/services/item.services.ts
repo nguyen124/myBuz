@@ -38,6 +38,9 @@ export class ItemService {
         if (this.user) {
             item["extraDownVotePoint"] = 2;
             if (!item["upVotedClass"]) {
+                if (!item["extraUpVotePoint"]) {
+                    item["extraUpVotePoint"] = 1;
+                }
                 item.point += item["extraUpVotePoint"];
                 this.upVoteItem(item._id, this.user._id).subscribe(res => {
                     console.log(res);
@@ -62,6 +65,9 @@ export class ItemService {
         if (this.user) {
             item["extraUpVotePoint"] = 2;
             if (!item["downVotedClass"]) {
+                if (!item["extraDownVotePoint"]) {
+                    item["extraDownVotePoint"] = 1;
+                }
                 item.point -= item["extraDownVotePoint"];
                 this.downVoteItem(item._id, this.user._id).subscribe(res => {
                     console.log(res);
@@ -94,7 +100,7 @@ export class ItemService {
         return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
     }
 
-    commentItem(itemId: string, content: string): Observable<any> {
+    addCommentToItem(itemId: string, content: string): Observable<any> {
         return this._http.post<any>('/svc/items/comment', {
             itemId: itemId,
             content: content,

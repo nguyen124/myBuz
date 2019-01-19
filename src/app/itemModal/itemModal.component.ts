@@ -34,8 +34,9 @@ export class ItemModalComponent implements OnInit {
     if (this.commentContent && this.commentContent.trim()) {
       if (this.isCommentForItem) {
         console.log("Comment Context: " + this.commentContent);
-        this._itemService.commentItem(this.item._id, this.commentContent).subscribe(res => {
-          console.log(res);
+        this._itemService.addCommentToItem(this.item._id, this.commentContent).subscribe(comment => {
+          this._commService.changeComment(comment);
+          this.commentContent = ""
         });
       }
     }

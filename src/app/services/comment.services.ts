@@ -38,6 +38,9 @@ export class CommentService {
         if (this.user) {
             comment["extraDownVotePoint"] = 2;
             if (!comment["upVotedClass"]) {
+                if (!comment["extraUpVotePoint"]) {
+                    comment["extraUpVotePoint"] = 1;
+                }
                 comment.point += comment["extraUpVotePoint"];
                 this.upVoteComment(comment._id, this.user._id).subscribe(res => {
                     console.log(res);
@@ -62,6 +65,9 @@ export class CommentService {
         if (this.user) {
             comment["extraUpVotePoint"] = 2;
             if (!comment["downVotedClass"]) {
+                if (!comment["extraDownVotePoint"]) {
+                    comment["extraDownVotePoint"] = 1;
+                }
                 comment.point -= comment["extraDownVotePoint"];
                 this.downVoteComment(comment._id, this.user._id).subscribe(res => {
                     console.log(res);
@@ -108,7 +114,7 @@ export class CommentService {
     }
 
     unDownVoteComment(commentId: string, userId: string): any {
-        return this._http.put<IComment>("/svc/comments/unDownVote", { "icommentIdtemId": commentId, "userId": userId });
+        return this._http.put<IComment>("/svc/comments/unDownVote", { "commentId": commentId, "userId": userId });
     }
 
     getCommentUserLog(commentId: string, userId: string): any {
