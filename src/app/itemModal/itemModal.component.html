@@ -11,6 +11,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
+              <app-react [item]="item" [hideCommment]="true"></app-react>
             </div>
             <div>
               <a href="#" class="d-block">
@@ -19,9 +20,8 @@
             </div>
             <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})
             </div>
-            <app-react [item]="item" [hideCommment]="true"></app-react>
-            <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
 
+            <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
             <div>
               <textarea id="txtArea" placeholder="Let comment something fun!" class="pb-cmnt-textarea float-left "
                 [(ngModel)]="commentContent"></textarea>
