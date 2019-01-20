@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { IItem } from '../model/item';
 import { CommunicateService } from '../services/communicate-service.service';
 import { Subscription } from 'rxjs';
@@ -12,6 +12,7 @@ import { ItemService } from '../services/item.services';
 })
 export class ItemModalComponent implements OnInit {
 
+  @Output()
   item: IItem;
   subScription: Subscription;
   isCommentForItem: boolean;

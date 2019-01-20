@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IComment } from '../model/comment';
 import { CommentService } from '../services/comment.services';
 import { ItemService } from '../services/item.services';
@@ -9,7 +9,7 @@ import { CommunicateService } from '../services/communicate-service.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnChanges {
   @Input()
   itemId: string;
   comments: IComment[];
@@ -17,10 +17,6 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     console.log("itemId: " + this.itemId);
-    this._itemService.getCommentsOfItem(this.itemId).subscribe((comments: IComment[]) => {
-      this.comments = comments;
-    });
-    
     this._commService.comment$.subscribe((comment: IComment) => {
       if (comment) {
         this.comments.push(comment);
@@ -28,4 +24,9 @@ export class CommentsComponent implements OnInit {
     });
   }
 
+  ngOnChanges() {
+    this._itemService.getCommentsOfItem(this.itemId).subscribe((comments: IComment[]) => {
+      this.comments = comments;
+    });
+  }
 }
