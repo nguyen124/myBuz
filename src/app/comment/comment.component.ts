@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { IComment } from '../model/comment';
 import { IUser } from '../model/user';
 import { ICommentUserLog } from '../model/commentUserLog';
@@ -20,16 +20,19 @@ export class CommentComponent implements OnInit {
   isShowRepliesClicked: boolean = false;
   commentContent: string;
   subscription: Subscription;
+  
   constructor(private _commentService: CommentService, private _commService: CommunicateService) {
+    this.subscription = this._commService.newReply$.subscribe(reply => {
+      if (reply) {
+        if (reply.parentCommentId == this.comment._id) {
+          this.replies.push(reply);
+        }
+      }
+    });
   }
 
   ngOnInit() {
     this._commentService.getCommentInfo(this.comment);
-    this.subscription = this._commService.newReply$.subscribe(reply => {
-      if (reply) {
-        this.showReplies(this.comment._id);
-      }
-    })
   }
 
   ngOnDestroy() {
