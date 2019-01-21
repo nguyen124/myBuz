@@ -11,7 +11,7 @@ export class FilterComponent implements OnInit {
   @Input()
   all: number;
   @Input()
-  viewied: string;
+  viewed: string;
 
   @Output()
   radionSelectionChanged: EventEmitter<string> = new EventEmitter<string>();

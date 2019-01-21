@@ -31,6 +31,7 @@ import { CommentService } from './services/comment.services';
 import { CommentComponent } from './comment/comment.component';
 import { CommentReactComponent } from './comment-react/comment-react.component';
 import { FocusDirective } from './focus.directive';
+import { CommentBoxComponent } from './comment-box/comment-box.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { FocusDirective } from './focus.directive';
     ReactComponent,
     CommentComponent,
     CommentReactComponent,
-    FocusDirective
+    FocusDirective,
+    CommentBoxComponent
   ],
   imports: [
     BrowserModule,

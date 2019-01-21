@@ -19,18 +19,9 @@
               </a>
             </div>
             <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})
+              <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
             </div>
-
-            <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
-            <div>
-              <textarea id="txtArea" placeholder="Let comment something fun!" class="pb-cmnt-textarea float-left "
-                [(ngModel)]="commentContent"></textarea>
-              <button class="btn-xs btn-primary mt-1 mr-1 ml-1"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-              <button class="btn-xs btn-primary mt-1 mr-1 ml-1"><i class="fa fa-camera" aria-hidden="true"></i></button>
-              <button class="btn-xs btn-primary mt-1 mr-1 ml-1"><i class="fa fa-picture-o" aria-hidden="true"></i></button>
-              <button class="btn-xs btn-success mt-1 mr-1 ml-1" (click)="textComment()"><i class="fa fa-share-square"
-                  aria-hidden="true"></i></button>
-            </div>
+            <app-comment-box [item]="item"></app-comment-box>
           </div>
           <div class="col-lg-6 col-md-6 col-xs-6 pb-0 overflow-scroll">
             <app-comments [itemId]="item._id"></app-comments>

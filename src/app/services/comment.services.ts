@@ -10,6 +10,7 @@ import { ICommentUserLog } from '../model/commentUserLog';
 @Injectable()
 export class CommentService {
     user: IUser;
+    
     constructor(private _router: Router, private _http: HttpClient) {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -88,12 +89,6 @@ export class CommentService {
         }
     }
 
-    writeReply(commentId: string): any {
-        throw new Error("Method not implemented.");
-    }
-
-
-
     getComments(commentId: String): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId);
     }
@@ -101,6 +96,7 @@ export class CommentService {
     getRepliesOfComment(commentId: string): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies");
     }
+
     upVoteComment(commentId: string, userId: string): any {
         return this._http.put("/svc/comments/upVote", { "commentId": commentId, "userId": userId });
     }
@@ -121,4 +117,22 @@ export class CommentService {
         return this._http.get<boolean>("/svc/comments/" + commentId + "/users/" + userId);
     }
 
+    addReplyToComment(commentId: string, replyContent: string): any {
+        if (this.user) {
+            return this._http.post<any>('/svc/comments/reply', {
+                parentCommentId: commentId,
+                content: replyContent,
+                modifiedDate: (new Date()).getTime(),
+                writtenBy: {
+                    userId: this.user._id,
+                    userName: this.user.userName,
+                    avatar: this.user.avatar
+                },
+                point: 0,
+                replies: 0
+            });
+        } else {
+            this._router.navigate(['/login']);
+        }
+    }
 }

@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IComment } from '../model/comment';
-import { Subscription } from 'rxjs';
-import { CommunicateService } from '../services/communicate-service.service';
 import { IUser } from '../model/user';
 import { ICommentUserLog } from '../model/commentUserLog';
-import { Router } from '@angular/router';
 import { CommentService } from '../services/comment.services';
+import { CommunicateService } from '../services/communicate-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
@@ -19,15 +18,22 @@ export class CommentComponent implements OnInit {
   user: IUser;
   commentUserLog: ICommentUserLog;
   isShowRepliesClicked: boolean = false;
-  constructor(private _router: Router, private _commentService: CommentService, private _commService: CommunicateService) {
+  commentContent: string;
+  subscription: Subscription;
+  constructor(private _commentService: CommentService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
     this._commentService.getCommentInfo(this.comment);
+    this.subscription = this._commService.newReply$.subscribe(reply => {
+      if (reply) {
+        this.showReplies(this.comment._id);
+      }
+    })
   }
 
   ngOnDestroy() {
-
+    this.subscription.unsubscribe();
   }
 
   upVote(): void {
@@ -38,8 +44,9 @@ export class CommentComponent implements OnInit {
     this._commentService.downVote(this.comment);
   }
 
-  writeReply() {
-    $("#txtArea").focus();
+  writeTextReply(): void {
+    $("#txtReplyBox").focus();
+    this._commService.onClickReply(this.comment);
   }
 
   showReplies(commentId: string) {

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IComment } from '../model/comment';
 import { IUser } from '../model/user';
-import { Router } from '@angular/router';
 import { CommentService } from '../services/comment.services';
 import { CommunicateService } from '../services/communicate-service.service';
 import { ICommentUserLog } from '../model/commentUserLog';
@@ -14,9 +13,11 @@ import { ICommentUserLog } from '../model/commentUserLog';
 export class CommentReactComponent implements OnInit {
   @Input()
   comment: IComment;
+
   user: IUser;
   commentUserLog: ICommentUserLog;
-  constructor(private _router: Router, private _commentService: CommentService, private _commService: CommunicateService) {
+
+  constructor(private _commentService: CommentService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
@@ -29,5 +30,10 @@ export class CommentReactComponent implements OnInit {
 
   downVote(): void {
     this._commentService.downVote(this.comment);
+  }
+
+  writeTextReply() {
+    $("#txtReplyBox").focus();
+    this._commService.onClickReply(this.comment);
   }
 }

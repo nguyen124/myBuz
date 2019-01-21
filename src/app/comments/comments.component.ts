@@ -3,6 +3,7 @@ import { IComment } from '../model/comment';
 import { CommentService } from '../services/comment.services';
 import { ItemService } from '../services/item.services';
 import { CommunicateService } from '../services/communicate-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comments',
@@ -13,11 +14,12 @@ export class CommentsComponent implements OnInit, OnChanges {
   @Input()
   itemId: string;
   comments: IComment[];
+  subscription: Subscription;
   constructor(private _itemService: ItemService, private _commService: CommunicateService) { }
 
   ngOnInit() {
     console.log("itemId: " + this.itemId);
-    this._commService.comment$.subscribe((comment: IComment) => {
+    this.subscription = this._commService.newComment$.subscribe((comment: IComment) => {
       if (comment) {
         this.comments.push(comment);
       }
@@ -28,5 +30,9 @@ export class CommentsComponent implements OnInit, OnChanges {
     this._itemService.getCommentsOfItem(this.itemId).subscribe((comments: IComment[]) => {
       this.comments = comments;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

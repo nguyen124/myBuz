@@ -8,21 +8,34 @@ import { IComment } from '../model/comment';
 })
 export class CommunicateService {
 
+
   // Observable navItem source
-  private _itemSource = new BehaviorSubject<IItem>(null);
-  private _commentSource = new BehaviorSubject<IComment>(null);
+  private _newItemSource = new BehaviorSubject<IItem>(null);
+  private _newCommentSource = new BehaviorSubject<IComment>(null);
+  private _currentCommentSource = new BehaviorSubject<IComment>(null);
+  private _newReplySource = new BehaviorSubject<IComment>(null);
+
   // Observable navItem stream
-  item$ = this._itemSource.asObservable();
-  comment$ = this._commentSource.asObservable();
+  newItem$ = this._newItemSource.asObservable();
+  newComment$ = this._newCommentSource.asObservable();
+  currentComment$ = this._currentCommentSource.asObservable();
+  newReply$ = this._newReplySource.asObservable();
   // service command
   changeItem(item: IItem) {
-    this._itemSource.next(item);
+    this._newItemSource.next(item);
   }
-  // changeComments(replies: IComment[]) {
-  //   this._commentSource.next(replies);
-  // }
+  
   changeComment(comment: IComment) {
-    this._commentSource.next(comment);
+    this._newCommentSource.next(comment);
   }
+
+  onClickReply(comment: IComment) {
+    this._currentCommentSource.next(comment);
+  }
+
+  onAddNewReply(reply: IComment) {
+    this._newReplySource.next(reply);
+  }
+
   constructor() { }
 }

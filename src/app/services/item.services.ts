@@ -11,9 +11,11 @@ import { IComment } from '../model/comment';
 @Injectable()
 export class ItemService {
     user: IUser;
+    
     constructor(private _router: Router, private _http: HttpClient) {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
+
     getItemInfo(comment: IItem): void {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
         if (this.user) {
@@ -92,27 +94,27 @@ export class ItemService {
         return this._http.get<IItem[]>("/svc/items");
     }
 
-    // getItemComments(itemId: String): Observable<IItem[]> {
-    //     return this._http.get<IItem[]>("/svc/items/" + itemId + "/comments/");
-    // }
-
     getCommentsOfItem(itemId: string): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
     }
 
     addCommentToItem(itemId: string, content: string): Observable<any> {
-        return this._http.post<any>('/svc/items/comment', {
-            itemId: itemId,
-            content: content,
-            modifiedDate: (new Date()).getTime(),
-            writtenBy: {
-                userId: this.user._id,
-                userName: this.user.userName,
-                avatar: this.user.avatar
-            },
-            point: 0,
-            replies: 0
-        });
+        if (this.user) {
+            return this._http.post<any>('/svc/items/comment', {
+                itemId: itemId,
+                content: content,
+                modifiedDate: (new Date()).getTime(),
+                writtenBy: {
+                    userId: this.user._id,
+                    userName: this.user.userName,
+                    avatar: this.user.avatar
+                },
+                point: 0,
+                replies: 0
+            });
+        } else {
+            this._router.navigate(['/login']);
+        }
     }
 
     updateItem(item: Object): void {
