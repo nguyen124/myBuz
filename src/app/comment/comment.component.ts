@@ -20,7 +20,7 @@ export class CommentComponent implements OnInit {
   isShowRepliesClicked: boolean = false;
   commentContent: string;
   subscription: Subscription;
-  
+
   constructor(private _commentService: CommentService, private _commService: CommunicateService) {
     this.subscription = this._commService.newReply$.subscribe(reply => {
       if (reply) {
@@ -49,6 +49,7 @@ export class CommentComponent implements OnInit {
 
   writeTextReply(): void {
     $("#txtReplyBox").focus();
+    $("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
     this._commService.onClickReply(this.comment);
   }
 
