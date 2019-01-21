@@ -32,19 +32,11 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._commentService.getCommentInfo(this.comment);
+    
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  upVote(): void {
-    this._commentService.upVote(this.comment);
-  }
-
-  downVote(): void {
-    this._commentService.downVote(this.comment);
   }
 
   writeTextReply(): void {

@@ -1,17 +1,21 @@
-<img class="avatar d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
+<img class="avatar-75 d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
 <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.userName}}
   </span>. {{comment.point}} points</div>
 <div><span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>{{comment.content}}</div>
 <div class="d-block mt-1">
-  <button class="btn btn-success mr-1 btn-xs" [ngClass]="comment.upVotedClass" (click)="upVote(comment)"><i class="fa fa-thumbs-up"
-      aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-1 btn-xs " [ngClass]="comment.downVotedClass" (click)="downVote(comment)"><i class="fa fa-thumbs-down"
-      aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-1 btn-xs" (click)="writeTextReply()"><i class="fa fa-reply" aria-hidden="true"></i></button>
-  <button class="btn btn-success mr-1 btn-xs mt-1" [disabled]="isShowRepliesClicked" *ngIf="!hideReply" (click)="showReplies(comment._id)">9
-    replies</button>
+  <div class="d-block mt-2">
+    <app-comment-react [comment]="comment"></app-comment-react>
+    <button class="btn btn-success mr-1 btn-xs mt-1" [disabled]="isShowRepliesClicked" (click)="showReplies(comment._id)">9
+      replies</button>
+  </div>
 </div>
 
 <div *ngFor="let reply of replies;" class="pt-2 pl-4 clear-both">
-  <app-comment-react [comment]="reply"></app-comment-react>
+  <div class="clear-both">
+    <img class="avatar-45 d-inline float-left mt-2 mr-2" src="{{reply.writtenBy.avatar}}" alt="Avatar">
+    <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{reply.writtenBy.userName}}
+      </span>. {{reply.point}} points</div>
+    <div><span *ngIf="reply.replyTo" class="text-primary pr-1">@{{reply.replyTo}}</span>{{reply.content}}</div>
+    <app-comment-react [comment]="reply"></app-comment-react>
+  </div>
 </div>

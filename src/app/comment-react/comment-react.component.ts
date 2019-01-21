@@ -20,7 +20,7 @@ export class CommentReactComponent implements OnInit {
   constructor(private _commentService: CommentService, private _commService: CommunicateService) {
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this._commentService.getCommentInfo(this.comment);
   }
 

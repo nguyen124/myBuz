@@ -3,13 +3,6 @@
     margin: 0.5rem;
 }
 
-.avatar {
-    vertical-align: middle;
-    width: 75px;
-    height: 75px;
-    border-radius: 5%;
-}
-
 .overflow-scroll {
     max-height: 768px;
     overflow-y: scroll;
@@ -18,10 +11,6 @@
 .pb-cmnt-container {
     font-family: Lato;
     margin-top: 100px;
-}
-
-.voted {
-    background: #007bff;
 }
 
 .btn-xs {
