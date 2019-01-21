@@ -5,7 +5,6 @@ import { IUser } from '../model/user';
 import { ItemService } from '../services/item.services';
 import { Router } from '@angular/router';
 import { CommunicateService } from '../services/communicate-service.service';
-import { CommentService } from '../services/comment.services';
 
 @Component({
   selector: 'app-react',
@@ -15,8 +14,6 @@ import { CommentService } from '../services/comment.services';
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
-  @Input()
-  hideCommment: boolean;
   user: IUser;
   itemUserLog: IItemUserLog;
   constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) {

@@ -39,12 +39,6 @@ export class CommentComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  writeTextReply(): void {
-    $("#txtReplyBox").focus();
-    $("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
-    this._commService.onClickReply(this.comment);
-  }
-
   showReplies(commentId: string) {
     this.isShowRepliesClicked = true;
     this._commentService.getRepliesOfComment(commentId).subscribe((replies) => {

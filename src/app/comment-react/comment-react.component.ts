@@ -20,7 +20,7 @@ export class CommentReactComponent implements OnInit {
   constructor(private _commentService: CommentService, private _commService: CommunicateService) {
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this._commentService.getCommentInfo(this.comment);
   }
 
@@ -32,8 +32,9 @@ export class CommentReactComponent implements OnInit {
     this._commentService.downVote(this.comment);
   }
 
-  writeTextReply() {
+  writeTextReply(): void {
     $("#txtReplyBox").focus();
+    $("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
     this._commService.onClickReply(this.comment);
   }
 }
