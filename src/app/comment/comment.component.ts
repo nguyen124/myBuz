@@ -11,10 +11,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnChanges {
   @Input()
   comment: IComment;
-  replies: IComment[];
+
   user: IUser;
   commentUserLog: ICommentUserLog;
   isShowRepliesClicked: boolean = false;
@@ -22,19 +22,20 @@ export class CommentComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private _commentService: CommentService, private _commService: CommunicateService) {
-    this.subscription = this._commService.newReply$.subscribe(reply => {
-      if (reply) {
-        if (reply.parentCommentId == this.comment._id) {
-          this.replies.push(reply);
-        }
-      }
-    });
-  }
-
-  ngOnInit() {
     
   }
 
+  ngOnInit() {
+
+  }
+  ngOnChanges(change) {
+    this.comment.replies = [];
+    this.subscription = this._commService.newReply$.subscribe(reply => {
+      if (reply && reply.parentCommentId == this.comment._id) {
+        this.comment.replies.push(reply);
+      }
+    });
+  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -42,7 +43,7 @@ export class CommentComponent implements OnInit {
   showReplies(commentId: string) {
     this.isShowRepliesClicked = true;
     this._commentService.getRepliesOfComment(commentId).subscribe((replies) => {
-      this.replies = replies;
+      this.comment.replies = replies;
     });;
   }
 }

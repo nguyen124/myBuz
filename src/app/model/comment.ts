@@ -7,5 +7,6 @@ export interface IComment {
     writtenBy: object;
     itemId: string;
     replyTo?: object;
-    point?: number;    
+    point?: number;
+    replies?: IComment[];
 }
