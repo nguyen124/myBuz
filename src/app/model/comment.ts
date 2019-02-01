@@ -9,4 +9,5 @@ export interface IComment {
     replyTo?: object;
     point?: number;
     replies?: IComment[];
+    totalReplies?: number;
 }

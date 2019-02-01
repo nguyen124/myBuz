@@ -108,9 +108,7 @@ export class ItemService {
                     userId: this.user._id,
                     userName: this.user.userName,
                     avatar: this.user.avatar
-                },
-                point: 0,
-                replies: 0
+                }
             });
         } else {
             this._router.navigate(['/login']);

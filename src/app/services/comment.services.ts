@@ -10,7 +10,7 @@ import { ICommentUserLog } from '../model/commentUserLog';
 @Injectable()
 export class CommentService {
     user: IUser;
-    
+
     constructor(private _router: Router, private _http: HttpClient) {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -96,7 +96,9 @@ export class CommentService {
     getRepliesOfComment(commentId: string): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies");
     }
-
+    getTotalRepliesOfComment(commentId: any): any {
+        return this._http.get<IComment[]>("/svc/comments/" + commentId + "/totalReplies");
+    }
     upVoteComment(commentId: string, userId: string): any {
         return this._http.put("/svc/comments/upVote", { "commentId": commentId, "userId": userId });
     }
@@ -127,9 +129,7 @@ export class CommentService {
                     userId: this.user._id,
                     userName: this.user.userName,
                     avatar: this.user.avatar
-                },
-                point: 0,
-                replies: 0
+                }
             });
         } else {
             this._router.navigate(['/login']);

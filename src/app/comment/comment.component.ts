@@ -22,16 +22,21 @@ export class CommentComponent implements OnInit, OnChanges {
   subscription: Subscription;
 
   constructor(private _commentService: CommentService, private _commService: CommunicateService) {
-    
+
   }
 
   ngOnInit() {
-
+    this._commentService.getTotalRepliesOfComment(this.comment._id).subscribe((res) => {
+      this.comment.totalReplies = res.totalReplies;
+    });;
   }
   ngOnChanges(change) {
-    this.comment.replies = [];
+    if (!this.comment.replies) {
+      this.comment.replies = [];
+    }
     this.subscription = this._commService.newReply$.subscribe(reply => {
       if (reply && reply.parentCommentId == this.comment._id) {
+        this.comment.totalReplies++;
         this.comment.replies.push(reply);
       }
     });
