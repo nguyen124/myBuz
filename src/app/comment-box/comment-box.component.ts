@@ -42,11 +42,18 @@ export class CommentBoxComponent implements OnInit {
         });
       } else if (this.commentType === "ReplyComment") {
         console.log("Comment Content: " + this.commentContent);
-        this._commentService.addReplyToComment(this.comment._id, this.commentContent).subscribe(comment => {
-          this.commentContent = "";
-          this.commentType = "CommentItem";
-          this._commService.onAddNewReply(comment);
-        });
+        if (this.comment.parentCommentId) {
+          this._itemService.addCommentToItem(this.comment.parentCommentId, this.commentContent).subscribe(comment => {
+            this.commentContent = ""
+            this._commService.onAddNewReply(comment);
+          });
+        } else {
+          this._commentService.addReplyToComment(this.comment._id, this.commentContent).subscribe(comment => {
+            this.commentContent = "";
+            this.commentType = "CommentItem";
+            this._commService.onAddNewReply(comment);
+          });
+        }
       }
     }
   }
