@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  menus = ['Home', 'House', 'Design'];
+  menus = [];
   isLoggedIn: boolean = false;
 
   constructor(private _authSvc: AuthService) {

@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { ParentAuthGuard } from './guard/parentGuard';
-import { ChildrenAuthGuard } from './guard/childrenGuard';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },

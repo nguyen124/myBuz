@@ -2,6 +2,9 @@
   <li *ngFor="let menu of menus">
     <a href='#'>{{menu}}</a>
   </li>
+  <li *ngIf="isLoggedIn">
+    <app-upload></app-upload>
+  </li>
   <li *ngIf="!isLoggedIn">
     <a href="/login">Login</a>
   </li>

@@ -1,0 +1,32 @@
+<div class="ml-2 mt-3">
+  <button class="btn-md btn-success" data-toggle="modal" data-target="#myModal">+Post</button>
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-medium">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <input type="text" placeholder="Make your post title" class="w-100" [(ngModel)]="title" />
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <img src="{{uploadedFile}}" id="previewImg" class="mb-2">
+          <input type="file" class="form-control-file" id="fileUpload" (change)="handleFileInput($event.target.files)"
+            accept="image/gif, image/jpeg, image/png">
+
+          <textarea placeholder="Tag your post" class="mt-2 w-100" id="tagTextArea" [(ngModel)]="tags"></textarea>
+        </div>
+
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="createPost()">Post</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
