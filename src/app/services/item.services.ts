@@ -11,7 +11,7 @@ import { IComment } from '../model/comment';
 @Injectable()
 export class ItemService {
     user: IUser;
-    
+
     constructor(private _router: Router, private _http: HttpClient) {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -138,4 +138,9 @@ export class ItemService {
     getItemUserLog(itemId: string, userId: string): any {
         return this._http.get<boolean>("/svc/items/" + itemId + "/users/" + userId);
     }
+
+    createItem(item: IItem) {
+        return this._http.post("/svc/items", item);
+    }
+
 }

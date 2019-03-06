@@ -7,7 +7,13 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <input type="text" placeholder="Make your post title" class="w-100" [(ngModel)]="title" />
+          <input type="text" placeholder="Make your post title" class="w-100 d-block" [(ngModel)]="title" /><br>
+          <select name="itemCategories" class="ml-1" [(ngModel)]="category">
+            <option value="">--Select category--</option>
+            <option value="Funny">Funny</option>
+            <option value="Music">Music</option>
+            <option value="Adventure">Adventure</option>
+          </select>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -17,7 +23,9 @@
           <input type="file" class="form-control-file" id="fileUpload" (change)="handleFileInput($event.target.files)"
             accept="image/gif, image/jpeg, image/png">
 
-          <textarea placeholder="Tag your post" class="mt-2 w-100" id="tagTextArea" [(ngModel)]="tags"></textarea>
+          <textarea placeholder="Descrription" class="mt-2 w-100" id="tagTextArea" [(ngModel)]="description"></textarea>
+          <input type="text" placeholder="Please tag your post" class="w-100" [(ngModel)]="tags">
+          <input type="text" placeholder="Please provide reference if possible" class="w-100" [(ngModel)]="creditBy">
         </div>
 
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../services/file.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { IItem } from '../model/item';
+import { ItemService } from '../services/item.services';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -8,9 +10,18 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 })
 export class UploadComponent implements OnInit {
   uploadedFile: File = null;
-  title: String = "";
-  tags: String = "";
-  constructor(private fileService: FileService, private http: HttpClient) { }
+  item: IItem = {
+    _id: null,
+    title: "",
+    categories: [],
+    creditBy: []
+  };
+  title: string = "";
+  tags: string = "";
+  creditBy: string = "";
+  category: string = "";
+  description: string = "";
+  constructor(private _fileService: FileService, private _itemService: ItemService, private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -21,7 +32,7 @@ export class UploadComponent implements OnInit {
     if (this.uploadedFile) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        $("#previewImg").attr('src', e.target.result).width(150).height(200);
+        $("#previewImg").attr('src', e.target["result"]).width(150).height(200);
       }
       reader.readAsDataURL(this.uploadedFile);
     }
@@ -37,14 +48,36 @@ export class UploadComponent implements OnInit {
       }).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           console.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
-        } else {
-          console.log(event);
+        } else if (event.type === HttpEventType.Response) {
+          this.item = {
+            "tags": this.tags.split(","),
+            "categories": [this.category],
+            "creditBy": [this.creditBy],
+            "title": this.title,
+            "titleUrl": "../../assets/image/title1.JPG",
+            "url": event.body["fileLocation"],
+            "thumbnail": "../../assets/image/img1.JPG",
+            "modifiedDate": (new Date().getTime()),
+            "createdBy": JSON.parse(localStorage.getItem('currentUser')),
+            "point": 1220,
+            "seen": 1500,
+            "share": 200,
+            "comment": 1000,
+            "status": "active",
+            "isAdult": false,
+            "isSafeAtWork": true,
+            "isSensitive": false,
+            "isAutoPlayed": true,
+            "hasSound": false,
+            "length": 60
+          }
+          this._itemService.createItem(this.item).subscribe(res => {
+            console.log(res);
+          });
         }
       });
     }
     console.log("create post");
-    console.log(this.title);
-    console.log(this.tags);
   }
   // postFile(fileToUpload: File): Observable<any> {
   //   const endpoint = '';

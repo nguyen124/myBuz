@@ -1,9 +1,9 @@
 export interface IItem {
-  _id: string;
+  _id?: string;
   title: string;
-  titleUrl: string;
-  url: string;
-  thumbnail: string,
+  titleUrl?: string;
+  url?: string;
+  thumbnail?: string,
   modifiedDate?: number;
   createdBy?: object;
   tags?: string[];
@@ -13,11 +13,12 @@ export interface IItem {
   seen?: number;
   share?: number;
   comment?: number;
-  status?: boolean;
+  status?: string;
   isAdult?: boolean;
-  isSafeAtWork: boolean;
-  isSensitive: boolean;
-  isAutoPlayed: boolean;
-  hasSound: boolean;
-  length: number;
+  isSafeAtWork?: boolean;
+  isSensitive?: boolean;
+  isAutoPlayed?: boolean;
+  hasSound?: boolean;
+  length?: number;
+  description?: string;
 }
