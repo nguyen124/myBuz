@@ -58,18 +58,7 @@ export class UploadComponent implements OnInit {
             "url": event.body["fileLocation"],
             "thumbnail": "../../assets/image/img1.JPG",
             "modifiedDate": (new Date().getTime()),
-            "createdBy": JSON.parse(localStorage.getItem('currentUser')),
-            "point": 1220,
-            "seen": 1500,
-            "share": 200,
-            "comment": 1000,
-            "status": "active",
-            "isAdult": false,
-            "isSafeAtWork": true,
-            "isSensitive": false,
-            "isAutoPlayed": true,
-            "hasSound": false,
-            "length": 60
+            "createdBy": JSON.parse(localStorage.getItem('currentUser'))
           }
           this._itemService.createItem(this.item).subscribe(res => {
             console.log(res);
