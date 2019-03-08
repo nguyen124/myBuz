@@ -8,3 +8,9 @@ ul#listItemsDetails {
     height: 25px;
     border-radius: 5%;
 }
+
+.pictureFrame {
+    height: 226.900px;
+    width: 100%;
+    overflow: hidden;
+}
