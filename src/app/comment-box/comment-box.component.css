@@ -3,6 +3,7 @@
         resize: none;        
         width: 85%;
         border: 0.0625rem solid #F2F2F2;
+        margin-bottom: 0.3125rem;
     }
 }
 
@@ -11,5 +12,6 @@
         resize: none;        
         width: 70%;
         border: 0.0625rem solid #F2F2F2;
+        margin-bottom: 0.3125rem;
     }
 }
