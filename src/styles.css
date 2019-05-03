@@ -2,15 +2,16 @@
 
 .avatar-75 {
     vertical-align: middle;
-    width: 75px;
-    height: 75px;
+    width: 4.6875rem;
+    height: 4.6875rem;
     border-radius: 5%;
+    margin-bottom: 0.1875rem;
 }
 
 .avatar-45 {
     vertical-align: middle;
-    width: 45px;
-    height: 45px;
+    width: 2.8125rem;
+    height: 2.8125rem;
     border-radius: 5%;
 }
 
@@ -22,7 +23,7 @@
 }
 
 .fa {
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .voted {

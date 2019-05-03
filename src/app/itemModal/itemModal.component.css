@@ -4,13 +4,13 @@
 }
 
 .overflow-scroll {
-    max-height: 768px;
+    max-height: 48rem;
     overflow-y: scroll;
 }
 
 .pb-cmnt-container {
     font-family: Lato;
-    margin-top: 100px;
+    margin-top: 6.25rem;
 }
 
 .btn-xs {

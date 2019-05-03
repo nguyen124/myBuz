@@ -1,17 +1,15 @@
-@media only screen and (min-width: 562px) {
+@media only screen and (min-width: 35.125rem) {
     .pb-cmnt-textarea {
-        resize: none;
-        height: 70px;
+        resize: none;        
         width: 85%;
-        border: 1px solid #F2F2F2;
+        border: 0.0625rem solid #F2F2F2;
     }
 }
 
-@media only screen and (max-width: 562px) {
+@media only screen and (max-width: 35.125rem) {
     .pb-cmnt-textarea {
-        resize: none;
-        height: 70px;
+        resize: none;        
         width: 70%;
-        border: 1px solid #F2F2F2;
+        border: 0.0625rem solid #F2F2F2;
     }
 }

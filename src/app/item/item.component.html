@@ -11,6 +11,6 @@
 </div>
 <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})</div>
 <div class="mb-2">
-  <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
+  <a *ngFor="let tag of item.tags" href="#" class="mr-1">#{{tag}}</a>
 </div>
 <app-react [item]="item"></app-react>

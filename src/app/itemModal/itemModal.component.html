@@ -19,7 +19,7 @@
               </a>
             </div>
             <div class="text-success">Comments({{item.comment}}) - Points({{item.point}})
-              <a *ngFor="let tag of item.tags" href="#" class="mr-1">{{tag}}</a>
+              <a *ngFor="let tag of item.tags" href="#" class="mr-1">#{{tag}}</a>
             </div>
             <app-comment-box [item]="item"></app-comment-box>
           </div>
