@@ -19,7 +19,7 @@ export class ItemModalComponent implements OnInit {
   constructor(private _commService: CommunicateService) { }
 
   ngOnInit() {
-    this.subScription = this._commService.newItem$.subscribe(item => {
+    this.subScription = this._commService.currentItemInModal$.subscribe(item => {
       if (item) {
         this.item = item;
         setTimeout(() => {

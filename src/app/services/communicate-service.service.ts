@@ -16,7 +16,7 @@ export class CommunicateService {
   private _newReplySource = new BehaviorSubject<IComment>(null);
 
   // Observable navItem stream
-  newItem$ = this._newItemSource.asObservable();
+  currentItemInModal$ = this._newItemSource.asObservable();
   newComment$ = this._newCommentSource.asObservable();
   currentComment$ = this._currentCommentSource.asObservable();
   newReply$ = this._newReplySource.asObservable();

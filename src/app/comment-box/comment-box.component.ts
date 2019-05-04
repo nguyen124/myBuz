@@ -17,7 +17,7 @@ export class CommentBoxComponent implements OnInit {
   comment: IComment;
 
   commentContent: string;
-  commentType: string = "CommentItem";
+  commentType: string = "ItemComment";
   subscription: Subscription;
   constructor(private _itemService: ItemService, private _commentService: CommentService, private _commService: CommunicateService) {
 
@@ -34,7 +34,7 @@ export class CommentBoxComponent implements OnInit {
 
   writeTextComment() {
     if (this.commentContent && this.commentContent.trim()) {
-      if (this.commentType === "CommentItem") {
+      if (this.commentType === "ItemComment") {
         console.log("Comment Content: " + this.commentContent);
         this._itemService.addCommentToItem(this.item._id, this.commentContent).subscribe(comment => {
           this.commentContent = ""
@@ -43,14 +43,15 @@ export class CommentBoxComponent implements OnInit {
       } else if (this.commentType === "ReplyComment") {
         console.log("Comment Content: " + this.commentContent);
         if (this.comment.parentCommentId) {
-          this._itemService.addCommentToItem(this.comment.parentCommentId, this.commentContent).subscribe(comment => {
-            this.commentContent = ""
+          this._commentService.addReplyToComment(this.comment.parentCommentId, this.commentContent).subscribe(comment => {
+            this.commentContent = "";
+            this.commentType = "ItemComment";
             this._commService.onAddNewReply(comment);
           });
         } else {
           this._commentService.addReplyToComment(this.comment._id, this.commentContent).subscribe(comment => {
             this.commentContent = "";
-            this.commentType = "CommentItem";
+            this.commentType = "ItemComment";
             this._commService.onAddNewReply(comment);
           });
         }
