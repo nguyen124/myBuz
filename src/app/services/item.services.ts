@@ -115,6 +115,23 @@ export class ItemService {
         }
     }
 
+    addVoiceCommentToItem(itemId: string, url: any): any {
+        if (this.user) {
+            return this._http.post<any>('/svc/items/comment', {
+                itemId: itemId,
+                url: url,
+                modifiedDate: (new Date()).getTime(),
+                writtenBy: {
+                    userId: this.user._id,
+                    userName: this.user.userName,
+                    avatar: this.user.avatar
+                }
+            });
+        } else {
+            this._router.navigate(['/login']);
+        }
+    }
+
     updateItem(item: Object): void {
         this._http.put("/svc/items", item);
     }
@@ -142,5 +159,4 @@ export class ItemService {
     createItem(item: IItem) {
         return this._http.post("/svc/items", item);
     }
-
 }

@@ -29,6 +29,7 @@ import { ReactComponent } from './react/react.component';
 import { CommunicateService } from './services/communicate-service.service';
 import { CommentService } from './services/comment.services';
 import { CommentComponent } from './comment/comment.component';
+import { VoiceMessageServiceService } from './services/voice-message-service.service'
 import { CommentReactComponent } from './comment-react/comment-react.component';
 import { FocusDirective } from './focus.directive';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
@@ -71,6 +72,7 @@ import { UploadComponent } from './upload/upload.component';
     AuthService,
     CommunicateService,
     CommentService,
+    VoiceMessageServiceService,
     ParentAuthGuard,
     ChildrenAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },

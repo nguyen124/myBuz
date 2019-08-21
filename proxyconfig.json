@@ -3,5 +3,10 @@
         "target": "http://localhost:3000",
         "secure": false,
         "changeOrigin": true
+    },
+    "/uploadFile": {
+        "target": "http://us-central1-architect-c592d.cloudfunctions.net",
+        "secure": false,
+        "changeOrigin": true
     }
 }

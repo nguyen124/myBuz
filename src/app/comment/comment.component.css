@@ -1,3 +1,8 @@
 .clear-both {
     clear: both;
 }
+
+.voice-comment {
+    height: 25px;
+    clear: both;
+}

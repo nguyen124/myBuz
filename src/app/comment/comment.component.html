@@ -1,11 +1,21 @@
 <img class="avatar-75 d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
 <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.userName}}
   </span>. {{comment.point}} points</div>
-<div><span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>{{comment.content}}</div>
+<div>
+  <span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>
+  <div>{{comment.content}}</div>
+  <div>
+    <audio *ngIf="comment.url" class="voice-comment" controls>
+      <source [src]="comment.url" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
 <div class="d-block mt-1">
   <div class="d-block mt-2">
     <app-comment-react [comment]="comment"></app-comment-react>
-    <button class="btn btn-success mr-1 btn-xs mt-1" [disabled]="isShowRepliesClicked" (click)="showReplies(comment._id)">{{comment.totalReplies}}
+    <button class="btn btn-success mr-1 btn-xs mt-1" [disabled]="isShowRepliesClicked"
+      (click)="showReplies(comment._id)">{{comment.totalReplies}}
       replies</button>
   </div>
 </div>
@@ -15,7 +25,16 @@
     <img class="avatar-45 d-inline float-left mt-2 mr-2" src="{{reply.writtenBy.avatar}}" alt="Avatar">
     <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{reply.writtenBy.userName}}
       </span>. {{reply.point}} points</div>
-    <div><span *ngIf="reply.replyTo" class="text-primary pr-1">@{{reply.replyTo}}</span>{{reply.content}}</div>
+    <div>
+      <span *ngIf="reply.replyTo" class="text-primary pr-1">@{{reply.replyTo}}</span>
+      <div>{{reply.content}}</div>
+      <div>
+        <audio *ngIf="reply.url" class="voice-comment" controls>
+          <source [src]="reply.url" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
     <app-comment-react [comment]="reply"></app-comment-react>
   </div>
 </div>

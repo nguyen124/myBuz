@@ -135,4 +135,21 @@ export class CommentService {
             this._router.navigate(['/login']);
         }
     }
+
+    addVoiceReplyToComment(commentId: string, url: any): any {
+        if (this.user) {
+            return this._http.post<any>('/svc/comments/reply', {
+                parentCommentId: commentId,
+                url: url,
+                modifiedDate: (new Date()).getTime(),
+                writtenBy: {
+                    userId: this.user._id,
+                    userName: this.user.userName,
+                    avatar: this.user.avatar
+                }
+            });
+        } else {
+            this._router.navigate(['/login']);
+        }
+    }
 }
