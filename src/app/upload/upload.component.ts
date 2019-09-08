@@ -3,6 +3,7 @@ import { FileService } from '../services/file.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
+import { LoggingService } from '../services/system/logging.service';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -21,7 +22,10 @@ export class UploadComponent implements OnInit {
   creditBy: string = "";
   category: string = "";
   description: string = "";
-  constructor(private _fileService: FileService, private _itemService: ItemService, private http: HttpClient) { }
+  constructor(
+    private _log: LoggingService, 
+    private _itemService: ItemService, 
+    private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -47,7 +51,7 @@ export class UploadComponent implements OnInit {
         observe: 'events'
       }).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           this.item = {
             "tags": this.tags.split(","),
@@ -65,12 +69,12 @@ export class UploadComponent implements OnInit {
             "comment": 0
           }
           this._itemService.createItem(this.item).subscribe(res => {
-            console.log(res);
+            this._log.log(res);
           });
         }
       });
     }
-    console.log("create post");
+    this._log.log("create post");
   }
   // postFile(fileToUpload: File): Observable<any> {
   //   const endpoint = '';

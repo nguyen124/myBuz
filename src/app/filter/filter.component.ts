@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { LoggingService } from '../services/system/logging.service';
 
 @Component({
   selector: 'app-filter',
@@ -16,13 +17,13 @@ export class FilterComponent implements OnInit {
   @Output()
   radionSelectionChanged: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private _log: LoggingService) { }
 
   ngOnInit() {
   }
 
   onRadioSelectionChanged() {
     this.radionSelectionChanged.emit(this.selectedRadioValue);
-    console.log(this.selectedRadioValue);
+    this._log.log(this.selectedRadioValue);
   }
 }

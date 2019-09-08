@@ -5,13 +5,17 @@ import { IComment } from '../model/comment';
 import { IUser } from '../model/user';
 import { Router } from '@angular/router';
 import { ICommentUserLog } from '../model/commentUserLog';
+import { LoggingService } from './system/logging.service';
 
 
 @Injectable()
 export class CommentService {
     user: IUser;
 
-    constructor(private _router: Router, private _http: HttpClient) {
+    constructor(
+        private _router: Router,
+        private _http: HttpClient,
+        private _log: LoggingService) {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -44,7 +48,7 @@ export class CommentService {
                 }
                 comment.point += comment["extraUpVotePoint"];
                 this.upVoteComment(comment._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
                 comment["upVotedClass"] = "voted";
             } else {
@@ -53,7 +57,7 @@ export class CommentService {
                 comment["extraDownVotePoint"] = 1;
                 comment.point--;
                 this.unUpVoteComment(comment._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
             }
             comment["downVotedClass"] = "";
@@ -71,7 +75,7 @@ export class CommentService {
                 }
                 comment.point -= comment["extraDownVotePoint"];
                 this.downVoteComment(comment._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
                 comment["downVotedClass"] = "voted";
             } else {
@@ -80,7 +84,7 @@ export class CommentService {
                 comment["downVotedClass"] = "";
                 comment.point++;
                 this.unDownVoteComment(comment._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
             }
             comment["upVotedClass"] = "";

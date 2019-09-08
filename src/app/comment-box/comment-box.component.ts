@@ -7,6 +7,7 @@ import { CommentService } from '../services/comment.services';
 import { VoiceMessageServiceService } from '../services/voice-message-service.service';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { LoggingService } from '../services/system/logging.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -27,6 +28,7 @@ export class CommentBoxComponent implements OnInit {
     private _commentService: CommentService,
     private _commService: CommunicateService,
     private _voiceService: VoiceMessageServiceService,
+    private _log: LoggingService,
     private http: HttpClient) {
 
   }
@@ -43,13 +45,13 @@ export class CommentBoxComponent implements OnInit {
   writeTextComment() {
     if (this.commentContent && this.commentContent.trim()) {
       if (this.commentType === "ItemComment") {
-        console.log("Comment Content: " + this.commentContent);
+        this._log.log("Comment Content: " + this.commentContent);
         this._itemService.addCommentToItem(this.item._id, this.commentContent).subscribe(comment => {
           this.commentContent = ""
           this._commService.changeComment(comment);
         });
       } else if (this.commentType === "ReplyComment") {
-        console.log("Comment Content: " + this.commentContent);
+        this._log.log("Comment Content: " + this.commentContent);
         if (this.comment.parentCommentId) {
           this._commentService.addReplyToComment(this.comment.parentCommentId, this.commentContent).subscribe(comment => {
             this.commentContent = "";
@@ -91,23 +93,23 @@ export class CommentBoxComponent implements OnInit {
     }).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.isUploading = true;
-        console.log('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        this._log.log('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
       } else if (event.type === HttpEventType.Response) {
         this.isUploading = false;
         this.addVoiceCommentToItem(event.body["fileLocation"]);
-        console.log("Finish uploading voice comment!");
+        this._log.log("Finish uploading voice comment!");
       }
     });
   }
 
   addVoiceCommentToItem(url): void {
     if (this.commentType === "ItemComment") {
-      console.log("Voice Comment Url: " + url);
+      this._log.log("Voice Comment Url: " + url);
       this._itemService.addVoiceCommentToItem(this.item._id, url).subscribe(voiceComment => {
         this._commService.changeComment(voiceComment);
       });
     } else if (this.commentType === "ReplyComment") {
-      console.log("Voice Comment Url: " + url);
+      this._log.log("Voice Comment Url: " + url);
       if (this.comment.parentCommentId) {
         this._commentService.addVoiceReplyToComment(this.comment.parentCommentId, url).subscribe(voiceComment => {
           this.commentType = "ItemComment";

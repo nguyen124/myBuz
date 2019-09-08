@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FileUtils } from '../utils/FileUtils';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
-import { IComment } from '../model/comment';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-items',
@@ -18,7 +16,6 @@ export class ItemsComponent implements OnInit {
   currentItem: IItem;
   hasVoted: boolean = false;
 
-  //outline = "col-lg-3 col-md-4 col-xs-6 pb-3"
   constructor(private _itemService: ItemService) {
 
   }
@@ -36,15 +33,19 @@ export class ItemsComponent implements OnInit {
   getItemsCount(): number {
     return this.items.length;
   }
+
   getSeenItemsCount(): number {
     return 0;// this.items.filter(e => e.seen === "seen").length;
   }
+
   getNotSeenItemsCount(): number {
     return 0; //this.items.filter(e => e.viewed === "notSeen").length;
   }
+
   getGlancedItemsCount(): number {
     return 0;// this.items.filter(e => e.viewed === "glanced").length;
   }
+
   onRadioChanged(selectedRadioValue: string) {
     this.selectedRadioValue = selectedRadioValue;
   }

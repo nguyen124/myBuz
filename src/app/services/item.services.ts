@@ -6,13 +6,17 @@ import { Router } from '@angular/router';
 import { IUser } from '../model/user';
 import { IItemUserLog } from '../model/itemUserLog';
 import { IComment } from '../model/comment';
+import { LoggingService } from './system/logging.service';
 
 
 @Injectable()
 export class ItemService {
     user: IUser;
 
-    constructor(private _router: Router, private _http: HttpClient) {
+    constructor(
+        private _router: Router,
+        private _http: HttpClient,
+        private _log: LoggingService) {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -45,7 +49,7 @@ export class ItemService {
                 }
                 item.point += item["extraUpVotePoint"];
                 this.upVoteItem(item._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
                 item["upVotedClass"] = "voted";
             } else {
@@ -54,7 +58,7 @@ export class ItemService {
                 item["extraDownVotePoint"] = 1;
                 item.point--;
                 this.unUpVoteItem(item._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
             }
             item["downVotedClass"] = "";
@@ -72,7 +76,7 @@ export class ItemService {
                 }
                 item.point -= item["extraDownVotePoint"];
                 this.downVoteItem(item._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
                 item["downVotedClass"] = "voted";
             } else {
@@ -81,7 +85,7 @@ export class ItemService {
                 item["downVotedClass"] = "";
                 item.point++;
                 this.unDownVoteItem(item._id, this.user._id).subscribe(res => {
-                    console.log(res);
+                    this._log.log(res);
                 });
             }
             item["upVotedClass"] = "";

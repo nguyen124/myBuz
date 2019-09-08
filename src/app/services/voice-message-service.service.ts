@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as RecordRTC from 'recordrtc';
 import { Subject, Observable } from 'rxjs';
 import * as moment from 'moment'
+import { LoggingService } from './system/logging.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class VoiceMessageServiceService {
   private _recordingTime = new Subject<string>();
   private _recordingFailed = new Subject<string>();
 
-  constructor() { }
+  constructor(private _log: LoggingService) { }
 
   getRecordedTime(): Observable<string> {
     return this._recordingTime.asObservable();
@@ -70,7 +71,7 @@ export class VoiceMessageServiceService {
         1000
       );
     }).catch(function (err) {
-      console.log(err.name, err.message);
+      this._log.log(err.name, err.message);
     });
   }
 

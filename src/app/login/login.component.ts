@@ -41,8 +41,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
-
-    //console.log(form.value.username);
+    this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);    
   }
 }

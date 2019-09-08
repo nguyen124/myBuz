@@ -4,6 +4,7 @@ import { CommentService } from '../services/comment.services';
 import { ItemService } from '../services/item.services';
 import { CommunicateService } from '../services/communicate-service.service';
 import { Subscription } from 'rxjs';
+import { LoggingService } from '../services/system/logging.service';
 
 @Component({
   selector: 'app-comments',
@@ -15,10 +16,13 @@ export class CommentsComponent implements OnInit, OnChanges {
   itemId: string;
   comments: IComment[];
   subscription: Subscription;
-  constructor(private _itemService: ItemService, private _commService: CommunicateService) { }
+  constructor(
+    private _itemService: ItemService,
+    private _commService: CommunicateService,
+    private _log: LoggingService) { }
 
   ngOnInit() {
-    console.log("itemId: " + this.itemId);
+    this._log.log("itemId: " + this.itemId);
     this.subscription = this._commService.newComment$.subscribe((comment: IComment) => {
       if (comment) {
         this.comments.push(comment);
