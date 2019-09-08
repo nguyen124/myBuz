@@ -14,16 +14,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-
   @Input()
   item: IItem;
-  // user: IUser;
-  // itemUserLog: IItemUserLog;
-  // upVotedClass: string;
-  // downVotedClass: string;
-  // extraUpVotePoint: number = 1;
-  // extraDownVotePoint: number = 1;
-  //constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) { }
   constructor(private _commService: CommunicateService, private _authSvc: AuthService, private _itemSvc: ItemService) { }
 
   ngOnInit() {
