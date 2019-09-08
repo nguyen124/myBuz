@@ -3,7 +3,7 @@ import { IComment } from '../model/comment';
 import { IUser } from '../model/user';
 import { ICommentUserLog } from '../model/commentUserLog';
 import { CommentService } from '../services/comment.services';
-import { CommunicateService } from '../services/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate-service.service';
 import { Subscription } from 'rxjs';
 
 @Component({

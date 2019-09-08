@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IItem } from '../model/item';
-import { CommunicateService } from '../services/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate-service.service';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
 import { IComment } from '../model/comment';

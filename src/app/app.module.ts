@@ -18,7 +18,7 @@ import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptorService } from './services/system/error-interceptor.service';
-import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { JwtInterceptorService } from './services/utils/jwt-interceptor.service';
 import { AuthService } from './services/security/auth.service';
 import { RegisterComponent } from './register/register.component';
 import { routing } from './app.routing';
@@ -26,7 +26,7 @@ import { ParentAuthGuard } from './guard/parentGuard';
 import { ChildrenAuthGuard } from './guard/childrenGuard';
 import { ItemComponent } from './item/item.component';
 import { ReactComponent } from './react/react.component';
-import { CommunicateService } from './services/communicate-service.service';
+import { CommunicateService } from './services/utils/communicate-service.service';
 import { CommentService } from './services/comment.services';
 import { CommentComponent } from './comment/comment.component';
 import { VoiceMessageServiceService } from './services/voice-message-service.service'

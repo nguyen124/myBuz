@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
-import { CommunicateService } from '../services/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate-service.service';
 import { AuthService } from '../services/security/auth.service';
 
 @Component({

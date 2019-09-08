@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { CommunicateService } from '../services/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate-service.service';
 import { ItemService } from '../services/item.services';
 import { IItem } from '../model/item';
 import { IComment } from '../model/comment';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from '../services/file.service';
+import { FileService } from '../services/utils/file.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';

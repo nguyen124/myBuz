@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { IComment } from '../model/comment';
 import { ItemService } from '../services/item.services';
-import { CommunicateService } from '../services/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate-service.service';
 import { Subscription } from 'rxjs';
 import { LoggingService } from '../services/system/logging.service';
 

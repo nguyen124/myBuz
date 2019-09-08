@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IItem } from '../model/item';
-import { IComment } from '../model/comment';
+import { IItem } from '../../model/item';
+import { IComment } from '../../model/comment';
 
 @Injectable({
   providedIn: 'root'
