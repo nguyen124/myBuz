@@ -10,12 +10,12 @@ import { IComment } from '../model/comment';
   templateUrl: './itemModal.component.html',
   styleUrls: ['./itemModal.component.css']
 })
-export class ItemModalComponent implements OnInit {  
+export class ItemModalComponent implements OnInit {
   item: IItem;
-  comment:IComment
+  comment: IComment
   @Output()
   onWritingComment: EventEmitter<IComment> = new EventEmitter<IComment>();
-  subScription: Subscription;  
+  subScription: Subscription;
   constructor(private _commService: CommunicateService) { }
 
   ngOnInit() {
@@ -28,7 +28,6 @@ export class ItemModalComponent implements OnInit {
       }
     });
   }
-
 
   ngOnDestroy() {
     this.subScription.unsubscribe();

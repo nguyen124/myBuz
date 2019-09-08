@@ -1,5 +1,5 @@
 <div *ngIf="item" class="modal fade" id="itemDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true" (onShow)="showModal()">
+  aria-hidden="true">
   <div id="myModal" name="myModal" class="modal-dialog modal-large" role="document">
     <div class="modal-content">
       <div class="modal-body pb-0">
@@ -27,9 +27,7 @@
             <app-comments [itemId]="item._id"></app-comments>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>
