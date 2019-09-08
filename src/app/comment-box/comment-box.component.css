@@ -1,6 +1,6 @@
 @media only screen and (min-width: 35.125rem) {
     .pb-cmnt-textarea {
-        resize: none;        
+        resize: none;
         width: 85%;
         border: 0.0625rem solid #F2F2F2;
         margin-bottom: 0.3125rem;
@@ -9,7 +9,7 @@
 
 @media only screen and (max-width: 35.125rem) {
     .pb-cmnt-textarea {
-        resize: none;        
+        resize: none;
         width: 70%;
         border: 0.0625rem solid #F2F2F2;
         margin-bottom: 0.3125rem;
@@ -18,4 +18,17 @@
 
 .red-micro {
     color: red;
+}
+
+.font-10 {
+    font-size: 0.625rem;
+}
+
+.font-8 {
+    font-size: 0.5rem;
+}
+
+.pr-pl-1-px {
+    padding-right: 1px;
+    padding-left: 1px;
 }

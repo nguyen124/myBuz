@@ -12,7 +12,10 @@ import { AuthService } from '../services/security/auth.service';
 export class ItemComponent implements OnInit {
   @Input()
   item: IItem;
-  constructor(private _commService: CommunicateService, private _authSvc: AuthService, private _itemSvc: ItemService) { }
+  constructor(
+    private _commService: CommunicateService,
+    private _authSvc: AuthService,
+    private _itemSvc: ItemService) { }
 
   ngOnInit() {
     this._authSvc.loggingEventEmitter.subscribe(loggingStatus => {
