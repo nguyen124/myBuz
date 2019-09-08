@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { CommunicateService } from '../services/utils/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate.service';
 import { ItemService } from '../services/item.services';
 import { IItem } from '../model/item';
 import { IComment } from '../model/comment';
 import { CommentService } from '../services/comment.services';
-import { VoiceMessageServiceService } from '../services/voice-message-service.service';
+import { VoiceMessageServiceService } from '../services/voice-message.service';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { LoggingService } from '../services/system/logging.service';

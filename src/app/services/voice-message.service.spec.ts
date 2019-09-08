@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VoiceMessageServiceService } from './voice-message-service.service';
+import { VoiceMessageServiceService } from './voice-message.service';
 
 describe('VoiceMessageServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

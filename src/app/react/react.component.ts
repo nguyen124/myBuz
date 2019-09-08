@@ -4,7 +4,7 @@ import { IItemUserLog } from '../model/itemUserLog';
 import { IUser } from '../model/user';
 import { ItemService } from '../services/item.services';
 import { Router } from '@angular/router';
-import { CommunicateService } from '../services/utils/communicate-service.service';
+import { CommunicateService } from '../services/utils/communicate.service';
 
 @Component({
   selector: 'app-react',

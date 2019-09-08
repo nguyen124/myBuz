@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommunicateService } from './communicate-service.service';
+import { CommunicateService } from './communicate.service';
 
 describe('CommunicateServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
