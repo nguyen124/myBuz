@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { IComment } from '../model/comment';
-import { CommentService } from '../services/comment.services';
 import { ItemService } from '../services/item.services';
 import { CommunicateService } from '../services/communicate-service.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +10,7 @@ import { LoggingService } from '../services/system/logging.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit, OnChanges {
+export class CommentsComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   itemId: string;
   comments: IComment[];
@@ -37,6 +36,7 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   ngOnDestroy() {
+    this._log.log("onDestroy CommentsComponent")
     this.subscription.unsubscribe();
   }
 }

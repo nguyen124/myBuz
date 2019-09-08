@@ -4,6 +4,7 @@ import { CommunicateService } from '../services/communicate-service.service';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
 import { IComment } from '../model/comment';
+import { LoggingService } from '../services/system/logging.service';
 
 @Component({
   selector: 'app-itemModal',
@@ -15,7 +16,9 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   comment: IComment
   subScription: Subscription;
 
-  constructor(private _commService: CommunicateService) { }
+  constructor(
+    private _commService: CommunicateService,
+    private _log: LoggingService) { }
 
   ngOnInit() {
     this.subScription = this._commService.currentItemInModal$.subscribe(item => {
@@ -29,7 +32,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
+    this._log.log("destroy");
     this.subScription.unsubscribe();
   }
 }

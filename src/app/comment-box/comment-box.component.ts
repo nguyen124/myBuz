@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CommunicateService } from '../services/communicate-service.service';
 import { ItemService } from '../services/item.services';
 import { IItem } from '../model/item';
@@ -14,16 +14,16 @@ import { LoggingService } from '../services/system/logging.service';
   templateUrl: './comment-box.component.html',
   styleUrls: ['./comment-box.component.css']
 })
-export class CommentBoxComponent implements OnInit {
+export class CommentBoxComponent implements OnInit, OnDestroy {
   @Input()
   item: IItem;
   comment: IComment;
-
   isRecording: boolean;
   isUploading: boolean;
   commentContent: string;
   commentType: string = "ItemComment";
   subscription: Subscription;
+
   constructor(private _itemService: ItemService,
     private _commentService: CommentService,
     private _commService: CommunicateService,
@@ -78,9 +78,6 @@ export class CommentBoxComponent implements OnInit {
         this.uploadVoiceRecord(record);
       });
 
-      // this._voiceService.getRecordedBlob().subscribe((record) => {
-      //   this.uploadVoiceRecord(record);
-      // });
     }
   }
 
@@ -125,6 +122,7 @@ export class CommentBoxComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this._log.log("onDestroy")
     this.subscription.unsubscribe();
   }
 }

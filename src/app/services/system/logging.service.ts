@@ -12,4 +12,5 @@ export class LoggingService {
       console.log(message);
     }
   }
+
 }

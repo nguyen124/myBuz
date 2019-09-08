@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 export class CommentComponent implements OnInit, OnChanges {
   @Input()
   comment: IComment;
-
   user: IUser;
   commentUserLog: ICommentUserLog;
   isShowRepliesClicked: boolean = false;
@@ -30,6 +29,7 @@ export class CommentComponent implements OnInit, OnChanges {
       this.comment.totalReplies = res.totalReplies;
     });;
   }
+
   ngOnChanges(change) {
     if (!this.comment.replies) {
       this.comment.replies = [];
