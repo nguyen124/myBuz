@@ -1,16 +1,17 @@
-<ul>
-  <li *ngFor="let menu of menus">
+<div class="mb-2">
+  <div *ngFor="let menu of menus">
     <a href='#'>{{menu}}</a>
-  </li>
-  <li *ngIf="isLoggedIn">
-    <app-upload></app-upload>
-  </li>
-  <li *ngIf="!isLoggedIn">
+  </div>
+  <div *ngIf="!currentUser">
     <a href="/login">Login</a>
-  </li>
-  <li *ngIf="isLoggedIn">
-    <a href="" (click)="logOut()">Logout</a>
-  </li>
+  </div>
+  <div *ngIf="currentUser">
+    <app-upload></app-upload>
+    <div class="d-inline">
+      <a href="" (click)="logOut()" class="mr-2">Logout</a>
+      <a href="/users/{{currentUser.userName}}/items">Your Posts</a>
+    </div>
+  </div>
   <!-- <input [(ngModel)]='name'/>
   You Enter: {{name}} -->
-</ul>
+</div>

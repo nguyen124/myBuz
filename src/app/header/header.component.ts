@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/security/auth.service';
+import { IUser } from '../model/user';
 
 @Component({
   selector: 'app-header',
@@ -8,19 +9,14 @@ import { AuthService } from '../services/security/auth.service';
 })
 export class HeaderComponent implements OnInit {
   menus = [];
-  isLoggedIn: boolean = false;
+  currentUser: IUser = undefined;
 
   constructor(private _authSvc: AuthService) {
 
   }
 
   ngOnInit() {
-    this._authSvc.loggingEventEmitter.subscribe(loggingStatus => {
-      this.isLoggedIn = loggingStatus;
-    })
-    if (localStorage.getItem('currentUser')) {
-      this.isLoggedIn = true;
-    }
+    this.currentUser = this._authSvc.currentUser;
   }
 
   logOut() {

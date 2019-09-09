@@ -66,7 +66,7 @@ export class UploadComponent implements OnInit {
             "point": 0,
             "seen": 0,
             "share": 0,
-            "comment": 0
+            "noOfComment": 0
           }
           this._itemService.createItem(this.item).subscribe(res => {
             this._log.log(res);

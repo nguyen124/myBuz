@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FileUtils } from '../utils/FileUtils';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
@@ -10,6 +10,7 @@ import { ItemService } from '../services/item.services';
 })
 export class ItemsComponent implements OnInit {
   filterType: string;
+  @Input()
   items: IItem[];
   selectedRadioValue: string = "all";
   showWaitingMessage = false;

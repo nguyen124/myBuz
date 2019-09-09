@@ -98,6 +98,10 @@ export class ItemService {
         return this._http.get<IItem[]>("/svc/items");
     }
 
+    getItemsOfUser(userId: String): any {
+        return this._http.get<IItem[]>("/svc/users/" + userId + "/items");
+    }
+
     getCommentsOfItem(itemId: string): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
     }
@@ -163,4 +167,5 @@ export class ItemService {
     createItem(item: IItem) {
         return this._http.post("/svc/items", item);
     }
+
 }

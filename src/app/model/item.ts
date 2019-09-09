@@ -12,7 +12,7 @@ export interface IItem {
   point?: number;
   seen?: number;
   share?: number;
-  comment?: number;
+  noOfComment?: number;
   status?: string;
   isAdult?: boolean;
   isSafeAtWork?: boolean;

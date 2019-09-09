@@ -16,6 +16,7 @@ export class ReactComponent implements OnInit {
   item: IItem;
   user: IUser;
   itemUserLog: IItemUserLog;
+  
   constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) {
   }
 

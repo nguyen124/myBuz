@@ -34,6 +34,7 @@ import { CommentReactComponent } from './comment-react/comment-react.component';
 import { FocusDirective } from './focus.directive';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { UploadComponent } from './upload/upload.component';
+import { MyItemsComponent } from './my-items/my-items.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { UploadComponent } from './upload/upload.component';
     UploadComponent,
     UserComponent,
     ReactComponent,
-    RegisterComponent
+    RegisterComponent,
+    MyItemsComponent
   ],
   imports: [
     BrowserModule,

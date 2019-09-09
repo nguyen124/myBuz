@@ -18,11 +18,9 @@ export class ItemComponent implements OnInit {
     private _itemSvc: ItemService) { }
 
   ngOnInit() {
-    this._authSvc.loggingEventEmitter.subscribe(loggingStatus => {
-      if (loggingStatus) {
-        this._itemSvc.getItemInfo(this.item);
-      }
-    });
+    if (this._authSvc.currentUser) {
+      this._itemSvc.getItemInfo(this.item);
+    }
   }
 
   showItemModal() {
