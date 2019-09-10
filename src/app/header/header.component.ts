@@ -1,26 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/security/auth.service';
 import { IUser } from '../model/user';
+import { Subscription } from 'rxjs';
+import { CommunicateService } from '../services/utils/communicate.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   menus = [];
   currentUser: IUser = undefined;
+  subscription: Subscription;
 
-  constructor(private _authSvc: AuthService) {
+  constructor(private _authSvc: AuthService, private _commSvc: CommunicateService) {
 
   }
 
   ngOnInit() {
-    this.currentUser = this._authSvc.currentUser;
+    this.subscription = this._commSvc.currentUser$.subscribe((user: IUser) => {
+      this.currentUser = user;
+    });
   }
 
   logOut() {
     this._authSvc.logOut();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

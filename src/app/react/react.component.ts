@@ -5,6 +5,7 @@ import { IUser } from '../model/user';
 import { ItemService } from '../services/item.services';
 import { Router } from '@angular/router';
 import { CommunicateService } from '../services/utils/communicate.service';
+import { AuthService } from '../services/security/auth.service';
 
 @Component({
   selector: 'app-react',
@@ -16,12 +17,12 @@ export class ReactComponent implements OnInit {
   item: IItem;
   user: IUser;
   itemUserLog: IItemUserLog;
-  
-  constructor(private _router: Router, private _itemService: ItemService, private _commService: CommunicateService) {
+
+  constructor(private _authSvc: AuthService, private _itemService: ItemService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = this._authSvc.currentUser$;
     this._itemService.getItemInfo(this.item);
   }
 

@@ -7,6 +7,7 @@ import { IUser } from '../model/user';
 import { IItemUserLog } from '../model/itemUserLog';
 import { IComment } from '../model/comment';
 import { LoggingService } from './system/logging.service';
+import { AuthService } from './security/auth.service';
 
 
 @Injectable()
@@ -16,12 +17,12 @@ export class ItemService {
     constructor(
         private _router: Router,
         private _http: HttpClient,
-        private _log: LoggingService) {
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
+        private _log: LoggingService,
+        private _authSvc: AuthService) {
+        this.user = this._authSvc.currentUser;
     }
 
     getItemInfo(comment: IItem): void {
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
         if (this.user) {
             this.getItemUserLog(comment._id, this.user._id).subscribe((commentUserLog: IItemUserLog) => {
                 if (commentUserLog) {

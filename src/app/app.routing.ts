@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     { path: 'admin', component: AdminComponent, canActivate: [ParentAuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'users/:userId/items', component: MyItemsComponent },
+    { path: 'users/:userId/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

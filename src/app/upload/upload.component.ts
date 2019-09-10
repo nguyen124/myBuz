@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from '../services/utils/file.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { IItem } from '../model/item';
 import { ItemService } from '../services/item.services';
 import { LoggingService } from '../services/system/logging.service';
+import { AuthService } from '../services/security/auth.service';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -23,8 +23,9 @@ export class UploadComponent implements OnInit {
   category: string = "";
   description: string = "";
   constructor(
-    private _log: LoggingService, 
-    private _itemService: ItemService, 
+    private _log: LoggingService,
+    private _itemService: ItemService,
+    private _authSvc: AuthService,
     private http: HttpClient) { }
 
   ngOnInit() {
@@ -62,7 +63,7 @@ export class UploadComponent implements OnInit {
             "url": event.body["fileLocation"],
             "thumbnail": "../../assets/image/img1.JPG",
             "modifiedDate": (new Date().getTime()),
-            "createdBy": JSON.parse(localStorage.getItem('currentUser')),
+            "createdBy": this._authSvc.currentUser,
             "point": 0,
             "seen": 0,
             "share": 0,
@@ -76,10 +77,4 @@ export class UploadComponent implements OnInit {
     }
     this._log.log("create post");
   }
-  // postFile(fileToUpload: File): Observable<any> {
-  //   const endpoint = '';
-  //   const formData: FormData = new FormData();
-  //   formData.append('fileKey', fileToUpload, fileToUpload.name);
-  //   return this._http.post(endpoint, formData, { headers:  });
-  // }
 }

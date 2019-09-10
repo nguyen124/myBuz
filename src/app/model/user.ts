@@ -1,11 +1,11 @@
 export interface IUser {
     _id: string;
-    email: string;
-    userName: string;
-    avatar: string;
-    password: string;
-    joinedDate: string,
+    email?: string;
+    userName?: string;
+    avatar?: string;
+    password?: string;
+    joinedDate?: string,
     rank?: string;
     status?: string;
-    follower?: number;
+    noOfFollowers?: number;    
 }

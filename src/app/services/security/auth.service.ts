@@ -1,8 +1,8 @@
-import { Injectable, EventEmitter, Output, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { IUser } from 'src/app/model/user';
-import { LoggingService } from '../system/logging.service';
+import { CommunicateService } from '../utils/communicate.service';
 
 
 // The auth guard is used to prevent unauthenticated users from accessing restricted routes, in this example it's used in app.routing.ts to protect the home page route. For more information about angular 2 guards you can check out this post on the thoughtram blog.
@@ -14,25 +14,47 @@ import { LoggingService } from '../system/logging.service';
 })
 export class AuthService {
   currentUser: IUser = undefined;
+  jwtToken: String = undefined;
 
   constructor(
     private _router: Router,
     private _http: HttpClient,
-    private _log: LoggingService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    private _commSvc: CommunicateService) {
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+      this.setNewUser(JSON.parse(localStorage.getItem('currentUser')));
+    }
+  }
+
+  setNewUser(user) {
+    this.currentUser = user;
+    this._commSvc.changeUser(user);
   }
 
   logOut() {
-    localStorage.removeItem('currentUser');
-    this.currentUser = undefined;
+    this.setNewUser(undefined);
+    this.jwtToken = undefined;
+
+    localStorage.removeItem('jwtToken');
   }
 
   logIn(username: String, password: String, returnUrl: String) {
 
-    return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(user => {
-      if (user && user.token) {
-        this.currentUser = user;
-        localStorage.setItem('currentUser', JSON.stringify(user));
+    return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(res => {
+      if (res && res.jwtToken) {
+        let user = {
+          _id: res._id,
+          avatar: res.avatar,
+          userName: res.userName,
+          noOfFollowers: res.noOfFollowers,
+          rank: res.rank,
+          joinedDate: res.joinedDate,
+          status: res.status
+        };
+        this.jwtToken = res.jwtToken;
+        this.setNewUser(user);
+        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        localStorage.setItem('jwtToken', res.jwtToken);
         this._router.navigate([returnUrl]);
       }
     })

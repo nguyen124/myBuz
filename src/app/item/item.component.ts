@@ -14,13 +14,10 @@ export class ItemComponent implements OnInit {
   item: IItem;
   constructor(
     private _commService: CommunicateService,
-    private _authSvc: AuthService,
     private _itemSvc: ItemService) { }
 
   ngOnInit() {
-    if (this._authSvc.currentUser) {
-      this._itemSvc.getItemInfo(this.item);
-    }
+    this._itemSvc.getItemInfo(this.item);
   }
 
   showItemModal() {

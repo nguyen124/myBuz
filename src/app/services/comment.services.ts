@@ -6,6 +6,7 @@ import { IUser } from '../model/user';
 import { Router } from '@angular/router';
 import { ICommentUserLog } from '../model/commentUserLog';
 import { LoggingService } from './system/logging.service';
+import { AuthService } from './security/auth.service';
 
 
 @Injectable()
@@ -15,12 +16,12 @@ export class CommentService {
     constructor(
         private _router: Router,
         private _http: HttpClient,
-        private _log: LoggingService) {
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
+        private _log: LoggingService,
+        private _authSvc: AuthService) {
+        this.user = this._authSvc.currentUser;
     }
 
     getCommentInfo(comment: IComment): void {
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
         if (this.user) {
             this.getCommentUserLog(comment._id, this.user._id).subscribe((commentUserLog: ICommentUserLog) => {
                 if (commentUserLog) {
