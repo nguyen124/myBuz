@@ -35,6 +35,7 @@ import { FocusDirective } from './focus.directive';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { UploadComponent } from './upload/upload.component';
 import { MyItemsComponent } from './my-items/my-items.component';
+import { JQ_TOKEN } from './shared/services/jQuery.service';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MyItemsComponent } from './my-items/my-items.component';
     ParentAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    { provide: JQ_TOKEN, useValue: jQuery },
   ],
   bootstrap: [AppComponent]
 })

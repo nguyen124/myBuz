@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
-import * as $ from 'jquery';
 import { IComment } from '../shared/model/comment';
 import { LoggingService } from '../shared/services/system/logging.service';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-itemModal',
@@ -18,7 +18,8 @@ export class ItemModalComponent implements OnInit, OnDestroy {
 
   constructor(
     private _commService: CommunicateService,
-    private _log: LoggingService) { }
+    private _log: LoggingService,
+    @Inject(JQ_TOKEN) private $ : any) { }
 
   ngOnInit() {
     this.subScription = this._commService.currentItemInModal$.subscribe(item => {
