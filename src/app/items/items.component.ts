@@ -36,15 +36,15 @@ export class ItemsComponent implements OnInit {
   }
 
   getSeenItemsCount(): number {
-    return 0;// this.items.filter(e => e.seen === "seen").length;
+    return 0;
   }
 
   getNotSeenItemsCount(): number {
-    return 0; //this.items.filter(e => e.viewed === "notSeen").length;
+    return 0;
   }
 
   getGlancedItemsCount(): number {
-    return 0;// this.items.filter(e => e.viewed === "glanced").length;
+    return 0;
   }
 
   onRadioChanged(selectedRadioValue: string) {

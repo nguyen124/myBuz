@@ -33,7 +33,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._log.log("destroy");
+    this._log.log("Modal destroy");
     this.subScription.unsubscribe();
   }
 }
