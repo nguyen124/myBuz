@@ -20,6 +20,7 @@ import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptorService } from './shared/services/system/error-interceptor.service';
 import { JwtInterceptorService } from './shared/services/utils/jwt-interceptor.service';
 import { AuthService } from './shared/services/security/auth.service';
+//import { Auth0Service } from './shared/services/security/auth0.service';
 import { RegisterComponent } from './register/register.component';
 import { routing } from './app.routing';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
@@ -36,6 +37,7 @@ import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { UploadComponent } from './upload/upload.component';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { JQ_TOKEN } from './shared/services/jQuery.service';
+let jQuery: any = window['$'];
 
 @NgModule({
   declarations: [
@@ -72,6 +74,7 @@ import { JQ_TOKEN } from './shared/services/jQuery.service';
   ],
   providers: [
     AuthService,
+    //Auth0Service,
     CommunicateService,
     CommentService,
     ChildrenAuthGuard,

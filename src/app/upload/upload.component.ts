@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { AuthService } from '../shared/services/security/auth.service';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -26,7 +28,8 @@ export class UploadComponent implements OnInit {
     private _log: LoggingService,
     private _itemService: ItemService,
     private _authSvc: AuthService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    @Inject(JQ_TOKEN) private $ : any) { }
 
   ngOnInit() {
 
@@ -34,10 +37,11 @@ export class UploadComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.uploadedFile = <File>files.item(0);
+    let that = this;
     if (this.uploadedFile) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        $("#previewImg").attr('src', e.target["result"]).width(150).height(200);
+        that.$("#previewImg").attr('src', e.target["result"]).width(150).height(200);
       }
       reader.readAsDataURL(this.uploadedFile);
     }

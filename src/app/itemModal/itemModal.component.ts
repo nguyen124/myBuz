@@ -19,14 +19,14 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   constructor(
     private _commService: CommunicateService,
     private _log: LoggingService,
-    @Inject(JQ_TOKEN) private $ : any) { }
+    @Inject(JQ_TOKEN) private $: any) { }
 
   ngOnInit() {
     this.subScription = this._commService.currentItemInModal$.subscribe(item => {
       if (item) {
         this.item = item;
         setTimeout(() => {
-          $("#txtReplyBox").focus();
+          this.$("#txtReplyBox").focus();
         }, 500);
       }
     });

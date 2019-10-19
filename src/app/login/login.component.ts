@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/security/auth.service';
+//import { Auth0Service } from '../shared/services/security/auth0.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);    
+    this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
   }
+
+  // loginWithGoogle() {
+  //   this._auth0Service.logIn();
+  // }
 }
