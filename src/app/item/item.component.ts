@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IItem } from '../model/item';
-import { ItemService } from '../services/item.services';
-import { CommunicateService } from '../services/utils/communicate.service';
-import { AuthService } from '../services/security/auth.service';
+import { IItem } from '../shared/model/item';
+import { ItemService } from '../shared/services/item.services';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 @Component({
   selector: 'app-item',

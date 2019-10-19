@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IItem } from '../../model/item';
 import { IComment } from '../../model/comment';
-import { IUser } from 'src/app/model/user';
+import { IUser } from '../../model/user';
 
 @Injectable({
   providedIn: 'root'

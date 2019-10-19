@@ -1,7 +1,4 @@
-<!-- <div *ngIf="items && items.length !=0"><input [(ngModel)]='filterType' placeholder="Enter your filter" /></div> -->
-<!-- <app-filter *ngIf="items" [all]="getItemsCount()" (radionSelectionChanged)="onRadioChanged($event)"></app-filter><br><br> -->
 <div class="row text-lg-left">
-  <!-- <div *ngFor="let item of items; trackBy:trackByItemCode; let i=index; let isFirst=first; let isLast=last" class="col-lg-3 col-md-4 col-xs-6"> -->
   <ng-container *ngFor="let item of items;">
     <div *ngIf="selectedRadioValue === 'all'" class="col-lg-3 col-md-4 col-xs-6 pb-3">
       <app-item [item]="item"></app-item>

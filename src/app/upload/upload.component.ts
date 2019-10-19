@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { IItem } from '../model/item';
-import { ItemService } from '../services/item.services';
-import { LoggingService } from '../services/system/logging.service';
-import { AuthService } from '../services/security/auth.service';
+import { IItem } from '../shared/model/item';
+import { ItemService } from '../shared/services/item.services';
+import { LoggingService } from '../shared/services/system/logging.service';
+import { AuthService } from '../shared/services/security/auth.service';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',

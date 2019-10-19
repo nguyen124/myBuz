@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../services/security/auth.service';
-import { IUser } from '../model/user';
+import { AuthService } from '../shared/services/security/auth.service';
+import { IUser } from '../shared/model/user';
 import { Subscription } from 'rxjs';
-import { CommunicateService } from '../services/utils/communicate.service';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 @Component({
   selector: 'app-header',

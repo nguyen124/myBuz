@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IItem } from '../model/item';
-import { CommunicateService } from '../services/utils/communicate.service';
+import { IItem } from '../shared/model/item';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
-import { IComment } from '../model/comment';
-import { LoggingService } from '../services/system/logging.service';
+import { IComment } from '../shared/model/comment';
+import { LoggingService } from '../shared/services/system/logging.service';
 
 @Component({
   selector: 'app-itemModal',

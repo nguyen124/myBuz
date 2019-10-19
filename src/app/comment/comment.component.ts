@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { IComment } from '../model/comment';
-import { IUser } from '../model/user';
-import { ICommentUserLog } from '../model/commentUserLog';
-import { CommentService } from '../services/comment.services';
-import { CommunicateService } from '../services/utils/communicate.service';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { IComment } from '../shared/model/comment';
+import { IUser } from '../shared/model/user';
+import { ICommentUserLog } from '../shared/model/commentUserLog';
+import { CommentService } from '../shared/services/comment.services';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IComment } from '../model/comment';
-import { IUser } from '../model/user';
-import { CommentService } from '../services/comment.services';
-import { CommunicateService } from '../services/utils/communicate.service';
-import { ICommentUserLog } from '../model/commentUserLog';
+import { Component, OnInit, Input } from '@angular/core';
+import { IComment } from '../shared/model/comment';
+import { IUser } from '../shared/model/user';
+import { CommentService } from '../shared/services/comment.services';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { ICommentUserLog } from '../shared/model/commentUserLog';
 
 @Component({
   selector: 'app-comment-react',

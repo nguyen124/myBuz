@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
-import { ParentAuthGuard } from './guard/parentGuard';
+import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
 
 const appRoutes: Routes = [

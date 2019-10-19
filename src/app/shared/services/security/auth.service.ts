@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/model/user';
+import { IUser } from '../../model/user';
 import { CommunicateService } from '../utils/communicate.service';
 
 

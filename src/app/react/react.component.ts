@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IItem } from '../model/item';
-import { IItemUserLog } from '../model/itemUserLog';
-import { IUser } from '../model/user';
-import { ItemService } from '../services/item.services';
-import { Router } from '@angular/router';
-import { CommunicateService } from '../services/utils/communicate.service';
-import { AuthService } from '../services/security/auth.service';
+import { IItem } from '../shared/model/item';
+import { IItemUserLog } from '../shared/model/itemUserLog';
+import { IUser } from '../shared/model/user';
+import { ItemService } from '../shared/services/item.services';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { AuthService } from '../shared/services/security/auth.service';
 
 @Component({
   selector: 'app-react',
@@ -22,7 +21,7 @@ export class ReactComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this._authSvc.currentUser$;
+    this.user = this._authSvc.currentUser;
     this._itemService.getItemInfo(this.item);
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IItem } from '../model/item';
-import { ItemService } from '../services/item.services';
-import { IUser } from '../model/user';
-import { AuthService } from '../services/security/auth.service';
+import { IItem } from '../shared/model/item';
+import { ItemService } from '../shared/services/item.services';
+import { IUser } from '../shared/model/user';
+import { AuthService } from '../shared/services/security/auth.service';
 
 @Component({
   selector: 'app-my-items',

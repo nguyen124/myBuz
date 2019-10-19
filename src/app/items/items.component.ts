@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FileUtils } from '../utils/FileUtils';
-import { IItem } from '../model/item';
-import { ItemService } from '../services/item.services';
+import { IItem } from '../shared/model/item';
+import { ItemService } from '../shared/services/item.services';
 
 @Component({
   selector: 'app-items',

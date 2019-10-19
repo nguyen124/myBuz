@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { CommunicateService } from '../services/utils/communicate.service';
-import { ItemService } from '../services/item.services';
-import { IItem } from '../model/item';
-import { IComment } from '../model/comment';
-import { CommentService } from '../services/comment.services';
-import { VoiceMessageServiceService } from '../services/voice-message.service';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { ItemService } from '../shared/services/item.services';
+import { IItem } from '../shared/model/item';
+import { IComment } from '../shared/model/comment';
+import { CommentService } from '../shared/services/comment.services';
+import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { LoggingService } from '../services/system/logging.service';
+import { LoggingService } from '../shared/services/system/logging.service';
 
 @Component({
   selector: 'app-comment-box',
