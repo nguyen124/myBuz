@@ -8,7 +8,7 @@ export class ChildrenAuthGuard implements CanActivateChild {
     constructor(private _router: Router, private _authSvc: AuthService) { }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this._authSvc.currentUser) {
+        if (this._authSvc.isLoggedIn) {
             return true;
         }
 

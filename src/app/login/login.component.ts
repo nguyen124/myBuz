@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
     })
     // reset login status
     this._authService.logOut();
-    // get return url from route parameters or default to home 
-
   }
 
   // convenience getter fro easy access to from fields

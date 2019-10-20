@@ -14,14 +14,14 @@ import { AuthService } from '../shared/services/security/auth.service';
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
-  user: IUser;
+  //user: IUser;
   itemUserLog: IItemUserLog;
 
   constructor(private _authSvc: AuthService, private _itemService: ItemService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
-    this.user = this._authSvc.currentUser;
+  
     this._itemService.getItemInfo(this.item);
   }
 

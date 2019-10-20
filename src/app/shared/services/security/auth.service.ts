@@ -2,37 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { IUser } from '../../model/user';
-import { CommunicateService } from '../utils/communicate.service';
-
-// The auth guard is used to prevent unauthenticated users from accessing restricted routes, in this example it's used in app.routing.ts to protect the home page route. For more information about angular 2 guards you can check out this post on the thoughtram blog.
-
-// NOTE: While technically it's possible to bypass this client side authentication check by manually adding a 'currentUser' object to local storage using browser dev tools, this would only give access to the client side routes/components, it wouldn't give access to any real secure data from the server api because a valid authentication token (JWT) is required for this.
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: IUser = undefined;
-  jwtToken: String = undefined;
-
+  loggedIn: boolean;
+  user: IUser;
   constructor(
     private _router: Router,
-    private _http: HttpClient,
-    private _commSvc: CommunicateService) {
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-      this.setNewUser(JSON.parse(localStorage.getItem('currentUser')));
-    }
+    private _http: HttpClient) {
+    const currentUser = localStorage.getItem('currentUser');
+    this.user = JSON.parse(currentUser);
   }
 
-  setNewUser(user) {
-    this.currentUser = user;
-    this._commSvc.changeUser(user);
-  }
 
   logOut() {
-    this.setNewUser(undefined);
-    localStorage.removeItem('jwtToken');
+    this.user = null;
+    localStorage.removeItem('currentUser');
   }
 
   logIn(username: String, password: String, returnUrl: String) {
@@ -44,8 +31,12 @@ export class AuthService {
     })
   }
 
+  isLoggedIn() {
+    return this.user && this.user.accessToken;
+  }
+
   persist(res: any) {
-    let user = {
+    this.user = {
       _id: res._id,
       email: res.email,
       avatar: res.avatar,
@@ -58,9 +49,7 @@ export class AuthService {
       rank: res.rank,
       status: res.status
     };
-    this.setNewUser(user);
-    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-    localStorage.setItem('jwtToken', res.user.accessToken);
+    localStorage.setItem('currentUser', JSON.stringify(this.user));
   }
 
   loginWithGoogle(returnUrl: String) {

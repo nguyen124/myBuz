@@ -19,7 +19,7 @@ export class ItemService {
         private _http: HttpClient,
         private _log: LoggingService,
         private _authSvc: AuthService) {
-        this.user = this._authSvc.currentUser;
+        this.user = this._authSvc.user;
     }
 
     getItemInfo(comment: IItem): void {

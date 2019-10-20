@@ -2,14 +2,14 @@
   <div *ngFor="let menu of menus">
     <a href='#'>{{menu}}</a>
   </div>
-  <div *ngIf="!currentUser">
+  <div *ngIf="!_authSvc.isLoggedIn()">
     <a href="/login">Login</a>
   </div>
-  <div *ngIf="currentUser">
+  <div *ngIf="_authSvc.isLoggedIn()">
     <app-upload></app-upload>
     <div class="d-inline">
       <a href="" (click)="logOut()" class="mr-2">Logout</a>
-      <a href="/users/{{currentUser.userName}}/items">Your Posts</a>
+      <a href="/users/{{_authSvc.user.userName}}/items">Your Posts</a>
     </div>
   </div>
   <!-- <input [(ngModel)]='name'/>

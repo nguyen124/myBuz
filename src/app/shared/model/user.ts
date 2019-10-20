@@ -7,5 +7,9 @@ export interface IUser {
     joinedDate?: string,
     rank?: string;
     status?: string;
-    noOfFollowers?: number;    
+    noOfFollowers?: number;
+    accessToken?: string;
+    googleId?: string;
+    familyName?: string;
+    givenName?: string;
 }

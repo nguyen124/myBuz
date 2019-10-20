@@ -11,19 +11,14 @@ import { AuthService } from '../shared/services/security/auth.service';
 })
 export class MyItemsComponent implements OnInit {
   items: IItem[];
-  currentUser: IUser = undefined;
-
-  constructor(private _itemSvc: ItemService, private _authSvc: AuthService) {
-
+  
+  constructor(private _itemSvc: ItemService, private _authSvc: AuthService) {  
   }
 
   ngOnInit() {
-    this.currentUser = this._authSvc.currentUser;
-
-    this._itemSvc.getItemsOfUser(this.currentUser.userName).subscribe(
+    this._itemSvc.getItemsOfUser(this._authSvc.user.email).subscribe(
       (items) => {
         this.items = items;
       });
   }
-
 }

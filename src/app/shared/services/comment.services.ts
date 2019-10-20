@@ -18,7 +18,7 @@ export class CommentService {
         private _http: HttpClient,
         private _log: LoggingService,
         private _authSvc: AuthService) {
-        this.user = this._authSvc.currentUser;
+        this.user = this._authSvc.user;
     }
 
     getCommentInfo(comment: IComment): void {

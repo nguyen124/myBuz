@@ -29,7 +29,7 @@ export class UploadComponent implements OnInit {
     private _itemService: ItemService,
     private _authSvc: AuthService,
     private http: HttpClient,
-    @Inject(JQ_TOKEN) private $ : any) { }
+    @Inject(JQ_TOKEN) private $: any) { }
 
   ngOnInit() {
 
@@ -67,12 +67,13 @@ export class UploadComponent implements OnInit {
             "url": event.body["fileLocation"],
             "thumbnail": "../../assets/image/img1.JPG",
             "modifiedDate": (new Date().getTime()),
-            "createdBy": this._authSvc.currentUser,
+            "createdBy": this._authSvc.user,
             "point": 0,
             "seen": 0,
             "share": 0,
             "noOfComment": 0
           }
+
           this._itemService.createItem(this.item).subscribe(res => {
             this._log.log(res);
           });

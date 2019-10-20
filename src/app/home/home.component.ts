@@ -10,10 +10,16 @@ import { AuthService } from '../shared/services/security/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _auth: AuthService) {
-    this._route.queryParams.subscribe(params => {
-      var user = params["user"];
-      this._auth.persist(user);
-    });
+    if (_route.queryParams) {
+      _route.queryParams.subscribe(params => {
+        var param = params["user"];
+        if (param) {
+          var user = JSON.parse(param);
+          _auth.persist(user);
+        }
+      });
+    }
+
   }
 
   ngOnInit() {
