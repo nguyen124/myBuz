@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/security/auth.service';
+
 //import { Auth0Service } from '../shared/services/security/auth0.service';
 @Component({
   selector: 'app-login',
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
     this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
   }
 
-  // loginWithGoogle() {
-  //   this._auth0Service.logIn();
-  // }
+  loginWithGoogle() {
+    this._authService.loginWithGoogle();
+  }
 }
