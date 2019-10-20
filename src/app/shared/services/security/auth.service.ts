@@ -32,38 +32,39 @@ export class AuthService {
 
   logOut() {
     this.setNewUser(undefined);
-    this.jwtToken = undefined;
-
     localStorage.removeItem('jwtToken');
   }
 
   logIn(username: String, password: String, returnUrl: String) {
-
     return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(res => {
-      if (res && res.jwtToken) {
-        let user = {
-          _id: res._id,
-          avatar: res.avatar,
-          userName: res.userName,
-          noOfFollowers: res.noOfFollowers,
-          rank: res.rank,
-          joinedDate: res.joinedDate,
-          status: res.status
-        };
-        this.jwtToken = res.jwtToken;
-        this.setNewUser(user);
-        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-        localStorage.setItem('jwtToken', res.jwtToken);
+      if (res) {
+        this.persist(res);
         this._router.navigate([returnUrl]);
       }
     })
   }
 
-  loginWithGoogle() {
-    window.open('http://localhost:3000/svc/users/google/auth', "mywindow", "location=1,status=1,scrollbars=1, width=800,height=800");
-    let listener = window.addEventListener('message', (message) => {
-      console.log(message);
-    });
+  persist(res: any) {
+    let user = {
+      _id: res._id,
+      email: res.email,
+      avatar: res.avatar,
+      userName: res.userName,
+      familyName: res.familyName,
+      givenName: res.givenName,
+      joinedDate: res.joinedDate,
+      accessToken: res.accessToken,
+      noOfFollowers: res.noOfFollowers,
+      rank: res.rank,
+      status: res.status
+    };
+    this.setNewUser(user);
+    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    localStorage.setItem('jwtToken', res.user.accessToken);
+  }
+
+  loginWithGoogle(returnUrl: String) {
+    window.location.href = 'http://localhost:3000/svc/users/google/auth';
   };
 }
 
