@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
+    //this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
+    this._authService.localLogIn(this.f.username.value, this.f.password.value);
   }
 
   loginWithGoogle() {

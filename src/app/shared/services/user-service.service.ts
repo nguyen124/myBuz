@@ -10,6 +10,8 @@ export class UserService {
   constructor(private _http: HttpClient) { }
 
   register(user: any): any {
-    this._http.post( "/svc/users/register", user);
+    return this._http.post<any>("/svc/users/signup", user).subscribe(res => {
+      console.log(res);
+    });
   }
 }

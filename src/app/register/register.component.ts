@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this._formBuilder.group({
       nickname: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(6)]
+      password: ['', Validators.required]
     })
   }
 
@@ -27,10 +27,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.registerForm.invalid) {
-      return;
-    }
-    this.loading = true;
+    // if (this.registerForm.invalid) {
+    //   return;
+    // }
+    // this.loading = true;
     this._userService.register(this.registerForm.value);
   }
 }

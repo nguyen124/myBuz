@@ -31,6 +31,11 @@ export class AuthService {
     })
   }
 
+  localLogIn(username: String, password: String) {
+    return this._http.post<any>('/svc/users/local/auth', { email: username, password: password }).subscribe(res => {
+      console.log(res);
+    })
+  }
   isLoggedIn() {
     return this.user && this.user.accessToken;
   }
