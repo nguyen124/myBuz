@@ -37,6 +37,7 @@ import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { UploadComponent } from './upload/upload.component';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { JQ_TOKEN } from './shared/services/jQuery.service';
+import { UserHomeComponent } from './user-home/user-home.component';
 let jQuery: any = window['$'];
 
 @NgModule({
@@ -62,7 +63,8 @@ let jQuery: any = window['$'];
     UserComponent,
     ReactComponent,
     RegisterComponent,
-    MyItemsComponent
+    MyItemsComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,

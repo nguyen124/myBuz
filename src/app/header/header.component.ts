@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../shared/services/security/auth.service';
-import { IUser } from '../shared/model/user';
-import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +8,20 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  menus = [];  
+  menus = [];
 
-  constructor(public _authSvc: AuthService, private _commSvc: CommunicateService) {
+  constructor(public _authSvc: AuthService, private _router: Router) {
 
   }
 
-  ngOnInit() { 
+  ngOnInit() {
   }
 
-  logOut() {
-    this._authSvc.logOut();
+  logout() {
+    this._authSvc.logout().subscribe(
+      data => { console.log(data); this._router.navigate(["/"]) },
+      err => { console.log(err) }
+    );
   }
 
   ngOnDestroy() {

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { IUser } from '../../model/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,6 @@ export class AuthService {
     this.user = JSON.parse(currentUser);
   }
 
-
-  logOut() {
-    this.user = null;
-    localStorage.removeItem('currentUser');
-  }
-
   logIn(username: String, password: String, returnUrl: String) {
     return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(res => {
       if (res) {
@@ -31,11 +26,14 @@ export class AuthService {
     })
   }
 
-  localLogIn(username: String, password: String) {
-    return this._http.post<any>('/svc/users/local/auth', { email: username, password: password }).subscribe(res => {
-      console.log(res);
-    })
+  localLogIn(username: String, password: String): Observable<any> {
+    return this._http.post<any>('/svc/auth/local', { email: username, password: password }, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
   }
+
   isLoggedIn() {
     return this.user && this.user.accessToken;
   }
@@ -58,7 +56,15 @@ export class AuthService {
   }
 
   loginWithGoogle(returnUrl: String) {
-    window.location.href = 'http://localhost:3000/svc/users/google/auth';
+    window.location.href = 'http://localhost:3000/svc/auth/google';
   };
+
+  logout() {
+    return this._http.get("/svc/logout", {
+      observe: "body",
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    })
+  }
 }
 

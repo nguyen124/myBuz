@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IUser } from '../model/user';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -9,9 +11,15 @@ export class UserService {
 
   constructor(private _http: HttpClient) { }
 
-  register(user: any): any {
-    return this._http.post<any>("/svc/users/signup", user).subscribe(res => {
-      console.log(res);
-    });
+  register(user: IUser): Observable<any> {
+    return this._http.post("/svc/signup", user);
+  }
+
+  user() {
+    return this._http.get("/svc/user", {
+      observe: "body",
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    })
   }
 }

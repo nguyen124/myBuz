@@ -6,10 +6,12 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'admin', component: AdminComponent, canActivate: [ParentAuthGuard] },
+    { path: 'user', component: UserComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'users/:userId/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },

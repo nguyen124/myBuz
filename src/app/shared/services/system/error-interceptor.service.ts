@@ -8,15 +8,15 @@ import { AuthService } from '../security/auth.service';
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private _authService: AuthService) { }
+  constructor(private _authSvc: AuthService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 401) {
-        this._authService.logOut();
+        this._authSvc.logout();
         location.reload(true);
       }
-      const error = err.error.message || err.status;
+      const error = err.message || err.status;
       return throwError(error);
     }))
   }

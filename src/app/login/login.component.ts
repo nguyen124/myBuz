@@ -15,7 +15,11 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  constructor(private _formBuilder: FormBuilder, private _route: ActivatedRoute, private _authService: AuthService) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _authSvc: AuthService) {
     this.returnUrl = this._route.snapshot.queryParamMap.get('returnUrl') || '/';
   }
 
@@ -25,7 +29,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     })
     // reset login status
-    this._authService.logOut();
+    this._authSvc.logout();
   }
 
   // convenience getter fro easy access to from fields
@@ -42,10 +46,13 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
     //this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
-    this._authService.localLogIn(this.f.username.value, this.f.password.value);
+    this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
+      this._router.navigate(["/user"]);
+    },
+      err => console.log(err));
   }
 
   loginWithGoogle() {
-    this._authService.loginWithGoogle(this.returnUrl);
+    this._authSvc.loginWithGoogle(this.returnUrl);
   }
 }

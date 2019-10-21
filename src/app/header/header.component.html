@@ -8,7 +8,8 @@
   <div *ngIf="_authSvc.isLoggedIn()">
     <app-upload></app-upload>
     <div class="d-inline">
-      <a href="" (click)="logOut()" class="mr-2">Logout</a>
+      <a href="" (click)="logout()" class="mr-2">Logout</a>
+      <a href="/user">Your Profile</a>
       <a href="/users/{{_authSvc.user.userName}}/items">Your Posts</a>
     </div>
   </div>
