@@ -17,14 +17,14 @@ export class AuthService {
     this.user = JSON.parse(currentUser);
   }
 
-  logIn(username: String, password: String, returnUrl: String) {
-    return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(res => {
-      if (res) {
-        this.persist(res);
-        this._router.navigate([returnUrl]);
-      }
-    })
-  }
+  // logIn(username: String, password: String, returnUrl: String) {
+  //   return this._http.post<any>('/svc/users/auth', { email: username, password: password }).subscribe(res => {
+  //     if (res) {
+  //       this.persist(res);
+  //       this._router.navigate([returnUrl]);
+  //     }
+  //   })
+  // }
 
   localLogIn(username: String, password: String): Observable<any> {
     return this._http.post<any>('/svc/auth/local', { email: username, password: password }, {
@@ -35,25 +35,32 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.user && this.user.accessToken;
+    return this.loggedIn;
   }
 
-  persist(res: any) {
-    this.user = {
-      _id: res._id,
-      email: res.email,
-      avatar: res.avatar,
-      userName: res.userName,
-      familyName: res.familyName,
-      givenName: res.givenName,
-      joinedDate: res.joinedDate,
-      accessToken: res.accessToken,
-      noOfFollowers: res.noOfFollowers,
-      rank: res.rank,
-      status: res.status
-    };
-    localStorage.setItem('currentUser', JSON.stringify(this.user));
+  setLoggedIn(loggedIn) {
+    this.loggedIn = loggedIn;
   }
+
+  setUser(user) {
+    this.user = user;
+  }
+  // persist(res: any) {
+  //   this.user = {
+  //     _id: res._id,
+  //     email: res.email,
+  //     avatar: res.avatar,
+  //     userName: res.userName,
+  //     familyName: res.familyName,
+  //     givenName: res.givenName,
+  //     joinedDate: res.joinedDate,
+  //     accessToken: res.accessToken,
+  //     noOfFollowers: res.noOfFollowers,
+  //     rank: res.rank,
+  //     status: res.status
+  //   };
+  //   localStorage.setItem('currentUser', JSON.stringify(this.user));
+  // }
 
   loginWithGoogle(returnUrl: String) {
     window.location.href = 'http://localhost:3000/svc/auth/google';

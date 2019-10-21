@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  result: any;
   constructor(
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
@@ -47,9 +48,13 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     //this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
     this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
-      this._router.navigate(["/user"]);
-    },
-      err => console.log(err));
+      this.result = res;
+      if (this.result.status == "LOGIN_DONE") {
+        this._authSvc.setLoggedIn(true);
+        this._authSvc.setUser(this.result.user);
+        this._router.navigate(["/"])
+      }
+    });
   }
 
   loginWithGoogle() {

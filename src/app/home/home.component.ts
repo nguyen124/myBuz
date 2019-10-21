@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
         var param = params["user"];
         if (param) {
           var user = JSON.parse(param);
-          _auth.persist(user);
+          //_auth.persist(user);
         }
       });
     }
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
 }

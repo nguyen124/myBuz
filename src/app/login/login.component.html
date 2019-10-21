@@ -4,6 +4,7 @@
       <div class="card card-signin my-5">
         <div class="card-body">
           <h5 class="card-title text-center">Sign In</h5>
+          <h5 *ngIf="result && result.error" class="alert-danger">{{result.error}}</h5>
           <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-label-group">
               <label for="username">Username</label>

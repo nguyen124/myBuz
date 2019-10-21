@@ -9,8 +9,8 @@
     <app-upload></app-upload>
     <div class="d-inline">
       <a href="" (click)="logout()" class="mr-2">Logout</a>
-      <a href="/user">Your Profile</a>
-      <a href="/users/{{_authSvc.user.userName}}/items">Your Posts</a>
+      <a href="/user" class="mr-2">Your Profile</a>
+      <a href="/users/{{_authSvc.user.email}}/items" class="mr-2">Your Posts</a>
     </div>
   </div>
   <!-- <input [(ngModel)]='name'/>
