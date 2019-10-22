@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       this.loading = false;
       this.result = res;
       if (this.result.status == "REGISTER_DONE") {
-        this._router.navigate(["/login"]);
+        this._router.navigate(["/"]);
       }
     });
   }

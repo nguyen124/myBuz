@@ -35,28 +35,27 @@ export class ItemService {
     }
 
     upVote(item: IItem): void {
-        if (this._authSvc.user) {
-            item["extraDownVotePoint"] = 2;
-            if (!item["upVotedClass"]) {
-                if (!item["extraUpVotePoint"]) {
-                    item["extraUpVotePoint"] = 1;
-                }
-                item.point += item["extraUpVotePoint"];
-                this.upVoteItem(item._id, this._authSvc.user._id).subscribe(res => {
-                    this._log.log(res);
-                });
-                item["upVotedClass"] = "voted";
-            } else {
-                item["upVotedClass"] = "";
+        item["extraDownVotePoint"] = 2;
+        if (!item["upVotedClass"]) {
+            if (!item["extraUpVotePoint"]) {
                 item["extraUpVotePoint"] = 1;
-                item["extraDownVotePoint"] = 1;
-                item.point--;
-                this.unUpVoteItem(item._id, this._authSvc.user._id).subscribe(res => {
-                    this._log.log(res);
-                });
             }
-            item["downVotedClass"] = "";
+            item.point += item["extraUpVotePoint"];
+            this.upVoteItem(item._id).subscribe(res => {
+                this._log.log(res);
+            });
+            item["upVotedClass"] = "voted";
+        } else {
+            item["upVotedClass"] = "";
+            item["extraUpVotePoint"] = 1;
+            item["extraDownVotePoint"] = 1;
+            item.point--;
+            this.unUpVoteItem(item._id).subscribe(res => {
+                this._log.log(res);
+            });
         }
+        item["downVotedClass"] = "";
+
     }
 
     downVote(item: IItem) {
@@ -128,8 +127,8 @@ export class ItemService {
         this._http.put("/svc/items", item);
     }
 
-    upVoteItem(itemId: String, userId: String): Observable<any> {
-        return this._http.put("/svc/items/upVote", { "itemId": itemId, "userId": userId });
+    upVoteItem(itemId: String): Observable<any> {
+        return this._http.put("/svc/items/upVote", { "itemId": itemId });
     }
 
     unUpVoteItem(itemId: String, userId: String): any {
@@ -151,5 +150,4 @@ export class ItemService {
     createItem(item: IItem) {
         return this._http.post("/svc/items", item);
     }
-
 }

@@ -8,7 +8,7 @@ export class ParentAuthGuard implements CanActivate {
     constructor(private _router: Router, private _authSvc: AuthService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this._authSvc.isLoggedIn) {
+        if (this._authSvc.isLoggedIn()) {
             return true;
         };
         // not logged in so redirect to login page with the return url

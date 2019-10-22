@@ -14,11 +14,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._userSvc.user().subscribe(
-      res => {
-        console.log(JSON.stringify(res));
-      },
-      err => this._router.navigate(["/login"]));
+   
   }
 
 }
