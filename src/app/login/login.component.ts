@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  result: any;
+  error: string;
   constructor(
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
@@ -42,10 +42,9 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
     this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
-      this.result = res;
-      if (this.result.status == "LOGIN_DONE") {
-        this._router.navigate([this.returnUrl])
-      }
+      this._router.navigate([this.returnUrl])
+    }, err => {
+      this.error = err.error;
     });
   }
 

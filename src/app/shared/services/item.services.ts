@@ -2,29 +2,22 @@ import { Injectable } from '@angular/core';
 import { IItem } from '../model/item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { Router } from '@angular/router';
-import { IUser } from '../model/user';
 import { IItemUserLog } from '../model/itemUserLog';
 import { IComment } from '../model/comment';
 import { LoggingService } from './system/logging.service';
 import { AuthService } from './security/auth.service';
 
-
 @Injectable()
 export class ItemService {
-    user: IUser;
-
     constructor(
-        private _router: Router,
         private _http: HttpClient,
         private _log: LoggingService,
         private _authSvc: AuthService) {
-        this.user = this._authSvc.user;
     }
 
     getItemInfo(comment: IItem): void {
-        if (this.user) {
-            this.getItemUserLog(comment._id, this.user._id).subscribe((commentUserLog: IItemUserLog) => {
+        if (this._authSvc.user) {
+            this.getItemUserLog(comment._id, this._authSvc.user._id).subscribe((commentUserLog: IItemUserLog) => {
                 if (commentUserLog) {
                     if (commentUserLog.upVoted) {
                         comment["upVotedClass"] = "voted";
@@ -42,14 +35,14 @@ export class ItemService {
     }
 
     upVote(item: IItem): void {
-        if (this.user) {
+        if (this._authSvc.user) {
             item["extraDownVotePoint"] = 2;
             if (!item["upVotedClass"]) {
                 if (!item["extraUpVotePoint"]) {
                     item["extraUpVotePoint"] = 1;
                 }
                 item.point += item["extraUpVotePoint"];
-                this.upVoteItem(item._id, this.user._id).subscribe(res => {
+                this.upVoteItem(item._id, this._authSvc.user._id).subscribe(res => {
                     this._log.log(res);
                 });
                 item["upVotedClass"] = "voted";
@@ -58,25 +51,23 @@ export class ItemService {
                 item["extraUpVotePoint"] = 1;
                 item["extraDownVotePoint"] = 1;
                 item.point--;
-                this.unUpVoteItem(item._id, this.user._id).subscribe(res => {
+                this.unUpVoteItem(item._id, this._authSvc.user._id).subscribe(res => {
                     this._log.log(res);
                 });
             }
             item["downVotedClass"] = "";
-        } else {
-            this._router.navigate(['/login']);
         }
     }
 
     downVote(item: IItem) {
-        if (this.user) {
+        if (this._authSvc.user) {
             item["extraUpVotePoint"] = 2;
             if (!item["downVotedClass"]) {
                 if (!item["extraDownVotePoint"]) {
                     item["extraDownVotePoint"] = 1;
                 }
                 item.point -= item["extraDownVotePoint"];
-                this.downVoteItem(item._id, this.user._id).subscribe(res => {
+                this.downVoteItem(item._id, this._authSvc.user._id).subscribe(res => {
                     this._log.log(res);
                 });
                 item["downVotedClass"] = "voted";
@@ -85,13 +76,11 @@ export class ItemService {
                 item["extraDownVotePoint"] = 1;
                 item["downVotedClass"] = "";
                 item.point++;
-                this.unDownVoteItem(item._id, this.user._id).subscribe(res => {
+                this.unDownVoteItem(item._id, this._authSvc.user._id).subscribe(res => {
                     this._log.log(res);
                 });
             }
             item["upVotedClass"] = "";
-        } else {
-            this._router.navigate(['/login']);
         }
     }
 
@@ -108,36 +97,30 @@ export class ItemService {
     }
 
     addCommentToItem(itemId: string, content: string): Observable<any> {
-        if (this.user) {
-            return this._http.post<any>('/svc/items/comment', {
-                itemId: itemId,
-                content: content,
-                modifiedDate: (new Date()).getTime(),
-                writtenBy: {
-                    userId: this.user._id,
-                    userName: this.user.userName,
-                    avatar: this.user.avatar
-                }
-            });
-        } else {
-            this._router.navigate(['/login']);
-        }
+        return this._http.post<any>('/svc/items/comment', {
+            itemId: itemId,
+            content: content,
+            modifiedDate: (new Date()).getTime(),
+            writtenBy: {
+                userId: this._authSvc.user._id,
+                userName: this._authSvc.user.userName,
+                avatar: this._authSvc.user.avatar
+            }
+        });
     }
 
     addVoiceCommentToItem(itemId: string, url: any): any {
-        if (this.user) {
+        if (this._authSvc.user) {
             return this._http.post<any>('/svc/items/comment', {
                 itemId: itemId,
                 url: url,
                 modifiedDate: (new Date()).getTime(),
                 writtenBy: {
-                    userId: this.user._id,
-                    userName: this.user.userName,
-                    avatar: this.user.avatar
+                    userId: this._authSvc.user._id,
+                    userName: this._authSvc.user.userName,
+                    avatar: this._authSvc.user.avatar
                 }
             });
-        } else {
-            this._router.navigate(['/login']);
         }
     }
 
