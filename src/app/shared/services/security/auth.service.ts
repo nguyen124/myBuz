@@ -18,11 +18,7 @@ export class AuthService {
   }
 
   localLogIn(username: String, password: String): Observable<any> {
-    var loginObs = this._http.post<any>('/svc/auth/local', { email: username, password: password }, {
-      observe: 'body',
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
+    var loginObs = this._http.post<any>('/svc/auth/local', { email: username, password: password });
     loginObs.subscribe(res => {
       this.loggedIn = true;
       this.user = res.user;
@@ -41,11 +37,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    return this._http.get("/svc/logout", {
-      observe: "body",
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    })
+    return this._http.get("/svc/logout");
   }
 }
 

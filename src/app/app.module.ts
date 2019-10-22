@@ -18,7 +18,6 @@ import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptorService } from './shared/services/system/error-interceptor.service';
-import { JwtInterceptorService } from './shared/services/utils/jwt-interceptor.service';
 import { AuthService } from './shared/services/security/auth.service';
 //import { Auth0Service } from './shared/services/security/auth0.service';
 import { RegisterComponent } from './register/register.component';
@@ -83,7 +82,6 @@ let jQuery: any = window['$'];
     ItemService,
     VoiceMessageServiceService,
     ParentAuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: JQ_TOKEN, useValue: jQuery },
   ],

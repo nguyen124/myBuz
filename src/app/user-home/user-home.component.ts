@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 export class UserHomeComponent implements OnInit {
 
   constructor(private _userSvc: UserService, private _router: Router) {
-    this._userSvc.user().subscribe(res => {
-      console.log(JSON.stringify(res));
-    }, err => this._router.navigate(["/login"]))
+
   }
 
   ngOnInit() {
+    this._userSvc.user().subscribe(
+      res => {
+        console.log(JSON.stringify(res));
+      },
+      err => this._router.navigate(["/login"]));
   }
 
 }

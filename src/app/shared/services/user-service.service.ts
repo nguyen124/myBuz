@@ -16,10 +16,6 @@ export class UserService {
   }
 
   user() {
-    return this._http.get("/svc/user", {
-      observe: "body",
-      withCredentials: true,
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    })
+    return this._http.get("/svc/user");
   }
 }
