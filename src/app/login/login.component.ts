@@ -29,35 +29,27 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     })
-    // reset login status
-    this._authSvc.logout();
   }
 
-  // convenience getter fro easy access to from fields
   get f() {
     return this.loginForm.controls;
   }
 
   login() {
-    //event.preventDefault();
     this.submitted = true;
-    // stop here if form is invalid    
     if (this.loginForm.invalid) {
       return;
     }
     this.loading = true;
-    //this._authService.logIn(this.f.username.value, this.f.password.value, this.returnUrl);
     this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
       this.result = res;
       if (this.result.status == "LOGIN_DONE") {
-        this._authSvc.setLoggedIn(true);
-        this._authSvc.setUser(this.result.user);
-        this._router.navigate(["/"])
+        this._router.navigate([this.returnUrl])
       }
     });
   }
 
   loginWithGoogle() {
-    this._authSvc.loginWithGoogle(this.returnUrl);
+    this._authSvc.loginWithGoogle();
   }
 }
