@@ -16,7 +16,7 @@ export class ItemComponent implements OnInit {
     private _itemSvc: ItemService) { }
 
   ngOnInit() {
-    this._itemSvc.getItemInfo(this.item);
+    //this._itemSvc.getItemInfo(this.item);
   }
 
   showItemModal() {

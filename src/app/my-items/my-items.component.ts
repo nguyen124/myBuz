@@ -11,12 +11,12 @@ import { AuthService } from '../shared/services/security/auth.service';
 })
 export class MyItemsComponent implements OnInit {
   items: IItem[];
-  
-  constructor(private _itemSvc: ItemService, private _authSvc: AuthService) {  
+
+  constructor(private _itemSvc: ItemService, private _authSvc: AuthService) {
   }
 
   ngOnInit() {
-    this._itemSvc.getItemsOfUser(this._authSvc.user.email).subscribe(
+    this._itemSvc.getItemsOfCurrentUser().subscribe(
       (items) => {
         this.items = items;
       });
