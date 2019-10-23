@@ -15,7 +15,7 @@ export class ItemService {
     }
 
     hasVoted(itemId: string): Observable<number> {
-        return this._http.get<number>("/svc/current-user/has-voted" + itemId);
+        return this._http.get<number>("/svc/current-user/has-voted/" + itemId);
     }
 
     upvote(itemId: string): Observable<number> {

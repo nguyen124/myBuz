@@ -17,6 +17,13 @@ export class ReactComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._itemService.hasVoted(this.item._id).subscribe(hasVoted => {
+      if (hasVoted == 1) {
+        this.upvoted = true;
+      } else if (hasVoted == -1) {
+        this.downvoted = true;
+      }
+    });
   }
 
   upvote(): void {
@@ -47,7 +54,6 @@ export class ReactComponent implements OnInit {
     this.item.point = newScore;
     this.downvoted = downvoted;
     this.upvoted = upvoted;
-
   }
 
   showItemModal() {
