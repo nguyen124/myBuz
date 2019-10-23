@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { ItemService } from '../shared/services/item.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { CommentService } from '../shared/services/comment.services';
 
 @Component({
   selector: 'app-react',
@@ -13,11 +13,11 @@ export class ReactComponent implements OnInit {
   item: IItem;
   upvoted = false;
   downvoted = false;
-  constructor(private _itemService: ItemService, private _commService: CommunicateService) {
+  constructor(private _commentSvc: CommentService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
-    this._itemService.hasVoted(this.item._id).subscribe(hasVoted => {
+    this._commentSvc.hasVoted(this.item._id, "IItem").subscribe(hasVoted => {
       if (hasVoted == 1) {
         this.upvoted = true;
       } else if (hasVoted == -1) {
@@ -28,11 +28,11 @@ export class ReactComponent implements OnInit {
 
   upvote(): void {
     if (!this.upvoted) {
-      this._itemService.upvote(this.item._id).subscribe(newScore => {
+      this._commentSvc.upvote(this.item._id, "IItem").subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
     } else {
-      this._itemService.unvote(this.item._id).subscribe(newScore => {
+      this._commentSvc.unvote(this.item._id, "IItem").subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }
@@ -40,11 +40,11 @@ export class ReactComponent implements OnInit {
 
   downvote(): void {
     if (!this.downvoted) {
-      this._itemService.downvote(this.item._id).subscribe(newScore => {
+      this._commentSvc.downvote(this.item._id, "IItem").subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
     } else {
-      this._itemService.unvote(this.item._id).subscribe(newScore => {
+      this._commentSvc.unvote(this.item._id).subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }
