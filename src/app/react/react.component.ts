@@ -11,8 +11,8 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
-  upvoteClass: string;
-  downvoteClass: string;
+  upvoted = false;
+  downvoted = false;
   constructor(private _itemService: ItemService, private _commService: CommunicateService) {
   }
 
@@ -20,17 +20,34 @@ export class ReactComponent implements OnInit {
   }
 
   upvote(): void {
-    this._itemService.upvote(this.item._id).subscribe(newScore => {
-      this.item.point = newScore;
-      this.upvoteClass = "upvoted";
-    });
+    if (!this.upvoted) {
+      this._itemService.upvote(this.item._id).subscribe(newScore => {
+        this.setInfo(newScore, true, false);
+      });
+    } else {
+      this._itemService.unvote(this.item._id).subscribe(newScore => {
+        this.setInfo(newScore, false, false);
+      });
+    }
   }
 
   downvote(): void {
-    this._itemService.downvote(this.item._id).subscribe(newScore => {
-      this.item.point = newScore;
-      this.downvoteClass = "downvoted";
-    });
+    if (!this.downvoted) {
+      this._itemService.downvote(this.item._id).subscribe(newScore => {
+        this.setInfo(newScore, false, true);
+      });
+    } else {
+      this._itemService.unvote(this.item._id).subscribe(newScore => {
+        this.setInfo(newScore, false, false);
+      });
+    }
+  }
+
+  setInfo(newScore, upvoted, downvoted) {
+    this.item.point = newScore;
+    this.downvoted = downvoted;
+    this.upvoted = upvoted;
+
   }
 
   showItemModal() {
