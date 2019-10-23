@@ -44,7 +44,7 @@ export class ReactComponent implements OnInit {
         this.setInfo(newScore, false, true);
       });
     } else {
-      this._commentSvc.unvote(this.item._id).subscribe(newScore => {
+      this._commentSvc.unvote(this.item._id, "IItem").subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }

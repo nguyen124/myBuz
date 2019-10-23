@@ -28,7 +28,7 @@ export class CommentReactComponent implements OnInit {
     });
   }
 
-  upVote(): void {
+  upvote(): void {
     if (!this.upvoted) {
       this._commentService.upvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, true, false);
@@ -40,6 +40,18 @@ export class CommentReactComponent implements OnInit {
     }
   }
 
+
+  downvote(): void {
+    if (!this.downvoted) {
+      this._commentService.downvote(this.comment._id, "IComment").subscribe(newScore => {
+        this.setInfo(newScore, false, true);
+      });
+    } else {
+      this._commentService.unvote(this.comment._id, "IComment").subscribe(newScore => {
+        this.setInfo(newScore, false, false);
+      });
+    }
+  }
   setInfo(newScore, upvoted, downvoted) {
     this.comment.point = newScore;
     this.downvoted = downvoted;
