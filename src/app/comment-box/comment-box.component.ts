@@ -46,7 +46,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this.commentContent && this.commentContent.trim()) {
       if (this.commentType === "ItemComment") {
         this._log.log("Comment Content: " + this.commentContent);
-        this._commentSvc.addCommentToItem(this.item._id, this.commentContent).subscribe(comment => {
+        this._commentSvc.addComment(this.item._id, this.commentContent).subscribe(comment => {
           this.commentContent = ""
           this._commSvc.changeComment(comment);
         });
@@ -101,7 +101,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   addVoiceCommentToItem(url): void {
     if (this.commentType === "ItemComment") {
       this._log.log("Voice Comment Url: " + url);
-      this._itemSvc.addVoiceCommentToItem(this.item._id, url).subscribe(voiceComment => {
+      this._commentSvc.addVoiceCommentToItem(this.item._id, url).subscribe(voiceComment => {
         this._commSvc.changeComment(voiceComment);
       });
     } else if (this.commentType === "ReplyComment") {

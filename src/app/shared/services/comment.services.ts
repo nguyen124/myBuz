@@ -26,7 +26,7 @@ export class CommentService {
         return this._http.put<number>("/svc/current-user/downvote", { modelId: id, model: model });
     }
 
-    addCommentToItem(itemId: string, content: string): Observable<any> {
+    addComment(itemId: string, content: string): Observable<any> {
         return this._http.post<any>('/svc/current-user/comment', {
             itemId: itemId,
             content: content,

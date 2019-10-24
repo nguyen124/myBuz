@@ -2,14 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IItem } from '../../model/item';
 import { IComment } from '../../model/comment';
-import { IUser } from '../../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicateService {
-
-
   // Observable navItem source
   private _newItemSource = new BehaviorSubject<IItem>(null);
   private _newCommentSource = new BehaviorSubject<IComment>(null);
@@ -22,6 +19,7 @@ export class CommunicateService {
   currentComment$ = this._currentCommentSource.asObservable();
   newReply$ = this._newReplySource.asObservable();
 
+  constructor() { }
 
   // service command
   changeItem(item: IItem) {
@@ -40,5 +38,4 @@ export class CommunicateService {
     this._newReplySource.next(reply);
   }
 
-  constructor() { }
 }
