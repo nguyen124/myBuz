@@ -4,6 +4,3 @@
         class="fa fa-thumbs-up" aria-hidden="true"></i></button>
 <button class="btn btn-success mr-2 btn-xs" (click)="writeTextReply()"><i class="fa fa-reply"
         aria-hidden="true"></i></button>
-<button class="btn btn-success mr-2 btn-xs" [disabled]="isShowRepliesClicked" (click)="showReplies(comment._id)">
-    <span>{{comment.totalReplies}} replies</span>
-</button>

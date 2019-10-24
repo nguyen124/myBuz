@@ -14,7 +14,7 @@ export class CommentReactComponent implements OnInit {
   comment: IComment;
   downvoted = false;
   upvoted = false;
-  isShowRepliesClicked = false;
+ 
   constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -62,12 +62,5 @@ export class CommentReactComponent implements OnInit {
     this.$("#txtReplyBox").focus();
     this.$("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
     this._commentSvc.parentCommentId = this.comment._id;
-  }
-
-  showReplies(commentId: string) {
-    this.isShowRepliesClicked = true;
-    this._commentSvc.getRepliesOfComment(commentId).subscribe((replies) => {
-      this.comment.replies = replies;
-    });;
   }
 }

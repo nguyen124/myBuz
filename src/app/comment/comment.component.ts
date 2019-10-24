@@ -18,6 +18,7 @@ export class CommentComponent implements OnInit, OnChanges {
   commentUserLog: ICommentUserLog;
   commentContent: string;
   subscription: Subscription;
+  isShowRepliesClicked = false;
 
   constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService) {
 
@@ -39,6 +40,13 @@ export class CommentComponent implements OnInit, OnChanges {
         this.comment.replies.push(reply);
       }
     });
+  }
+
+  showReplies(commentId: string) {
+    this.isShowRepliesClicked = true;
+    this._commentSvc.getRepliesOfComment(commentId).subscribe((replies) => {
+      this.comment.replies = replies;
+    });;
   }
 
   ngOnDestroy() {
