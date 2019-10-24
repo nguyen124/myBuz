@@ -3,6 +3,7 @@ import * as RecordRTC from 'recordrtc';
 import { Subject, Observable } from 'rxjs';
 import * as moment from 'moment'
 import { LoggingService } from './system/logging.service';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,7 @@ export class VoiceMessageServiceService {
   private _recordingTime = new Subject<string>();
   private _recordingFailed = new Subject<string>();
 
-  constructor(private _log: LoggingService) { }
+  constructor(private _http: HttpClient, private _logSvc: LoggingService) { }
 
   getRecordedTime(): Observable<string> {
     return this._recordingTime.asObservable();
@@ -75,8 +76,8 @@ export class VoiceMessageServiceService {
     });
   }
 
-  async stopRecord() {
-    return new Promise((resolve, reject) => {
+  stopRecordAndUpload(itemId) {
+    var record = new Promise((resolve, reject) => {
       if (this.recorder) {
         this.recorder.stop((blob) => {
           if (this.startTime) {
@@ -89,6 +90,35 @@ export class VoiceMessageServiceService {
           this._recordingFailed.next();
         });
       }
+    });
+
+    record.then((record) => {
+      this.uploadVoiceRecord(itemId, record);
+    });
+  }
+
+  uploadVoiceRecord(itemId: string, record: any) {
+    const fd = new FormData();
+    fd.append('voice', record.blob, record.title);
+    this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this._logSvc.log('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+      } else if (event.type === HttpEventType.Response) {
+        this.addVoiceComment(itemId, event.body["fileLocation"]);
+      }
+    });
+  }
+
+  addVoiceComment(itemId: string, url: any): any {
+    this._http.post<any>('/svc/current-user/comment', {
+      itemId: itemId,
+      url: url,
+      modifiedDate: Date.now()
+    }).subscribe(res => {
+      this._logSvc.log("Finish uploading voice comment!");
     });
   }
 }

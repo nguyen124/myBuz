@@ -34,14 +34,6 @@ export class CommentService {
         });
     }
 
-    addVoiceCommentToItem(itemId: string, url: any): any {
-        return this._http.post<any>('/svc/current-user/comment', {
-            itemId: itemId,
-            url: url,
-            modifiedDate: Date.now()
-        });
-    }
-
     addReplyToComment(commentId: string, replyContent: string): any {
         return this._http.post<any>('/svc/current-user/comment', {
             parentCommentId: commentId,

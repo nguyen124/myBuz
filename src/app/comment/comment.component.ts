@@ -33,7 +33,7 @@ export class CommentComponent implements OnInit, OnChanges {
     if (!this.comment.replies) {
       this.comment.replies = [];
     }
-    this.subscription = this._commSvc.newReply$.subscribe(reply => {
+    this.subscription = this._commSvc.newComment$.subscribe(reply => {
       if (reply && reply.parentCommentId == this.comment._id) {
         this.comment.totalReplies++;
         this.comment.replies.push(reply);

@@ -11,13 +11,11 @@ export class CommunicateService {
   private _newItemSource = new BehaviorSubject<IItem>(null);
   private _newCommentSource = new BehaviorSubject<IComment>(null);
   private _currentCommentSource = new BehaviorSubject<IComment>(null);
-  private _newReplySource = new BehaviorSubject<IComment>(null);
 
   // Observable navItem stream
   currentItemInModal$ = this._newItemSource.asObservable();
   newComment$ = this._newCommentSource.asObservable();
   currentComment$ = this._currentCommentSource.asObservable();
-  newReply$ = this._newReplySource.asObservable();
 
   constructor() { }
 
@@ -33,9 +31,4 @@ export class CommunicateService {
   onClickReply(comment: IComment) {
     this._currentCommentSource.next(comment);
   }
-
-  onAddNewReply(reply: IComment) {
-    this._newReplySource.next(reply);
-  }
-
 }

@@ -17,12 +17,11 @@ export class CommentsComponent implements OnInit, OnDestroy, OnChanges {
   subscription: Subscription;
   constructor(
     private _itemService: ItemService,
-    private _commService: CommunicateService,
+    private _commSvc: CommunicateService,
     private _log: LoggingService) { }
 
   ngOnInit() {
-    this._log.log("itemId: " + this.itemId);
-    this.subscription = this._commService.newComment$.subscribe((comment: IComment) => {
+    this.subscription = this._commSvc.newComment$.subscribe((comment: IComment) => {
       if (comment) {
         this.comments.push(comment);
       }
