@@ -22,7 +22,7 @@ export class CommentsComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.subscription = this._commSvc.newComment$.subscribe((comment: IComment) => {
-      if (comment) {
+      if (comment && !comment.parentCommentId) {
         this.comments.push(comment);
       }
     });

@@ -15,11 +15,11 @@ export class CommentReactComponent implements OnInit {
   downvoted = false;
   upvoted = false;
   isShowRepliesClicked = false;
-  constructor(private _commentService: CommentService, private _commService: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
+  constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
   }
 
   ngOnInit() {
-    this._commentService.hasVoted(this.comment._id, "IComment").subscribe(hasVoted => {
+    this._commentSvc.hasVoted(this.comment._id, "IComment").subscribe(hasVoted => {
       if (hasVoted == 1) {
         this.upvoted = true;
       } else if (hasVoted == -1) {
@@ -30,11 +30,11 @@ export class CommentReactComponent implements OnInit {
 
   upvote(): void {
     if (!this.upvoted) {
-      this._commentService.upvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.upvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
     } else {
-      this._commentService.unvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.unvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }
@@ -42,16 +42,16 @@ export class CommentReactComponent implements OnInit {
 
   downvote(): void {
     if (!this.downvoted) {
-      this._commentService.downvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.downvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
     } else {
-      this._commentService.unvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.unvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }
   }
-  
+
   setInfo(newScore, upvoted, downvoted) {
     this.comment.point = newScore;
     this.downvoted = downvoted;
@@ -61,12 +61,12 @@ export class CommentReactComponent implements OnInit {
   writeTextReply(): void {
     this.$("#txtReplyBox").focus();
     this.$("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
-    this._commService.onClickReply(this.comment);
+    this._commentSvc.parentCommentId = this.comment._id;
   }
 
   showReplies(commentId: string) {
     this.isShowRepliesClicked = true;
-    this._commentService.getRepliesOfComment(commentId).subscribe((replies) => {
+    this._commentSvc.getRepliesOfComment(commentId).subscribe((replies) => {
       this.comment.replies = replies;
     });;
   }

@@ -15,7 +15,6 @@ import { LoggingService } from '../shared/services/system/logging.service';
 export class CommentBoxComponent implements OnInit, OnDestroy {
   @Input()
   item: IItem;
-  comment: IComment;
   isRecording: boolean;
   isUploading: boolean;
   commentContent: string;
@@ -37,6 +36,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this.commentContent && this.commentContent.trim()) {
       this._commentSvc.addComment(this.item._id, this.commentContent).subscribe(newComment => {
         this.commentContent = ""
+        this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
         this._commSvc.changeComment(newComment);
       });
     }

@@ -6,6 +6,8 @@ import { IComment } from '../model/comment';
 
 @Injectable()
 export class CommentService {
+    parentCommentId: string;
+
     constructor(
         private _http: HttpClient) {
     }
@@ -28,6 +30,7 @@ export class CommentService {
 
     addComment(itemId: string, content: string): Observable<any> {
         return this._http.post<any>('/svc/current-user/comment', {
+            parentCommentId: this.parentCommentId,
             itemId: itemId,
             content: content,
             modifiedDate: Date.now()
