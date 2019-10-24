@@ -14,7 +14,7 @@ export class CommentReactComponent implements OnInit {
   comment: IComment;
   downvoted = false;
   upvoted = false;
-
+  isShowRepliesClicked = false;
   constructor(private _commentService: CommentService, private _commService: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -40,7 +40,6 @@ export class CommentReactComponent implements OnInit {
     }
   }
 
-
   downvote(): void {
     if (!this.downvoted) {
       this._commentService.downvote(this.comment._id, "IComment").subscribe(newScore => {
@@ -62,5 +61,12 @@ export class CommentReactComponent implements OnInit {
     this.$("#txtReplyBox").focus();
     this.$("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
     this._commService.onClickReply(this.comment);
+  }
+
+  showReplies(commentId: string) {
+    this.isShowRepliesClicked = true;
+    this._commentService.getRepliesOfComment(commentId).subscribe((replies) => {
+      this.comment.replies = replies;
+    });;
   }
 }

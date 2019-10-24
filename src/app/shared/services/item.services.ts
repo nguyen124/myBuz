@@ -30,31 +30,6 @@ export class ItemService {
         return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
     }
 
-    addCommentToItem(itemId: string, content: string): Observable<any> {
-        return this._http.post<any>('/svc/items/comment', {
-            itemId: itemId,
-            content: content,
-            modifiedDate: (new Date()).getTime(),
-            writtenBy: {
-                userName: this._authSvc.user.userName,
-                avatar: this._authSvc.user.avatar
-            }
-        });
-    }
-
-    addVoiceCommentToItem(itemId: string, url: any): any {
-        return this._http.post<any>('/svc/items/comment', {
-            itemId: itemId,
-            url: url,
-            modifiedDate: (new Date()).getTime(),
-            writtenBy: {
-                userName: this._authSvc.user.userName,
-                avatar: this._authSvc.user.avatar
-            }
-        });
-
-    }
-
     updateItem(item: Object): void {
         this._http.put("/svc/items", item);
     }

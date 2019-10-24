@@ -24,17 +24,17 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   commentType: string = "ItemComment";
   subscription: Subscription;
 
-  constructor(private _itemService: ItemService,
-    private _commentService: CommentService,
-    private _commService: CommunicateService,
-    private _voiceService: VoiceMessageServiceService,
+  constructor(private _itemSvc: ItemService,
+    private _commentSvc: CommentService,
+    private _commSvc: CommunicateService,
+    private _voiceSvc: VoiceMessageServiceService,
     private _log: LoggingService,
     private http: HttpClient) {
 
   }
 
   ngOnInit() {
-    this.subscription = this._commService.currentComment$.subscribe(reply => {
+    this.subscription = this._commSvc.currentComment$.subscribe(reply => {
       if (reply) {
         this.comment = reply;
         this.commentType = "ReplyComment";
@@ -46,23 +46,23 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this.commentContent && this.commentContent.trim()) {
       if (this.commentType === "ItemComment") {
         this._log.log("Comment Content: " + this.commentContent);
-        this._itemService.addCommentToItem(this.item._id, this.commentContent).subscribe(comment => {
+        this._commentSvc.addCommentToItem(this.item._id, this.commentContent).subscribe(comment => {
           this.commentContent = ""
-          this._commService.changeComment(comment);
+          this._commSvc.changeComment(comment);
         });
       } else if (this.commentType === "ReplyComment") {
         this._log.log("Comment Content: " + this.commentContent);
         if (this.comment.parentCommentId) {
-          this._commentService.addReplyToComment(this.comment.parentCommentId, this.commentContent).subscribe(comment => {
+          this._commentSvc.addReplyToComment(this.comment.parentCommentId, this.commentContent).subscribe(comment => {
             this.commentContent = "";
             this.commentType = "ItemComment";
-            this._commService.onAddNewReply(comment);
+            this._commSvc.onAddNewReply(comment);
           });
         } else {
-          this._commentService.addReplyToComment(this.comment._id, this.commentContent).subscribe(comment => {
+          this._commentSvc.addReplyToComment(this.comment._id, this.commentContent).subscribe(comment => {
             this.commentContent = "";
             this.commentType = "ItemComment";
-            this._commService.onAddNewReply(comment);
+            this._commSvc.onAddNewReply(comment);
           });
         }
       }
@@ -72,12 +72,11 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   writeVoiceComment() {
     this.isRecording = !this.isRecording;
     if (this.isRecording) {
-      this._voiceService.startRecord();
+      this._voiceSvc.startRecord();
     } else {
-      this._voiceService.stopRecord().then((record) => {
+      this._voiceSvc.stopRecord().then((record) => {
         this.uploadVoiceRecord(record);
       });
-
     }
   }
 
@@ -102,20 +101,20 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   addVoiceCommentToItem(url): void {
     if (this.commentType === "ItemComment") {
       this._log.log("Voice Comment Url: " + url);
-      this._itemService.addVoiceCommentToItem(this.item._id, url).subscribe(voiceComment => {
-        this._commService.changeComment(voiceComment);
+      this._itemSvc.addVoiceCommentToItem(this.item._id, url).subscribe(voiceComment => {
+        this._commSvc.changeComment(voiceComment);
       });
     } else if (this.commentType === "ReplyComment") {
       this._log.log("Voice Comment Url: " + url);
       if (this.comment.parentCommentId) {
-        this._commentService.addVoiceReplyToComment(this.comment.parentCommentId, url).subscribe(voiceComment => {
+        this._commentSvc.addVoiceReplyToComment(this.comment.parentCommentId, url).subscribe(voiceComment => {
           this.commentType = "ItemComment";
-          this._commService.onAddNewReply(voiceComment);
+          this._commSvc.onAddNewReply(voiceComment);
         });
       } else {
-        this._commentService.addVoiceReplyToComment(this.comment._id, url).subscribe(voiceComment => {
+        this._commentSvc.addVoiceReplyToComment(this.comment._id, url).subscribe(voiceComment => {
           this.commentType = "ItemComment";
-          this._commService.onAddNewReply(voiceComment);
+          this._commSvc.onAddNewReply(voiceComment);
         });
       }
     }

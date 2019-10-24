@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
-import { LoggingService } from './system/logging.service';
-import { AuthService } from './security/auth.service';
 
 
 @Injectable()
 export class CommentService {
     constructor(
-        private _http: HttpClient,
-        private _authSvc: AuthService) {
+        private _http: HttpClient) {
     }
 
     hasVoted(id: string, model: string): Observable<number> {
@@ -29,6 +26,30 @@ export class CommentService {
         return this._http.put<number>("/svc/current-user/downvote", { modelId: id, model: model });
     }
 
+    addCommentToItem(itemId: string, content: string): Observable<any> {
+        return this._http.post<any>('/svc/current-user/comment', {
+            itemId: itemId,
+            content: content,
+            modifiedDate: Date.now()
+        });
+    }
+
+    addVoiceCommentToItem(itemId: string, url: any): any {
+        return this._http.post<any>('/svc/current-user/comment', {
+            itemId: itemId,
+            url: url,
+            modifiedDate: Date.now()
+        });
+    }
+
+    addReplyToComment(commentId: string, replyContent: string): any {
+        return this._http.post<any>('/svc/current-user/comment', {
+            parentCommentId: commentId,
+            content: replyContent,
+            modifiedDate: Date.now()
+        });
+    }
+
     getComments(commentId: string): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId);
     }
@@ -41,29 +62,11 @@ export class CommentService {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/totalReplies");
     }
 
-    addReplyToComment(commentId: string, replyContent: string): any {
-        return this._http.post<any>('/svc/comments/reply', {
-            parentCommentId: commentId,
-            content: replyContent,
-            modifiedDate: (new Date()).getTime(),
-            writtenBy: {
-                userId: this._authSvc.user._id,
-                userName: this._authSvc.user.userName,
-                avatar: this._authSvc.user.avatar
-            }
-        });
-    }
-
     addVoiceReplyToComment(commentId: string, url: any): any {
-        return this._http.post<any>('/svc/comments/reply', {
+        return this._http.post<any>('/svc/current-user/reply', {
             parentCommentId: commentId,
             url: url,
-            modifiedDate: (new Date()).getTime(),
-            writtenBy: {
-                userId: this._authSvc.user._id,
-                userName: this._authSvc.user.userName,
-                avatar: this._authSvc.user.avatar
-            }
+            modifiedDate: Date.now()
         });
     }
 }

@@ -16,16 +16,15 @@ export class CommentComponent implements OnInit, OnChanges {
   comment: IComment;
   user: IUser;
   commentUserLog: ICommentUserLog;
-  isShowRepliesClicked: boolean = false;
   commentContent: string;
   subscription: Subscription;
 
-  constructor(private _commentService: CommentService, private _commService: CommunicateService) {
+  constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService) {
 
   }
 
   ngOnInit() {
-    this._commentService.getTotalRepliesOfComment(this.comment._id).subscribe((res) => {
+    this._commentSvc.getTotalRepliesOfComment(this.comment._id).subscribe((res) => {
       this.comment.totalReplies = res.totalReplies;
     });;
   }
@@ -34,21 +33,15 @@ export class CommentComponent implements OnInit, OnChanges {
     if (!this.comment.replies) {
       this.comment.replies = [];
     }
-    this.subscription = this._commService.newReply$.subscribe(reply => {
+    this.subscription = this._commSvc.newReply$.subscribe(reply => {
       if (reply && reply.parentCommentId == this.comment._id) {
         this.comment.totalReplies++;
         this.comment.replies.push(reply);
       }
     });
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  showReplies(commentId: string) {
-    this.isShowRepliesClicked = true;
-    this._commentService.getRepliesOfComment(commentId).subscribe((replies) => {
-      this.comment.replies = replies;
-    });;
   }
 }
