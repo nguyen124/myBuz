@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FileService } from './file.service';
+import { SystemService } from './system.service';
 
 describe('FileService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FileService = TestBed.get(FileService);
+    const service: SystemService = TestBed.get(SystemService);
     expect(service).toBeTruthy();
   });
 });

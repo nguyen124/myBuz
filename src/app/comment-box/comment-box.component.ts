@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { IItem } from '../shared/model/item';
-import { IComment } from '../shared/model/comment';
 import { CommentService } from '../shared/services/comment.services';
 import { Subscription } from 'rxjs';
 import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
