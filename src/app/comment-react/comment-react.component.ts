@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IComment } from '../shared/model/comment';
-import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
-import { ICommentUserLog } from '../shared/model/commentUserLog';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
@@ -14,23 +12,50 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 export class CommentReactComponent implements OnInit {
   @Input()
   comment: IComment;
-
-  user: IUser;
-  commentUserLog: ICommentUserLog;
+  downvoted = false;
+  upvoted = false;
 
   constructor(private _commentService: CommentService, private _commService: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
   }
 
   ngOnInit() {
-    this._commentService.getCommentInfo(this.comment);
+    this._commentService.hasVoted(this.comment._id, "IComment").subscribe(hasVoted => {
+      if (hasVoted == 1) {
+        this.upvoted = true;
+      } else if (hasVoted == -1) {
+        this.downvoted = true;
+      }
+    });
   }
 
-  upVote(): void {
-    this._commentService.upVote(this.comment);
+  upvote(): void {
+    if (!this.upvoted) {
+      this._commentService.upvote(this.comment._id, "IComment").subscribe(newScore => {
+        this.setInfo(newScore, true, false);
+      });
+    } else {
+      this._commentService.unvote(this.comment._id, "IComment").subscribe(newScore => {
+        this.setInfo(newScore, false, false);
+      });
+    }
   }
 
-  downVote(): void {
-    this._commentService.downVote(this.comment);
+
+  downvote(): void {
+    if (!this.downvoted) {
+      this._commentService.downvote(this.comment._id, "IComment").subscribe(newScore => {
+        this.setInfo(newScore, false, true);
+      });
+    } else {
+      this._commentService.unvote(this.comment._id, "IComment").subscribe(newScore => {
+        this.setInfo(newScore, false, false);
+      });
+    }
+  }
+  setInfo(newScore, upvoted, downvoted) {
+    this.comment.point = newScore;
+    this.downvoted = downvoted;
+    this.upvoted = upvoted;
   }
 
   writeTextReply(): void {

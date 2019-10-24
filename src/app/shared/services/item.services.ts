@@ -14,22 +14,6 @@ export class ItemService {
         private _authSvc: AuthService) {
     }
 
-    hasVoted(itemId: string): Observable<number> {
-        return this._http.get<number>("/svc/current-user/has-voted/" + itemId);
-    }
-
-    upvote(itemId: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/upvote", { itemId: itemId });
-    }
-
-    unvote(itemId: String): Observable<number> {
-        return this._http.put<number>("/svc/current-user/unvote", { itemId: itemId });
-    }
-
-    downvote(itemId: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/downvote", { itemId: itemId });
-    }
-
     getItems(): Observable<IItem[]> {
         return this._http.get<IItem[]>("/svc/items");
     }
