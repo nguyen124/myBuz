@@ -58,6 +58,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   afterCommenting(newComment) {
+    this.item.noOfComments++;
     this.commentContent = ""
     this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
     this._commSvc.changeComment(newComment);

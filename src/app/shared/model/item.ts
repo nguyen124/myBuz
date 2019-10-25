@@ -10,9 +10,9 @@ export interface IItem {
   categories?: string[];
   creditBy?: string[];
   noOfPoints?: number;
-  seen?: number;
-  share?: number;
-  noOfComment?: number;
+  noOfComments?: number;
+  noOfSeens?: number;
+  noOfShares?: number;
   status?: string;
   isAdult?: boolean;
   isSafeAtWork?: boolean;

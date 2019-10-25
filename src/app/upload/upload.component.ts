@@ -59,19 +59,19 @@ export class UploadComponent implements OnInit {
           this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           this.item = {
-            "tags": this.tags.split(","),
-            "categories": [this.category],
-            "creditBy": [this.creditBy],
-            "title": this.title,
-            "titleUrl": "../../assets/image/title1.JPG",
-            "url": event.body["fileLocation"],
-            "thumbnail": "../../assets/image/img1.JPG",
-            "modifiedDate": (new Date().getTime()),
-            "createdBy": this._authSvc.user,
-            "noOfPoints": 0,
-            "seen": 0,
-            "share": 0,
-            "noOfComment": 0
+            tags: this.tags.split(","),
+            categories: [this.category],
+            creditBy: [this.creditBy],
+            title: this.title,
+            titleUrl: "../../assets/image/title1.JPG",
+            url: event.body["fileLocation"],
+            thumbnail: "../../assets/image/img1.JPG",
+            modifiedDate: (new Date().getTime()),
+            createdBy: this._authSvc.user,
+            noOfPoints: 0,
+            noOfSeens: 0,
+            noOfShares: 0,
+            noOfComments: 0
           }
 
           this._itemService.createItem(this.item).subscribe(res => {
