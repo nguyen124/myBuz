@@ -115,8 +115,7 @@ export class VoiceMessageServiceService {
   addVoiceComment(itemId: string, url: any): any {
     this._http.post<any>('/svc/current-user/comment', {
       itemId: itemId,
-      url: url,
-      modifiedDate: Date.now()
+      url: url
     }).subscribe(res => {
       this._logSvc.log("Finish uploading voice comment!");
     });

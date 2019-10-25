@@ -2,9 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
-import { Subscription } from 'rxjs';
 import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
-import { LoggingService } from '../shared/services/system/logging.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -18,13 +16,11 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   isUploading: boolean;
   commentContent: string;
   commentType: string = "ItemComment";
-  subscription: Subscription;
 
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
-    private _voiceSvc: VoiceMessageServiceService,
-    private _logSvc: LoggingService) {
+    private _voiceSvc: VoiceMessageServiceService) {
   }
 
   ngOnInit() {
@@ -51,7 +47,5 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._logSvc.log("onDestroy")
-    this.subscription.unsubscribe();
   }
 }

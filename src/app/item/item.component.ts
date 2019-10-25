@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { ItemService } from '../shared/services/item.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 @Component({
@@ -12,14 +11,13 @@ export class ItemComponent implements OnInit {
   @Input()
   item: IItem;
   constructor(
-    private _commService: CommunicateService,
-    private _itemSvc: ItemService) { }
+    private _commService: CommunicateService) { }
 
   ngOnInit() {
-    //this._itemSvc.getItemInfo(this.item);
   }
 
   showItemModal() {
     this._commService.changeItem(this.item);
   }
 }
+

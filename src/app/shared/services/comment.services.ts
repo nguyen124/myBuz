@@ -32,16 +32,21 @@ export class CommentService {
         return this._http.post<any>('/svc/current-user/comment', {
             parentCommentId: this.parentCommentId,
             itemId: itemId,
-            content: content,
-            modifiedDate: Date.now()
+            content: content
         });
     }
 
     addReplyToComment(commentId: string, replyContent: string): any {
         return this._http.post<any>('/svc/current-user/comment', {
             parentCommentId: commentId,
-            content: replyContent,
-            modifiedDate: Date.now()
+            content: replyContent
+        });
+    }
+
+    addVoiceReplyToComment(commentId: string, url: any): any {
+        return this._http.post<any>('/svc/current-user/comment', {
+            parentCommentId: commentId,
+            url: url
         });
     }
 
@@ -55,13 +60,5 @@ export class CommentService {
 
     getTotalRepliesOfComment(commentId: any): any {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/totalReplies");
-    }
-
-    addVoiceReplyToComment(commentId: string, url: any): any {
-        return this._http.post<any>('/svc/current-user/reply', {
-            parentCommentId: commentId,
-            url: url,
-            modifiedDate: Date.now()
-        });
     }
 }
