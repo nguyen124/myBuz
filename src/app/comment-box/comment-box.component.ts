@@ -3,6 +3,8 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
 import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
+import { HttpEventType } from '@angular/common/http';
+import { LoggingService } from '../shared/services/system/logging.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -20,7 +22,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
-    private _voiceSvc: VoiceMessageServiceService) {
+    private _voiceSvc: VoiceMessageServiceService,
+    private _logSvc: LoggingService) {
   }
 
   ngOnInit() {
@@ -29,10 +32,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   writeTextComment() {
     if (this.commentContent && this.commentContent.trim()) {
-      this._commentSvc.addComment(this.item._id, this.commentContent).subscribe(newComment => {
-        this.commentContent = ""
-        this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
-        this._commSvc.changeComment(newComment);
+      this._commentSvc.addComment(this.item._id, this.commentContent, null).subscribe(newComment => {
+        this.afterCommenting(newComment);
       });
     }
   }
@@ -42,10 +43,25 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this.isRecording) {
       this._voiceSvc.startRecord();
     } else {
-      this._voiceSvc.stopRecordAndUpload(this.item._id);
+      this._voiceSvc.stopRecord().then(record => {
+        this._voiceSvc.uploadVoiceRecord(record).subscribe(event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this._logSvc.log('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          } else if (event.type === HttpEventType.Response) {
+            this._commentSvc.addComment(this.item._id, null, event.body["fileLocation"]).subscribe(newComment => {
+              this.afterCommenting(newComment);
+            });
+          }
+        });
+      })
     }
   }
 
+  afterCommenting(newComment) {
+    this.commentContent = ""
+    this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
+    this._commSvc.changeComment(newComment);
+  }
   ngOnDestroy() {
   }
 }

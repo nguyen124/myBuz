@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import * as RecordRTC from 'recordrtc';
 import { Subject, Observable } from 'rxjs';
 import * as moment from 'moment'
-import { LoggingService } from './system/logging.service';
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { CommentService } from './comment.services';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +16,7 @@ export class VoiceMessageServiceService {
   private _recordingTime = new Subject<string>();
   private _recordingFailed = new Subject<string>();
 
-  constructor(private _http: HttpClient, private _logSvc: LoggingService) { }
+  constructor(private _http: HttpClient, private _commentSvc: CommentService) { }
 
   getRecordedTime(): Observable<string> {
     return this._recordingTime.asObservable();
@@ -76,7 +76,7 @@ export class VoiceMessageServiceService {
     });
   }
 
-  stopRecordAndUpload(itemId) {
+  async stopRecord() {
     var record = new Promise((resolve, reject) => {
       if (this.recorder) {
         this.recorder.stop((blob) => {
@@ -91,33 +91,15 @@ export class VoiceMessageServiceService {
         });
       }
     });
-
-    record.then((record) => {
-      this.uploadVoiceRecord(itemId, record);
-    });
+    return record;
   }
 
-  uploadVoiceRecord(itemId: string, record: any) {
+  uploadVoiceRecord(record: any): Observable<any> {
     const fd = new FormData();
     fd.append('voice', record.blob, record.title);
-    this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
+    return this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
       reportProgress: true,
       observe: 'events'
-    }).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this._logSvc.log('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
-      } else if (event.type === HttpEventType.Response) {
-        this.addVoiceComment(itemId, event.body["fileLocation"]);
-      }
-    });
-  }
-
-  addVoiceComment(itemId: string, url: any): any {
-    this._http.post<any>('/svc/current-user/comment', {
-      itemId: itemId,
-      url: url
-    }).subscribe(res => {
-      this._logSvc.log("Finish uploading voice comment!");
     });
   }
 }

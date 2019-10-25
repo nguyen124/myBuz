@@ -53,7 +53,7 @@ export class CommentReactComponent implements OnInit {
   }
 
   setInfo(newScore, upvoted, downvoted) {
-    this.comment.point = newScore;
+    this.comment.noOfPoints = newScore;
     this.downvoted = downvoted;
     this.upvoted = upvoted;
   }

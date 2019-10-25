@@ -51,7 +51,7 @@ export class ReactComponent implements OnInit {
   }
 
   setInfo(newScore, upvoted, downvoted) {
-    this.item.point = newScore;
+    this.item.noOfPoints = newScore;
     this.downvoted = downvoted;
     this.upvoted = upvoted;
   }

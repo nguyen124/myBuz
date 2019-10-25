@@ -68,7 +68,7 @@ export class UploadComponent implements OnInit {
             "thumbnail": "../../assets/image/img1.JPG",
             "modifiedDate": (new Date().getTime()),
             "createdBy": this._authSvc.user,
-            "point": 0,
+            "noOfPoints": 0,
             "seen": 0,
             "share": 0,
             "noOfComment": 0

@@ -9,7 +9,7 @@ export interface IItem {
   tags?: string[];
   categories?: string[];
   creditBy?: string[];
-  point?: number;
+  noOfPoints?: number;
   seen?: number;
   share?: number;
   noOfComment?: number;
