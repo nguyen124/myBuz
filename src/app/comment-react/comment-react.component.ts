@@ -17,13 +17,6 @@ export class CommentReactComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this._commentSvc.hasVoted(this.comment._id, "IComment").subscribe(hasVoted => {
-    //   if (hasVoted == 1) {
-    //     this.upvoted = true;
-    //   } else if (hasVoted == -1) {
-    //     this.downvoted = true;
-    //   }
-    // });
   }
 
   upvote(): void {
