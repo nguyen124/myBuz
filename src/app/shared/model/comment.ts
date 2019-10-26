@@ -8,6 +8,8 @@ export interface IComment {
     itemId: string;
     replyTo?: object;
     noOfPoints?: number;
+    upvoted?:boolean;
+    downvoted?:boolean;
     replies?: IComment[];
     totalReplies?: number;
 }

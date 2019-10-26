@@ -12,24 +12,22 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 export class CommentReactComponent implements OnInit {
   @Input()
   comment: IComment;
-  downvoted = false;
-  upvoted = false;
- 
+
   constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
   }
 
   ngOnInit() {
-    this._commentSvc.hasVoted(this.comment._id, "IComment").subscribe(hasVoted => {
-      if (hasVoted == 1) {
-        this.upvoted = true;
-      } else if (hasVoted == -1) {
-        this.downvoted = true;
-      }
-    });
+    // this._commentSvc.hasVoted(this.comment._id, "IComment").subscribe(hasVoted => {
+    //   if (hasVoted == 1) {
+    //     this.upvoted = true;
+    //   } else if (hasVoted == -1) {
+    //     this.downvoted = true;
+    //   }
+    // });
   }
 
   upvote(): void {
-    if (!this.upvoted) {
+    if (!this.comment.upvoted) {
       this._commentSvc.upvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
@@ -41,7 +39,7 @@ export class CommentReactComponent implements OnInit {
   }
 
   downvote(): void {
-    if (!this.downvoted) {
+    if (!this.comment.downvoted) {
       this._commentSvc.downvote(this.comment._id, "IComment").subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
@@ -54,8 +52,8 @@ export class CommentReactComponent implements OnInit {
 
   setInfo(newScore, upvoted, downvoted) {
     this.comment.noOfPoints = newScore;
-    this.downvoted = downvoted;
-    this.upvoted = upvoted;
+    this.comment.downvoted = downvoted;
+    this.comment.upvoted = upvoted;
   }
 
   writeTextReply(): void {

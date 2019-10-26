@@ -15,7 +15,6 @@ export class ItemsComponent implements OnInit {
   selectedRadioValue: string = "all";
   showWaitingMessage = false;
   currentItem: IItem;
-  hasVoted: boolean = false;
 
   constructor(private _itemService: ItemService) {
 

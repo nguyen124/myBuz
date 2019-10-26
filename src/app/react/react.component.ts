@@ -11,23 +11,14 @@ import { CommentService } from '../shared/services/comment.services';
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
-  upvoted = false;
-  downvoted = false;
   constructor(private _commentSvc: CommentService, private _commService: CommunicateService) {
   }
 
   ngOnInit() {
-    this._commentSvc.hasVoted(this.item._id, "IItem").subscribe(hasVoted => {
-      if (hasVoted == 1) {
-        this.upvoted = true;
-      } else if (hasVoted == -1) {
-        this.downvoted = true;
-      }
-    });
   }
 
   upvote(): void {
-    if (!this.upvoted) {
+    if (!this.item.upvoted) {
       this._commentSvc.upvote(this.item._id, "IItem").subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
@@ -39,7 +30,7 @@ export class ReactComponent implements OnInit {
   }
 
   downvote(): void {
-    if (!this.downvoted) {
+    if (!this.item.downvoted) {
       this._commentSvc.downvote(this.item._id, "IItem").subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
@@ -52,8 +43,8 @@ export class ReactComponent implements OnInit {
 
   setInfo(newScore, upvoted, downvoted) {
     this.item.noOfPoints = newScore;
-    this.downvoted = downvoted;
-    this.upvoted = upvoted;
+    this.item.downvoted = downvoted;
+    this.item.upvoted = upvoted;
   }
 
   showItemModal() {
