@@ -34,7 +34,13 @@
               <div class="row mb-3">
                 <div class="col-md-12 mb-3">
                   <label for="tags"><strong>Tags</strong></label>
-                  <input id="tags" name="tags" type="text" placeholder="Tag your post" class="w-100" [(ngModel)]="tags">
+                  <div>
+                    <ng-container *ngFor="let tag of parsedTags;">
+                      <a href="" class="mr-1">#{{tag}}</a>
+                    </ng-container>
+                  </div>
+                  <input id="tags" name="tags" type="text" placeholder="Tag your post" class="w-100" [(ngModel)]="tags"
+                    (input)="onTagsChange($event.target.value)">
                 </div>
               </div>
             </div>

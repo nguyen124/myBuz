@@ -21,6 +21,7 @@ export class UploadComponent implements OnInit {
   };
   title: string = "";
   tags: string = "";
+  parsedTags: string[] = [];
   creditBy: string = "";
   category: string = "";
   description: string = "";
@@ -47,6 +48,11 @@ export class UploadComponent implements OnInit {
     }
   }
 
+  onTagsChange(input) {
+    this.parsedTags = input.split(/[ ,;.\/\\]+/).slice(0, 5).filter(function (el) { return el.length != 0 });
+    this.parsedTags.sort();
+  }
+
   createPost() {
     if (this.uploadedFile) {
       const fd = new FormData();
@@ -59,7 +65,7 @@ export class UploadComponent implements OnInit {
           this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           this.item = {
-            tags: this.tags.split(","),
+            tags: this.parsedTags,
             categories: [this.category],
             creditBy: [this.creditBy],
             title: this.title,
