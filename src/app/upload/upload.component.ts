@@ -41,7 +41,7 @@ export class UploadComponent implements OnInit {
     if (this.uploadedFile) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        that.$("#previewImg").attr('src', e.target["result"]).width(150).height(200);
+        that.$("#previewImg").attr('src', e.target["result"]);
       }
       reader.readAsDataURL(this.uploadedFile);
     }

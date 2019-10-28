@@ -1,7 +1,12 @@
 .modal-medium {
-    max-width: 75%;
+    max-width: 95%;
 }
 
 #tagTextArea {
     resize: none;
+}
+
+.pictureFrame {
+    height: 14.18125rem;
+    overflow: auto;
 }
