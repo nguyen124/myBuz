@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { CommentService } from '../shared/services/comment.services';
-import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class CommentReactComponent implements OnInit {
   @Input()
   comment: IComment;
 
-  constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService, @Inject(JQ_TOKEN) private $: any) {
+  constructor(private _commentSvc: CommentService, @Inject(JQ_TOKEN) private $: any) {
   }
 
   ngOnInit() {
@@ -52,6 +51,6 @@ export class CommentReactComponent implements OnInit {
   writeTextReply(): void {
     this.$("#txtReplyBox").focus();
     this.$("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
-    this._commentSvc.parentCommentId = this.comment._id;
+    this._commentSvc.parentCommentId = this.comment.parentCommentId || this.comment._id;
   }
 }
