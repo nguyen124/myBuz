@@ -38,7 +38,7 @@ export class ItemService {
         return this._http.get<boolean>("/svc/items/" + itemId + "/users/");
     }
 
-    createItem(item: IItem) {
-        return this._http.post("/svc/items", item);
+    createItem(item: IItem): Observable<IItem> {
+        return this._http.post<IItem>("/svc/current-user/items", item);
     }
 }
