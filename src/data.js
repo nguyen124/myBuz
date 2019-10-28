@@ -13,7 +13,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -40,7 +40,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -67,7 +67,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -94,7 +94,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -122,7 +122,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -150,7 +150,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -178,7 +178,7 @@ var items = [
             followers: 1000
         },
         tags: ["tag1", "tag2", "tag3", "tag4"],
-        categories: ["Funny", "Wtf"],
+        categories: ["Funny", "Anime"],
         noOfPoints: 1000,
         noOfSeens: 1500,
         noOfShares: 200,
@@ -325,7 +325,7 @@ var comments = [
             avatar: "../../assets/image/avatar1.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo:  "Hai Dep Trai",
+        replyTo: "Hai Dep Trai",
         noOfPoints: 1000,
         replies: 1000
     },
@@ -370,7 +370,7 @@ var comments = [
             avatar: "../../assets/image/avatar4.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo:  "Hai Dep Trai",
+        replyTo: "Hai Dep Trai",
         noOfPoints: 1000,
         replies: 1000
     }

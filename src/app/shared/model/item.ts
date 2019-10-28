@@ -7,7 +7,7 @@ export interface IItem {
   modifiedDate?: number;
   createdBy?: object;
   tags?: string[];
-  categories?: string[];
+  categories?: [string];
   creditBy?: string[];
   noOfPoints?: number;
   noOfComments?: number;

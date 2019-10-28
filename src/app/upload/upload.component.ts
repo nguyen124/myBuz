@@ -13,17 +13,12 @@ import { Router } from '@angular/router';
 })
 export class UploadComponent implements OnInit {
   uploadedFile: File = null;
-  item: IItem = {
-    _id: null,
-    title: "",
-    categories: [],
-    creditBy: []
-  };
+  item: IItem;
   title: string = "";
   tags: string = "";
   parsedTags: string[] = [];
   creditBy: string = "";
-  category: string = "";
+  categories: string = "";
   description: string = "";
   constructor(
     private _log: LoggingService,
@@ -66,7 +61,7 @@ export class UploadComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           this.item = {
             tags: this.parsedTags,
-            categories: [this.category],
+            categories: [this.categories],
             creditBy: [this.creditBy],
             title: this.title,
             titleUrl: "../../assets/image/title1.JPG",
