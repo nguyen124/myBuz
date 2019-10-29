@@ -10,7 +10,7 @@ import { UserService } from '../shared/services/user-service.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
-  result: any;
+  error: any;
   constructor(private _formBuilder: FormBuilder, private _router: Router, private _userService: UserService) { }
 
   ngOnInit() {
@@ -51,14 +51,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) {
-      this.result = { error: "Invalid Fields!" };
+      this.error = { message: "Invalid Fields!" };
       return;
     }
     this._userService.register(this.registerForm.value).subscribe(res => {
-      this.result = res;
-      if (this.result.status == "REGISTER_DONE") {
-        this._router.navigate(["/"]);
-      }
+      this._router.navigate(["/login"]);
+    }, err => {
+      this.error = err;
     });
   }
 }
