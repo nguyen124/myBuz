@@ -11,13 +11,13 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   error: any;
-  constructor(private _formBuilder: FormBuilder, private _router: Router, private _userService: UserService) { }
+  constructor(private _fb: FormBuilder, private _router: Router, private _userService: UserService) { }
 
   ngOnInit() {
-    this.registerForm = this._formBuilder.group({
+    this.registerForm = this._fb.group({
       username: ['', [Validators.required, this.nonSpaceString]],
       email: ['', [Validators.required, Validators.email]],
-      passwords: this._formBuilder.group({
+      passwords: this._fb.group({
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]]
       }, { validator: this.checkPasswords })
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) {
-      this.error = { message: "Invalid Fields!" };
+      this.error = { error: "Invalid Fields!" };
       return;
     }
     this._userService.register(this.registerForm.value).subscribe(res => {

@@ -6,22 +6,15 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SystemService {
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  public upload(files: Set<File>): { [key: string]: { progress: Observable<number> } } {
+  public uploadMultiFiles(files: Set<File>): { [key: string]: { progress: Observable<number> } } {
     // this will be the resulting map
     const status: { [key: string]: { progress: Observable<number> } } = {};
     files.forEach(file => {
-      // create a multipart-form for every file
-      const formData: FormData = new FormData();
-      formData.append('file', file, file.name);
-      // create a http-post request and pass the form
-      // tell it to report the upload progress
-      const req = new HttpRequest('POST', '/upload', formData, { reportProgress: true });
       // create a new progress-subject for every file
       const progress = new Subject<number>();
-      // send the http-request and subscribe for progress-updates
-      this.http.request(req).subscribe(event => {
+      this.uploadFile(file).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round(100 * event.loaded / event.total);
           progress.next(percentDone);
@@ -37,6 +30,17 @@ export class SystemService {
       };
     });
     return status;
+  }
+
+  uploadFile(uploadedFile: File): Observable<any> {
+    if (uploadedFile) {
+      const fd = new FormData();
+      fd.append('image', uploadedFile, uploadedFile.name)
+      return this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
+        reportProgress: true,
+        observe: 'events'
+      });
+    }
   }
 
   getCookie(cname): string {

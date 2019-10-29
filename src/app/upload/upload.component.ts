@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { IItem } from '../shared/model/item';
+import { HttpEventType } from '@angular/common/http';
 import { ItemService } from '../shared/services/item.services';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
+import { SystemService } from '../shared/services/utils/system.service';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-upload',
@@ -13,22 +14,39 @@ import { Router } from '@angular/router';
 })
 export class UploadComponent implements OnInit {
   uploadedFile: File = null;
-  item: IItem;
-  title: string = "";
-  tags: string = "";
   parsedTags: string[] = [];
-  creditBy: string = "";
-  categories: string = "";
-  description: string = "";
+  itemForm: FormGroup;
+  submitted = false;
+  error: any;
+
   constructor(
     private _log: LoggingService,
-    private _itemService: ItemService,
-    private _http: HttpClient,
+    private _itemSvc: ItemService,
+    private _systemSvc: SystemService,
     private _router: Router,
+    private _fb: FormBuilder,
     @Inject(JQ_TOKEN) private $: any) { }
 
   ngOnInit() {
+    this.itemForm = this._fb.group({
+      title: ['', [Validators.required, this.nonSpaceString]],
+      file: ['', Validators.required],
+      categories: [''],
+      tags: ['']
+    })
+  }
 
+  nonSpaceString(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+  }
+
+  get f() { return this.itemForm.controls; }
+
+  checkError(field) {
+    return ((!this.itemForm.pristine && this.f[field].touched) || this.submitted)
+      && this.f[field].errors
   }
 
   handleFileInput(files: FileList) {
@@ -49,33 +67,28 @@ export class UploadComponent implements OnInit {
   }
 
   createPost() {
-    if (this.uploadedFile) {
-      const fd = new FormData();
-      fd.append('image', this.uploadedFile, this.uploadedFile.name)
-      this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
-        reportProgress: true,
-        observe: 'events'
-      }).subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
-        } else if (event.type === HttpEventType.Response) {
-          this.item = {
-            tags: this.parsedTags,
-            categories: [this.categories],
-            creditBy: [this.creditBy],
-            title: this.title,
-            titleUrl: "../../assets/image/title1.JPG",
-            url: event.body["fileLocation"],
-            thumbnail: "../../assets/image/img1.JPG"
-          };
-
-          this._itemService.createItem(this.item).subscribe(newItem => {
-            this._log.log(newItem);
-            this._router.navigate(["/"]);
-          });
-        }
-      });
+    this.submitted = true;
+    if (this.itemForm.invalid) {
+      this.error = { error: "INVALID FIELDS!" };
+      return;
     }
-    this._log.log("create post");
+    this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+      } else if (event.type === HttpEventType.Response) {
+        var item = {
+          tags: this.parsedTags,
+          categories: [this.f.categories.value],
+          title: this.f.title.value,
+          url: event.body["fileLocation"]
+        };
+
+        this._itemSvc.createItem(item).subscribe(newItem => {
+          this._log.log("New Item created: " + newItem);
+          this.$("#cancelBtn")[0].click();
+          this._router.navigate(["/user"]);
+        });
+      }
+    });
   }
 }
