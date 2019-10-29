@@ -16,10 +16,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
     var that = this;
     return next.handle(request).pipe(catchError(err => {
       if (err.status === UNAUTHORIZED) {
-        var backdrop = that.$(".modal-backdrop.fade.show");
-        if (backdrop && backdrop[0]) {
-          backdrop[0].hidden = true;
-        }
+        that.$("#closeModalBtn")[0].click();
         this._router.navigate(["/login"]);
       }
       return throwError(err);
