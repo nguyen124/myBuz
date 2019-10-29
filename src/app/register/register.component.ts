@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
 @Component({
   selector: 'app-register',
@@ -16,18 +16,42 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this._formBuilder.group({
-      username: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
-      confirm_password: [null, Validators.required]
-    })
+      username: ['', [Validators.required, this.nonSpaceString]],
+      email: ['', [Validators.required, Validators.email]],
+      passwords: this._formBuilder.group({
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]]
+      }, { validator: this.checkPasswords })
+    });
+  }
+
+  nonSpaceString(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+  }
+
+  checkPasswords(group: FormGroup) {
+    var pass = group.get('password').value;
+    var confirmPass = group.get("confirmPassword").value;
+    return pass === confirmPass ? null : { matched: true }
   }
 
   get f() { return this.registerForm.controls; }
 
+  checkError(field) {
+    return ((!this.registerForm.pristine && this.f[field].touched) || this.submitted)
+      && this.f[field].errors
+  }
+
+  checkGroupError(field) {
+    return ((!this.registerForm.pristine && this.f.passwords['controls'][field].touched) || this.submitted)
+      && this.f.passwords['controls'][field].errors
+  }
+
   onSubmit() {
     this.submitted = true;
-    if (this.registerForm.invalid || this.registerForm.controls.password.value != this.registerForm.controls.confirm_password.value) {
+    if (this.registerForm.invalid) {
       this.result = { error: "Invalid Fields!" };
       return;
     }

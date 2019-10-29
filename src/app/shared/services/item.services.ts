@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IItem } from '../model/item';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
-import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class ItemService {
     constructor(
-        private _http: HttpClient,
-        private _activeRoute: ActivatedRoute, ) {
+        private _http: HttpClient) {
     }
 
     getItems(params): Observable<IItem[]> {

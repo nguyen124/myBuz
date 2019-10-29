@@ -1,7 +1,7 @@
 <div>
   <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
   <div class="float-left pr-1 text-success">{{item.createdBy.userName}} . {{item.createdBy.rank}}</div> <br>
-  <div class="float-left pr-1 text-primary">{{item.title | uppercase}}</div>
+  <div class="float-left pr-1 text-primary">{{item.title}}</div>
 </div>
 <div class="pictureFrame">
   <a class="d-block" (click)="showItemModal()" aria-hidden="true" data-toggle="modal" data-target="#itemDetails">
