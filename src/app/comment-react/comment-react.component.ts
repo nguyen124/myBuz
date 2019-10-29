@@ -50,7 +50,7 @@ export class CommentReactComponent implements OnInit {
 
   writeTextReply(): void {
     this.$("#txtReplyBox").focus();
-    this.$("#txtReplyBox").val("@" + this.comment.writtenBy["userName"] + ": ");
+    this.$("#txtReplyBox").val("@" + this.comment.writtenBy["username"] + ": ");
     this._commentSvc.parentCommentId = this.comment.parentCommentId || this.comment._id;
   }
 }

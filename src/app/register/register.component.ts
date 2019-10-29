@@ -9,7 +9,6 @@ import { UserService } from '../shared/services/user-service.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  loading = false;
   submitted = false;
   result: any;
   constructor(private _formBuilder: FormBuilder, private _router: Router, private _userService: UserService) { }
@@ -55,9 +54,7 @@ export class RegisterComponent implements OnInit {
       this.result = { error: "Invalid Fields!" };
       return;
     }
-    this.loading = true;
     this._userService.register(this.registerForm.value).subscribe(res => {
-      this.loading = false;
       this.result = res;
       if (this.result.status == "REGISTER_DONE") {
         this._router.navigate(["/"]);

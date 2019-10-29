@@ -264,7 +264,7 @@ var users = [
     {
         email: "thanh@gmail.com",
         avatar: "../../assets/image/avatar1.jpg",
-        userName: "kimthanh",
+        username: "kimthanh",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
         joinedDate: 1546234499247,
         rank: "pro",
@@ -274,7 +274,7 @@ var users = [
     {
         email: "nguyen@gmail.com",
         avatar: "../../assets/image/avatar2.jpg",
-        userName: "haidapchai",
+        username: "haidapchai",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
         joinedDate: 1546235499247,
         rank: "junior",
@@ -284,7 +284,7 @@ var users = [
     {
         email: "nam@gmail.com",
         avatar: "../../assets/image/avatar3.jpg",
-        userName: "namdapchai",
+        username: "namdapchai",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
         joinedDate: 1546236499247,
         rank: "newbie",
@@ -294,7 +294,7 @@ var users = [
     {
         email: "ka@gmail.com",
         avatar: "../../assets/image/avatar4.jpg",
-        userName: "kadapgai",
+        username: "kadapgai",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
         joinedDate: 1546236499247,
         rank: "pro",
@@ -304,7 +304,7 @@ var users = [
     {
         email: "tan@gmail.com",
         avatar: "../../assets/image/avatar5.jpg",
-        userName: "tandapchai",
+        username: "tandapchai",
         password: "c26795be955e46a30cd11ef4432e462d68a613b1",
         joinedDate: 1546236499247,
         rank: "senior",

@@ -1,5 +1,5 @@
 <img class="avatar-75 d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
-<div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.userName}}
+<div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.username}}
   </span>. {{comment.noOfPoints}} points</div>
 <div>
   <span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>
@@ -23,7 +23,7 @@
 <div *ngFor="let reply of comment.replies;" class="pt-2 pl-4 clear-both">
   <div class="clear-both">
     <img class="avatar-45 d-inline float-left mt-2 mr-2" src="{{reply.writtenBy.avatar}}" alt="Avatar">
-    <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{reply.writtenBy.userName}}
+    <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{reply.writtenBy.username}}
       </span>. {{reply.noOfPoints}} points</div>
     <div>
       <span *ngIf="reply.replyTo" class="text-primary pr-1">@{{reply.replyTo}}</span>
