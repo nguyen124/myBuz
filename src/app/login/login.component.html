@@ -3,11 +3,11 @@
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
         <div class="card-body">
-          <h5 class="card-title text-center">Sign In</h5>
+          <h5 class="card-title text-center text-success">Sign In</h5>
           <h5 *ngIf="error" class="alert-danger">{{error}}</h5>
           <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-label-group">
-              <label for="username">Username</label>
+              <label class="text-primary" for="username">Username</label>
               <input type="text" autofocus formControlName="username" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
               <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-label-group">
-              <label for="password">Password</label>
+              <label class="text-primary" for="password">Password</label>
               <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
@@ -26,15 +26,21 @@
 
             <div class="custom-control custom-checkbox mb-3">
               <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label" for="customCheck1">Remember password</label>
+              <label class="custom-control-label text-primary" for="customCheck1">Remember password</label>
             </div>
-            <button class="btn-success btn-lg btn-block " type="submit" value="Submit">Sign in</button>
+            <div class="row">
+              <div class="col-md-6">
+                <button class="btn-success btn-lg btn-block " type="submit" value="Submit">Sign in</button>
+              </div>
+              <div class="col-md-6">
+                <a class="btn-primary btn-lg btn-block text-center" href="/register">Register</a>
+              </div>
+            </div>
             <hr class="my-4">
             <button class="btn-primary btn-lg btn-block " type="submit" (click)="loginWithGoogle()">
               Sign in with Google</button>
             <button class="btn-success btn-lg btn-block " type="submit">
               Sign in with Facebook</button>
-            <a class="btn-primary btn-lg btn-block text-center" href="/register">Register</a>
             <div class="form-group">
             </div>
           </form>
