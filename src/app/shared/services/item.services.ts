@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { IItem } from '../model/item';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
-import { LoggingService } from './system/logging.service';
-import { AuthService } from './security/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class ItemService {
     constructor(
         private _http: HttpClient,
-        private _log: LoggingService,
-        private _authSvc: AuthService) {
+        private _activeRoute: ActivatedRoute, ) {
     }
 
-    getItems(): Observable<IItem[]> {
-        return this._http.get<IItem[]>("/svc/items");
+    getItems(params): Observable<IItem[]> {
+        return this._http.get<IItem[]>("/svc/items", { params: params });
     }
 
     getItemsOfUser(userId: String): any {

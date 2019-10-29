@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FileUtils } from '../utils/FileUtils';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
+import { ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-items',
@@ -16,14 +18,16 @@ export class ItemsComponent implements OnInit {
   showWaitingMessage = false;
   currentItem: IItem;
 
-  constructor(private _itemService: ItemService) {
+  constructor(private _itemService: ItemService, private _activeRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this._itemService.getItems().subscribe((items) => {
-      this.items = items;
-    });
+    this._activeRoute.queryParams.subscribe(queryParams => {
+      this._itemService.getItems(queryParams).subscribe((items) => {
+        this.items = items;
+      });
+    })
   }
 
   getFileType(item: any) {

@@ -8,13 +8,15 @@
   <div *ngIf="_authSvc.isLoggedIn()">
     <app-upload></app-upload>
     <div class="btn-group">
+      <button class="btn-xs btn-success mr-1" data-toggle="modal" data-target="#uploadModal"><i
+          class="fa fa-plus"></i></button>
       <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
       </button>
       <div class="dropdown-menu">
-        <a href="/user" class="mr-2">Your Profile</a>
+        <a href="/user" class="ml-1">Your Profile</a>
         <div class="dropdown-divider"></div>
-        <a href="" (click)="logout()" class="mr-2">Logout</a>
+        <a href="" (click)="logout()" class="ml-1">Logout</a>
       </div>
     </div>
   </div>
