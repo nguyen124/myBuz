@@ -5,7 +5,7 @@ import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-upload',
@@ -27,24 +27,18 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
     this.itemForm = this._fb.group({
-      title: ['', [Validators.required, this.nonSpaceString]],
+      title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
       file: ['', Validators.required],
       categories: [''],
       tags: ['']
     })
   }
 
-  nonSpaceString(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
 
   get f() { return this.itemForm.controls; }
 
-  checkError(field) {
-    return ((!this.itemForm.pristine && this.f[field].touched) || this.submitted)
-      && this.f[field].errors
+  checkError(field: string) {
+    return this._systemSvc.checkError(this.itemForm, field, this.submitted);
   }
 
   handleFileInput(files: FileList) {

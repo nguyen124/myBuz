@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
+import { SystemService } from '../shared/services/utils/system.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -11,23 +12,21 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   error: any;
-  constructor(private _fb: FormBuilder, private _router: Router, private _userService: UserService) { }
+  constructor(
+    private _fb: FormBuilder,
+    private _router: Router,
+    private _userSvc: UserService,
+    private _systemSvc: SystemService) { }
 
   ngOnInit() {
     this.registerForm = this._fb.group({
-      username: ['', [Validators.required, this.nonSpaceString]],
+      username: ['', [Validators.required, this._systemSvc.nonSpaceString]],
       email: ['', [Validators.required, Validators.email]],
       passwords: this._fb.group({
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]]
       }, { validator: this.checkPasswords })
     });
-  }
-
-  nonSpaceString(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
   }
 
   checkPasswords(group: FormGroup) {
@@ -38,12 +37,11 @@ export class RegisterComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  checkError(field) {
-    return ((!this.registerForm.pristine && this.f[field].touched) || this.submitted)
-      && this.f[field].errors
+  checkError(field: string) {
+    return this._systemSvc.checkError(this.registerForm, field, this.submitted);
   }
 
-  checkGroupError(field) {
+  checkGroupError(field: string) {
     return ((!this.registerForm.pristine && this.f.passwords['controls'][field].touched) || this.submitted)
       && this.f.passwords['controls'][field].errors
   }
@@ -54,7 +52,7 @@ export class RegisterComponent implements OnInit {
       this.error = { error: "Invalid Fields!" };
       return;
     }
-    this._userService.register(this.registerForm.value).subscribe(res => {
+    this._userSvc.register(this.registerForm.value).subscribe(res => {
       this._router.navigate(["/login"]);
     }, err => {
       this.error = err;

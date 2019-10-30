@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -61,5 +62,16 @@ export class SystemService {
 
   eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
+  }
+
+  nonSpaceString(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+  }
+
+  checkError(form: FormGroup, field: string, submitted: boolean) {
+    var f = form.controls;
+    return ((form.pristine && f[field].touched) || submitted) && f[field].errors;
   }
 }

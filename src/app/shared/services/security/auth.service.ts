@@ -11,6 +11,7 @@ export class AuthService {
   loggedIn: boolean;
   user: IUser;
   constructor(private _http: HttpClient, private _systemSvc: SystemService) {
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
   localLogIn(username: String, password: String): Observable<any> {
@@ -18,6 +19,7 @@ export class AuthService {
     loginObs.subscribe(res => {
       this.loggedIn = true;
       this.user = res.user;
+      localStorage.setItem("user", JSON.stringify(this.user));
     }, err => {
       console.log(err);
     })
@@ -34,6 +36,7 @@ export class AuthService {
 
   logout() {
     this._systemSvc.eraseCookie("myname.sid");
+    localStorage.removeItem("user");
     return this._http.get("/svc/logout");
   }
 }

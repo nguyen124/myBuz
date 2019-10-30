@@ -1,3 +1,13 @@
-<p>
-  user-home works!
-</p>
+<div class="row">
+  <form>
+    <div class="col-md-3" [formGroup]="userForm" (ngSubmit)="updateUser()">
+      <div class="custom-file">
+        <input type="file" formControlName="file" id="fileUpload" style="display: none;"
+          accept="image/gif, image/jpeg, image/png">
+      </div>
+      <input id="avatar" type="image" src="{{user.avatar}}" class="profile-avatar" (click)="chooseFile()">
+    </div>
+  </form>
+</div>
+
+{{user | json}}
