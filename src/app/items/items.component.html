@@ -8,6 +8,6 @@
 
 <div class="input-group mb-3">
   <a [routerLink]="['/items']" [queryParams]="{page: currentPage+1}" (click)="onClickNext()"
-    class="btn btn-primary d-inline" role="button">Next</a>
+    class="btn btn-primary d-inline" role="button">Page {{currentPage}} <i class="fa fa-angle-double-right"></i> </a>
   <!-- <input type="number" min="0" class="d-inline ml-4" [(ngModel)]="currentPage" aria-label="Username"> -->
 </div>

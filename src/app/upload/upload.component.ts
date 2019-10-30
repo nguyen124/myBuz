@@ -82,7 +82,8 @@ export class UploadComponent implements OnInit {
 
         this._itemSvc.createItem(item).subscribe(newItem => {
           this._log.log("New Item created: " + newItem);
-          this.$("#cancelBtn")[0].click();
+          var modalDismiss = this.$("#cancelBtn");
+          if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
           this._router.navigate(["/user"]);
         });
       }
