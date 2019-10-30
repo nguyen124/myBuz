@@ -3,7 +3,6 @@
   <div class="modal-dialog modal-medium">
     <div class="modal-content">
       <div class="modal-body">
-        <h5 *ngIf="itemForm.invalid && error" class="text-center text-danger">{{error.error}}</h5>
         <form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="createPost()">
           <div class="form-row">
             <div class="col-md-4 mb-3">

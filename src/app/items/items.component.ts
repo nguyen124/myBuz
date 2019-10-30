@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FileUtils } from '../utils/FileUtils';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { ActivatedRoute } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-items',
@@ -11,47 +9,45 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
-  filterType: string;
   @Input()
   items: IItem[];
-  selectedRadioValue: string = "all";
-  showWaitingMessage = false;
-  currentItem: IItem;
-
+  currentPage = 0;
   constructor(private _itemService: ItemService, private _activeRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
     this._activeRoute.queryParams.subscribe(queryParams => {
-      this._itemService.getItems(queryParams).subscribe((items) => {
-        this.items = items;
+      var page = this._activeRoute.snapshot.queryParams["page"];
+      this.currentPage = page ? +page : 0;
+      this._itemService.getItems(queryParams).subscribe((newItems: IItem[]) => {
+        if (!this.items) {
+          this.items = newItems;
+        } else {
+          for (var item of newItems) {
+            this.items.push(item);
+          }
+        }
       });
-    })
+    });
   }
 
-  getFileType(item: any) {
-    return FileUtils.getFileType(item.url);
+  onClickNext() {
+    this.currentPage++;
   }
 
-  getItemsCount(): number {
-    return this.items.length;
+  increaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('number').value = value;
   }
 
-  getSeenItemsCount(): number {
-    return 0;
+  decreaseValue() {
+    var value = parseInt(document.getElementById('number').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    document.getElementById('number').value = value;
   }
-
-  getNotSeenItemsCount(): number {
-    return 0;
-  }
-
-  getGlancedItemsCount(): number {
-    return 0;
-  }
-
-  onRadioChanged(selectedRadioValue: string) {
-    this.selectedRadioValue = selectedRadioValue;
-  }
-
 }

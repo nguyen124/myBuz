@@ -1,7 +1,13 @@
-<div class="row text-lg-left">
+<div class="row text-lg-left" id="items-container">
   <ng-container *ngFor="let item of items;">
-    <div *ngIf="selectedRadioValue === 'all'" class="col-lg-3 col-md-4 col-xs-6 pb-3">
+    <div class="col-lg-3 col-md-4 col-xs-6 pb-3">
       <app-item [item]="item"></app-item>
     </div>
   </ng-container>
+</div>
+
+<div class="input-group mb-3">
+  <a [routerLink]="['/items']" [queryParams]="{page: currentPage+1}" (click)="onClickNext()"
+    class="btn btn-primary d-inline" role="button">Next</a>
+  <!-- <input type="number" min="0" class="d-inline ml-4" [(ngModel)]="currentPage" aria-label="Username"> -->
 </div>

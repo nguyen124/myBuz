@@ -17,8 +17,6 @@ export class UploadComponent implements OnInit {
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
-  error: any;
-
   constructor(
     private _log: LoggingService,
     private _itemSvc: ItemService,
@@ -69,7 +67,6 @@ export class UploadComponent implements OnInit {
   createPost() {
     this.submitted = true;
     if (this.itemForm.invalid) {
-      this.error = { error: "INVALID FIELDS!" };
       return;
     }
     this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
