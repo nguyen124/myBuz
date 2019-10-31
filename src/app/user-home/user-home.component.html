@@ -10,7 +10,12 @@
     <div class="col-lg-9 col-md-8 col-xs-6">
       <div class="form-group">
         <label for="username">Username</label>
-        <input id="username" formControlName="username" class="form-control" type="text">
+        <input id="username" formControlName="username" class="form-control" type="text"
+          [ngClass]="{ 'is-invalid': checkError('username') }">
+        <div *ngIf="checkError('username')" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+          <div *ngIf="f.username.errors.whitespace">Username can't be blank space</div>
+        </div>
       </div>
       <div class="form-group">
         <label for="dob">Birthday</label>
@@ -19,13 +24,15 @@
       <div class="form-group">
         <label for="gender">Gender</label>
         <select formControlName="gender" class="col-lg-4 col-md-6 col-xs-6 form-control">
+          <option value=""></option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
       <div class="form-group">
         <label for="nationality">Nationality</label>
-        <select id="nationality" class="col-lg-4 col-md-6 col-xs-6 form-control">
+        <select id="nationality" formControlName="nationality" class="col-lg-4 col-md-6 col-xs-6 form-control">
+          <option value=""></option>
           <option value="AF">Afghanistan</option>
           <option value="AX">Åland Islands</option>
           <option value="AL">Albania</option>
@@ -277,6 +284,12 @@
           <option value="ZW">Zimbabwe</option>
         </select>
       </div>
+    </div>
+    <div class="form-group">
+      <button [disabled]="!hasChangedValues()" type="button" class="mr-2"
+        [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">Cancel</button>
+      <button [disabled]="!hasChangedValues()" type="submit"
+        [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">Update</button>
     </div>
   </div>
 </form>

@@ -13,7 +13,7 @@
                     [ngClass]="{ 'is-invalid': checkError('title') }">
                   <div *ngIf="checkError('title')" class="invalid-feedback">
                     <div *ngIf="f.title.errors.required">Title is required</div>
-                    <div *ngIf="f.title.errors.whitespace">Title is not empty</div>
+                    <div *ngIf="f.title.errors.whitespace">Title can't be blank space</div>
                   </div>
                 </div>
               </div>

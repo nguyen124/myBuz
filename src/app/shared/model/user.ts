@@ -12,4 +12,7 @@ export interface IUser {
     googleId?: string;
     familyName?: string;
     givenName?: string;
+    gender?: string;
+    nationality?: string;
+    dob?: string;
 }

@@ -29,15 +29,20 @@ export class UserHomeComponent implements OnInit {
 
   ngOnInit() {
     this.user = this._authSvc.user;
-    this.userForm = this._fb.group({
-      file: [''],
-      username: ['', Validators.required],
-      nationality: [''],
-      dob: [''],
-      gender: ['']
-    })
+    this.user.gender = this.user.gender || '';
+    this.user.nationality = this.user.nationality || '';
+    this.initValue();
   }
 
+  initValue() {
+    this.userForm = this._fb.group({
+      file: [null],
+      username: [this.user.username, [Validators.required, this._systemSvc.nonSpaceString]],
+      nationality: [this.user.nationality],
+      dob: [this.user.dob ? new Date(this.user.dob).toISOString().substring(0, 10) : null],
+      gender: [this.user.gender ? this.user.gender : '']
+    });
+  }
   get f() { return this.userForm.controls; }
 
   checkError(field: string) {
@@ -62,8 +67,16 @@ export class UserHomeComponent implements OnInit {
       }
     }).click();
   }
-  
-  updateUser() {
 
+  hasChangedValues() {
+    return (this.f.username.value != this.user.username) || (this.f.nationality.value != this.user.nationality) ||
+      (this.f.dob.value != this.user.dob) || (this.f.gender.value != this.user.gender) || (this.f.file.value)
+  }
+
+  updateUser() {
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      return;
+    }
   }
 }
