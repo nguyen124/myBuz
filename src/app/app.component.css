@@ -1,3 +1,9 @@
 .container {
     max-width: 90%;
 }
+
+.picture-frame {
+    height: 14.18125rem;
+    max-width: 100%;
+    overflow: auto;
+}

@@ -9,9 +9,3 @@ ul#listItemsDetails {
     border-radius: 5%;
     margin-bottom: 0.25rem;
 }
-
-.pictureFrame {
-    height: 14.18125rem;
-    width: 100%;
-    overflow: auto;
-}

@@ -31,7 +31,10 @@ export class UserHomeComponent implements OnInit {
     this.user = this._authSvc.user;
     this.userForm = this._fb.group({
       file: [''],
-      username: ['', Validators.required]
+      username: ['', Validators.required],
+      nationality: [''],
+      dob: [''],
+      gender: ['']
     })
   }
 
@@ -58,5 +61,9 @@ export class UserHomeComponent implements OnInit {
         }
       }
     }).click();
+  }
+  
+  updateUser() {
+
   }
 }

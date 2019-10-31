@@ -6,7 +6,6 @@ import { HeaderComponent } from './header/header.component';
 import { ItemModalComponent } from './itemModal/itemModal.component';
 import { FooterComponent } from './footer/footer.component';
 import { ItemsComponent } from './items/items.component';
-import { UserComponent } from './user/user.component';
 import { FileUtils } from './utils/FileUtils';
 import { DatePipe } from './date-pipe.pipe';
 import { FilterComponent } from './filter/filter.component';
@@ -58,7 +57,6 @@ let jQuery: any = window['$'];
     ItemsComponent,
     LoginComponent,
     UploadComponent,
-    UserComponent,
     ReactComponent,
     RegisterComponent,
     MyItemsComponent,
