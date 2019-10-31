@@ -6,6 +6,8 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SystemService } from '../shared/services/utils/system.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { HttpEventType } from '@angular/common/http';
+import { LoggingService } from '../shared/services/system/logging.service';
 
 @Component({
   selector: 'app-user-home',
@@ -24,6 +26,7 @@ export class UserHomeComponent implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _systemSvc: SystemService,
+    private _log: LoggingService,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -35,6 +38,8 @@ export class UserHomeComponent implements OnInit {
   }
 
   initValue() {
+    this.uploadedFile = null;
+    this.$("#avatar").attr("src", this.user.avatar);
     this.userForm = this._fb.group({
       file: [null],
       username: [this.user.username, [Validators.required, this._systemSvc.nonSpaceString]],
@@ -53,8 +58,8 @@ export class UserHomeComponent implements OnInit {
     var that = this;
     this.$("#fileUpload").bind('change', function (event) {
       if (event && event.currentTarget && event.currentTarget.files) {
-        this.uploadedFile = <File>event.currentTarget.files.item(0);
-        if (this.uploadedFile) {
+        that.uploadedFile = <File>event.currentTarget.files.item(0);
+        if (that.uploadedFile) {
           var reader = new FileReader();
           reader.onload = function (e) {
             var ava = that.$("#avatar");
@@ -62,7 +67,7 @@ export class UserHomeComponent implements OnInit {
               ava.attr('src', e.target["result"]);
             }
           }
-          reader.readAsDataURL(this.uploadedFile);
+          reader.readAsDataURL(that.uploadedFile);
         }
       }
     }).click();
@@ -70,13 +75,42 @@ export class UserHomeComponent implements OnInit {
 
   hasChangedValues() {
     return (this.f.username.value != this.user.username) || (this.f.nationality.value != this.user.nationality) ||
-      (this.f.dob.value != this.user.dob) || (this.f.gender.value != this.user.gender) || (this.f.file.value)
+      (this.f.dob.value != this.user.dob) || (this.f.gender.value != this.user.gender) || (this.uploadedFile)
   }
 
   updateUser() {
     this.submitted = true;
     if (this.userForm.invalid) {
       return;
+    }
+    var newInfo = {
+      username: this.f.username.value,
+      nationality: this.f.nationality.value,
+      gender: this.f.gender.value,
+      dob: this.f.dob.value
+    };
+
+    if (this.uploadedFile) {
+      this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        } else if (event.type === HttpEventType.Response) {
+          newInfo["avatar"] = event.body["fileLocation"];
+          this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
+            localStorage.setItem("user", JSON.stringify(result));
+          }, err => {
+            this._log.log(err);
+          });
+        }
+      }, err => {
+        this._log.log(err);
+      })
+    } else {
+      this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
+        localStorage.setItem("user", JSON.stringify(result));
+      }, err => {
+        this._log.log(err);
+      });
     }
   }
 }

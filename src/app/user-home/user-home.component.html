@@ -4,7 +4,9 @@
       <div class="picture-frame form-group">
         <input type="file" formControlName="file" id="fileUpload" style="display: none;"
           accept="image/gif, image/jpeg, image/png">
-        <input id="avatar" type="image" src="{{user.avatar}}" (click)="chooseFile()">
+        <a (click)="chooseFile()" href="javascript:void(0)">
+          <img id="avatar" />
+        </a>
       </div>
     </div>
     <div class="col-lg-9 col-md-8 col-xs-6">
@@ -293,4 +295,3 @@
     </div>
   </div>
 </form>
-{{user | json}}
