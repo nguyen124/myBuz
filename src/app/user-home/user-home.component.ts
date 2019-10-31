@@ -76,7 +76,7 @@ export class UserHomeComponent implements OnInit {
 
   hasChangedValues() {
     return (this.f.username.value != this.user.username) || (this.f.nationality.value != this.user.nationality) ||
-      (this.f.dob.value != this.user.dob) || (this.f.gender.value != this.user.gender) || (this.uploadedFile)
+      (new Date(this.f.dob.value).getTime() != new Date(this.user.dob).getTime()) || (this.f.gender.value != this.user.gender) || (this.uploadedFile)
   }
 
   updateUser() {
