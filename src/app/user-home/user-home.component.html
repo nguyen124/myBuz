@@ -1,15 +1,13 @@
 <form [formGroup]="userForm" (ngSubmit)="updateUser()">
   <div class="row">
-    <div class="col-lg-3 col-md-4 col-xs-6 pt-2">
-      <div class="picture-frame form-group">
+    <div class="col-lg-4 col-md-6 col-xs-6">
+      <div class="form-group text-center">
         <input type="file" formControlName="file" id="fileUpload" style="display: none;"
           accept="image/gif, image/jpeg, image/png">
         <a (click)="chooseFile()" href="javascript:void(0)">
           <img id="avatar" />
         </a>
       </div>
-    </div>
-    <div class="col-lg-9 col-md-8 col-xs-6">
       <div class="form-group">
         <label for="username">Username</label>
         <input id="username" formControlName="username" class="form-control" type="text"
@@ -21,11 +19,11 @@
       </div>
       <div class="form-group">
         <label for="dob">Birthday</label>
-        <input id="dob" formControlName="dob" class="col-lg-4 col-md-6 col-xs-6 form-control" type="date">
+        <input id="dob" formControlName="dob" class="form-control" type="date">
       </div>
       <div class="form-group">
         <label for="gender">Gender</label>
-        <select formControlName="gender" class="col-lg-4 col-md-6 col-xs-6 form-control">
+        <select formControlName="gender" class="form-control">
           <option value=""></option>
           <option value="male">Male</option>
           <option value="female">Female</option>
@@ -33,7 +31,7 @@
       </div>
       <div class="form-group">
         <label for="nationality">Nationality</label>
-        <select id="nationality" formControlName="nationality" class="col-lg-4 col-md-6 col-xs-6 form-control">
+        <select id="nationality" formControlName="nationality" class="form-control">
           <option value=""></option>
           <option value="AF">Afghanistan</option>
           <option value="AX">Åland Islands</option>
@@ -286,12 +284,13 @@
           <option value="ZW">Zimbabwe</option>
         </select>
       </div>
-    </div>
-    <div class="form-group">
-      <button [disabled]="!hasChangedValues()" type="button" class="mr-2"
-        [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">Cancel</button>
-      <button [disabled]="!hasChangedValues()" type="submit"
-        [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">Update</button>
+      <div class="form-group">
+        <button [disabled]="!hasChangedValues()" type="button" class="mr-2"
+          [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">Cancel</button>
+        <button [disabled]="!hasChangedValues()" type="submit"
+          [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">Update</button>
+      </div>
     </div>
   </div>
 </form>
+<!-- {{ userForm.value | json }} -->

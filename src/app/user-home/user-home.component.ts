@@ -34,6 +34,7 @@ export class UserHomeComponent implements OnInit {
     this.user = this._authSvc.user;
     this.user.gender = this.user.gender || '';
     this.user.nationality = this.user.nationality || '';
+    this.user.dob = this.user.dob || '';
     this.initValue();
   }
 
@@ -44,7 +45,7 @@ export class UserHomeComponent implements OnInit {
       file: [null],
       username: [this.user.username, [Validators.required, this._systemSvc.nonSpaceString]],
       nationality: [this.user.nationality],
-      dob: [this.user.dob ? new Date(this.user.dob).toISOString().substring(0, 10) : null],
+      dob: [this.user.dob ? new Date(this.user.dob).toISOString().substring(0, 10) : ''],
       gender: [this.user.gender ? this.user.gender : '']
     });
   }
