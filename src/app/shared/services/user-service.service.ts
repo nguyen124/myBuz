@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../model/user';
 import { Observable } from 'rxjs';
+import { IItem } from '../model/item';
+import { AuthService } from './security/auth.service';
 
 
 @Injectable({
@@ -9,17 +11,17 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _authSvc: AuthService) { }
 
   register(user: IUser): Observable<any> {
-    return this._http.post("/svc/signup", user);
-  }
-
-  user() {
-    return this._http.get("/svc/current-user");
+    return this._http.post("/svc/user/register", user);
   }
 
   updateUser(id: string, newInfo: any): Observable<IUser> {
     return this._http.put<IUser>("/svc/users/" + id, newInfo);
+  }
+
+  getMyItems(): Observable<IItem[]> {
+    return this._http.get<IItem[]>("/svc/users/" + this._authSvc.user._id + "/items");
   }
 }

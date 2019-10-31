@@ -3,6 +3,7 @@ import { IItem } from '../model/item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
+import { AuthService } from './security/auth.service';
 
 @Injectable()
 export class ItemService {
@@ -16,10 +17,6 @@ export class ItemService {
 
     getItemsOfUser(userId: String): any {
         return this._http.get<IItem[]>("/svc/users/" + userId + "/items");
-    }
-
-    getItemsOfCurrentUser(): any {
-        return this._http.get<IItem[]>("/svc/currentuser/items");
     }
 
     getCommentsOfItem(itemId: string): Observable<IComment[]> {

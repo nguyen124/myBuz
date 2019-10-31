@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { ItemService } from '../shared/services/item.services';
+import { UserService } from '../shared/services/user-service.service';
 
 @Component({
   selector: 'app-my-items',
@@ -10,11 +10,11 @@ import { ItemService } from '../shared/services/item.services';
 export class MyItemsComponent implements OnInit {
   items: IItem[];
 
-  constructor(private _itemSvc: ItemService) {
+  constructor(private _usersvc: UserService) {
   }
 
   ngOnInit() {
-    this._itemSvc.getItemsOfCurrentUser().subscribe((items: IItem[]) => {
+    this._usersvc.getMyItems().subscribe((items: IItem[]) => {
       this.items = items;
     });
   }

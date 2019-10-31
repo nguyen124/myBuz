@@ -11,10 +11,10 @@ import { UserHomeComponent } from './user-home/user-home.component';
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
     { path: 'admin', component: AdminComponent, canActivate: [ParentAuthGuard] },
-    { path: 'user', component: UserHomeComponent, canActivate: [ParentAuthGuard] },
+    { path: 'user/profile', component: UserHomeComponent, canActivate: [ParentAuthGuard] },
+    { path: 'user/posts', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'users/:userId/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: 'items' }
 ];
