@@ -27,7 +27,8 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return !!this._systemSvc.getCookie("myname.sid");
+    this.loggedIn = !!this._systemSvc.getCookie("myname.sid");
+    return this.loggedIn;
   }
 
   loginWithGoogle() {
@@ -35,6 +36,7 @@ export class AuthService {
   };
 
   logout() {
+    this.loggedIn = false;
     this._systemSvc.eraseCookie("myname.sid");
     localStorage.removeItem("user");
     return this._http.get("/svc/user/logout");

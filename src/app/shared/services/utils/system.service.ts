@@ -61,7 +61,7 @@ export class SystemService {
   }
 
   eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
   nonSpaceString(control: FormControl) {
