@@ -1,8 +1,8 @@
-<button class="btn mr-2 btn-xs" [ngClass]="item.downvoted?'btn-primary':'btn-success'" (click)="downvote()"><i
+<button class="btn btn-xs mr-2" [ngClass]="item.downvoted?'btn-primary':'btn-success'" (click)="downvote()"><i
         class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-<button class="btn mr-2 btn-xs" [ngClass]="item.upvoted?'btn-primary':'btn-success'" (click)="upvote()"><i
+<button class="btn btn-xs mr-2" [ngClass]="item.upvoted?'btn-primary':'btn-success'" (click)="upvote()"><i
         class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-<button class="btn btn-success btn-xs" (click)="showItemModal()" aria-hidden="true" data-toggle="modal"
+<button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()" aria-hidden="true" data-toggle="modal"
     data-target="#itemDetails"><i class="fa fa-comment-o"></i></button>
 <!-- <button class="btn btn-success btn-sm mb-2"><i class="fa fa-comment-o" aria-hidden="true" data-toggle="modal"
     data-target="#itemDetails"></i></button> -->
