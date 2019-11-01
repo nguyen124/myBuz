@@ -78,7 +78,7 @@ export class UploadComponent implements OnInit {
           this._log.log("New Item created: " + newItem);
           var modalDismiss = this.$("#cancelBtn");
           if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
-          this._router.navigate(["/user"]);
+          this._router.navigate(["/user/posts"]);
         });
       }
     });

@@ -22,6 +22,6 @@ export class UserService {
   }
 
   getMyItems(): Observable<IItem[]> {
-    return this._http.get<IItem[]>("/svc/users/" + this._authSvc.user._id + "/items");
+    return this._http.get<IItem[]>("/svc/items?createdBy=" + this._authSvc.user._id);
   }
 }
