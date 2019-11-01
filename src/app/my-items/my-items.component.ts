@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { UserService } from '../shared/services/user-service.service';
 import { ItemService } from '../shared/services/item.services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-my-items',
@@ -11,7 +12,7 @@ import { ItemService } from '../shared/services/item.services';
 export class MyItemsComponent implements OnInit {
   items: IItem[];
 
-  constructor(private _userSvc: UserService, private _itemSvc: ItemService) {
+  constructor(private _userSvc: UserService, private _itemSvc: ItemService, private _toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -23,8 +24,9 @@ export class MyItemsComponent implements OnInit {
   deleteItem(index: number, id: string) {
     this._itemSvc.deleteItem(id).subscribe(res => {
       this.items.splice(index, 1);
+      this._toastr.success("Delete succeeded!");
     }, err => {
-
+      this._toastr.error("Delete failed!");
     });
   }
 }
