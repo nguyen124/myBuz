@@ -1,5 +1,6 @@
 <form [formGroup]="userForm" (ngSubmit)="updateUser()">
   <div class="row">
+    <h5 *ngIf="userForm.invalid && error" class="text-center text-danger">Update failed. Something wrong happened!</h5>
     <div class="col-lg-4 col-md-6 col-xs-6">
       <div class="form-group text-center">
         <input type="file" formControlName="file" id="fileUpload" style="display: none;"

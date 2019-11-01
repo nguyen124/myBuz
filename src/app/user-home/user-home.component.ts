@@ -17,8 +17,9 @@ import { LoggingService } from '../shared/services/system/logging.service';
 export class UserHomeComponent implements OnInit {
   user: IUser;
   uploadedFile: File = null;
-  userForm: FormGroup
+  userForm: FormGroup;
   submitted = false;
+  error = null;
 
   constructor(
     private _userSvc: UserService,
@@ -98,20 +99,29 @@ export class UserHomeComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           newInfo["avatar"] = event.body["fileLocation"];
           this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
-            localStorage.setItem("user", JSON.stringify(result));
+            this.afterUpdate(result);
           }, err => {
+            this.error = err;
             this._log.log(err);
           });
         }
       }, err => {
+        this.error = err;
         this._log.log(err);
       })
     } else {
       this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
-        localStorage.setItem("user", JSON.stringify(result));
+        this.afterUpdate(result);
       }, err => {
+        this.error = err;
         this._log.log(err);
       });
     }
+  }
+
+  afterUpdate(result) {
+    this.user = result;
+    localStorage.setItem("user", JSON.stringify(result));
+    this.initValue();
   }
 }
