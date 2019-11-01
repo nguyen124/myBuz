@@ -23,6 +23,8 @@ export class MyItemsComponent implements OnInit {
   deleteItem(index: number, id: string) {
     this._itemSvc.deleteItem(id).subscribe(res => {
       this.items.splice(index, 1);
+    }, err => {
+
     });
   }
 }
