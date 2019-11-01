@@ -1,7 +1,12 @@
-<div>
-  <img class="avatar d-inline float-left mr-2" src="{{item.createdBy.avatar}}" alt="Avatar">
-  <div class="float-left pr-1 text-success">{{item.createdBy.username}}. {{item.modifiedDate | date:'shortDate'}}</div> <br>
-  <div class="float-left pr-1 text-primary">{{item.title}}</div>
+<div class=row>
+  <div class="col-md-1">
+    <img class="avatar" src="{{item.createdBy.avatar}}" alt="Avatar">
+  </div>
+
+  <div class="col-md-11 text-success">{{item.createdBy.username}}. {{item.modifiedDate | date:'shortDate'}}
+  </div>
+  <br>
+  <div class="col-md-12 text-primary">{{item.title}}</div>
 </div>
 <div class="picture-frame">
   <a class="d-block" (click)="showItemModal()" aria-hidden="true" data-toggle="modal" data-target="#itemDetails">
@@ -12,4 +17,18 @@
 <div class="mb-2">
   <a *ngFor="let tag of item.tags" [routerLink]="['/items']" [queryParams]="{tag: tag}" class="mr-1">#{{tag}}</a>
 </div>
-<app-react [item]="item"></app-react>
+
+<div class="row">
+  <div class="col-md-6">
+    <app-react [item]="item"></app-react>
+  </div>
+
+  <div class="col-md-6 dropdown">
+    <button class="btn btn-xs btn-success dropdown-toggle" style="height: 22px;" type="button" id="submenu"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+    <div class="dropdown-menu" aria-label="submenu">
+      <a class="dropdown-item" href="/items/{{item._id}}/share/fb">Share on Facebook</a>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

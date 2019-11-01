@@ -1,1 +1,15 @@
-my posts
+<div class="row text-lg-left" id="items-container">
+    <ng-container *ngFor="let item of items;">
+        <div class="col-lg-3 col-md-4 col-xs-6 pb-3">
+            <app-item [item]="item">
+                <a class="dropdown-item" href="/items/{{item._id}}">Edit</a>
+            </app-item>
+        </div>
+    </ng-container>
+</div>
+
+<div class="input-group mb-3">
+    <a [routerLink]="['/items']" [queryParams]="{page: currentPage+1}" (click)="onClickNext()"
+        class="btn btn-primary d-inline" role="button">Page {{currentPage}} <i class="fa fa-angle-double-right"></i>
+    </a>
+</div>
