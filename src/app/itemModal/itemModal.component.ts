@@ -17,12 +17,12 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   subScription: Subscription;
 
   constructor(
-    private _commService: CommunicateService,
+    private _commSvc: CommunicateService,
     private _log: LoggingService,
     @Inject(JQ_TOKEN) private $: any) { }
 
   ngOnInit() {
-    this.subScription = this._commService.currentItemInModal$.subscribe(item => {
+    this.subScription = this._commSvc.currentItemInModal$.subscribe(item => {
       if (item) {
         this.item = item;
         setTimeout(() => {

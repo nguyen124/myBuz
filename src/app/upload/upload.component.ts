@@ -6,6 +6,8 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 @Component({
   selector: 'app-upload',
@@ -21,6 +23,8 @@ export class UploadComponent implements OnInit {
     private _log: LoggingService,
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
+    private _commSvc: CommunicateService,
+    private _toastr: ToastrService,
     private _router: Router,
     private _fb: FormBuilder,
     @Inject(JQ_TOKEN) private $: any) { }
@@ -75,12 +79,17 @@ export class UploadComponent implements OnInit {
         };
 
         this._itemSvc.createItem(item).subscribe(newItem => {
-          this._log.log("New Item created: " + newItem);
+          this._toastr.success("New post has been created!")
           var modalDismiss = this.$("#cancelBtn");
           if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
+          this._commSvc.uploadItem(newItem);
           this._router.navigate(["/user/items"]);
+        }, err => {
+          this._toastr.error("Oops! Failed to create post!");
         });
       }
+    }, err => {
+      this._toastr.error("Oops! Failed to create post!");
     });
   }
 }
