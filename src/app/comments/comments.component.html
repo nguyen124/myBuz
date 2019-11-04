@@ -1,5 +1,5 @@
 <div class="pb-2 d-flex" *ngFor="let comment of comments">
   <div class="w-100">
-    <app-comment *ngIf="comment.parentCommentId == null" [comment]="comment"></app-comment>
+    <app-comment *ngIf="!comment.parentCommentId" [comment]="comment"></app-comment>
   </div>
 </div>
