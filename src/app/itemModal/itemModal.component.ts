@@ -26,8 +26,8 @@ export class ItemModalComponent implements OnInit, OnDestroy {
       if (item) {
         this.item = item;
         setTimeout(() => {
-          this.$("#txtReplyBox").focus();
-        }, 500);
+          this.$("#openModalBtn").click();
+        }, 0);
       }
     });
   }

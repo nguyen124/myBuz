@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Inject } from '@angular/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
 import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
 import { HttpEventType } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -23,11 +24,14 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     private _voiceSvc: VoiceMessageServiceService,
+    @Inject(JQ_TOKEN) private $: any,
     private _toastr: ToastrService) {
   }
 
   ngOnInit() {
-
+    setTimeout(() => {
+      this.$("#txtReplyBox").focus();
+    }, 500);
   }
 
   writeTextComment() {
@@ -63,6 +67,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
     this._commSvc.changeComment(newComment);
   }
+
   ngOnDestroy() {
   }
 }

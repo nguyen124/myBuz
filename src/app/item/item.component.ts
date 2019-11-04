@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { ReactComponent } from '../react/react.component';
 
 @Component({
   selector: 'app-item',
@@ -8,16 +8,15 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  @Input()
-  item: IItem;
-  constructor(
-    private _commService: CommunicateService) { }
+  @Input() item: IItem;
+  @ViewChild(ReactComponent) reactCompChild: ReactComponent;
+  constructor() { }
 
   ngOnInit() {
   }
 
   showItemModal() {
-    this._commService.changeItem(this.item);
+    this.reactCompChild.showItemModal();
   }
 }
 

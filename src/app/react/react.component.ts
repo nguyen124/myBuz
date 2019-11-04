@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { CommentService } from '../shared/services/comment.services';
+import { ItemService } from '../shared/services/item.services';
 
 @Component({
   selector: 'app-react',
@@ -11,7 +12,10 @@ import { CommentService } from '../shared/services/comment.services';
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
-  constructor(private _commentSvc: CommentService, private _commService: CommunicateService) {
+  constructor(
+    private _commentSvc: CommentService,
+    private _itemSvc: ItemService,
+    private _commSvc: CommunicateService) {
   }
 
   ngOnInit() {
@@ -48,6 +52,11 @@ export class ReactComponent implements OnInit {
   }
 
   showItemModal() {
-    this._commService.changeItem(this.item);
+    this._itemSvc.getItems({ id: this.item._id }).subscribe(newItems => {
+      if (newItems.length > 0) {
+        this.item = newItems[0];
+        this._commSvc.changeItem(this.item);
+      }
+    });
   }
 }
