@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { ItemService } from '../shared/services/item.services';
-import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
@@ -20,7 +19,6 @@ export class UploadComponent implements OnInit {
   itemForm: FormGroup;
   submitted = false;
   constructor(
-    private _log: LoggingService,
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
     private _commSvc: CommunicateService,
@@ -69,7 +67,7 @@ export class UploadComponent implements OnInit {
     }
     this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
-        this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
       } else if (event.type === HttpEventType.Response) {
         var item = {
           tags: this.parsedTags,

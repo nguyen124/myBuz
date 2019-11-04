@@ -1,13 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from '../shared/services/user-service.service';
-import { Router } from '@angular/router';
 import { IUser } from '../shared/model/user';
 import { AuthService } from '../shared/services/security/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SystemService } from '../shared/services/utils/system.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { HttpEventType } from '@angular/common/http';
-import { LoggingService } from '../shared/services/system/logging.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-home',
@@ -24,10 +23,9 @@ export class UserHomeComponent implements OnInit {
   constructor(
     private _userSvc: UserService,
     private _authSvc: AuthService,
-    private _router: Router,
-    private _fb: FormBuilder,
     private _systemSvc: SystemService,
-    private _log: LoggingService,
+    private _toastr: ToastrService,
+    private _fb: FormBuilder,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -95,26 +93,26 @@ export class UserHomeComponent implements OnInit {
     if (this.uploadedFile) {
       this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
-          this._log.log('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           newInfo["avatar"] = event.body["fileLocation"];
           this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
             this.afterUpdate(result);
           }, err => {
             this.error = err;
-            this._log.log(err);
+            this._toastr.error("Failed to update profile!. Please try again later.")
           });
         }
       }, err => {
         this.error = err;
-        this._log.log(err);
+        this._toastr.error("Failed to upload profile avatar to server!. Please try again later.")
       })
     } else {
       this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
         this.afterUpdate(result);
       }, err => {
         this.error = err;
-        this._log.log(err);
+        this._toastr.error("Failed to update profile!. Please try again later.")
       });
     }
   }

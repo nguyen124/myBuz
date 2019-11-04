@@ -3,7 +3,7 @@ import * as RecordRTC from 'recordrtc';
 import { Subject, Observable } from 'rxjs';
 import * as moment from 'moment'
 import { HttpClient } from '@angular/common/http';
-import { CommentService } from './comment.services';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +16,7 @@ export class VoiceMessageServiceService {
   private _recordingTime = new Subject<string>();
   private _recordingFailed = new Subject<string>();
 
-  constructor(private _http: HttpClient, private _commentSvc: CommentService) { }
+  constructor(private _http: HttpClient, private _toastr: ToastrService) { }
 
   getRecordedTime(): Observable<string> {
     return this._recordingTime.asObservable();
@@ -72,7 +72,7 @@ export class VoiceMessageServiceService {
         1000
       );
     }).catch(function (err) {
-      this._log.log(err.name, err.message);
+      this._toastr.error(err.name, err.message);
     });
   }
 

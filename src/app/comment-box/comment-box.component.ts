@@ -4,7 +4,7 @@ import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
 import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
 import { HttpEventType } from '@angular/common/http';
-import { LoggingService } from '../shared/services/system/logging.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comment-box',
@@ -23,7 +23,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     private _voiceSvc: VoiceMessageServiceService,
-    private _logSvc: LoggingService) {
+    private _toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
       this._voiceSvc.stopRecord().then(record => {
         this._voiceSvc.uploadVoiceRecord(record).subscribe(event => {
           if (event.type === HttpEventType.UploadProgress) {
-            this._logSvc.log('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+            this._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
           } else if (event.type === HttpEventType.Response) {
             this._commentSvc.addComment(this.item._id, null, event.body["fileLocation"]).subscribe(newComment => {
               this.afterCommenting(newComment);
