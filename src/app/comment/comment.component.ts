@@ -25,9 +25,7 @@ export class CommentComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this._commentSvc.getTotalRepliesOfComment(this.comment._id).subscribe((res) => {
-      this.comment.totalReplies = res.totalReplies;
-    });;
+
   }
 
   ngOnChanges(change) {

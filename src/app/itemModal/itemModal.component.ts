@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
 import { IComment } from '../shared/model/comment';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-itemModal',
@@ -15,7 +16,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   item: IItem;
   comment: IComment
   subScription: Subscription;
-
+  @ViewChild(CommentsComponent) commentComp: CommentsComponent;
   constructor(
     private _commSvc: CommunicateService,
     private _log: LoggingService,
@@ -27,6 +28,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         this.item = item;
         setTimeout(() => {
           this.$("#openModalBtn").click();
+          this.commentComp.getComments(this.item._id);
         }, 0);
       }
     });

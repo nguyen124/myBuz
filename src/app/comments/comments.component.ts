@@ -10,9 +10,7 @@ import { LoggingService } from '../shared/services/system/logging.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit, OnDestroy, OnChanges {
-  @Input()
-  itemId: string;
+export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
   constructor(
@@ -28,8 +26,8 @@ export class CommentsComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  ngOnChanges() {
-    this._itemService.getCommentsOfItem(this.itemId).subscribe((comments: IComment[]) => {
+  getComments(id) {
+    this._itemService.getCommentsOfItem(id).subscribe((comments: IComment[]) => {
       this.comments = comments;
     });
   }
