@@ -31,7 +31,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   ngOnInit() {
     setTimeout(() => {
       this.$("#txtReplyBox").focus();
-    }, 500);
+    }, 1000);
   }
 
   writeTextComment() {
