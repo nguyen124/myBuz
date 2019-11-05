@@ -11,5 +11,5 @@ export interface IComment {
     upvoted?:boolean;
     downvoted?:boolean;
     replies?: IComment[];
-    totalReplies?: number;
+    noOfReplies?: number;
 }

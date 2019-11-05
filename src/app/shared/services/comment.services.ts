@@ -37,15 +37,7 @@ export class CommentService {
         });
     }
 
-    getComments(commentId: string): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/comments/" + commentId);
-    }
-
     getRepliesOfComment(commentId: string): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies");
-    }
-
-    getTotalRepliesOfComment(commentId: any): any {
-        return this._http.get<IComment[]>("/svc/comments/" + commentId + "/totalReplies");
     }
 }

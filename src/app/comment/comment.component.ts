@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
-export class CommentComponent implements OnInit, OnChanges {
+export class CommentComponent implements OnInit {
   @Input()
   comment: IComment;
   user: IUser;
@@ -25,16 +25,12 @@ export class CommentComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-
-  }
-
-  ngOnChanges(change) {
-    if (!this.comment.replies) {
-      this.comment.replies = [];
-    }
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
       if (reply && reply.parentCommentId == this.comment._id) {
-        this.comment.totalReplies++;
+        this.comment.noOfReplies++;
+        if (!this.comment.replies) {
+          this.comment.replies = [];
+        }
         this.comment.replies.push(reply);
       }
     });
