@@ -12,7 +12,7 @@ export class CommentService {
         private _http: HttpClient) {
     }
 
-    hasVoted(id: string, model: string): Observable<number> {
+    hasVoted(id: string): Observable<number> {
         return this._http.post<number>("/svc/current-user/has-voted/", { modelId: id, model: model });
     }
 
