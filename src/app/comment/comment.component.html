@@ -1,31 +1,46 @@
-<img class="avatar-75 d-inline float-left mr-2" src="{{comment.writtenBy.avatar}}" alt="Avatar">
-<div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{comment.writtenBy.username}}
-  </span>. {{comment.noOfPoints}} points</div>
-<div>
-  <span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>
-  <div>{{comment.content}}</div>
-  <div>
-    <audio *ngIf="comment.url" class="voice-comment" controls>
-      <source [src]="comment.url" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+<div class="row">
+  <div class="col-md-1 text-success">
+    <div class="row">
+      <strong><span style="font-size: 10px;">{{comment.writtenBy.username}}</span></strong>
+    </div>
+    <div class="row">
+      <img class="avatar-75" src="{{comment.writtenBy.avatar}}" alt="Avatar">
+    </div>
   </div>
-</div>
-<div class="d-block mt-1">
-  <div class="d-block mt-2">
-    <app-comment-react [comment]="comment"></app-comment-react>
-    <button class="btn btn-success mr-2 btn-xs" [disabled]="isShowRepliesClicked" (click)="showReplies(comment._id)">
-      <span>{{comment.noOfReplies}} replies</span>
-    </button>
+  <div class="col-md-11">
+    <span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>
+    <div>{{comment.content}}</div>
+    <div>
+      <audio *ngIf="comment.url" class="voice-comment" controls>
+        <source [src]="comment.url" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    <div>
+      <app-comment-react [comment]="comment"></app-comment-react>
+      <button class="btn btn-primary mr-2 btn-xs">
+        <span> {{comment.noOfPoints}} points</span>
+      </button>
+
+      <button class="btn btn-success mr-2 btn-xs" [disabled]="isShowRepliesClicked" (click)="showReplies(comment._id)">
+        <span>{{comment.noOfReplies}} replies</span>
+      </button>
+    </div>
   </div>
 </div>
 
-<div *ngFor="let reply of comment.replies;" class="pt-2 pl-4 clear-both">
-  <div class="clear-both">
-    <img class="avatar-45 d-inline float-left mt-2 mr-2" src="{{reply.writtenBy.avatar}}" alt="Avatar">
-    <div class="float-left pr-1 text-success"> <span class="font-weight-bold">{{reply.writtenBy.username}}
-      </span>. {{reply.noOfPoints}} points</div>
-    <div>
+<div *ngFor="let reply of comment.replies;">
+  <div class="row pl-4">
+    <div class="col-md-1 text-success">
+      <div class="row">
+        <strong><span style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
+      </div>
+      <div class="row">
+        <img class="avatar-45" src="{{reply.writtenBy.avatar}}" alt="Avatar">
+      </div>
+    </div>
+
+    <div class="col-md-11">
       <span *ngIf="reply.replyTo" class="text-primary pr-1">@{{reply.replyTo}}</span>
       <div>{{reply.content}}</div>
       <div>
@@ -34,7 +49,16 @@
           Your browser does not support the audio element.
         </audio>
       </div>
+      <div>
+        <app-comment-react [comment]="reply"></app-comment-react>
+        <button class="btn btn-primary mr-2 btn-xs">
+          <span> {{reply.noOfPoints}} points</span>
+        </button>
+      </div>
     </div>
-    <app-comment-react [comment]="reply"></app-comment-react>
+    <!-- <div class="input-group mb-3">
+      <a [routerLink]="['/items']" [queryParams]="{page: currentPage+1}" (click)="showMoreReplies()"
+        class="btn-xs btn-primary d-inline" role="button">More replies <i class="fa fa-angle-double-right"></i> </a>
+    </div> -->
   </div>
 </div>
