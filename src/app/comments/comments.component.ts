@@ -15,6 +15,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   currentPageOfComment = 0;
   itemId: string;
+  perPage = 6;
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
@@ -35,11 +36,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
       if (!this.comments) {
         this.comments = comments;
       } else {
-        for (var comment of comments) {
-          this.comments.push(comment);
+        for (var i = 0; i < comments.length; i++) {
+          this.comments[this.currentPageOfComment * this.perPage + i] = comments[i];
         }
       }
-      this.currentPageOfComment++;
+      if (comments.length == this.perPage) {
+        this.currentPageOfComment++
+      }
     });
   }
 

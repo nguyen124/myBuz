@@ -52,7 +52,7 @@ export class CommentComponent implements OnInit {
       if (replies.length == this.perPage) {
         this.currentPageOfReplies++
       }
-    });;
+    });
 
   }
 
