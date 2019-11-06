@@ -15,7 +15,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   currentPageOfComment = 0;
   itemId: string;
-  perPage = 6;
+  perPage = 20;
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
