@@ -13,7 +13,7 @@ export class CommentService {
     }
 
     hasVoted(id: string): Observable<number> {
-        return this._http.post<number>("/svc/current-user/has-voted/", { modelId: id, model: model });
+        return this._http.post<number>("/svc/current-user/has-voted/", { modelId: id });
     }
 
     upvote(id: string, model: string): Observable<number> {
@@ -37,7 +37,11 @@ export class CommentService {
         });
     }
 
-    getRepliesOfComment(commentId: string): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies");
+    getCommentsOfItem(itemId: string, page: number): Observable<IComment[]> {
+        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments?page=" + page);
+    }
+
+    getRepliesOfComment(commentId: string, page: number): Observable<IComment[]> {
+        return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies?page=" + page);
     }
 }

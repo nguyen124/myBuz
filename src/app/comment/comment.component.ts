@@ -5,7 +5,6 @@ import { ICommentUserLog } from '../shared/model/commentUserLog';
 import { CommentService } from '../shared/services/comment.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
-
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -19,6 +18,9 @@ export class CommentComponent implements OnInit {
   commentContent: string;
   subscription: Subscription;
   isShowRepliesClicked = false;
+  currentPageOfReplies = 0;
+  currentPageOfComments = 0
+  perPage = 10;
 
   constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService) {
 
@@ -38,9 +40,20 @@ export class CommentComponent implements OnInit {
 
   showReplies(commentId: string) {
     this.isShowRepliesClicked = true;
-    this._commentSvc.getRepliesOfComment(commentId).subscribe((replies) => {
-      this.comment.replies = replies;
+
+    this._commentSvc.getRepliesOfComment(commentId, this.currentPageOfReplies).subscribe((replies) => {
+      if (!this.comment.replies) {
+        this.comment.replies = replies;
+      } else {
+        for (var i = 0; i < replies.length; i++) {
+          this.comment.replies[this.currentPageOfReplies * this.perPage + i] = replies[i];
+        }
+      }
+      if (replies.length == this.perPage) {
+        this.currentPageOfReplies++
+      }
     });;
+
   }
 
   ngOnDestroy() {

@@ -49,9 +49,11 @@
         <span class="text-warning">{{reply.noOfPoints}}<i class="fa fa-star mr-1"></i></span>
       </div>
     </div>
-    <!-- <div class="input-group mb-3">
-      <a [routerLink]="['/items']" [queryParams]="{page: currentPage+1}" (click)="showMoreReplies()"
-        class="btn-xs btn-primary d-inline" role="button">More replies <i class="fa fa-angle-double-right"></i> </a>
-    </div> -->
   </div>
+
+</div>
+
+<div *ngIf="comment.replies" class="row mt-2">
+  <a href="javascript:void(0)" (click)="showReplies(comment._id)" class="btn-xs btn-primary d-inline" role="button">More replies <i
+      class="fa fa-angle-double-right"></i> </a>
 </div>

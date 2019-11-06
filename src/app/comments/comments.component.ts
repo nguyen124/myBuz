@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { IComment } from '../shared/model/comment';
-import { ItemService } from '../shared/services/item.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
 import { LoggingService } from '../shared/services/system/logging.service';
+import { CommentService } from '../shared/services/comment.services';
 
 @Component({
   selector: 'app-comments',
@@ -13,8 +13,10 @@ import { LoggingService } from '../shared/services/system/logging.service';
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
+  currentPageOfComment = 0;
+  itemId: string;
   constructor(
-    private _itemService: ItemService,
+    private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     private _log: LoggingService) { }
 
@@ -26,9 +28,18 @@ export class CommentsComponent implements OnInit, OnDestroy {
     });
   }
 
+
   getComments(id) {
-    this._itemService.getCommentsOfItem(id).subscribe((comments: IComment[]) => {
-      this.comments = comments;
+    this.itemId = this.itemId || id;
+    this._commentSvc.getCommentsOfItem(this.itemId, this.currentPageOfComment).subscribe((comments: IComment[]) => {
+      if (!this.comments) {
+        this.comments = comments;
+      } else {
+        for (var comment of comments) {
+          this.comments.push(comment);
+        }
+      }
+      this.currentPageOfComment++;
     });
   }
 
