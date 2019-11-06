@@ -1,6 +1,18 @@
-<div class="pb-2 d-flex" *ngFor="let comment of comments">
+<div class="pb-2 d-flex" *ngFor="let comment of comments; let i = index">
   <div class="w-100">
-    <app-comment *ngIf="!comment.parentCommentId" [comment]="comment"></app-comment>
+    <app-comment *ngIf="!comment.parentCommentId" [comment]="comment">
+      <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+      </button>
+      <div class="dropdown-menu">
+        <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block"
+          *ngIf="_authSvc.user.username == comment.writtenBy.username">Edit</a>
+        <a href="javascript:void(0)" (click)="deleteComment(i, comment._id)" class="ml-1 d-block"
+          *ngIf="_authSvc.user.username == comment.writtenBy.username">Delete</a>
+        <a href="javascript:void(0)" (click)="reportComment(i, comment._id)" class="ml-1 d-block"
+          *ngIf="!(_authSvc.user.username == comment.writtenBy.username)">Report</a>
+      </div>
+    </app-comment>
   </div>
 </div>
 

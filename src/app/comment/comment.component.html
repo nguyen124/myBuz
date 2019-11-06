@@ -19,12 +19,13 @@
     <div>
       <app-comment-react [comment]="comment"></app-comment-react>
       <i class="btn btn-xs fa fa-comment text-success" (click)="showReplies(comment._id)">{{comment.noOfReplies}}</i>
-      <i class="btn-xs fa fa-star mr-1 text-warning">{{comment.noOfPoints}}</i>
+      <i class="btn-xs fa fa-star mr-1 text-primary">{{comment.noOfPoints}}</i>
+      <ng-content></ng-content>
     </div>
   </div>
 </div>
 
-<div *ngFor="let reply of comment.replies;">
+<div *ngFor="let reply of comment.replies; let i = index">
   <div class="row">
     <div class="col-md-1">
       <div class="row">
@@ -46,7 +47,18 @@
       </div>
       <div>
         <app-comment-react [comment]="reply"></app-comment-react>
-        <i class="btn-xs fa fa-star mr-1 text-warning">{{reply.noOfPoints}}</i>
+        <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
+        <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+        </button>
+        <div class="dropdown-menu">
+          <a href="javascript:void(0)" (click)="editComment(i, reply._id)" class="ml-1 d-block"
+            *ngIf="_authSvc.user.username == reply.writtenBy.username">Edit</a>
+          <a href="javascript:void(0)" (click)="deleteComment(i, reply._id)" class="ml-1 d-block"
+            *ngIf="_authSvc.user.username == reply.writtenBy.username">Delete</a>
+          <a href="javascript:void(0)" (click)="reportComment(i, reply._id)" class="ml-1 d-block"
+            *ngIf="!(_authSvc.user.username == reply.writtenBy.username)">Report</a>
+        </div>
       </div>
     </div>
   </div>

@@ -4,6 +4,8 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 import { Subscription } from 'rxjs';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { CommentService } from '../shared/services/comment.services';
+import { AuthService } from '../shared/services/security/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comments',
@@ -19,6 +21,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
+    public _authSvc: AuthService,
+    private _toastr: ToastrService,
     private _log: LoggingService) { }
 
   ngOnInit() {
@@ -50,6 +54,21 @@ export class CommentsComponent implements OnInit, OnDestroy {
         this.currentPageOfComment++
       }
     });
+  }
+
+  deleteComment(index: number, commentId: string) {
+    this._commentSvc.deleteComment(commentId).subscribe(res => {
+      this.comments.splice(index, 1);
+      this._toastr.success("Comment deleted!");
+    });
+  }
+
+  editComment(index: number, commentId: string) {
+
+  }
+
+  reportComment(index: number, commentId: string) {
+
   }
 
   ngOnDestroy() {

@@ -5,6 +5,8 @@ import { ICommentUserLog } from '../shared/model/commentUserLog';
 import { CommentService } from '../shared/services/comment.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../shared/services/security/auth.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -13,15 +15,20 @@ import { Subscription } from 'rxjs';
 export class CommentComponent implements OnInit {
   @Input()
   comment: IComment;
+  @Input()
+  index: number;
   user: IUser;
   commentUserLog: ICommentUserLog;
   commentContent: string;
   subscription: Subscription;
   currentPageOfReplies = 0;
-  currentPageOfComments = 0
   perPage = 5;
 
-  constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService) {
+  constructor(
+    private _commentSvc: CommentService,
+    private _commSvc: CommunicateService,
+    public _authSvc: AuthService,
+    private _toastr: ToastrService) {
 
   }
 
@@ -56,6 +63,22 @@ export class CommentComponent implements OnInit {
         this.currentPageOfReplies++;
       }
     });
+  }
+
+  deleteComment(index: number, commentId: string) {
+    this._commentSvc.deleteComment(commentId).subscribe(parentComment => {
+      this.comment.replies.splice(index, 1);
+      this.comment.noOfReplies = parentComment.noOfReplies;
+      this._toastr.success("Reply deleted!");
+    });
+  }
+
+  editComment(index: number, commentId: string) {
+
+  }
+
+  reportComment(index: number, commentId: string) {
+
   }
 
   ngOnDestroy() {

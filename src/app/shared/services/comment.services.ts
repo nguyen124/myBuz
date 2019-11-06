@@ -44,4 +44,8 @@ export class CommentService {
     getRepliesOfComment(commentId: string, page: number): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies?page=" + page);
     }
+
+    deleteComment(commentId: string): Observable<any> {
+        return this._http.delete("/svc/comments/" + commentId);
+    }
 }
