@@ -15,7 +15,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   currentPageOfComment = 0;
   itemId: string;
-  perPage = 20;
+  perPage = 10;
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
@@ -31,14 +31,20 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
 
   getComments(id) {
-    this.itemId = this.itemId || id;
+    this.itemId = id;
+    this.currentPageOfComment = 0;
+    this._commentSvc.getCommentsOfItem(this.itemId, 0).subscribe((comments: IComment[]) => {
+      this.comments = comments;
+      if (this.comments.length == this.perPage) {
+        this.currentPageOfComment = 1;
+      }
+    });
+  }
+
+  getMoreComments() {
     this._commentSvc.getCommentsOfItem(this.itemId, this.currentPageOfComment).subscribe((comments: IComment[]) => {
-      if (!this.comments) {
-        this.comments = comments;
-      } else {
-        for (var i = 0; i < comments.length; i++) {
-          this.comments[this.currentPageOfComment * this.perPage + i] = comments[i];
-        }
+      for (var i = 0; i < comments.length; i++) {
+        this.comments[this.currentPageOfComment * this.perPage + i] = comments[i];
       }
       if (comments.length == this.perPage) {
         this.currentPageOfComment++

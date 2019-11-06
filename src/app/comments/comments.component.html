@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div *ngIf="comments" class="row mt-2">
-  <a href="javascript:void(0)" (click)="getComments()" class="btn-xs btn-primary d-inline" role="button">More comment <i
-      class="fa fa-angle-double-right"></i> </a>
+<div *ngIf="comments && comments.length >0" class=" row mt-2">
+  <a href="javascript:void(0)" (click)="getMoreComments()" class="btn-xs btn-primary d-inline" role="button">More
+    comments <i class="fa fa-angle-double-right"></i> </a>
 </div>

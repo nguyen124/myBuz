@@ -17,10 +17,9 @@ export class CommentComponent implements OnInit {
   commentUserLog: ICommentUserLog;
   commentContent: string;
   subscription: Subscription;
-  isShowRepliesClicked = false;
   currentPageOfReplies = 0;
   currentPageOfComments = 0
-  perPage = 10;
+  perPage = 5;
 
   constructor(private _commentSvc: CommentService, private _commSvc: CommunicateService) {
 
@@ -39,21 +38,24 @@ export class CommentComponent implements OnInit {
   }
 
   showReplies(commentId: string) {
-    this.isShowRepliesClicked = true;
-
+    this.currentPageOfReplies = 0;
     this._commentSvc.getRepliesOfComment(commentId, this.currentPageOfReplies).subscribe((replies) => {
-      if (!this.comment.replies) {
-        this.comment.replies = replies;
-      } else {
-        for (var i = 0; i < replies.length; i++) {
-          this.comment.replies[this.currentPageOfReplies * this.perPage + i] = replies[i];
-        }
-      }
+      this.comment.replies = replies;
       if (replies.length == this.perPage) {
-        this.currentPageOfReplies++
+        this.currentPageOfReplies = 1;
       }
     });
+  }
 
+  showMoreReplies(commentId: string) {
+    this._commentSvc.getRepliesOfComment(commentId, this.currentPageOfReplies).subscribe((replies) => {
+      for (var i = 0; i < replies.length; i++) {
+        this.comment.replies[this.currentPageOfReplies * this.perPage + i] = replies[i];
+      }
+      if (replies.length == this.perPage) {
+        this.currentPageOfReplies++;
+      }
+    });
   }
 
   ngOnDestroy() {
