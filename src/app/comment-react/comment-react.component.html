@@ -1,6 +1,5 @@
-<button class="btn mr-2 btn-xs" [ngClass]="comment.downvoted?'btn-primary':'btn-success'" (click)="downvote()"><i
-        class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-<button class="btn mr-2 btn-xs" [ngClass]="comment.upvoted?'btn-primary':'btn-success'" (click)="upvote()"><i
-        class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-<button class="btn btn-success mr-2 btn-xs" (click)="writeTextReply()"><i class="fa fa-reply"
-        aria-hidden="true"></i></button>
+<i class="btn btn-xs fa fa-thumbs-down mr-1" aria-hidden="true" [ngClass]="comment.downvoted?'text-primary':'text-success'"
+    (click)="downvote()"></i>
+<i class="btn btn-xs fa fa-thumbs-up mr-1" aria-hidden="true" [ngClass]="comment.upvoted?'text-primary':'text-success'"
+    (click)="upvote()"></i>
+<i class="btn btn-xs fa fa-reply mr-1 text-success" (click)="writeTextReply()"></i>
