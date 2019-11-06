@@ -22,7 +22,7 @@ export class ItemService {
         return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments");
     }
 
-    updateItem(item: Object): void {
+    updateItem(item: object): void {
         this._http.put("/svc/items", item);
     }
 

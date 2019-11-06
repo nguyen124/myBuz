@@ -14,7 +14,7 @@ export class AuthService {
     this.user = JSON.parse(localStorage.getItem("user"));
   }
 
-  localLogIn(username: String, password: String): Observable<any> {
+  localLogIn(username: string, password: string): Observable<any> {
     var loginObs = this._http.post<any>('/svc/user/auth/local', { email: username, password: password });
     loginObs.subscribe(res => {
       this.loggedIn = true;
