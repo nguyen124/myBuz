@@ -37,7 +37,7 @@ export class MyItemsComponent implements OnInit, OnDestroy {
   }
 
   loadNext() {
-    this.nextPage = this.items.length / this.perPage;
+    this.nextPage = Math.floor(this.items.length / this.perPage);
     this._userSvc.getMyItems(this.nextPage).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.perPage + i] = newItems[i];

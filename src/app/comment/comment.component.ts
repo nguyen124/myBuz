@@ -52,7 +52,7 @@ export class CommentComponent implements OnInit {
   }
 
   showMoreReplies(commentId: string) {
-    this.nextPage = this.comment.replies.length / this.perPage;
+    this.nextPage = Math.floor(this.comment.replies.length / this.perPage);
     this._commentSvc.getRepliesOfComment(commentId, this.nextPage).subscribe((replies) => {
       for (var i = 0; i < replies.length; i++) {
         this.comment.replies[this.nextPage * this.perPage + i] = replies[i];

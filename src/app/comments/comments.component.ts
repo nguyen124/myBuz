@@ -42,7 +42,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   getMoreComments() {
-    this.nextPage = this.comments.length / this.perPage;
+    this.nextPage = Math.floor(this.comments.length / this.perPage);
     this._commentSvc.getCommentsOfItem(this.itemId, this.nextPage).subscribe((comments: IComment[]) => {
       for (var i = 0; i < comments.length; i++) {
         this.comments[this.nextPage * this.perPage + i] = comments[i];

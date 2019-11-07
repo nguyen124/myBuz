@@ -12,7 +12,7 @@ export class ItemsComponent implements OnInit {
   @Input()
   items: IItem[];
   nextPage = 0;
-  perPage = 2;
+  perPage = 4;
   constructor(private _itemService: ItemService, private _activeRoute: ActivatedRoute) {
 
   }
@@ -24,7 +24,7 @@ export class ItemsComponent implements OnInit {
   }
 
   loadNext() {
-    this.nextPage = this.items.length / this.perPage;
+    this.nextPage = Math.floor(this.items.length / this.perPage);
     this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.perPage + i] = newItems[i];

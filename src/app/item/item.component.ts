@@ -10,9 +10,13 @@ import { ReactComponent } from '../react/react.component';
 export class ItemComponent implements OnInit {
   @Input() item: IItem;
   @ViewChild(ReactComponent) reactCompChild: ReactComponent;
+  modifiedDate: any;
+
   constructor() { }
 
   ngOnInit() {
+    var utc = new Date(this.item.modifiedDate);
+    this.modifiedDate = new Date(utc.getTime() + utc.getTimezoneOffset() * 60000);
   }
 
   showItemModal() {
