@@ -11,28 +11,24 @@ import { ActivatedRoute } from '@angular/router';
 export class ItemsComponent implements OnInit {
   @Input()
   items: IItem[];
-  currentPage = 0;
+  nextPage = 0;
+  perPage = 2;
   constructor(private _itemService: ItemService, private _activeRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this._activeRoute.queryParams.subscribe(queryParams => {
-      var page = this._activeRoute.snapshot.queryParams["page"];
-      this.currentPage = page ? +page : 0;
-      this._itemService.getItems(queryParams).subscribe((newItems: IItem[]) => {
-        if (!this.items) {
-          this.items = newItems;
-        } else {
-          for (var item of newItems) {
-            this.items.push(item);
-          }
-        }
-      });
+    this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
+      this.items = newItems;
     });
   }
 
-  onClickNext() {
-    this.currentPage++;
+  loadNext() {
+    this.nextPage = this.items.length / this.perPage;
+    this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
+      for (var i = 0; i < newItems.length; i++) {
+        this.items[this.nextPage * this.perPage + i] = newItems[i];
+      }
+    });
   }
 }

@@ -21,7 +21,7 @@ export class CommentComponent implements OnInit {
   commentUserLog: ICommentUserLog;
   commentContent: string;
   subscription: Subscription;
-  currentPageOfReplies = 0;
+  nextPage = 0;
   perPage = 5;
 
   constructor(
@@ -33,34 +33,29 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.comment.replies) {
+      this.comment.replies = [];
+    }
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
       if (reply && reply.parentCommentId == this.comment._id) {
         this.comment.noOfReplies++;
-        if (!this.comment.replies) {
-          this.comment.replies = [];
-        }
         this.comment.replies.push(reply);
       }
     });
   }
 
   showReplies(commentId: string) {
-    this.currentPageOfReplies = 0;
-    this._commentSvc.getRepliesOfComment(commentId, this.currentPageOfReplies).subscribe((replies) => {
+    this.nextPage = 0;
+    this._commentSvc.getRepliesOfComment(commentId, this.nextPage).subscribe((replies) => {
       this.comment.replies = replies;
-      if (replies.length == this.perPage) {
-        this.currentPageOfReplies = 1;
-      }
     });
   }
 
   showMoreReplies(commentId: string) {
-    this._commentSvc.getRepliesOfComment(commentId, this.currentPageOfReplies).subscribe((replies) => {
+    this.nextPage = this.comment.replies.length / this.perPage;
+    this._commentSvc.getRepliesOfComment(commentId, this.nextPage).subscribe((replies) => {
       for (var i = 0; i < replies.length; i++) {
-        this.comment.replies[this.currentPageOfReplies * this.perPage + i] = replies[i];
-      }
-      if (replies.length == this.perPage) {
-        this.currentPageOfReplies++;
+        this.comment.replies[this.nextPage * this.perPage + i] = replies[i];
       }
     });
   }

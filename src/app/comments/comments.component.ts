@@ -15,8 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
-  currentPageOfComment = 0;
   itemId: string;
+  nextPage = 0;
   perPage = 10;
   constructor(
     private _commentSvc: CommentService,
@@ -33,25 +33,19 @@ export class CommentsComponent implements OnInit, OnDestroy {
     });
   }
 
-
   getComments(id) {
     this.itemId = id;
-    this.currentPageOfComment = 0;
-    this._commentSvc.getCommentsOfItem(this.itemId, 0).subscribe((comments: IComment[]) => {
+    this.nextPage = 0;
+    this._commentSvc.getCommentsOfItem(this.itemId, this.nextPage).subscribe((comments: IComment[]) => {
       this.comments = comments;
-      if (this.comments.length == this.perPage) {
-        this.currentPageOfComment = 1;
-      }
     });
   }
 
   getMoreComments() {
-    this._commentSvc.getCommentsOfItem(this.itemId, this.currentPageOfComment).subscribe((comments: IComment[]) => {
+    this.nextPage = this.comments.length / this.perPage;
+    this._commentSvc.getCommentsOfItem(this.itemId, this.nextPage).subscribe((comments: IComment[]) => {
       for (var i = 0; i < comments.length; i++) {
-        this.comments[this.currentPageOfComment * this.perPage + i] = comments[i];
-      }
-      if (comments.length == this.perPage) {
-        this.currentPageOfComment++
+        this.comments[this.nextPage * this.perPage + i] = comments[i];
       }
     });
   }

@@ -14,6 +14,10 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 export class MyItemsComponent implements OnInit, OnDestroy {
   items: IItem[];
   subScription: Subscription;
+
+  nextPage = 0;
+  perPage = 2;
+
   constructor(
     private _userSvc: UserService,
     private _itemSvc: ItemService,
@@ -22,12 +26,21 @@ export class MyItemsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._userSvc.getMyItems().subscribe((items: IItem[]) => {
-      this.items = items;
+    this._userSvc.getMyItems(this.nextPage).subscribe((newItems: IItem[]) => {
+      this.items = newItems;
     });
     this.subScription = this._commSvc.newUploadedItem$.subscribe((item: IItem) => {
       if (this.items) {
         this.items.push(item);
+      }
+    });
+  }
+
+  loadNext() {
+    this.nextPage = this.items.length / this.perPage;
+    this._userSvc.getMyItems(this.nextPage).subscribe((newItems: IItem[]) => {
+      for (var i = 0; i < newItems.length; i++) {
+        this.items[this.nextPage * this.perPage + i] = newItems[i];
       }
     });
   }

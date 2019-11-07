@@ -10,8 +10,8 @@
     </ng-container>
 </div>
 
-<div class="input-group mb-3">
-    <a [routerLink]="['/items']" [queryParams]="{page: currentPage+1}" (click)="onClickNext()"
-        class="btn btn-primary d-inline" role="button">Page {{currentPage}} <i class="fa fa-angle-double-right"></i>
-    </a>
+<div class="row">
+    <div class="input-group col-md-2">
+        <a (click)="loadNext()" class="btn btn-primary d-inline" role="button">Next</a>
+    </div>
 </div>
