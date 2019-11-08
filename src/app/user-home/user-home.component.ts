@@ -74,8 +74,19 @@ export class UserHomeComponent implements OnInit {
   }
 
   hasChangedValues() {
-    return (this.f.username.value != this.user.username) || (this.f.nationality.value != this.user.nationality) ||
-      (new Date(this.f.dob.value).getTime() != new Date(this.user.dob).getTime()) || (this.f.gender.value != this.user.gender) || (this.uploadedFile)
+    return this.hasUsernameChanged() ||
+      this.hasAvatarChanged() ||
+      (this.f.nationality.value != this.user.nationality) ||
+      (new Date(this.f.dob.value).getTime() != new Date(this.user.dob).getTime()) ||
+      (this.f.gender.value != this.user.gender)
+  }
+
+  hasAvatarChanged() {
+    return !!this.uploadedFile;
+  }
+
+  hasUsernameChanged() {
+    return (this.f.username.value != this.user.username);
   }
 
   updateUser() {
@@ -87,7 +98,10 @@ export class UserHomeComponent implements OnInit {
       username: this.f.username.value,
       nationality: this.f.nationality.value,
       gender: this.f.gender.value,
-      dob: this.f.dob.value
+      dob: this.f.dob.value,
+      avatar: this.user.avatar,
+      hasAvatarChanged: this.hasAvatarChanged(),
+      hasUsernameChanged: this.hasUsernameChanged()
     };
 
     if (this.uploadedFile) {
