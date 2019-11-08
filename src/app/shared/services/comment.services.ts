@@ -7,6 +7,7 @@ import { IComment } from '../model/comment';
 @Injectable()
 export class CommentService {
     parentCommentId: string;
+    latestComment: IComment;
 
     constructor(
         private _http: HttpClient) {

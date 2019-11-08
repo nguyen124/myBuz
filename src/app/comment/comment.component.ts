@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
-import { ICommentUserLog } from '../shared/model/commentUserLog';
 import { CommentService } from '../shared/services/comment.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
@@ -18,9 +17,8 @@ export class CommentComponent implements OnInit {
   @Input()
   index: number;
   user: IUser;
-  commentUserLog: ICommentUserLog;
-  commentContent: string;
   subscription: Subscription;
+  isShowingReply = false;
   nextPage = 0;
   perPage = 5;
 
@@ -33,19 +31,20 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.comment.replies) {
-      this.comment.replies = [];
-    }
+    this.comment.replies = [];
+
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
-      if (reply && reply.parentCommentId == this.comment._id) {
+      if (reply && reply.parentCommentId == this.comment._id && (!this._commentSvc.latestComment || this._commentSvc.latestComment._id != reply._id)) {
         this.comment.noOfReplies++;
         this.comment.replies.push(reply);
+        this._commentSvc.latestComment = reply;
       }
     });
   }
 
   showReplies(commentId: string) {
     this.nextPage = 0;
+    this.isShowingReply = true;
     this._commentSvc.getRepliesOfComment(commentId, this.nextPage).subscribe((replies) => {
       this.comment.replies = replies;
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
@@ -27,8 +27,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this._commSvc.newComment$.subscribe((comment: IComment) => {
-      if (comment && !comment.parentCommentId) {
+      if (comment && !comment.parentCommentId && (!this._commentSvc.latestComment || this._commentSvc.latestComment._id != comment._id)) {
         this.comments.push(comment);
+        this._commentSvc.latestComment = comment;
       }
     });
   }
