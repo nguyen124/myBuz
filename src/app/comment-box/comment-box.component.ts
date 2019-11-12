@@ -52,7 +52,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           if (event.type === HttpEventType.UploadProgress) {
             this._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
           } else if (event.type === HttpEventType.Response) {
-            this._commentSvc.addComment(this.item._id, null, event.body["fileLocation"]).subscribe(newComment => {
+            var textContent = this.$("#txtReplyBox").html();
+            this._commentSvc.addComment(this.item._id, textContent, event.body["fileLocation"]).subscribe(newComment => {
               this.afterCommenting(newComment);
             });
           }

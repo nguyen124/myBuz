@@ -6,6 +6,7 @@ import { LoggingService } from '../shared/services/system/logging.service';
 import { CommentService } from '../shared/services/comment.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { IItem } from '../shared/model/item';
 
 @Component({
   selector: 'app-comments',
@@ -15,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
-  itemId: string;
+  item: IItem;
   nextPage = 0;
   perPage = 10;
   constructor(
@@ -34,17 +35,17 @@ export class CommentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getComments(id) {
-    this.itemId = id;
+  getComments(item) {
+    this.item = item;
     this.nextPage = 0;
-    this._commentSvc.getCommentsOfItem(this.itemId, this.nextPage).subscribe((comments: IComment[]) => {
+    this._commentSvc.getCommentsOfItem(this.item._id, this.nextPage).subscribe((comments: IComment[]) => {
       this.comments = comments;
     });
   }
 
   getMoreComments() {
     this.nextPage = Math.floor(this.comments.length / this.perPage);
-    this._commentSvc.getCommentsOfItem(this.itemId, this.nextPage).subscribe((comments: IComment[]) => {
+    this._commentSvc.getCommentsOfItem(this.item._id, this.nextPage).subscribe((comments: IComment[]) => {
       for (var i = 0; i < comments.length; i++) {
         this.comments[this.nextPage * this.perPage + i] = comments[i];
       }
@@ -54,6 +55,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   deleteComment(index: number, commentId: string) {
     this._commentSvc.deleteComment(commentId).subscribe(res => {
       this.comments.splice(index, 1);
+      this.item.noOfComments--;
       this._toastr.success("Comment deleted!");
     });
   }

@@ -6,6 +6,7 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { IItem } from '../shared/model/item';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -16,6 +17,9 @@ export class CommentComponent implements OnInit {
   comment: IComment;
   @Input()
   index: number;
+  @Input()
+  item: IItem;
+
   user: IUser;
   subscription: Subscription;
   isShowingReply = false;
@@ -62,6 +66,7 @@ export class CommentComponent implements OnInit {
   deleteComment(index: number, commentId: string) {
     this._commentSvc.deleteComment(commentId).subscribe(parentComment => {
       this.comment.replies.splice(index, 1);
+      this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;
       this._toastr.success("Reply deleted!");
     });

@@ -29,7 +29,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         this.item = item;
         setTimeout(() => {
           this.$("#openModalBtn").click();
-          this.commentComp.getComments(this.item._id);
+          this.commentComp.getComments(this.item);
         }, 0);
       }
     });
