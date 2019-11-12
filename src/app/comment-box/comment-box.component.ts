@@ -17,7 +17,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   item: IItem;
   isRecording: boolean;
   isUploading: boolean;
-  commentContent: string;
   commentType: string = "ItemComment";
 
   constructor(
@@ -35,8 +34,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   writeTextComment() {
-    if (this.commentContent && this.commentContent.trim()) {
-      this._commentSvc.addComment(this.item._id, this.commentContent, null).subscribe(newComment => {
+    var content = this.$("#txtReplyBox").html();
+    if (content) {
+      this._commentSvc.addComment(this.item._id, content, null).subscribe(newComment => {
         this.afterCommenting(newComment);
       });
     }
@@ -63,7 +63,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   afterCommenting(newComment) {
     this.item.noOfComments++;
-    this.commentContent = ""
+    this.$("#txtReplyBox").html("");
     this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
     this._commSvc.changeComment(newComment);
   }

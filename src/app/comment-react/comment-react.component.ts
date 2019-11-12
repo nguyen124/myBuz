@@ -49,8 +49,18 @@ export class CommentReactComponent implements OnInit {
   }
 
   writeTextReply(): void {
-    this.$("#txtReplyBox").focus();
-    this.$("#txtReplyBox").val("@" + this.comment.writtenBy["username"] + ": ");
+    var el = this.$("#txtReplyBox");
+    el.html("<a href='#' class='btn m-0 p-0 mb-1'>@" + this.comment.writtenBy["username"] + ": </a>").focus();
+    this.setCursor(el);
     this._commentSvc.parentCommentId = this.comment.parentCommentId || this.comment._id;
   }
+
+  setCursor = function (el) {
+    var range = document.createRange();
+    var sel = window.getSelection();
+    range.setStart(el.children()[0], 1);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  };
 }

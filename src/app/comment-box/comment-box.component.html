@@ -1,6 +1,7 @@
 <div class="row">
-  <textarea id="txtReplyBox" placeholder="Let comment something fun!" class="pb-cmnt-textarea float-left "
-    [(ngModel)]="commentContent" ngDefaultControl></textarea>
+  <div class="editable mb-1 mr-3" contenteditable="true" id="txtReplyBox" [innerHtml]="commentContent">
+
+  </div>
 </div>
 <div class="row">
   <button class="btn-xs btn-primary mr-1 ml-1" (click)="writeTextComment()" [disabled]="isRecording"
