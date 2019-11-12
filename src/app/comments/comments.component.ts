@@ -54,8 +54,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   deleteComment(index: number, commentId: string) {
     this._commentSvc.deleteComment(commentId).subscribe(res => {
+      this.item.noOfComments = this.item.noOfComments - (1 + this.comments[index].noOfReplies);
       this.comments.splice(index, 1);
-      this.item.noOfComments--;
       this._toastr.success("Comment deleted!");
     });
   }

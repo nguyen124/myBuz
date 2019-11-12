@@ -10,12 +10,7 @@
   <div class="col-md-11 mt-2">
     <span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>
     <div [innerHtml]="comment.content"></div>
-    <div>
-      <audio *ngIf="comment.url" class="voice-comment" controls>
-        <source [src]="comment.url" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+
     <div>
       <app-comment-react [comment]="comment"></app-comment-react>
       <i class="btn btn-xs fa fa-comment text-success" (click)="showReplies(comment._id)">{{comment.noOfReplies}}</i>

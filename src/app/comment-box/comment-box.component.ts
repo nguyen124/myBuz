@@ -6,6 +6,7 @@ import { VoiceMessageServiceService } from '../shared/services/voice-message.ser
 import { HttpEventType } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -18,11 +19,14 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   isRecording: boolean;
   isUploading: boolean;
   commentType: string = "ItemComment";
+  uploadedFile: File;
+  voiceRecord: any;
 
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     private _voiceSvc: VoiceMessageServiceService,
+    private _systemSvc: SystemService,
     @Inject(JQ_TOKEN) private $: any,
     private _toastr: ToastrService) {
   }
@@ -34,32 +38,115 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   writeTextComment() {
-    var content = this.$("#txtReplyBox").html();
-    if (content) {
-      this._commentSvc.addComment(this.item._id, content, null).subscribe(newComment => {
-        this.afterCommenting(newComment);
-      });
-    }
+    this._uploadPic(this._uploadVoice);
   }
 
-  writeVoiceComment() {
+  voiceCommentPreview() {
     this.isRecording = !this.isRecording;
     if (this.isRecording) {
       this._voiceSvc.startRecord();
     } else {
       this._voiceSvc.stopRecord().then(record => {
-        this._voiceSvc.uploadVoiceRecord(record).subscribe(event => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
-          } else if (event.type === HttpEventType.Response) {
-            var textContent = this.$("#txtReplyBox").html();
-            this._commentSvc.addComment(this.item._id, textContent, event.body["fileLocation"]).subscribe(newComment => {
-              this.afterCommenting(newComment);
-            });
+        this.voiceRecord = record;
+        var oldVoice = this.$('#audioId');
+        if (oldVoice) {
+          oldVoice.remove();
+        }
+        var newVoice = this.$("<audio id='audioId' controls> <source  id='voice' src='' type='audio/mpeg'> </audio>");
+        if (newVoice) {
+          var blob = window.URL || window.webkitURL;
+          if (!blob) {
+            this._toastr.error('Your browser does not support Blob URLs');
+            return;
           }
-        });
+          var fileURL = blob.createObjectURL(<File>record["blob"]);
+          newVoice.children()[0].setAttribute('src', fileURL);
+          this.$("#txtReplyBox").append(newVoice);
+        }
       })
     }
+  }
+
+  _uploadVoice(that) {
+    var thatt = that;
+    if (that.voiceRecord) {
+      that._voiceSvc.uploadVoiceRecord(that.voiceRecord).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          that._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        } else if (event.type === HttpEventType.Response) {
+          var url = event.body["fileLocation"]
+          var oldVoice = that.$('#audioId');
+          if (oldVoice) {
+            oldVoice.remove();
+          }
+          var newVoice = that.$("<audio id='audioId' controls> <source  id='voice' src='' type='audio/mpeg'> </audio>");
+          if (newVoice) {
+            newVoice.children()[0].setAttribute('src', url);
+            that.$("#txtReplyBox").append(newVoice);
+          }
+          thatt._f(that);
+        }
+      });
+    } else {
+      thatt._f(that);
+    }
+  }
+
+  _f(that) {
+    var content = that.$("#txtReplyBox").html();
+    that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
+      that.afterCommenting(newComment);
+    });
+  }
+
+  _uploadPic(callback) {
+    if (this.uploadedFile) {
+      this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        } else if (event.type === HttpEventType.Response) {
+          var url = event.body["fileLocation"];
+          var oldPic = this.$('#pic');
+          if (oldPic) {
+            oldPic.remove();
+          }
+          var newPic = this.$("<img id='pic' src='" + url + "'/>");
+          this.$("#txtReplyBox").append(newPic);
+
+          callback(this);
+        }
+      }, err => {
+        this._toastr.error("Failed to upload profile avatar to server!. Please try again later.")
+      })
+    } else {
+      callback(this);
+    }
+  }
+
+  picCommentPreview() {
+    var that = this;
+    // preview pic
+    this.$("#picComment").bind('change', function (event) {
+      if (event && event.currentTarget && event.currentTarget.files) {
+        that.uploadedFile = <File>event.currentTarget.files.item(0);
+        if (that.uploadedFile) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var oldPic = that.$('#pic');
+            if (oldPic) {
+              oldPic.remove();
+            }
+            var newPic = that.$("<img id='pic'/>");
+            if (newPic) {
+              newPic.attr('src', e.target["result"]);
+              that.$("#txtReplyBox").append(newPic);
+            }
+          }
+          reader.readAsDataURL(that.uploadedFile);
+        }
+      }
+    }).click();
+
   }
 
   afterCommenting(newComment) {
@@ -67,6 +154,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this.$("#txtReplyBox").html("");
     this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
     this._commSvc.changeComment(newComment);
+    this.uploadedFile = null;
+    this.voiceRecord = null;
   }
 
   ngOnDestroy() {

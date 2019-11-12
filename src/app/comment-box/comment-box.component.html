@@ -6,11 +6,15 @@
 <div class="row">
   <button class="btn-xs btn-primary mr-1 ml-1" (click)="writeTextComment()" [disabled]="isRecording"
     [class.btn-secondary]="isRecording"><i class="fa fa-share-square font-10" aria-hidden="true"></i></button>
-  <button class="btn-xs btn-primary mr-1 ml-1" (click)="writeVoiceComment()" [disabled]="isUploading"
+  <button class="btn-xs btn-primary mr-1 ml-1" (click)="picCommentPreview()" [class.btn-secondary]="isRecording"
+    [disabled]="isRecording"><i class="fa fa-picture-o font-8" aria-hidden="true"></i></button>
+  <button class="btn-xs btn-primary mr-1 ml-1" (click)="voiceCommentPreview()" [disabled]="isUploading"
     [class.btn-secondary]="isUploading">
     <i class="fa fa-microphone font-10 pr-pl-1-px" aria-hidden="true" [class.red-micro]="isRecording"></i></button>
+
   <button class="btn-xs btn-primary mr-1 ml-1" [class.btn-secondary]="isRecording" [disabled]="isRecording"><i
       class="fa fa-camera font-8" aria-hidden="true"></i></button>
-  <button class="btn-xs btn-primary mr-1 ml-1" [class.btn-secondary]="isRecording" [disabled]="isRecording"><i
-      class="fa fa-picture-o font-8" aria-hidden="true"></i></button>
 </div>
+<input type="file" id="picComment" style="display: none;" accept="audio/*, video/*, image/*">
+
+<input type="file" id="voiceComment" style="display: none;" accept="audio/*, video/*, image/*">

@@ -29,12 +29,11 @@ export class CommentService {
         return this._http.put<number>("/svc/current-user/downvote", { modelId: id, model: model });
     }
 
-    addComment(itemId: string, content: string, url: string): Observable<any> {
+    addComment(itemId: string, content: string): Observable<any> {
         return this._http.post<any>('/svc/current-user/comment', {
             parentCommentId: this.parentCommentId,
             itemId: itemId,
-            content: content,
-            url: url
+            content: content
         });
     }
 
