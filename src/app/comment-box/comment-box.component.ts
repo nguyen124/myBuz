@@ -48,21 +48,33 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     } else {
       this._voiceSvc.stopRecord().then(record => {
         this.voiceRecord = record;
-        var oldVoice = this.$('#audioId');
-        if (oldVoice) {
-          oldVoice.remove();
+        var that = this,
+          oldPreviewVoiceDiv = this.$("#previewVoiceDiv");
+
+        that.removeElement(oldPreviewVoiceDiv);
+        var previewVoiceDiv = this.$('<div id="previewVoiceDiv" class="col-md-5"></div>'),
+          newVoice = this.$(`
+          <audio id='audioId' controls> 
+            <source  id='voice' src='' type='audio/mpeg'> 
+          </audio>`),
+          removeVoiceBtn = this.$(`
+          <button class="btn btn-xs btn-primary upright-corner" id="removeVoiceBtn"> 
+            <span aria-hidden="true">&times;</span>
+          </button>`);
+
+        removeVoiceBtn.bind('click', () => {
+          that.removeElement(previewVoiceDiv);
+        })
+
+        var blob = window.URL || window.webkitURL;
+        if (!blob) {
+          this._toastr.error('Your browser does not support Blob URLs');
+          return;
         }
-        var newVoice = this.$("<audio id='audioId' controls> <source  id='voice' src='' type='audio/mpeg'> </audio>");
-        if (newVoice) {
-          var blob = window.URL || window.webkitURL;
-          if (!blob) {
-            this._toastr.error('Your browser does not support Blob URLs');
-            return;
-          }
-          var fileURL = blob.createObjectURL(<File>record["blob"]);
-          newVoice.children()[0].setAttribute('src', fileURL);
-          this.$("#txtReplyBox").append(newVoice);
-        }
+        var fileURL = blob.createObjectURL(<File>record["blob"]);
+        newVoice.children()[0].setAttribute('src', fileURL);
+
+        this.$("#txtReplyBox").append(previewVoiceDiv.append(newVoice).append(removeVoiceBtn));
       })
     }
   }
@@ -130,19 +142,19 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         if (that.uploadedFile) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            var oldPic = that.$('#previewDiv');
-            that.removePic(oldPic);
-            var newDiv = that.$("<div id='previewDiv' class='col-md-5'></div>"),
+            var oldPreviewPicDiv = that.$('#previewPicDiv');
+            that.removeElement(oldPreviewPicDiv);
+            var previewPicDiv = that.$("<div id='previewPicDiv' class='col-md-5'></div>"),
               newPic = that.$("<img class='previewPic' id='pic'/>"),
-              removePic = that.$(`
+              removePicBtn = that.$(`
                 <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
                 <span aria-hidden="true">&times;</span>
                 </button>`);
-            removePic.bind('click', () => {
-              that.removePic(newDiv);
+            removePicBtn.bind('click', () => {
+              that.removeElement(previewPicDiv);
             });
             newPic.attr('src', e.target["result"]);
-            that.$("#txtReplyBox").append(newDiv.append(newPic).append(removePic));
+            that.$("#txtReplyBox").append(previewPicDiv.append(newPic).append(removePicBtn));
           }
           reader.readAsDataURL(that.uploadedFile);
         }
@@ -150,8 +162,10 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }).click();
   }
 
-  removePic(newDiv) {
-    newDiv.remove();
+  removeElement(element) {
+    if (element) {
+      element.remove();
+    }
   }
 
   afterCommenting(newComment) {
