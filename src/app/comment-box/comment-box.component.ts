@@ -63,6 +63,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           </button>`);
 
         removeVoiceBtn.bind('click', () => {
+          that.voiceRecord = null;
           that.removeElement(previewVoiceDiv);
         })
 
@@ -103,10 +104,17 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   _f(that) {
-    var content = that.$("#txtReplyBox").html();
-    that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
-      that.afterCommenting(newComment);
-    });
+    var el = that.$("#txtReplyBox"),
+      content = el.html(),
+      text = el.text();
+
+    if (content && text.trim()) {
+      that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
+        that.afterCommenting(newComment);
+      });
+    } else {
+      that._toastr.warning("Please enter non-empty comment!")
+    }
   }
 
   _uploadPic(callback) {
@@ -151,6 +159,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
                 <span aria-hidden="true">&times;</span>
                 </button>`);
             removePicBtn.bind('click', () => {
+              that.uploadedFile = null;
               that.removeElement(previewPicDiv);
             });
             newPic.attr('src', e.target["result"]);
