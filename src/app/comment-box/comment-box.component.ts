@@ -87,14 +87,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         if (event.type === HttpEventType.UploadProgress) {
           that._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
-          var url = event.body["fileLocation"]
-          var oldVoice = that.$('#audioId');
-          if (oldVoice) {
-            oldVoice.remove();
-          }
-          var newVoice = that.$("<audio id='audioId' controls> <source  id='voice' src='' type='audio/mpeg'> </audio>");
-          newVoice.children()[0].setAttribute('src', url);
-          that.$("#txtReplyBox").append(newVoice);
+          var url = event.body["fileLocation"];
+          that.$("#voice").attr('src', url);
           thatt._f(that);
         }
       });
@@ -104,14 +98,30 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   _f(that) {
+    var removeBtn = that.$("#removeVoiceBtn"),
+      removePicBtn = this.$("#removePicBtn");
+    that.removeElement(removeBtn);
+    that.removeElement(removePicBtn);
+
     var el = that.$("#txtReplyBox"),
       content = el.html(),
       text = el.text();
 
     if (content && text.trim()) {
-      that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
-        that.afterCommenting(newComment);
-      });
+      if (!this._commentSvc.edittingComment) {
+        that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
+          that.afterAddingComment(newComment);
+        });
+      } else {
+        if (this._commentSvc.edittingComment.content !== content) {
+          that._commentSvc.updateComment(this._commentSvc.edittingComment._id, content).subscribe(newComment => {
+            that.afterEdittingComment(newComment)
+          });
+        } else {
+          this.$("#txtReplyBox").html("");
+        }
+      }
+
     } else {
       that._toastr.warning("Please enter non-empty comment!")
     }
@@ -124,13 +134,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           var url = event.body["fileLocation"];
-          var oldPic = this.$('#pic');
-          if (oldPic) {
-            oldPic.remove();
-          }
-          var newPic = this.$("<img id='pic' src='" + url + "'/>");
-          this.$("#txtReplyBox").append(newPic);
-
+          this.$("#pic").attr("src", url);
           callback(this);
         }
       }, err => {
@@ -177,13 +181,21 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  afterCommenting(newComment) {
+  afterAddingComment(newComment) {
     this.item.noOfComments++;
     this.$("#txtReplyBox").html("");
     this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
     this._commSvc.changeComment(newComment);
     this.uploadedFile = null;
     this.voiceRecord = null;
+    this._commentSvc.edittingComment = null;
+  }
+
+  afterEdittingComment(newComment) {
+    this.$("#txtReplyBox").html("");
+    this.uploadedFile = null;
+    this.voiceRecord = null;
+    this._commSvc.changeComment(newComment);
   }
 
   ngOnDestroy() {

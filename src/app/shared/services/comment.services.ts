@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
+import { JQ_TOKEN } from './jQuery.service';
 
 
 @Injectable()
 export class CommentService {
     parentCommentId: string;
     latestComment: IComment;
+    edittingComment: IComment;
+    edittingCommentIndex: number;
 
     constructor(
-        private _http: HttpClient) {
+        private _http: HttpClient,
+        @Inject(JQ_TOKEN) private $: any) {
     }
 
     hasVoted(id: string): Observable<number> {
@@ -37,6 +41,12 @@ export class CommentService {
         });
     }
 
+    updateComment(commentId: string, content: string): Observable<any> {
+        return this._http.put<any>('/svc/current-user/comments/' + commentId, {
+            content: content
+        });
+    }
+
     getCommentsOfItem(itemId: string, page: number): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments?page=" + page);
     }
@@ -46,6 +56,41 @@ export class CommentService {
     }
 
     deleteComment(commentId: string): Observable<any> {
-        return this._http.delete("/svc/comments/" + commentId);
+        return this._http.delete("/svc/current-user/comments/" + commentId);
+    }
+
+    populateDataToCommentbox(comment: IComment, index: Number) {
+        this.$("#txtReplyBox").html(comment.content);
+        var that = this;
+        var removePicBtn = this.$(`
+                <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
+                    <span aria-hidden="true">&times;</span>
+                </button>`),
+            previewPicDiv = this.$("#previewPicDiv"),
+            removeVoiceBtn = this.$(`
+                <button class="btn btn-xs btn-primary upright-corner" id="removeVoiceBtn"> 
+                    <span aria-hidden="true">&times;</span>
+                </button>`),
+            previewVoiceDiv = this.$("#previewVoiceDiv");
+        removePicBtn.bind("click", () => {
+            that.removeElement(previewPicDiv)
+        });
+        removeVoiceBtn.bind("click", () => {
+            that.removeElement(previewVoiceDiv)
+        });
+        if (previewPicDiv) {
+            previewPicDiv.append(removePicBtn);
+        }
+        if (previewVoiceDiv) {
+            previewVoiceDiv.append(removeVoiceBtn);
+        }
+        this.edittingComment = comment;
+        this.edittingCommentIndex = index;
+    }
+
+    removeElement(el) {
+        if (el) {
+            el.remove();
+        }
     }
 }

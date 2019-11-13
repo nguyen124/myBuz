@@ -40,7 +40,13 @@ export class CommentComponent implements OnInit {
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
       if (reply && reply.parentCommentId == this.comment._id && (!this._commentSvc.latestComment || this._commentSvc.latestComment._id != reply._id)) {
         this.comment.noOfReplies++;
-        this.comment.replies.push(reply);
+        if (!this._commentSvc.edittingComment) {
+          this.comment.replies.push(reply);
+        } else {
+          this.comment.replies[this._commentSvc.edittingCommentIndex] = reply;
+          this._commentSvc.edittingCommentIndex = -1;
+          this._commentSvc.edittingComment = null;
+        }
         this._commentSvc.latestComment = reply;
       }
     });
@@ -72,8 +78,8 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  editComment(index: number, commentId: string) {
-
+  editComment(index: number) {
+    this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
   }
 
   reportComment(index: number, commentId: string) {
