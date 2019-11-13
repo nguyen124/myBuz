@@ -22,7 +22,17 @@
     border-radius: .2rem;
 }
 
-
 .voted {
     background: #007bff;
+}
+
+.upright-corner {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
+.previewPic {
+    width: 100%;
+    border-radius: 5%;
 }

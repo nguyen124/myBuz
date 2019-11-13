@@ -80,10 +80,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
             oldVoice.remove();
           }
           var newVoice = that.$("<audio id='audioId' controls> <source  id='voice' src='' type='audio/mpeg'> </audio>");
-          if (newVoice) {
-            newVoice.children()[0].setAttribute('src', url);
-            that.$("#txtReplyBox").append(newVoice);
-          }
+          newVoice.children()[0].setAttribute('src', url);
+          that.$("#txtReplyBox").append(newVoice);
           thatt._f(that);
         }
       });
@@ -132,21 +130,28 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         if (that.uploadedFile) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            var oldPic = that.$('#pic');
-            if (oldPic) {
-              oldPic.remove();
-            }
-            var newPic = that.$("<img id='pic'/>");
-            if (newPic) {
-              newPic.attr('src', e.target["result"]);
-              that.$("#txtReplyBox").append(newPic);
-            }
+            var oldPic = that.$('#previewDiv');
+            that.removePic(oldPic);
+            var newDiv = that.$("<div id='previewDiv' class='col-md-5'></div>"),
+              newPic = that.$("<img class='previewPic' id='pic'/>"),
+              removePic = that.$(`
+                <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
+                <span aria-hidden="true">&times;</span>
+                </button>`);
+            removePic.bind('click', () => {
+              that.removePic(newDiv);
+            });
+            newPic.attr('src', e.target["result"]);
+            that.$("#txtReplyBox").append(newDiv.append(newPic).append(removePic));
           }
           reader.readAsDataURL(that.uploadedFile);
         }
       }
     }).click();
+  }
 
+  removePic(newDiv) {
+    newDiv.remove();
   }
 
   afterCommenting(newComment) {
