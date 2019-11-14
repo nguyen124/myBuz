@@ -67,7 +67,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           that.removeElement(previewVoiceDiv);
         })
 
-        var blob = window.URL || window.webkitURL;
+        var blob = window.URL || window["webkitURL"];
         if (!blob) {
           this._toastr.error('Your browser does not support Blob URLs');
           return;

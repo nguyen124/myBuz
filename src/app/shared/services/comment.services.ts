@@ -59,7 +59,7 @@ export class CommentService {
         return this._http.delete("/svc/current-user/comments/" + commentId);
     }
 
-    populateDataToCommentbox(comment: IComment, index: Number) {
+    populateDataToCommentbox(comment: IComment, index: number) {
         this.$("#txtReplyBox").html(comment.content);
         var that = this;
         var removePicBtn = this.$(`
