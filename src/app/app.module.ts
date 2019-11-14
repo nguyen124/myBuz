@@ -39,18 +39,8 @@ import { UploadComponent } from './upload/upload.component';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { JQ_TOKEN } from './shared/services/jQuery.service';
 import { UserHomeComponent } from './user-home/user-home.component';
-import { NgxSocialButtonModule, SocialServiceConfig } from "ngx-social-button";
-import { SocialComponent } from './social/social.component';
-
+import { SocialSharingModule } from './social-sharing/social-sharing.module';
 let jQuery: any = window['$'];
-
-// Configs
-function getAuthServiceConfigs() {
-  let config = new SocialServiceConfig()
-    .addFacebook("2341935745914929")
-    .addGoogle("255336538802-2o65hm0fv0ag6ds098lpa8118s9kdo43.apps.googleusercontent.com");
-  return config;
-}
 
 @NgModule({
   declarations: [
@@ -75,8 +65,7 @@ function getAuthServiceConfigs() {
     ReactComponent,
     RegisterComponent,
     MyItemsComponent,
-    UserHomeComponent,
-    SocialComponent
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +75,7 @@ function getAuthServiceConfigs() {
     ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    NgxSocialButtonModule,
+    SocialSharingModule,
     ToastrModule.forRoot(),
     routing
   ],
@@ -99,11 +88,7 @@ function getAuthServiceConfigs() {
     VoiceMessageServiceService,
     ParentAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
-    { provide: JQ_TOKEN, useValue: jQuery },
-    {
-      provide: SocialServiceConfig,
-      useFactory: getAuthServiceConfigs
-    }
+    { provide: JQ_TOKEN, useValue: jQuery }
   ],
   bootstrap: [AppComponent]
 })
