@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { ReactComponent } from '../react/react.component';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
 
 @Component({
   selector: 'app-item',
