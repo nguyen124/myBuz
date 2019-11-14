@@ -99,26 +99,25 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   _f(that) {
     var removeBtn = that.$("#removeVoiceBtn"),
-      removePicBtn = this.$("#removePicBtn");
+      removePicBtn = that.$("#removePicBtn");
     that.removeElement(removeBtn);
     that.removeElement(removePicBtn);
 
     var el = that.$("#txtReplyBox"),
-      content = el.html(),
-      text = el.text();
+      content = el.html();
 
-    if (content && text.trim()) {
-      if (!this._commentSvc.edittingComment) {
+    if (content) {
+      if (!that._commentSvc.edittingComment) {
         that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
           that.afterAddingComment(newComment);
         });
       } else {
-        if (this._commentSvc.edittingComment.content !== content) {
-          that._commentSvc.updateComment(this._commentSvc.edittingComment._id, content).subscribe(newComment => {
+        if (that._commentSvc.edittingComment.content !== content) {
+          that._commentSvc.updateComment(that._commentSvc.edittingComment._id, content).subscribe(newComment => {
             that.afterEdittingComment(newComment)
           });
         } else {
-          this.$("#txtReplyBox").html("");
+          that.$("#txtReplyBox").html("");
         }
       }
 

@@ -38,7 +38,12 @@ export class CommentComponent implements OnInit {
     this.comment.replies = [];
 
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
-      if (reply && reply.parentCommentId == this.comment._id && (!this._commentSvc.latestComment || this._commentSvc.latestComment._id != reply._id)) {
+      if (reply &&
+        reply.parentCommentId == this.comment._id &&
+        (!this._commentSvc.latestComment ||
+          this._commentSvc.latestComment._id != reply._id ||
+          this._commentSvc.edittingComment)
+      ) {
         this.comment.noOfReplies++;
         if (!this._commentSvc.edittingComment) {
           this.comment.replies.push(reply);

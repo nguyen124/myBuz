@@ -28,7 +28,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this._commSvc.newComment$.subscribe((comment: IComment) => {
-      if (comment && !comment.parentCommentId && (!this._commentSvc.latestComment || this._commentSvc.latestComment._id != comment._id)) {
+      if (
+        comment &&
+        !comment.parentCommentId &&
+        (!this._commentSvc.latestComment ||
+          this._commentSvc.latestComment._id != comment._id || // this is to prevent extra comment showing up after adding new comment
+          this._commentSvc.edittingComment)
+      ) {
         if (!this._commentSvc.edittingComment) {
           this.comments.push(comment);
         } else {
