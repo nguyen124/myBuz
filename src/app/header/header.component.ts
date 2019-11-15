@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  menus = [];
 
   constructor(public _authSvc: AuthService, private _router: Router) {
 
