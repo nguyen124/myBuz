@@ -13,6 +13,19 @@ import { AuthService } from '../shared/services/security/auth.service';
 export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
+
+  options = [
+    { name: 'OptionA', value: '1', checked: false },
+    { name: 'OptionB', value: '2', checked: false },
+    { name: 'OptionC', value: '3', checked: false }
+  ]
+
+  get selectedOptions() {
+    return this.options
+      .filter(opt => opt.checked)
+      .map(opt => opt.value)
+  }
+
   constructor(
     private _commentSvc: CommentService,
     private _itemSvc: ItemService,
@@ -60,5 +73,12 @@ export class ReactComponent implements OnInit {
         this._commSvc.changeItem(this.item);
       }
     });
+  }
+
+  reportItem(itemId) {
+    var reasons = this.selectedOptions;
+    if (reasons.length > 0) {
+      
+    }
   }
 }

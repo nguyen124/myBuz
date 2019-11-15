@@ -1,14 +1,14 @@
 <div class="mb-4">
   <div class="d-inline">
-    <a href='/' class="btn btn-xs btn-primary mr-1"><i class="fa fa-home"></i></a>
+    <a href='/' class="btn btn-xs btn-primary mr-2"><i class="fa fa-home"></i></a>
   </div>
   <div class="d-inline" *ngIf="!_authSvc.isLoggedIn()">
-    <a class="btn btn-xs btn-success mr-1" href="/login"><i class="fa fa-sign-in"></i></a>
+    <a class="btn btn-xs btn-success mr-2" href="/login"><i class="fa fa-sign-in"></i></a>
   </div>
   <div class="d-inline" *ngIf="_authSvc.isLoggedIn()">
     <app-upload></app-upload>
     <div class="btn-group">
-      <button class="btn btn-xs btn-success mr-1" data-toggle="modal" data-target="#uploadModal"><i
+      <button class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
           class="fa fa-plus"></i></button>
       <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">

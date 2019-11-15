@@ -14,12 +14,11 @@ export class MyItemsComponent implements OnInit {
   perPage = 4;
 
   constructor(
-    private _userSvc: UserService,
     private _itemService: ItemService) {
   }
 
   ngOnInit() {
-    this._userSvc.getMyItems(this.nextPage).subscribe((newItems: IItem[]) => {
+    this._itemService.getMyItems(this.nextPage).subscribe((newItems: IItem[]) => {
       this.items = newItems;
     });
   }

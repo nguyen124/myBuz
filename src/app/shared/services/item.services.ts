@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { IItem } from '../model/item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { IComment } from '../model/comment';
+import { AuthService } from './security/auth.service';
 
 @Injectable()
 export class ItemService {
     constructor(
-        private _http: HttpClient) {
+        private _http: HttpClient,
+        private _authSvc: AuthService) {
     }
 
     getItems(params): Observable<IItem[]> {
@@ -28,5 +29,9 @@ export class ItemService {
 
     createItem(item): Observable<IItem> {
         return this._http.post<IItem>("/svc/current-user/items", item);
+    }
+
+    getMyItems(page): Observable<IItem[]> {
+        return this._http.get<IItem[]>("/svc/items?createdBy=" + this._authSvc.user._id + "&page=" + page);
     }
 }

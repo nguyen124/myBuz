@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../model/user';
 import { Observable } from 'rxjs';
-import { IItem } from '../model/item';
 import { AuthService } from './security/auth.service';
 
 
@@ -19,9 +18,5 @@ export class UserService {
 
   updateUser(id: string, newInfo: any): Observable<IUser> {
     return this._http.put<IUser>("/svc/users/" + id, newInfo);
-  }
-
-  getMyItems(page): Observable<IItem[]> {
-    return this._http.get<IItem[]>("/svc/items?createdBy=" + this._authSvc.user._id + "&page=" + page);
   }
 }

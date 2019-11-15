@@ -5,13 +5,23 @@
             class="fa fa-thumbs-up" aria-hidden="true"></i></button>
     <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-comment-o"></i></button>
 
-    <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="submenu" data-toggle="dropdown"
+    <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="menu" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"></button>
-    <div class="dropdown-menu" aria-label="submenu">
+    <div class="dropdown-menu" aria-label="menu">
         <app-facebook></app-facebook>
-        <div *ngIf="!(_authSvc.user.username == item.createdBy.username)">
+        <div class="text-danger" *ngIf="!(_authSvc.user.username == item.createdBy.username)">
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="javascript:void(0)" (click)="reportItem(item._id)">Report</a>
+            <button class="btn dropdown-item text-primary pl-0 ml-1"
+                [ngClass]="selectedOptions.length<1 ? 'text-secondary' : ''" href="javascript:void(0)"
+                (click)="reportItem(item._id)" [disabled]="selectedOptions.length<1">Report</button>
+            <div class="mt-2 ml-3">
+                <div *ngFor="let option of options">
+                    <label>
+                        <input type="checkbox" name="options" value="{{option.value}}" [(ngModel)]="option.checked" />
+                        {{option.name}}
+                    </label>
+                </div>
+            </div>
         </div>
         <ng-content></ng-content>
     </div>
