@@ -11,7 +11,7 @@
         <app-facebook></app-facebook>
         <div *ngIf="!(_authSvc.user.username == item.createdBy.username)">
             <div class="dropdown-divider"></div>
-            <a href="javascript:void(0)" (click)="reportItem(item._id)" class="ml-1 d-block">Report</a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="reportItem(item._id)">Report</a>
         </div>
         <ng-content></ng-content>
     </div>

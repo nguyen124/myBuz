@@ -1,7 +1,14 @@
 <div class="row text-lg-left" id="items-container">
-  <ng-container *ngFor="let item of items;">
+  <ng-container *ngFor="let item of items; let i = index;">
     <div class="col-lg-3 col-md-4 col-xs-6 pb-3">
-      <app-item [item]="item"></app-item>
+      <app-item [item]="item">
+        <div *ngIf="(_authSvc.user.username == item.createdBy.username)">
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/items/{{item._id}}">Edit</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:void(0)" (click)="deleteItem(i, item._id)">Delete</a>
+        </div>
+      </app-item>
     </div>
   </ng-container>
 </div>
