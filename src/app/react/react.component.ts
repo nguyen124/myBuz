@@ -3,6 +3,7 @@ import { IItem } from '../shared/model/item';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { CommentService } from '../shared/services/comment.services';
 import { ItemService } from '../shared/services/item.services';
+import { AuthService } from '../shared/services/security/auth.service';
 
 @Component({
   selector: 'app-react',
@@ -15,7 +16,8 @@ export class ReactComponent implements OnInit {
   constructor(
     private _commentSvc: CommentService,
     private _itemSvc: ItemService,
-    private _commSvc: CommunicateService) {
+    private _commSvc: CommunicateService,
+    public _authSvc: AuthService) {
   }
 
   ngOnInit() {

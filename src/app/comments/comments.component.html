@@ -9,8 +9,8 @@
           *ngIf="_authSvc.user.username == comment.writtenBy.username">Edit</a>
         <a href="javascript:void(0)" (click)="deleteComment(i, comment._id)" class="ml-1 d-block"
           *ngIf="_authSvc.user.username == comment.writtenBy.username">Delete</a>
-        <!-- <a href="javascript:void(0)" (click)="reportComment(i, comment._id)" class="ml-1 d-block"
-          *ngIf="!(_authSvc.user.username == comment.writtenBy.username)">Report</a> -->
+        <a href="javascript:void(0)" (click)="reportComment(i, comment._id)" class="ml-1 d-block"
+          *ngIf="!(_authSvc.user.username == comment.writtenBy.username)">Report</a>
       </div>
     </app-comment>
   </div>

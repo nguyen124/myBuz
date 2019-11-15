@@ -20,12 +20,8 @@
 
 <div class="row">
   <div class="col-md-6">
-    <app-react [item]="item"></app-react>
-    <button class="btn btn-xs btn-success dropdown-toggle" style="height: 22px;" type="button" id="submenu"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-    <div class="dropdown-menu" aria-label="submenu">
-      <app-facebook></app-facebook>
+    <app-react [item]="item">
       <ng-content></ng-content>
-    </div>
+    </app-react>
   </div>
 </div>
