@@ -13,8 +13,9 @@ export interface IItem {
   noOfComments?: number;
   noOfSeens?: number;
   noOfShares?: number;
-  upvoted?:boolean;
-  downvoted?:boolean;
+  upvoted?: boolean;
+  downvoted?: boolean;
+  reported?: boolean;
   status?: string;
   isAdult?: boolean;
   isSafeAtWork?: boolean;

@@ -4,6 +4,9 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 import { CommentService } from '../shared/services/comment.services';
 import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
+import { SystemService } from '../shared/services/utils/system.service';
+import { ReportService } from '../shared/services/report.services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-react',
@@ -30,6 +33,8 @@ export class ReactComponent implements OnInit {
     private _commentSvc: CommentService,
     private _itemSvc: ItemService,
     private _commSvc: CommunicateService,
+    private _reportSvc: ReportService,
+    private _toastr: ToastrService,
     public _authSvc: AuthService) {
   }
 
@@ -75,10 +80,19 @@ export class ReactComponent implements OnInit {
     });
   }
 
-  reportItem(itemId) {
+  reportItem(itemId?: any, commentId?: any) {
     var reasons = this.selectedOptions;
     if (reasons.length > 0) {
-      
+      var report = {
+        reportedItemId: itemId,
+        reportedCommentId: commentId,
+        reasons: reasons
+      };
+      this._reportSvc.createReport(report).subscribe(res => {
+        this._toastr.success("Report submitted!")
+      }, err => {
+        this._toastr.error("Couldn't submit report!")
+      })
     }
   }
 }
