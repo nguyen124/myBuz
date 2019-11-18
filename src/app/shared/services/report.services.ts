@@ -14,4 +14,8 @@ export class ReportService {
     createReport(report: IReport): Observable<any> {
         return this._http.post("/svc/reports", report);
     }
+
+    cancelReport(itemId: string): Observable<any> {
+        return this._http.delete("/svc/reports?reportedItemId=" + itemId);
+    }
 }

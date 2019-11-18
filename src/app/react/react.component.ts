@@ -80,19 +80,28 @@ export class ReactComponent implements OnInit {
     });
   }
 
-  reportItem(itemId?: any, commentId?: any) {
+  reportItem(item: IItem) {
     var reasons = this.selectedOptions;
     if (reasons.length > 0) {
       var report = {
-        reportedItemId: itemId,
-        reportedCommentId: commentId,
+        reportedItemId: item._id,
         reasons: reasons
       };
       this._reportSvc.createReport(report).subscribe(res => {
+        item.reported = true;
         this._toastr.success("Report submitted!")
       }, err => {
         this._toastr.error("Couldn't submit report!")
       })
     }
+  }
+
+  cancelReportItem(item: IItem) {
+    this._reportSvc.cancelReport(item._id).subscribe(res => {
+      this._toastr.success("Report canceled!")
+      item.reported = false
+    }, err => {
+      this._toastr.error("Couldn't cancel report!")
+    })
   }
 }
