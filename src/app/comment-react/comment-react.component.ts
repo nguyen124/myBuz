@@ -20,11 +20,11 @@ export class CommentReactComponent implements OnInit {
 
   upvote(): void {
     if (!this.comment.upvoted) {
-      this._commentSvc.upvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.upvote(this.comment.itemId, this.comment._id).subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
     } else {
-      this._commentSvc.unvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.unvote(this.comment.itemId, this.comment._id).subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }
@@ -32,11 +32,11 @@ export class CommentReactComponent implements OnInit {
 
   downvote(): void {
     if (!this.comment.downvoted) {
-      this._commentSvc.downvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.downvote(this.comment.itemId, this.comment._id).subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
     } else {
-      this._commentSvc.unvote(this.comment._id, "IComment").subscribe(newScore => {
+      this._commentSvc.unvote(this.comment.itemId, this.comment._id).subscribe(newScore => {
         this.setInfo(newScore, false, false);
       });
     }

@@ -17,20 +17,16 @@ export class CommentService {
         @Inject(JQ_TOKEN) private $: any) {
     }
 
-    hasVoted(id: string): Observable<number> {
-        return this._http.post<number>("/svc/current-user/has-voted/", { modelId: id });
+    upvote(itemId?: string, commentId?: string): Observable<number> {
+        return this._http.put<number>("/svc/current-user/upvote", { itemId: itemId, commentId: commentId });
     }
 
-    upvote(id: string, model: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/upvote", { modelId: id, model: model });
+    unvote(itemId?: string, commentId?: string): Observable<number> {
+        return this._http.put<number>("/svc/current-user/unvote", { itemId: itemId, commentId: commentId });
     }
 
-    unvote(id: string, model: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/unvote", { modelId: id, model: model });
-    }
-
-    downvote(id: string, model: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/downvote", { modelId: id, model: model });
+    downvote(itemId?: string, commentId?: string): Observable<number> {
+        return this._http.put<number>("/svc/current-user/downvote", { itemId: itemId, commentId: commentId });
     }
 
     addComment(itemId: string, content: string): Observable<any> {
