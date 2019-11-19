@@ -52,7 +52,7 @@ export class ReportComponent implements OnInit {
   }
 
   cancelReportComment(comment: IComment) {
-    this._reportSvc.cancelReport(comment._id).subscribe(res => {
+    this._reportSvc.cancelReport(comment.itemId, comment._id).subscribe(res => {
       this._toastr.success("Report canceled!")
       comment.hasReported = false
     }, err => {
