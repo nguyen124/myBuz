@@ -1,7 +1,7 @@
 <div class="btn-group">
-    <button class="btn btn-xs mr-2" [ngClass]="item.downvoted?'btn-primary':'btn-success'" (click)="downvote()"><i
+    <button class="btn btn-xs mr-2" [ngClass]="item.hasDownvoted?'btn-primary':'btn-success'" (click)="downvote()"><i
             class="fa fa-thumbs-down" aria-hidden="true"></i></button>
-    <button class="btn btn-xs mr-2" [ngClass]="item.upvoted?'btn-primary':'btn-success'" (click)="upvote()"><i
+    <button class="btn btn-xs mr-2" [ngClass]="item.hasUpvoted?'btn-primary':'btn-success'" (click)="upvote()"><i
             class="fa fa-thumbs-up" aria-hidden="true"></i></button>
     <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-comment-o"></i></button>
 

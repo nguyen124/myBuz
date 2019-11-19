@@ -1,5 +1,5 @@
-<i class="btn btn-xs fa fa-thumbs-down mr-1 font-size-115-rem" aria-hidden="true" [ngClass]="comment.downvoted?'text-primary':'text-success'"
+<i class="btn btn-xs fa fa-thumbs-down mr-1 font-size-115-rem" aria-hidden="true" [ngClass]="comment.hasDownvoted?'text-primary':'text-success'"
     (click)="downvote()"></i>
-<i class="btn btn-xs fa fa-thumbs-up mr-1 font-size-115-rem" aria-hidden="true" [ngClass]="comment.upvoted?'text-primary':'text-success'"
+<i class="btn btn-xs fa fa-thumbs-up mr-1 font-size-115-rem" aria-hidden="true" [ngClass]="comment.hasUpvoted?'text-primary':'text-success'"
     (click)="upvote()"></i>
 <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="writeTextReply()"></i>

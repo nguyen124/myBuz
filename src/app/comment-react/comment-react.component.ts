@@ -19,7 +19,7 @@ export class CommentReactComponent implements OnInit {
   }
 
   upvote(): void {
-    if (!this.comment.upvoted) {
+    if (!this.comment.hasUpvoted) {
       this._commentSvc.upvote(this.comment.itemId, this.comment._id).subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
@@ -31,7 +31,7 @@ export class CommentReactComponent implements OnInit {
   }
 
   downvote(): void {
-    if (!this.comment.downvoted) {
+    if (!this.comment.hasDownvoted) {
       this._commentSvc.downvote(this.comment.itemId, this.comment._id).subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
@@ -44,8 +44,8 @@ export class CommentReactComponent implements OnInit {
 
   setInfo(newScore, upvoted, downvoted) {
     this.comment.noOfPoints = newScore;
-    this.comment.downvoted = downvoted;
-    this.comment.upvoted = upvoted;
+    this.comment.hasDownvoted = downvoted;
+    this.comment.hasUpvoted = upvoted;
   }
 
   writeTextReply(): void {

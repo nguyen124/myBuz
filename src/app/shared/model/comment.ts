@@ -1,5 +1,5 @@
 export interface IComment {
-    _id: string;   
+    _id: string;
     parentCommentId?: string;
     content: string;
     modifiedDate: string;
@@ -7,8 +7,8 @@ export interface IComment {
     itemId: string;
     replyTo?: object;
     noOfPoints?: number;
-    upvoted?:boolean;
-    downvoted?:boolean;
-    replies?: IComment[];
     noOfReplies?: number;
+    hasUpvoted?: boolean;
+    hasDownvoted?: boolean;
+    replies?: IComment[];
 }

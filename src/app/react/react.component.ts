@@ -42,7 +42,7 @@ export class ReactComponent implements OnInit {
   }
 
   upvote(): void {
-    if (!this.item.upvoted) {
+    if (!this.item.hasUpvoted) {
       this._commentSvc.upvote(this.item._id).subscribe(newScore => {
         this.setInfo(newScore, true, false);
       });
@@ -54,7 +54,7 @@ export class ReactComponent implements OnInit {
   }
 
   downvote(): void {
-    if (!this.item.downvoted) {
+    if (!this.item.hasDownvoted) {
       this._commentSvc.downvote(this.item._id).subscribe(newScore => {
         this.setInfo(newScore, false, true);
       });
@@ -67,8 +67,8 @@ export class ReactComponent implements OnInit {
 
   setInfo(newScore, upvoted, downvoted) {
     this.item.noOfPoints = newScore;
-    this.item.downvoted = downvoted;
-    this.item.upvoted = upvoted;
+    this.item.hasDownvoted = downvoted;
+    this.item.hasUpvoted = upvoted;
   }
 
   showItemModal() {

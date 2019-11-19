@@ -8,8 +8,6 @@ export interface IUser {
     rank?: string;
     status?: string;
     noOfFollowers?: number;
-    accessToken?: string;
-    googleId?: string;
     familyName?: string;
     givenName?: string;
     gender?: string;
