@@ -10,5 +10,6 @@ export interface IComment {
     noOfReplies?: number;
     hasUpvoted?: boolean;
     hasDownvoted?: boolean;
+    hasReported?: boolean;
     replies?: IComment[];
 }

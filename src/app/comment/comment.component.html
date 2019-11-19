@@ -51,8 +51,7 @@
             *ngIf="_authSvc.user.username == reply.writtenBy.username">Edit</a>
           <a href="javascript:void(0)" (click)="deleteComment(i, reply._id)" class="ml-1 d-block"
             *ngIf="_authSvc.user.username == reply.writtenBy.username">Delete</a>
-          <a href="javascript:void(0)" (click)="reportComment(i, reply._id)" class="ml-1 d-block"
-            *ngIf="!(_authSvc.user.username == reply.writtenBy.username)">Report</a>
+          <app-report [comment]="reply"></app-report>
         </div>
       </div>
     </div>

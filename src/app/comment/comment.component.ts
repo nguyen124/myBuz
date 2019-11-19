@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
+import { ReportService } from '../shared/services/report.services';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -85,10 +86,6 @@ export class CommentComponent implements OnInit {
 
   editComment(index: number) {
     this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
-  }
-
-  reportComment(index: number, commentId: string) {
-
   }
 
   ngOnDestroy() {

@@ -1,0 +1,19 @@
+<div class="text-danger" *ngIf="comment && !(_authSvc.user.username == comment.writtenBy.username)">
+  <div *ngIf="!comment.hasReported; else elseBlock">
+    <button class="btn dropdown-item text-primary pl-0 ml-1"
+      [ngClass]="selectedOptions.length<1 ? 'text-secondary' : ''" href="javascript:void(0)"
+      (click)="reportComment(comment)" [disabled]="selectedOptions.length<1">Report</button>
+    <div class="mt-2 ml-3">
+      <div *ngFor="let option of options">
+        <label>
+          <input type="checkbox" name="options" value="{{option.value}}" [(ngModel)]="option.checked" />
+          {{option.name}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <button class="btn dropdown-item text-primary pl-0 ml-1" (click)="cancelReportComment(comment)">Cancel
+      report</button>
+  </ng-template>
+</div>

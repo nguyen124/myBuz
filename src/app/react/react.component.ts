@@ -4,7 +4,6 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 import { CommentService } from '../shared/services/comment.services';
 import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
-import { SystemService } from '../shared/services/utils/system.service';
 import { ReportService } from '../shared/services/report.services';
 import { ToastrService } from 'ngx-toastr';
 

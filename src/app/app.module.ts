@@ -40,6 +40,7 @@ import { MyItemsComponent } from './my-items/my-items.component';
 import { JQ_TOKEN } from './shared/services/jQuery.service';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { SocialSharingModule } from './social-sharing/social-sharing.module';
+import { ReportComponent } from './report/report.component';
 let jQuery: any = window['$'];
 
 @NgModule({
@@ -65,7 +66,8 @@ let jQuery: any = window['$'];
     ReactComponent,
     RegisterComponent,
     MyItemsComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
