@@ -11,7 +11,7 @@
         <app-facebook></app-facebook>
         <div class="text-danger" *ngIf="!(_authSvc.user.username == item.createdBy.username)">
             <div class="dropdown-divider"></div>
-            <div *ngIf="!item.reported; else elseBlock">
+            <div *ngIf="!item.hasReported; else elseBlock">
                 <button class="btn dropdown-item text-primary pl-0 ml-1"
                     [ngClass]="selectedOptions.length<1 ? 'text-secondary' : ''" href="javascript:void(0)"
                     (click)="reportItem(item)" [disabled]="selectedOptions.length<1">Report</button>
