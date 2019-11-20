@@ -19,7 +19,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   constructor(
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
-    public _authSvc: AuthService,
+    public authSvc: AuthService,
     private _commSvc: CommunicateService) {
 
   }

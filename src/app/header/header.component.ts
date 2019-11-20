@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  constructor(public _authSvc: AuthService, private _router: Router) {
+  constructor(public authSvc: AuthService, private _router: Router) {
 
   }
 
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this._authSvc.logout().subscribe(
+    this.authSvc.logout().subscribe(
       data => { console.log(data); this._router.navigate(["/"]) },
       err => { console.log(err) }
     );

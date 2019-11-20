@@ -26,7 +26,7 @@ export class ReportComponent implements OnInit {
   }
 
   constructor(
-    public _authSvc: AuthService,
+    public authSvc: AuthService,
     private _reportSvc: ReportService,
     private _toastr: ToastrService) { }
 

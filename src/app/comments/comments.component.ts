@@ -22,7 +22,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
-    public _authSvc: AuthService,
+    public authSvc: AuthService,
     private _toastr: ToastrService,
     private _log: LoggingService) { }
 

@@ -34,7 +34,7 @@ export class ReactComponent implements OnInit {
     private _commSvc: CommunicateService,
     private _reportSvc: ReportService,
     private _toastr: ToastrService,
-    public _authSvc: AuthService) {
+    public authSvc: AuthService) {
   }
 
   ngOnInit() {

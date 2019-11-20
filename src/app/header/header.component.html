@@ -2,10 +2,10 @@
   <div class="d-inline">
     <a href='/' class="btn btn-xs btn-primary mr-2"><i class="fa fa-home"></i></a>
   </div>
-  <div class="d-inline" *ngIf="!_authSvc.isLoggedIn()">
+  <div class="d-inline" *ngIf="!authSvc.isLoggedIn()">
     <a class="btn btn-xs btn-success mr-2" href="/login"><i class="fa fa-sign-in"></i></a>
   </div>
-  <div class="d-inline" *ngIf="_authSvc.isLoggedIn()">
+  <div class="d-inline" *ngIf="authSvc.isLoggedIn()">
     <app-upload></app-upload>
     <div class="btn-group">
       <button class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
