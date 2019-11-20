@@ -75,8 +75,8 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  deleteComment(index: number, commentId: string) {
-    this._commentSvc.deleteComment(commentId).subscribe(parentComment => {
+  deleteComment(index: number, comment: IComment) {
+    this._commentSvc.deleteComment(comment).subscribe(parentComment => {
       this.comment.replies.splice(index, 1);
       this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;

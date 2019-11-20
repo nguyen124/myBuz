@@ -7,7 +7,7 @@
       <div class="dropdown-menu">
         <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block"
           *ngIf="_authSvc.user.username == comment.writtenBy.username">Edit</a>
-        <a href="javascript:void(0)" (click)="deleteComment(i, comment._id)" class="ml-1 d-block"
+        <a href="javascript:void(0)" (click)="deleteComment(i, comment)" class="ml-1 d-block"
           *ngIf="_authSvc.user.username == comment.writtenBy.username">Delete</a>
         <app-report [comment]="comment"></app-report>
       </div>

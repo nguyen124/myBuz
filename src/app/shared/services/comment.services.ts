@@ -51,8 +51,8 @@ export class CommentService {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies?page=" + page);
     }
 
-    deleteComment(commentId: string): Observable<any> {
-        return this._http.delete("/svc/current-user/comments/" + commentId);
+    deleteComment(comment: IComment): Observable<any> {
+        return this._http.delete(`/svc/items/${comment.itemId}/comments/${comment._id}`);
     }
 
     populateDataToCommentbox(comment: IComment, index: number) {
