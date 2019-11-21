@@ -113,7 +113,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         });
       } else {
         if (that._commentSvc.edittingComment.content !== content) {
-          that._commentSvc.updateComment(that._commentSvc.edittingComment._id, content).subscribe(newComment => {
+          that._commentSvc.updateComment(that._commentSvc.edittingComment, content).subscribe(newComment => {
             that.afterEdittingComment(newComment)
           });
         } else {
