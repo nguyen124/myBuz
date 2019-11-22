@@ -4,7 +4,7 @@ import { UserHomeComponent } from '../user-home/user-home.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'user/profile',
     component: UserHomeComponent
   }
 ]

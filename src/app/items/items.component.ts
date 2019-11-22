@@ -44,4 +44,8 @@ export class ItemsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subScription.unsubscribe();
   }
+
+  editItem(index: number, item: IItem) {
+    this._commSvc.updatingItem(item);
+  }
 }
