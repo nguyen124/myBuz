@@ -38,9 +38,9 @@ import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { UploadComponent } from './upload/upload.component';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { JQ_TOKEN } from './shared/services/jQuery.service';
-import { UserHomeComponent } from './user-home/user-home.component';
 import { SocialSharingModule } from './social-sharing/social-sharing.module';
 import { ReportComponent } from './report/report.component';
+import { UsersModule } from './users/users.module';
 let jQuery: any = window['$'];
 
 @NgModule({
@@ -66,7 +66,6 @@ let jQuery: any = window['$'];
     ReactComponent,
     RegisterComponent,
     MyItemsComponent,
-    UserHomeComponent,
     ReportComponent
   ],
   imports: [
@@ -78,6 +77,7 @@ let jQuery: any = window['$'];
     CommonModule,
     BrowserAnimationsModule,
     SocialSharingModule,
+    UsersModule,
     ToastrModule.forRoot(),
     routing
   ],
