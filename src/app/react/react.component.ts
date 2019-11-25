@@ -73,7 +73,6 @@ export class ReactComponent implements OnInit {
   showItemModal() {
     this._itemSvc.getItems({ id: this.item._id }).subscribe(newItems => {
       if (newItems.length > 0) {
-        this.item = newItems[0];
         this._commSvc.changeItem(this.item);
       }
     });
@@ -91,7 +90,7 @@ export class ReactComponent implements OnInit {
         this._toastr.success("Report submitted!")
       }, err => {
         this._toastr.error("Couldn't submit report!")
-      })
+      });
     }
   }
 
@@ -101,6 +100,6 @@ export class ReactComponent implements OnInit {
       item.hasReported = false
     }, err => {
       this._toastr.error("Couldn't cancel report!")
-    })
+    });
   }
 }
