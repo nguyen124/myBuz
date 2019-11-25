@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { IItem } from '../shared/model/item';
+import { ItemsComponent } from '../items/items.component';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ export class HomeComponent implements OnInit {
   items: IItem[];
   nextPage = 0;
   perPage = 4;
+
+  @ViewChild(ItemsComponent) itemsComponent: ItemsComponent
 
   constructor(private _itemService: ItemService) {
   }

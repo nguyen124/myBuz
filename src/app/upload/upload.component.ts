@@ -7,21 +7,18 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
-import { IItem } from '../shared/model/item';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
-export class UploadComponent implements OnInit, OnDestroy {
+export class UploadComponent implements OnInit {
   uploadedFile: File = null;
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
-  subScription: Subscription;
-  isEditting = false;
+
   constructor(
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
@@ -33,35 +30,15 @@ export class UploadComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
-    this.subScription = this._commSvc.newEdittingItem$.subscribe(item => {
-      if (item) {
-        this.isEditting = true;
-        setTimeout(() => {
-          this.$("#createItemBtn").click();
-          this.initForm(item);
-        }, 0);
-      }
-    })
   }
 
-  initForm(item?: IItem) {
-    if (!item) {
-      this.itemForm = this._fb.group({
-        title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
-        file: ['', Validators.required],
-        categories: [''],
-        tags: ['']
-      })
-    } else {
-      this.itemForm = this._fb.group({
-        title: [item.title, [Validators.required, this._systemSvc.nonSpaceString]],
-        file: ['', Validators.required],
-        categories: [item.categories],
-        tags: [item.tags]
-      });
-      this.$("#previewImg").attr('src', item.url);
-      this.onTagsChange(item.tags.toString());
-    }
+  initForm() {
+    this.itemForm = this._fb.group({
+      title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
+      file: ['', Validators.required],
+      categories: [''],
+      tags: ['']
+    });
   }
 
   get f() { return this.itemForm.controls; }
@@ -84,7 +61,6 @@ export class UploadComponent implements OnInit, OnDestroy {
 
   onTagsChange(input) {
     this.parsedTags = input.split(/[ ,;.\/\\]+/).slice(0, 5).filter(el => el.length != 0);
-    this.parsedTags.sort();
   }
 
   createPost() {
@@ -116,9 +92,5 @@ export class UploadComponent implements OnInit, OnDestroy {
     }, err => {
       this._toastr.error("Oops! Failed to create post!");
     });
-  }
-
-  ngOnDestroy() {
-    this.subScription.unsubscribe();
   }
 }

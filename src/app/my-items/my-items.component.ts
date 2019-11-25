@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { UserService } from '../shared/services/user-service.service';
 import { ItemService } from '../shared/services/item.services';
+import { AuthService } from '../shared/services/security/auth.service';
 
 @Component({
   selector: 'app-my-items',
@@ -14,22 +14,22 @@ export class MyItemsComponent implements OnInit {
   perPage = 4;
 
   constructor(
-    private _itemService: ItemService) {
+    private _itemService: ItemService,
+    private _authSvc: AuthService) {
   }
 
   ngOnInit() {
-    this._itemService.getMyItems(this.nextPage).subscribe((newItems: IItem[]) => {
+    this._itemService.getItems({ page: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
       this.items = newItems;
     });
   }
 
   loadNext() {
     this.nextPage = Math.floor(this.items.length / this.perPage);
-    this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
+    this._itemService.getItems({ page: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.perPage + i] = newItems[i];
       }
     });
   }
-
 }

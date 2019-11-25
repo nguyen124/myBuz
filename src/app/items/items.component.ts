@@ -15,12 +15,15 @@ export class ItemsComponent implements OnInit, OnDestroy {
   @Input()
   items: IItem[];
   subScription: Subscription;
+  nextPage = 0;
+  perPage = 4;
 
   constructor(
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
     public authSvc: AuthService,
-    private _commSvc: CommunicateService) {
+    private _commSvc: CommunicateService,
+    private _itemService: ItemService) {
 
   }
 
@@ -45,7 +48,12 @@ export class ItemsComponent implements OnInit, OnDestroy {
     this.subScription.unsubscribe();
   }
 
-  editItem(index: number, item: IItem) {
-    this._commSvc.updatingItem(item);
+  loadNext() {
+    this.nextPage = Math.floor(this.items.length / this.perPage);
+    this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
+      for (var i = 0; i < newItems.length; i++) {
+        this.items[this.nextPage * this.perPage + i] = newItems[i];
+      }
+    });
   }
 }
