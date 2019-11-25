@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../shared/services/notification.service';
 import { INotification } from '../shared/model/notification';
-import { AuthService } from '../shared/services/security/auth.service';
 
 @Component({
   selector: 'app-notification',
@@ -10,15 +9,23 @@ import { AuthService } from '../shared/services/security/auth.service';
 })
 export class NotificationComponent implements OnInit {
   notifications: INotification[]
+  hasUnreadNotification: Boolean;
 
   constructor(
-    private _notificationSvc: NotificationService) { }
+    private _notificationSvc: NotificationService
+  ) { }
 
   ngOnInit() {
+    this.loadNotification();
+  }
+
+  loadNotification() {
     this._notificationSvc.getNotifications({ page: 0 })
       .subscribe(notifications => {
+        this.hasUnreadNotification = notifications.reduce(function (accumulator, noti) {
+          return accumulator || !noti.hasRead;
+        }, false);
         this.notifications = notifications;
       })
   }
-
 }

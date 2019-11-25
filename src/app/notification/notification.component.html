@@ -1,9 +1,19 @@
 <div class="btn-group">
   <button id="notificationBtn" class="btn btn-xs btn-success mr-2" data-toggle="dropdown" aria-haspopup="true"
-    aria-expanded="false"><i class="fa fa-bell"></i></button>
+    aria-expanded="false" click="loadNotification()">
+    <i class="fa fa-bell"></i>
+    <i *ngIf="hasUnreadNotification" class="fa fa-exclamation text-red" style="position: absolute;"></i>
+  </button>
   <div class="dropdown-menu">
-    <div *ngFor="let notification of notifications">
-      <div>{{notification.message}}</div>
+    <div *ngFor="let notification of notifications" class="ml-1">
+      <div class="font-12">
+        <span [ngClass]="!notification.hasRead ? 'text-primary':''">
+          <strong>{{notification.title}}</strong>
+        </span>
+        <br>
+        <span>{{notification.message}}</span>
+      </div>
+      <div class="dropdown-divider"></div>
     </div>
   </div>
 </div>
