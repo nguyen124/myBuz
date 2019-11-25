@@ -1,0 +1,9 @@
+<div class="btn-group">
+  <button id="notificationBtn" class="btn btn-xs btn-success mr-2" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false"><i class="fa fa-bell"></i></button>
+  <div class="dropdown-menu">
+    <div *ngFor="let notification of notifications">
+      <div>{{notification.message}}</div>
+    </div>
+  </div>
+</div>

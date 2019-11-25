@@ -21,10 +21,6 @@ export class ItemService {
         this._http.put("/svc/items", item);
     }
 
-    getItemUserLog(itemId: string): any {
-        return this._http.get<boolean>("/svc/items/" + itemId + "/users/");
-    }
-
     createItem(item): Observable<IItem> {
         return this._http.post<IItem>("/svc/current-user/items", item);
     }

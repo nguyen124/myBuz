@@ -1,46 +1,54 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { ItemModalComponent } from './itemModal/itemModal.component';
-import { FooterComponent } from './footer/footer.component';
-import { ItemsComponent } from './items/items.component';
-import { FileUtils } from './utils/FileUtils';
-import { DatePipe } from './date-pipe.pipe';
-import { FilterComponent } from './filter/filter.component';
-import { ItemService } from './shared/services/item.services';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CommentsComponent } from './comments/comments.component';
-import { LoginComponent } from './login/login.component';
-import { AdminComponent } from './admin/admin.component';
-import { HomeComponent } from './home/home.component';
-import { AlertComponent } from './alert/alert.component';
-import { ErrorInterceptorService } from './shared/services/system/error-interceptor.service';
-import { AuthService } from './shared/services/security/auth.service';
-import { RegisterComponent } from './register/register.component';
-import { routing } from './app.routing';
-import { ParentAuthGuard } from './shared/guard/parentGuard';
-import { ChildrenAuthGuard } from './shared/guard/childrenGuard';
-import { ItemComponent } from './item/item.component';
-import { ReactComponent } from './react/react.component';
-import { CommunicateService } from './shared/services/utils/communicate.service';
-import { CommentService } from './shared/services/comment.services';
-import { CommentComponent } from './comment/comment.component';
-import { VoiceMessageServiceService } from './shared/services/voice-message.service'
-import { CommentReactComponent } from './comment-react/comment-react.component';
-import { FocusDirective } from './focus.directive';
-import { CommentBoxComponent } from './comment-box/comment-box.component';
-import { UploadComponent } from './upload/upload.component';
-import { MyItemsComponent } from './my-items/my-items.component';
-import { JQ_TOKEN } from './shared/services/jQuery.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SocialSharingModule } from './social-sharing/social-sharing.module';
-import { ReportComponent } from './report/report.component';
+import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
+
+import { AdminComponent } from './admin/admin.component';
+import { AlertComponent } from './alert/alert.component';
+import { AppComponent } from './app.component';
+import { CommentBoxComponent } from './comment-box/comment-box.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommentReactComponent } from './comment-react/comment-react.component';
+import { CommentsComponent } from './comments/comments.component';
+import { FileUtils } from './utils/FileUtils';
+import { FilterComponent } from './filter/filter.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { ItemComponent } from './item/item.component';
+import { ItemModalComponent } from './itemModal/itemModal.component';
+import { ItemsComponent } from './items/items.component';
+import { LoginComponent } from './login/login.component';
+import { MyItemsComponent } from './my-items/my-items.component';
+import { NotificationComponent } from './notification/notification.component';
+import { ReactComponent } from './react/react.component';
+import { RegisterComponent } from './register/register.component';
+import { ReportComponent } from './report/report.component';
+import { UploadComponent } from './upload/upload.component';
+
+import { AuthService } from './shared/services/security/auth.service';
+import { CommentService } from './shared/services/comment.services';
+import { CommunicateService } from './shared/services/utils/communicate.service';
+import { ErrorInterceptorService } from './shared/services/system/error-interceptor.service';
+import { ItemService } from './shared/services/item.services';
+import { NotificationService } from './shared/services/notification.service';
+import { VoiceMessageServiceService } from './shared/services/voice-message.service'
+import { JQ_TOKEN } from './shared/services/jQuery.service';
+
+import { ChildrenAuthGuard } from './shared/guard/childrenGuard';
+import { ParentAuthGuard } from './shared/guard/parentGuard';
+
+import { FocusDirective } from './focus.directive';
+
+import { DatePipe } from './date-pipe.pipe';
+
+import { routing } from './app.routing';
+
 let jQuery: any = window['$'];
 
 @NgModule({
@@ -62,20 +70,21 @@ let jQuery: any = window['$'];
     ItemModalComponent,
     ItemsComponent,
     LoginComponent,
+    MyItemsComponent,
+    NotificationComponent,
     UploadComponent,
     ReactComponent,
     RegisterComponent,
-    MyItemsComponent,
-    ReportComponent
+    ReportComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
+    CommonModule,
     FileUtils,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
     SocialSharingModule,
     UsersModule,
     ToastrModule.forRoot(),
@@ -87,8 +96,9 @@ let jQuery: any = window['$'];
     CommentService,
     ChildrenAuthGuard,
     ItemService,
-    VoiceMessageServiceService,
+    NotificationService,
     ParentAuthGuard,
+    VoiceMessageServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: JQ_TOKEN, useValue: jQuery }
   ],
