@@ -24,4 +24,8 @@ export class ItemService {
     createItem(item): Observable<IItem> {
         return this._http.post<IItem>("/svc/current-user/items", item);
     }
+
+    getItemById(itemId): Observable<IItem> {
+        return this._http.get<IItem>("/svc/items/" + itemId);
+    }
 }
