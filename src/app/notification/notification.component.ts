@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NotificationService } from '../shared/services/notification.service';
 import { INotification } from '../shared/model/notification';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-notification',
@@ -10,22 +11,36 @@ import { INotification } from '../shared/model/notification';
 export class NotificationComponent implements OnInit {
   notifications: INotification[]
   hasUnreadNotification: Boolean;
-
+  perPage = 5;
+  nextPage = 0;
   constructor(
-    private _notificationSvc: NotificationService
+    private _notificationSvc: NotificationService,
+    @Inject(JQ_TOKEN) private $: any
   ) { }
 
   ngOnInit() {
-    this.loadNotification();
+    this._notificationSvc.checkIfThereIsNewNotifications()
+      .subscribe(result => {
+        this.hasUnreadNotification = result;
+      });
+    this.$('#showMoreNotifications').on('click', function (e) {
+      e.stopPropagation(); // prevent dropdown close
+    });
   }
 
-  loadNotification() {
-    this._notificationSvc.getNotifications({ page: 0 })
-      .subscribe(notifications => {
-        this.hasUnreadNotification = notifications.reduce(function (accumulator, noti) {
-          return accumulator || !noti.hasRead;
-        }, false);
-        this.notifications = notifications;
-      })
+  loadNotifications() {
+    this.nextPage = 0;
+    this._notificationSvc.getNotifications({ page: this.nextPage }).subscribe(notifications => {
+      this.notifications = notifications;
+    });
+  }
+
+  showMoreNotifications() {
+    this.nextPage = Math.floor(this.notifications.length / this.perPage);
+    this._notificationSvc.getNotifications({ page: this.nextPage }).subscribe((nextPageNotifications) => {
+      for (var i = 0; i < nextPageNotifications.length; i++) {
+        this.notifications[this.nextPage * this.perPage + i] = nextPageNotifications[i];
+      }
+    });
   }
 }

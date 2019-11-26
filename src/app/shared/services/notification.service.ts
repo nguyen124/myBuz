@@ -12,4 +12,8 @@ export class NotificationService {
   getNotifications(params) {
     return this._http.get<INotification[]>("/svc/notifications", { params: params })
   }
+
+  checkIfThereIsNewNotifications() {
+    return this._http.get<Boolean>("/svc/notifications/hasnew");
+  }
 }
