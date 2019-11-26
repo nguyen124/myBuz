@@ -15,6 +15,7 @@ import { IItem } from '../shared/model/item';
 })
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
+  yourComments: IComment[];
   subscription: Subscription;
   item: IItem;
   nextPage = 0;
@@ -50,34 +51,40 @@ export class CommentsComponent implements OnInit, OnDestroy {
   getComments(item) {
     this.item = item;
     this.nextPage = 0;
-    this._commentSvc.getCommentsOfItem(this.item._id, this.nextPage).subscribe((comments: IComment[]) => {
+    var params = {
+      page: this.nextPage,
+      perPage: this.perPage
+    };
+    this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       this.comments = comments;
+      this.yourComments = this._commentSvc.getYourComments(this.comments, this.authSvc.user._id);
     });
   }
 
   getMoreComments() {
     this.nextPage = Math.floor(this.comments.length / this.perPage);
-    this._commentSvc.getCommentsOfItem(this.item._id, this.nextPage).subscribe((comments: IComment[]) => {
+    var params = {
+      page: this.nextPage,
+      perPage: this.perPage
+    };
+    this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       for (var i = 0; i < comments.length; i++) {
         this.comments[this.nextPage * this.perPage + i] = comments[i];
       }
+      this.yourComments = this._commentSvc.getYourComments(this.comments, this.authSvc.user._id);
     });
   }
 
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(res => {
-      this.item.noOfComments = this.item.noOfComments - (1 + this.comments[index].noOfReplies);
-      this.comments.splice(index, 1);
+      this.item.noOfComments = this.item.noOfComments - (1 + this.yourComments[index].noOfReplies);
+      this.yourComments.splice(index, 1);
       this._toastr.success("Comment deleted!");
     });
   }
 
   editComment(index: number) {
-    this._commentSvc.populateDataToCommentbox(this.comments[index], index);
-  }
-
-  reportComment(index: number, commentId: string) {
-
+    this._commentSvc.populateDataToCommentbox(this.yourComments[index], index);
   }
 
   ngOnDestroy() {

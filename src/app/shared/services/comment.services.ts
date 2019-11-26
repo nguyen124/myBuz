@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
 import { JQ_TOKEN } from './jQuery.service';
 
-
 @Injectable()
 export class CommentService {
     parentCommentId: string;
@@ -43,12 +42,12 @@ export class CommentService {
         });
     }
 
-    getCommentsOfItem(itemId: string, page: number): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments?page=" + page);
+    getCommentsOfItem(itemId: string, params): Observable<IComment[]> {
+        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments", { params: params });
     }
 
-    getRepliesOfComment(commentId: string, page: number): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies?page=" + page);
+    getRepliesOfComment(commentId: string, params): Observable<IComment[]> {
+        return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies", { params: params });
     }
 
     deleteComment(comment: IComment): Observable<any> {
@@ -88,5 +87,12 @@ export class CommentService {
         if (el) {
             el.remove();
         }
+    }
+
+    getYourComments(comments, userId) {
+        var yourComments = comments.filter((comment, index) => {
+            return comment.writtenBy["userId"] === userId;
+        });
+        return yourComments;
     }
 }

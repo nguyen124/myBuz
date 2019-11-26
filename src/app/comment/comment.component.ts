@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
-import { ReportService } from '../shared/services/report.services';
+
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -20,6 +20,7 @@ export class CommentComponent implements OnInit {
   index: number;
   @Input()
   item: IItem;
+  yourReplies: IComment[];
 
   user: IUser;
   subscription: Subscription;
@@ -60,24 +61,34 @@ export class CommentComponent implements OnInit {
 
   showReplies(commentId: string) {
     this.nextPage = 0;
+    var params = {
+      page: this.nextPage,
+      perPage: this.perPage
+    };
     this.isShowingReply = true;
-    this._commentSvc.getRepliesOfComment(commentId, this.nextPage).subscribe((replies) => {
+    this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
+      this.yourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
     });
   }
 
   showMoreReplies(commentId: string) {
     this.nextPage = Math.floor(this.comment.replies.length / this.perPage);
-    this._commentSvc.getRepliesOfComment(commentId, this.nextPage).subscribe((replies) => {
+    var params = {
+      page: this.nextPage,
+      perPage: this.perPage
+    };
+    this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       for (var i = 0; i < replies.length; i++) {
         this.comment.replies[this.nextPage * this.perPage + i] = replies[i];
       }
+      this.yourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
     });
   }
 
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(parentComment => {
-      this.comment.replies.splice(index, 1);
+      this.yourReplies.splice(index, 1);
       this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;
       this._toastr.success("Reply deleted!");
@@ -85,7 +96,7 @@ export class CommentComponent implements OnInit {
   }
 
   editComment(index: number) {
-    this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
+    this._commentSvc.populateDataToCommentbox(this.yourReplies[index], index);
   }
 
   ngOnDestroy() {

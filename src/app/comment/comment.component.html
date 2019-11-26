@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div *ngFor="let reply of comment.replies; let i = index">
+<div *ngFor="let reply of yourReplies; let i = index">
   <div class="row">
     <div class="col-md-1">
       <div class="row">
@@ -47,10 +47,42 @@
           aria-expanded="false">
         </button>
         <div class="dropdown-menu">
-          <a href="javascript:void(0)" (click)="editComment(i, reply._id)" class="ml-1 d-block"
-            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
-          <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block"
-            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
+          <a href="javascript:void(0)" (click)="editComment(i, reply._id)" class="ml-1 d-block">Edit</a>
+          <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let reply of comment.replies; let i = index">
+  <div class="row" *ngIf="reply.writtenBy.userId != authSvc.user._id">
+    <div class="col-md-1">
+      <div class="row">
+        <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
+      </div>
+      <div class="row">
+        <img class="avatar-45" src="{{reply.writtenBy.avatar}}" alt="Avatar">
+      </div>
+    </div>
+
+    <div class="col-md-11 mt-2">
+      <span *ngIf="reply.replyTo" class="text-primary">@{{reply.replyTo}}</span>
+      <div [innerHtml]="reply.content"></div>
+      <div>
+        <audio *ngIf="reply.url" class="voice-comment" controls>
+          <source [src]="reply.url" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <div>
+        <app-comment-react [comment]="reply"></app-comment-react>
+        <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
+        <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+        </button>
+        <div class="dropdown-menu">
           <app-report [comment]="reply"></app-report>
         </div>
       </div>
