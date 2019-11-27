@@ -49,10 +49,11 @@ export class CommentReactComponent implements OnInit {
   }
 
   writeTextReply(): void {
-    var el = this.$("#txtReplyBox");
-    el.html("<a href='#' class='btn m-0 p-0 mb-1'>@" + this.comment.writtenBy["username"] + ": </a>").focus();
-    this.setCursor(el);
     this._commentSvc.parentCommentId = this.comment.parentCommentId || this.comment._id;
+    var el = this.$("#txtReplyBox");
+    el.html(`<a href='javascript:void()#${this.comment._id}' class='btn m-0 p-0 mb-1 reply-comment'>@${this.comment.writtenBy["username"]}:</a>`).focus();
+    this.setCursor(el);
+
   }
 
   setCursor = function (el) {

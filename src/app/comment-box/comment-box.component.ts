@@ -120,7 +120,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           that.$("#txtReplyBox").html("");
         }
       }
-
     } else {
       that._toastr.warning("Please enter non-empty comment!")
     }

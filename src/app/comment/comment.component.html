@@ -8,7 +8,6 @@
     </div>
   </div>
   <div class="col-md-11 mt-2">
-    <span *ngIf="comment.replyTo" class="text-primary pr-1">@{{comment.replyTo}}</span>
     <div [innerHtml]="comment.content"></div>
 
     <div>
@@ -33,7 +32,6 @@
     </div>
 
     <div class="col-md-11 mt-2">
-      <span *ngIf="reply.replyTo" class="text-primary">@{{reply.replyTo}}</span>
       <div [innerHtml]="reply.content"></div>
       <div>
         <audio *ngIf="reply.url" class="voice-comment" controls>
@@ -69,7 +67,6 @@
     </div>
 
     <div class="col-md-11 mt-2">
-      <span *ngIf="reply.replyTo" class="text-primary">@{{reply.replyTo}}</span>
       <div [innerHtml]="reply.content"></div>
       <div>
         <audio *ngIf="reply.url" class="voice-comment" controls>

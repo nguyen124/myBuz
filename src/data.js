@@ -325,7 +325,6 @@ var comments = [
             avatar: "../../assets/image/avatar1.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: "Hai Dep Trai",
         noOfPoints: 1000,
         replies: 1000
     },
@@ -340,7 +339,6 @@ var comments = [
             avatar: "../../assets/image/avatar2.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: "Thanh Dep Gai",
         noOfPoints: 1000,
         replies: 1000
     },
@@ -355,7 +353,6 @@ var comments = [
             avatar: "../../assets/image/avatar3.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: "Thanh Dep Gai",
         noOfPoints: 1000,
         replies: 1000
     },
@@ -370,7 +367,6 @@ var comments = [
             avatar: "../../assets/image/avatar4.jpg"
         },
         itemId: "5c29af372dd29f0ca6549aa4",
-        replyTo: "Hai Dep Trai",
         noOfPoints: 1000,
         replies: 1000
     }

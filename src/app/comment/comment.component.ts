@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-comment',
@@ -23,6 +24,8 @@ export class CommentComponent implements OnInit {
   yourReplies: IComment[] = [];
   keepTrackYourReplies = {};
 
+  tooltip: string;
+
   user: IUser;
   subscription: Subscription;
   isShowingReply = false;
@@ -33,13 +36,14 @@ export class CommentComponent implements OnInit {
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
-    private _toastr: ToastrService) {
+    private _toastr: ToastrService,
+    @Inject(JQ_TOKEN) private $: any) {
 
   }
 
   ngOnInit() {
     this.comment.replies = [];
-
+    var that = this;
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
       if (reply &&
         reply.parentCommentId == this.comment._id &&
@@ -52,6 +56,7 @@ export class CommentComponent implements OnInit {
           this.comment.replies.push(reply);
           this.yourReplies.push(reply);
           this.keepTrackYourReplies[reply._id] = true;
+          that.setMouseOverForReply(that)
         } else {
           this.comment.replies[this._commentSvc.edittingCommentIndex] = reply;
           this._commentSvc.edittingCommentIndex = -1;
@@ -69,6 +74,7 @@ export class CommentComponent implements OnInit {
       perPage: this.perPage
     };
     this.isShowingReply = true;
+    var that = this;
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
       var newYourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
@@ -78,10 +84,41 @@ export class CommentComponent implements OnInit {
           this.keepTrackYourReplies[rep._id] = true;
         }
       }
+      that.setMouseOverForReply(that)
     });
   }
 
+  setMouseOverForReply(that) {
+    setTimeout(() => {
+      that.$('.reply-comment').on('mouseover', function (event) {
+        if (event && event.currentTarget) {
+          var href = event.currentTarget.getAttribute('href');
+          if (href) {
+            var commentId = href.split('#')[1];
+            if (commentId) {
+              that._commentSvc.getCommentById(commentId).subscribe(comment => {
+                that.$('#my-tooltip').remove();
+                that.$(`<div id="my-tooltip"></div>`).html(comment.content).appendTo(event.currentTarget.parentElement);
+                // setTimeout(() => {
+                //   that.$('#my-tooltip').on('mouseout', function (innerEvt) {
+                //     innerEvt.currentTarget.remove();
+                //   });
+                // }, 0);
+              });
+            }
+          }
+        }
+      });
+
+      that.$('.reply-comment').on('mouseout', function (event) {
+        that.$('#my-tooltip').remove();
+      });
+
+    }, 0);
+  }
+
   showMoreReplies(commentId: string) {
+    var that = this;
     this.nextPage = Math.floor(this.comment.replies.length / this.perPage);
     var params = {
       page: this.nextPage,
@@ -98,6 +135,7 @@ export class CommentComponent implements OnInit {
           this.keepTrackYourReplies[rep._id] = true;
         }
       }
+      that.setMouseOverForReply(that);
     });
   }
 

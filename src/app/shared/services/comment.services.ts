@@ -54,6 +54,10 @@ export class CommentService {
         return this._http.delete(`/svc/items/${comment.itemId}/comments/${comment._id}`);
     }
 
+    getCommentById(commentId) {
+        return this._http.get<IComment>(`/svc/comments/${commentId}`);
+    }
+
     populateDataToCommentbox(comment: IComment, index: number) {
         this.$("#txtReplyBox").html(comment.content);
         var that = this;
