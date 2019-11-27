@@ -1,29 +1,33 @@
 <!--Your comments-->
-<div class="pb-2 d-flex" *ngFor="let comment of yourComments; let i = index">
-  <div class="w-100">
-    <app-comment *ngIf="!comment.parentCommentId" [comment]="comment" [item]="item">
-      <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-      </button>
-      <div class="dropdown-menu">
-        <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block">Edit</a>
-        <a href="javascript:void(0)" (click)="deleteComment(i, comment)" class="ml-1 d-block">Delete</a>
-      </div>
-    </app-comment>
+<div *ngFor="let comment of yourComments; let i = index">
+  <div *ngIf="!comment.parentCommentId" class="pb-2 d-flex">
+    <div class="w-100">
+      <app-comment [comment]="comment" [item]="item">
+        <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+        </button>
+        <div class="dropdown-menu">
+          <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block">Edit</a>
+          <a href="javascript:void(0)" (click)="deleteComment(i, comment)" class="ml-1 d-block">Delete</a>
+        </div>
+      </app-comment>
+    </div>
   </div>
 </div>
 
 <!--Other people's comments-->
-<div class="pb-2 d-flex" *ngFor="let comment of comments; let i = index">
-  <div class="w-100" *ngIf="comment.writtenBy.userId != authSvc.user._id">
-    <app-comment *ngIf="!comment.parentCommentId" [comment]="comment" [item]="item">
-      <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-      </button>
-      <div class="dropdown-menu">
-        <app-report [comment]="comment"></app-report>
-      </div>
-    </app-comment>
+<div *ngFor="let comment of comments; let i = index">
+  <div *ngIf="comment.writtenBy.userId != authSvc.user._id && !comment.parentCommentId" class="pb-2 d-flex">
+    <div class="w-100">
+      <app-comment [comment]="comment" [item]="item">
+        <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+        </button>
+        <div class="dropdown-menu">
+          <app-report [comment]="comment"></app-report>
+        </div>
+      </app-comment>
+    </div>
   </div>
 </div>
 
