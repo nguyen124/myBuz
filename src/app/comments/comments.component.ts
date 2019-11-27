@@ -15,7 +15,8 @@ import { IItem } from '../shared/model/item';
 })
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
-  yourComments: IComment[];
+  yourComments: IComment[] = [];
+  keepTrackYourComments = {};
   subscription: Subscription;
   item: IItem;
   nextPage = 0;
@@ -38,6 +39,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
       ) {
         if (!this._commentSvc.edittingComment) {
           this.comments.push(comment);
+          this.yourComments.push(comment);
+          this.keepTrackYourComments[comment._id] = true;
         } else {
           this.comments[this._commentSvc.edittingCommentIndex] = comment;
           this._commentSvc.edittingCommentIndex = -1;
@@ -57,7 +60,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
     };
     this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       this.comments = comments;
-      this.yourComments = this._commentSvc.getYourComments(this.comments, this.authSvc.user._id);
+      var newYourComments = this._commentSvc.getYourComments(this.comments, this.authSvc.user._id);
+      for (var comm of newYourComments) {
+        if (!this.keepTrackYourComments[comm._id]) {
+          this.yourComments.push(comm);
+          this.keepTrackYourComments[comm._id] = true;
+        }
+      }
     });
   }
 
@@ -71,12 +80,19 @@ export class CommentsComponent implements OnInit, OnDestroy {
       for (var i = 0; i < comments.length; i++) {
         this.comments[this.nextPage * this.perPage + i] = comments[i];
       }
-      this.yourComments = this._commentSvc.getYourComments(this.comments, this.authSvc.user._id);
+      var newYourComments = this._commentSvc.getYourComments(comments, this.authSvc.user._id);
+      for (var comm of newYourComments) {
+        if (!this.keepTrackYourComments[comm._id]) {
+          this.yourComments.push(comm);
+          this.keepTrackYourComments[comm._id] = true;
+        }
+      }
     });
   }
 
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(res => {
+      delete this.keepTrackYourComments[comment._id];
       this.item.noOfComments = this.item.noOfComments - (1 + this.yourComments[index].noOfReplies);
       this.yourComments.splice(index, 1);
       this._toastr.success("Comment deleted!");

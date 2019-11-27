@@ -20,7 +20,8 @@ export class CommentComponent implements OnInit {
   index: number;
   @Input()
   item: IItem;
-  yourReplies: IComment[];
+  yourReplies: IComment[] = [];
+  keepTrackYourReplies = {};
 
   user: IUser;
   subscription: Subscription;
@@ -49,6 +50,8 @@ export class CommentComponent implements OnInit {
         this.comment.noOfReplies++;
         if (!this._commentSvc.edittingComment) {
           this.comment.replies.push(reply);
+          this.yourReplies.push(reply);
+          this.keepTrackYourReplies[reply._id] = true;
         } else {
           this.comment.replies[this._commentSvc.edittingCommentIndex] = reply;
           this._commentSvc.edittingCommentIndex = -1;
@@ -68,7 +71,13 @@ export class CommentComponent implements OnInit {
     this.isShowingReply = true;
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
-      this.yourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
+      var newYourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
+      for (var rep of newYourReplies) {
+        if (!this.keepTrackYourReplies[rep._id]) {
+          this.yourReplies.push(rep);
+          this.keepTrackYourReplies[rep._id] = true;
+        }
+      }
     });
   }
 
@@ -82,12 +91,19 @@ export class CommentComponent implements OnInit {
       for (var i = 0; i < replies.length; i++) {
         this.comment.replies[this.nextPage * this.perPage + i] = replies[i];
       }
-      this.yourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
+      var newYourReplies = this._commentSvc.getYourComments(replies, this.authSvc.user._id);
+      for (var rep of newYourReplies) {
+        if (!this.keepTrackYourReplies[rep._id]) {
+          this.yourReplies.push(rep);
+          this.keepTrackYourReplies[rep._id] = true;
+        }
+      }
     });
   }
 
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(parentComment => {
+      delete this.keepTrackYourReplies[comment._id];
       this.yourReplies.splice(index, 1);
       this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;
