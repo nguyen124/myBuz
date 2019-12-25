@@ -61,3 +61,13 @@
     color: black;
     z-index: 1051;
 }
+
+@media (max-width: 575.98px) {
+    .xs-w-25 {
+        width: 25% !important;
+    }
+
+    .xs-w-100 {
+        width: 100% !important;
+    }
+}
