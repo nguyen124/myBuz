@@ -17,7 +17,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   comment: IComment
   subScription: Subscription;
 
-  @ViewChild(CommentsComponent) commentComp: CommentsComponent;
+  @ViewChild(CommentsComponent, {static: false}) commentComp: CommentsComponent;
   constructor(
     private _commSvc: CommunicateService,
     private _log: LoggingService,

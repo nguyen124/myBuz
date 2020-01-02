@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   nextPage = 0;
   perPage = 4;
 
-  @ViewChild(ItemsComponent) itemsComponent: ItemsComponent
+  @ViewChild(ItemsComponent, {static: false}) itemsComponent: ItemsComponent
 
   constructor(private _itemService: ItemService) {
   }
