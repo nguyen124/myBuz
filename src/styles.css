@@ -1,20 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
-.avatar-75 {
-    vertical-align: middle;
-    width: 4.6875rem;
-    height: 4.6875rem;
-    border-radius: 5%;
-    margin-bottom: 0.1875rem;
-}
-
-.avatar-45 {
-    vertical-align: middle;
-    width: 2.8125rem;
-    height: 2.8125rem;
-    border-radius: 5%;
-}
-
 .btn-xs {
     padding: .25rem .4rem;
     font-size: .875rem;
@@ -65,6 +49,10 @@
 @media (max-width: 575.98px) {
     .xs-w-25 {
         width: 25% !important;
+    }
+
+    .xs-w-15 {
+        width: 15% !important;
     }
 
     .xs-w-100 {

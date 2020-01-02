@@ -4,7 +4,7 @@
       <strong><span style="font-size: 10px;">{{comment.writtenBy.username}}</span></strong>
     </div>
     <div class="row">
-      <img class="w-100" src="{{comment.writtenBy.avatar}}" alt="Avatar">
+      <img class="w-100 xs-w-25" src="{{comment.writtenBy.avatar}}" alt="Avatar">
     </div>
   </div>
   <div class="col-md-11 mt-2">
@@ -27,7 +27,7 @@
         <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
       </div>
       <div class="row">
-        <img class="avatar-45" src="{{reply.writtenBy.avatar}}" alt="Avatar">
+        <img class="w-75 xs-w-15" src="{{reply.writtenBy.avatar}}" alt="Avatar">
       </div>
     </div>
 
@@ -54,7 +54,7 @@
   </div>
 </div>
 
-<!--Your other people's replies-->
+<!--Other people's replies-->
 <div *ngFor="let reply of comment.replies; let i = index">
   <div class="row" *ngIf="reply.writtenBy.userId != authSvc.user._id">
     <div class="col-md-1">
@@ -62,7 +62,7 @@
         <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
       </div>
       <div class="row">
-        <img class="avatar-45" src="{{reply.writtenBy.avatar}}" alt="Avatar">
+        <img class="w-75 xs-w-15" src="{{reply.writtenBy.avatar}}" alt="Avatar">
       </div>
     </div>
 
