@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-1 col-sm-1 text-success">
+  <div class="col-md-2 col-sm-2 text-success">
     <div class="row">
       <strong><span style="font-size: 10px;">{{comment.writtenBy.username}}</span></strong>
     </div>
@@ -7,7 +7,7 @@
       <img class="w-100 xs-w-25" src="{{comment.writtenBy.avatar}}" alt="Avatar">
     </div>
   </div>
-  <div class="col-md-11 mt-2">
+  <div class="col-md-10 col-sm-10 mt-2">
     <div [innerHtml]="comment.content"></div>
 
     <div>
@@ -22,7 +22,7 @@
 <!--Your replies-->
 <div *ngFor="let reply of yourReplies; let i = index">
   <div class="row">
-    <div class="col-md-1 col-sm-1">
+    <div class="col-md-2 col-sm-2">
       <div class="row">
         <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
       </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="col-md-11 mt-2">
+    <div class="col-md-10 col-sm-10 mt-2">
       <div [innerHtml]="reply.content"></div>
       <div>
         <audio *ngIf="reply.url" class="voice-comment" controls>
@@ -57,7 +57,7 @@
 <!--Other people's replies-->
 <div *ngFor="let reply of comment.replies; let i = index">
   <div class="row" *ngIf="reply.writtenBy.userId != authSvc.user._id">
-    <div class="col-md-1 col-sm-1">
+    <div class="col-md-2 col-sm-2">
       <div class="row">
         <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
       </div>
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="col-md-11 mt-2">
+    <div class="col-md-10 col-sm-10 mt-2">
       <div [innerHtml]="reply.content"></div>
       <div>
         <audio *ngIf="reply.url" class="voice-comment" controls>
