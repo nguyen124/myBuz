@@ -1,5 +1,4 @@
-<!--Your comments-->
-<div *ngFor="let comment of yourComments; let i = index">
+<div *ngFor="let comment of comments; let i = index">
   <div *ngIf="!comment.parentCommentId" class="pb-2 d-flex">
     <div class="w-100">
       <app-comment [comment]="comment" [item]="item">
@@ -7,23 +6,10 @@
           aria-expanded="false">
         </button>
         <div class="dropdown-menu">
-          <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block">Edit</a>
-          <a href="javascript:void(0)" (click)="deleteComment(i, comment)" class="ml-1 d-block">Delete</a>
-        </div>
-      </app-comment>
-    </div>
-  </div>
-</div>
-
-<!--Other people's comments-->
-<div *ngFor="let comment of comments; let i = index">
-  <div *ngIf="comment.writtenBy.userId != authSvc.user._id && !comment.parentCommentId" class="pb-2 d-flex">
-    <div class="w-100">
-      <app-comment [comment]="comment" [item]="item">
-        <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
-        </button>
-        <div class="dropdown-menu">
+          <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block"
+            *ngIf="authSvc.user.username == comment.writtenBy.username">Edit</a>
+          <a href="javascript:void(0)" (click)="deleteComment(i, comment)" class="ml-1 d-block"
+            *ngIf="authSvc.user.username == comment.writtenBy.username">Delete</a>
           <app-report [comment]="comment"></app-report>
         </div>
       </app-comment>

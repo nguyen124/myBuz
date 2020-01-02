@@ -21,8 +21,6 @@ export class CommentComponent implements OnInit {
   index: number;
   @Input()
   item: IItem;
-  yourReplies: IComment[] = [];
-  keepTrackYourReplies = {};
 
   tooltip: string;
 
@@ -54,8 +52,6 @@ export class CommentComponent implements OnInit {
         this.comment.noOfReplies++;
         if (!this._commentSvc.edittingComment) {
           this.comment.replies.push(reply);
-          this.yourReplies.push(reply);
-          this.keepTrackYourReplies[reply._id] = true;
           that.setMouseOverForReply(that)
         } else {
           this.comment.replies[this._commentSvc.edittingCommentIndex] = reply;
@@ -77,13 +73,6 @@ export class CommentComponent implements OnInit {
     var that = this;
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
-      var newYourReplies = this._commentSvc.getYourComments(this.comment.replies, this.authSvc.user._id);
-      for (var rep of newYourReplies) {
-        if (!this.keepTrackYourReplies[rep._id]) {
-          this.yourReplies.push(rep);
-          this.keepTrackYourReplies[rep._id] = true;
-        }
-      }
       that.setMouseOverForReply(that)
     });
   }
@@ -128,21 +117,13 @@ export class CommentComponent implements OnInit {
       for (var i = 0; i < replies.length; i++) {
         this.comment.replies[this.nextPage * this.perPage + i] = replies[i];
       }
-      var newYourReplies = this._commentSvc.getYourComments(replies, this.authSvc.user._id);
-      for (var rep of newYourReplies) {
-        if (!this.keepTrackYourReplies[rep._id]) {
-          this.yourReplies.push(rep);
-          this.keepTrackYourReplies[rep._id] = true;
-        }
-      }
       that.setMouseOverForReply(that);
     });
   }
 
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(parentComment => {
-      delete this.keepTrackYourReplies[comment._id];
-      this.yourReplies.splice(index, 1);
+      this.comment.replies.splice(index, 1);
       this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;
       this._toastr.success("Reply deleted!");
@@ -150,7 +131,7 @@ export class CommentComponent implements OnInit {
   }
 
   editComment(index: number) {
-    this._commentSvc.populateDataToCommentbox(this.yourReplies[index], index);
+    this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
   }
 
   ngOnDestroy() {

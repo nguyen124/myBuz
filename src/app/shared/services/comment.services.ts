@@ -92,11 +92,4 @@ export class CommentService {
             el.remove();
         }
     }
-
-    getYourComments(comments, userId) {
-        var yourComments = comments.filter((comment, index) => {
-            return comment.writtenBy["userId"] === userId;
-        });
-        return yourComments;
-    }
 }
