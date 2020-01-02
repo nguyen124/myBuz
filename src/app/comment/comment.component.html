@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-1 text-success">
+  <div class="col-md-1 col-sm-1 text-success">
     <div class="row">
       <strong><span style="font-size: 10px;">{{comment.writtenBy.username}}</span></strong>
     </div>
@@ -22,7 +22,7 @@
 <!--Your replies-->
 <div *ngFor="let reply of yourReplies; let i = index">
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-1 col-sm-1">
       <div class="row">
         <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
       </div>
@@ -57,7 +57,7 @@
 <!--Other people's replies-->
 <div *ngFor="let reply of comment.replies; let i = index">
   <div class="row" *ngIf="reply.writtenBy.userId != authSvc.user._id">
-    <div class="col-md-1">
+    <div class="col-md-1 col-sm-1">
       <div class="row">
         <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
       </div>
