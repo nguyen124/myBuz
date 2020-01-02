@@ -43,8 +43,6 @@ import { JQ_TOKEN } from './shared/services/jQuery.service';
 import { ChildrenAuthGuard } from './shared/guard/childrenGuard';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 
-import { FocusDirective } from './focus.directive';
-
 import { DatePipe } from './date-pipe.pipe';
 
 import { routing } from './app.routing';
@@ -62,7 +60,6 @@ let jQuery: any = window['$'];
     CommentReactComponent,
     DatePipe,
     FilterComponent,
-    FocusDirective,
     FooterComponent,
     HeaderComponent,
     HomeComponent,
