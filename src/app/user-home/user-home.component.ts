@@ -76,17 +76,29 @@ export class UserHomeComponent implements OnInit {
   hasChangedValues() {
     return this.hasUsernameChanged() ||
       this.hasAvatarChanged() ||
-      (this.f.nationality.value != this.user.nationality) ||
-      (new Date(this.f.dob.value).getTime() != new Date(this.user.dob).getTime()) ||
-      (this.f.gender.value != this.user.gender)
+      this.hasGenderChanged() ||
+      this.hasDoBChanged() ||
+      this.hasNationalityChanged();
+  }
+
+  hasUsernameChanged() {
+    return this.f.username.value != this.user.username;
   }
 
   hasAvatarChanged() {
     return !!this.uploadedFile;
   }
 
-  hasUsernameChanged() {
-    return (this.f.username.value != this.user.username);
+  hasGenderChanged() {
+    return this.f.gender.value != this.user.gender;
+  }
+
+  hasDoBChanged() {
+    return (this.f.dob.value != this.user.dob) && (new Date(this.f.dob.value)).getTime() != (new Date(this.user.dob)).getTime();
+  }
+
+  hasNationalityChanged() {
+    return this.f.nationality.value != this.user.nationality;
   }
 
   updateUser() {
@@ -133,6 +145,7 @@ export class UserHomeComponent implements OnInit {
 
   afterUpdate(result) {
     this.user = result;
+    this._authSvc.user = result;
     localStorage.setItem("user", JSON.stringify(result));
     this.initValue();
   }

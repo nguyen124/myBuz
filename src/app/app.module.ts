@@ -46,6 +46,7 @@ import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { DatePipe } from './date-pipe.pipe';
 
 import { routing } from './app.routing';
+import { SaveLoginComponent } from './save-login/save-login.component';
 
 let jQuery: any = window['$'];
 
@@ -73,6 +74,7 @@ let jQuery: any = window['$'];
     ReactComponent,
     RegisterComponent,
     ReportComponent,
+    SaveLoginComponent,
   ],
   imports: [
     BrowserAnimationsModule,

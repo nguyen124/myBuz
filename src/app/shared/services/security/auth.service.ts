@@ -35,6 +35,12 @@ export class AuthService {
     window.location.href = 'http://localhost:3000/svc/user/auth/google';
   };
 
+  saveThirdPartyLogin(user: string) {
+    this.loggedIn = true;
+    this.user = JSON.parse(user);
+    localStorage.setItem("user", user);
+  }
+
   logout() {
     this.loggedIn = false;
     this._systemSvc.eraseCookie("myname.sid");

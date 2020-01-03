@@ -34,6 +34,7 @@ export class NotificationComponent implements OnInit {
 
   loadNotifications() {
     this.nextPage = 0;
+    this.hasUnreadNotification = false;
     this._notificationSvc.getNotifications({ page: this.nextPage }).subscribe(notifications => {
       this.notifications = notifications;
     });

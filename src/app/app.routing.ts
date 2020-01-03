@@ -6,12 +6,14 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
+import { SaveLoginComponent } from './save-login/save-login.component';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
     { path: 'admin', component: AdminComponent, canActivate: [ParentAuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'savelogin', component: SaveLoginComponent },
     { path: 'user/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     {
         path: 'user/profile',
