@@ -50,4 +50,8 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     this._authSvc.loginWithGoogle();
   }
+
+  loginWithFacebook() {
+    this._authSvc.loginWithFacebook();
+  }
 }

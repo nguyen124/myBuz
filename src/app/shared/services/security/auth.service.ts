@@ -35,6 +35,10 @@ export class AuthService {
     window.location.href = 'http://localhost:3000/svc/user/auth/google';
   };
 
+  loginWithFacebook() {
+    window.location.href = 'http://localhost:3000/svc/user/auth/facebook';
+  };
+
   saveThirdPartyLogin(user: string) {
     this.loggedIn = true;
     this.user = JSON.parse(user);
