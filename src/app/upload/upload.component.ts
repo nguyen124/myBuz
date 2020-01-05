@@ -18,6 +18,7 @@ export class UploadComponent implements OnInit {
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
+  isUploading = false;
 
   constructor(
     private _itemSvc: ItemService,
@@ -65,6 +66,7 @@ export class UploadComponent implements OnInit {
 
   createPost() {
     this.submitted = true;
+    this.isUploading = true;
     if (this.itemForm.invalid) {
       return;
     }
@@ -85,6 +87,7 @@ export class UploadComponent implements OnInit {
           if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
           this._commSvc.uploadItem(newItem);
           this._router.navigate(["/user/items"]);
+          this.isUploading = false;
         }, err => {
           this._toastr.error("Oops! Failed to create post!");
         });
