@@ -51,7 +51,7 @@ export class CommentReactComponent implements OnInit {
   writeTextReply(): void {
     this._commentSvc.parentCommentId = this.comment.parentCommentId || this.comment._id;
     var el = this.$("#txtReplyBox");
-    el.html(`<a href='javascript:void()#${this.comment._id}' class='btn m-0 p-0 mb-1 reply-comment'>@${this.comment.writtenBy["username"]}:</a>`).focus();
+    el.html(`<a href='javascript:void()#${this.comment._id}' class='btn m-0 p-0 mb-1 reply-comment'>@${this.comment.writtenBy["username"]}:</a><span/>`).focus();
     this.setCursor(el);
 
   }
@@ -59,7 +59,7 @@ export class CommentReactComponent implements OnInit {
   setCursor = function (el) {
     var range = document.createRange();
     var sel = window.getSelection();
-    range.setStart(el.children()[0], 1);
+    range.setStart(el.children()[1], 0);
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
