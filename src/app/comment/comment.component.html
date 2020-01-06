@@ -46,9 +46,9 @@
         </button>
         <div class="dropdown-menu">
           <a href="javascript:void(0)" (click)="editComment(i, reply._id)" class="ml-1 d-block"
-            *ngIf="authSvc.user.username == reply.writtenBy.username">Edit</a>
+            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
           <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block"
-            *ngIf="authSvc.user.username == reply.writtenBy.username">Delete</a>
+            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
       </div>

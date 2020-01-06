@@ -9,7 +9,7 @@ import { ReactComponent } from '../react/react.component';
 })
 export class ItemComponent implements OnInit {
   @Input() item: IItem;
-  @ViewChild(ReactComponent, {static: false}) reactCompChild: ReactComponent;
+  @ViewChild(ReactComponent, { static: false }) reactCompChild: ReactComponent;
   modifiedDate: any;
 
   constructor() { }
