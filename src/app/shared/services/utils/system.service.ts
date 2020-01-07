@@ -36,8 +36,8 @@ export class SystemService {
   uploadFile(uploadedFile: File): Observable<any> {
     if (uploadedFile) {
       const fd = new FormData();
-      fd.append('image', uploadedFile, uploadedFile.name)
-      return this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
+      fd.append('image', uploadedFile, uploadedFile.name);
+      return this._http.post("/svc/uploadFile", fd, {
         reportProgress: true,
         observe: 'events'
       });

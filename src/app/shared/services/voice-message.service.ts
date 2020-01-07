@@ -97,7 +97,7 @@ export class VoiceMessageServiceService {
   uploadVoiceRecord(record: any): Observable<any> {
     const fd = new FormData();
     fd.append('voice', record.blob, record.title);
-    return this._http.post("https://us-central1-architect-c592d.cloudfunctions.net/uploadFile", fd, {
+    return this._http.post("/svc/uploadFile", fd, {
       reportProgress: true,
       observe: 'events'
     });
