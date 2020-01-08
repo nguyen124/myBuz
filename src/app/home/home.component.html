@@ -1,9 +1,15 @@
+<div class="row pb-3">
+  <div class="col-md-4 col-xs-4 hot"><button class="btn-success w-100 pr-0 pl-0 border-0 hot">Hot</button></div>
+  <div class="col-md-4 col-xs-4 warm"><button class="btn-success w-100 pr-0 pl-0 border-0 warm">Warm</button>
+  </div>
+  <div class="col-md-4 col-xs-4 cold"><button class="btn-success w-100 pr-0 pl-0 border-0 cold">Cold</button></div>
+</div>
 <div id="listItems">
   <app-items [items]="items"></app-items>
 </div>
 
 <div class="row">
-  <div class="input-group col-md-2">
+  <div class="input-group col-md-12">
     <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">Next</a>
   </div>
 </div>
