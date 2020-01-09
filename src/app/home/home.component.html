@@ -1,11 +1,10 @@
 <div class="row pb-3">
-  <div class="col-md-4 col-xs-4 hot"><button class="btn-success w-100 pr-0 pl-0 border-0 hot"
-      (click)="getHot()">Hot</button></div>
-  <div class="col-md-4 col-xs-4 warm"><button class="btn-success w-100 pr-0 pl-0 border-0 warm"
-      (click)="getWarm()">Warm</button>
+  <div class="col-md-4 col-xs-4 hot"><button class="w-100 pr-0 pl-0 border-0 hot" (click)="getHot()">Hot</button>
   </div>
-  <div class="col-md-4 col-xs-4 cold"><button class="btn-success w-100 pr-0 pl-0 border-0 cold"
-      (click)="getCold()">Cold</button></div>
+  <div class="col-md-4 col-xs-4 warm"><button class="w-100 pr-0 pl-0 border-0 warm" (click)="getWarm()">Warm</button>
+  </div>
+  <div class="col-md-4 col-xs-4 cold"><button class="w-100 pr-0 pl-0 border-0 cold" (click)="getCold()">Cold</button>
+  </div>
 </div>
 <div id="listItems">
   <app-items [items]="items"></app-items>
