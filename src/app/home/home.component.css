@@ -1,46 +1,46 @@
 button.hot {
-    background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(40, 100%, 50%));
-    border-top-left-radius: 10px !important;
-    border-bottom-left-radius: 10px !important;
-}
-
-button.warm {
-    background: linear-gradient(to right, hsl(40, 100%, 50%), hsl(60, 100%, 50%));
-}
-
-button.cold {
-    background: linear-gradient(to right, hsl(60, 100%, 50%), hsl(80, 100%, 50%));
+    background: linear-gradient(to left, hsl(0, 100%, 50%), hsl(40, 100%, 50%));
     border-top-right-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
 }
 
+button.warm {
+    background: linear-gradient(to left, hsl(40, 100%, 50%), hsl(60, 100%, 50%));
+}
+
+button.cold {
+    background: linear-gradient(to left, hsl(60, 100%, 50%), hsl(80, 100%, 50%));
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+
 @media (max-width: 767.98px) {
     button.hot {
-        border-top-left-radius: 10px !important;
-        border-top-right-radius: 10px !important;
-        border-bottom-left-radius: 0 !important;
-        background: linear-gradient(to bottom, hsl(0, 100%, 50%), hsl(40, 100%, 50%));
+        border-bottom-left-radius: 10px !important;
+        border-bottom-right-radius: 10px !important;
+        border-top-right-radius: 0 !important;
+        background: linear-gradient(to top, hsl(0, 100%, 50%), hsl(40, 100%, 50%));
     }
     button.warm {
-        background: linear-gradient(to bottom, hsl(40, 100%, 50%), hsl(60, 100%, 50%));
+        background: linear-gradient(to top, hsl(40, 100%, 50%), hsl(60, 100%, 50%));
     }
     button.cold {
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 10px !important;
-        border-bottom-left-radius: 10px !important;
-        background: linear-gradient(to bottom, hsl(60, 100%, 50%), hsl(80, 100%, 50%));
+        border-bottom-left-radius: 0 !important;
+        border-top-right-radius: 10px !important;
+        border-top-left-radius: 10px !important;
+        background: linear-gradient(to top, hsl(60, 100%, 50%), hsl(80, 100%, 50%));
     }
 }
 
 @media (min-width: 767.98px) {
     div.cold {
-        padding-left: 0;
+        padding-right: 0;
     }
     div.warm {
         padding-left: 0;
         padding-right: 0;
     }
     div.hot {
-        padding-right: 0;
+        padding-left: 0;
     }
 }
