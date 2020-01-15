@@ -3,10 +3,5 @@
         "target": "https://us-central1-m2meme.cloudfunctions.net/app",
         "secure": false,
         "changeOrigin": true
-    },
-    "/uploads": {
-        "target": "https://us-central1-m2meme.cloudfunctions.net/app",
-        "secure": false,
-        "changeOrigin": true
     }
 }
