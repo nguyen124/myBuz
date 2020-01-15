@@ -1,11 +1,11 @@
 {
     "/svc": {
-        "target": "http://localhost:3000",
+        "target": "https://us-central1-m2meme.cloudfunctions.net/app",
         "secure": false,
         "changeOrigin": true
     },
-    "/uploadFile": {
-        "target": "http://us-central1-architect-c592d.cloudfunctions.net",
+    "/uploads": {
+        "target": "https://us-central1-m2meme.cloudfunctions.net/app",
         "secure": false,
         "changeOrigin": true
     }
