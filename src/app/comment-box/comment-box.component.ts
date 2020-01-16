@@ -7,6 +7,8 @@ import { HttpEventType } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { SystemService } from '../shared/services/utils/system.service';
+import { AuthService } from '../shared/services/security/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment-box',
@@ -27,6 +29,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     private _commSvc: CommunicateService,
     private _voiceSvc: VoiceMessageServiceService,
     private _systemSvc: SystemService,
+    private _authSvc: AuthService,
+    private _router: Router,
     @Inject(JQ_TOKEN) private $: any,
     private _toastr: ToastrService) {
   }
@@ -38,45 +42,60 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   writeTextComment() {
-    this._uploadPic(this._uploadVoice);
+    if (this._authSvc.isLoggedIn()) {
+      this._uploadPic(this._uploadVoice);
+    } else {
+      this.closeModal();
+      this._router.navigate(['login']);
+    }
+  }
+
+  closeModal() {
+    var modalDismiss = this.$("#closeModalBtn");
+    if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
   }
 
   voiceCommentPreview() {
-    this.isRecording = !this.isRecording;
-    if (this.isRecording) {
-      this._voiceSvc.startRecord();
-    } else {
-      this._voiceSvc.stopRecord().then(record => {
-        this.voiceRecord = record;
-        var that = this,
-          oldPreviewVoiceDiv = this.$("#previewVoiceDiv");
+    if (this._authSvc.isLoggedIn()) {
+      this.isRecording = !this.isRecording;
+      if (this.isRecording) {
+        this._voiceSvc.startRecord();
+      } else {
+        this._voiceSvc.stopRecord().then(record => {
+          this.voiceRecord = record;
+          var that = this,
+            oldPreviewVoiceDiv = this.$("#previewVoiceDiv");
 
-        that.removeElement(oldPreviewVoiceDiv);
-        var previewVoiceDiv = this.$('<div id="previewVoiceDiv" class="col-md-5"></div>'),
-          newVoice = this.$(`
+          that.removeElement(oldPreviewVoiceDiv);
+          var previewVoiceDiv = this.$('<div id="previewVoiceDiv" class="col-md-5"></div>'),
+            newVoice = this.$(`
           <audio id='audioId' controls> 
             <source  id='voice' src='' type='audio/mpeg'> 
           </audio>`),
-          removeVoiceBtn = this.$(`
+            removeVoiceBtn = this.$(`
           <button class="btn btn-xs btn-primary upright-corner" id="removeVoiceBtn"> 
             <span aria-hidden="true">&times;</span>
           </button>`);
 
-        removeVoiceBtn.bind('click', () => {
-          that.voiceRecord = null;
-          that.removeElement(previewVoiceDiv);
+          removeVoiceBtn.bind('click', () => {
+            that.voiceRecord = null;
+            that.removeElement(previewVoiceDiv);
+          })
+
+          var blob = window.URL || window["webkitURL"];
+          if (!blob) {
+            this._toastr.error('Your browser does not support Blob URLs');
+            return;
+          }
+          var fileURL = blob.createObjectURL(<File>record["blob"]);
+          newVoice.children()[0].setAttribute('src', fileURL);
+
+          this.$("#txtReplyBox").append(previewVoiceDiv.append(newVoice).append(removeVoiceBtn));
         })
-
-        var blob = window.URL || window["webkitURL"];
-        if (!blob) {
-          this._toastr.error('Your browser does not support Blob URLs');
-          return;
-        }
-        var fileURL = blob.createObjectURL(<File>record["blob"]);
-        newVoice.children()[0].setAttribute('src', fileURL);
-
-        this.$("#txtReplyBox").append(previewVoiceDiv.append(newVoice).append(removeVoiceBtn));
-      })
+      }
+    } else {
+      this.closeModal();
+      this._router.navigate(['login']);
     }
   }
 
@@ -144,33 +163,38 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   picCommentPreview() {
-    var that = this;
-    // preview pic
-    this.$("#picComment").bind('change', function (event) {
-      if (event && event.currentTarget && event.currentTarget.files) {
-        that.uploadedFile = <File>event.currentTarget.files.item(0);
-        if (that.uploadedFile) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            var oldPreviewPicDiv = that.$('#previewPicDiv');
-            that.removeElement(oldPreviewPicDiv);
-            var previewPicDiv = that.$("<div id='previewPicDiv' class='col-md-5'></div>"),
-              newPic = that.$("<img class='previewPic' id='pic'/>"),
-              removePicBtn = that.$(`
-                <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
-                <span aria-hidden="true">&times;</span>
-                </button>`);
-            removePicBtn.bind('click', () => {
-              that.uploadedFile = null;
-              that.removeElement(previewPicDiv);
-            });
-            newPic.attr('src', e.target["result"]);
-            that.$("#txtReplyBox").append(previewPicDiv.append(newPic).append(removePicBtn));
+    if (this._authSvc.isLoggedIn()) {
+      var that = this;
+      // preview pic
+      this.$("#picComment").bind('change', function (event) {
+        if (event && event.currentTarget && event.currentTarget.files) {
+          that.uploadedFile = <File>event.currentTarget.files.item(0);
+          if (that.uploadedFile) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var oldPreviewPicDiv = that.$('#previewPicDiv');
+              that.removeElement(oldPreviewPicDiv);
+              var previewPicDiv = that.$("<div id='previewPicDiv' class='col-md-5'></div>"),
+                newPic = that.$("<img class='previewPic' id='pic'/>"),
+                removePicBtn = that.$(`
+                  <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
+                  <span aria-hidden="true">&times;</span>
+                  </button>`);
+              removePicBtn.bind('click', () => {
+                that.uploadedFile = null;
+                that.removeElement(previewPicDiv);
+              });
+              newPic.attr('src', e.target["result"]);
+              that.$("#txtReplyBox").append(previewPicDiv.append(newPic).append(removePicBtn));
+            }
+            reader.readAsDataURL(that.uploadedFile);
           }
-          reader.readAsDataURL(that.uploadedFile);
         }
-      }
-    }).click();
+      }).click();
+    } else {
+      this.closeModal();
+      this._router.navigate(['login']);
+    }
   }
 
   removeElement(element) {

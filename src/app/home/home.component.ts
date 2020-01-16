@@ -13,19 +13,39 @@ export class HomeComponent implements OnInit {
   nextPage = 0;
   perPage = 4;
 
-  @ViewChild(ItemsComponent, {static: false}) itemsComponent: ItemsComponent
+  @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
   constructor(private _itemService: ItemService) {
   }
 
   ngOnInit() {
-    this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
+    this.getCold();
+  }
+
+  getHot() {
+    this._itemService.getItems({ page: this.nextPage, temp: "hot" }).subscribe((newItems: IItem[]) => {
+      this.items = newItems;
+    });
+  }
+
+  getWarm() {
+    this._itemService.getItems({ page: this.nextPage, temp: "warm" }).subscribe((newItems: IItem[]) => {
+      this.items = newItems;
+    });
+  }
+
+  getCold() {
+    this._itemService.getItems({ page: this.nextPage, temp: "cold" }).subscribe((newItems: IItem[]) => {
       this.items = newItems;
     });
   }
 
   loadNext() {
-    this.nextPage = Math.floor(this.items.length / this.perPage);
+    if (this.items) {
+      this.nextPage = Math.floor(this.items.length / this.perPage);
+    } else {
+      this.nextPage = 0;
+    }
     this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.perPage + i] = newItems[i];

@@ -32,11 +32,11 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-    window.location.href = 'http://localhost:3000/svc/user/auth/google';
+    window.location.href = 'https://us-central1-m2meme.cloudfunctions.net/app/svc/user/auth/google';
   };
 
   loginWithFacebook() {
-    window.location.href = 'http://localhost:3000/svc/user/auth/facebook';
+    window.location.href = 'https://us-central1-m2meme.cloudfunctions.net/app/svc/user/auth/facebook';
   };
 
   saveThirdPartyLogin(user: string) {

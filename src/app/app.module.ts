@@ -1,3 +1,4 @@
+import { AdsenseModule } from 'ng2-adsense';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
 
 import { AdminComponent } from './admin/admin.component';
-import { AlertComponent } from './alert/alert.component';
 import { AppComponent } from './app.component';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { CommentComponent } from './comment/comment.component';
@@ -53,7 +53,6 @@ let jQuery: any = window['$'];
 @NgModule({
   declarations: [
     AdminComponent,
-    AlertComponent,
     AppComponent,
     CommentComponent,
     CommentBoxComponent,
@@ -77,6 +76,10 @@ let jQuery: any = window['$'];
     SaveLoginComponent,
   ],
   imports: [
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-7640562161899788',
+      adSlot: 7259870550,
+    }),
     BrowserAnimationsModule,
     BrowserModule,
     CommonModule,

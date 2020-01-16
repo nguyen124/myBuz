@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-2 col-sm-2 text-success">
     <div class="row">
-      <strong><span style="font-size: 10px;">{{comment.writtenBy.username}}</span></strong>
+      <strong><span style="font-size: 10px;">{{comment.writtenBy['username']}}</span></strong>
     </div>
     <div class="row">
-      <img class="w-100 xs-w-25" src="{{comment.writtenBy.avatar}}" alt="Avatar">
+      <img class="w-100 xs-w-25" src="{{comment.writtenBy['avatar']}}" alt="Avatar">
     </div>
   </div>
   <div class="col-md-10 col-sm-10 mt-2">
@@ -23,10 +23,10 @@
   <div class="row">
     <div class="col-md-2 col-sm-2">
       <div class="row">
-        <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy.username}}</span></strong>
+        <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy['username']}}</span></strong>
       </div>
       <div class="row">
-        <img class="w-75 xs-w-15" src="{{reply.writtenBy.avatar}}" alt="Avatar">
+        <img class="w-75 xs-w-15" src="{{reply.writtenBy['avatar']}}" alt="Avatar">
       </div>
     </div>
 
@@ -46,9 +46,9 @@
         </button>
         <div class="dropdown-menu">
           <a href="javascript:void(0)" (click)="editComment(i, reply._id)" class="ml-1 d-block"
-            *ngIf="authSvc.user.username == reply.writtenBy.username">Edit</a>
+            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
           <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block"
-            *ngIf="authSvc.user.username == reply.writtenBy.username">Delete</a>
+            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
       </div>

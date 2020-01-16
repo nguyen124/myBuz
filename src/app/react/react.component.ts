@@ -17,9 +17,9 @@ export class ReactComponent implements OnInit {
   item: IItem;
 
   options = [
-    { name: 'OptionA', value: '1', checked: false },
-    { name: 'OptionB', value: '2', checked: false },
-    { name: 'OptionC', value: '3', checked: false }
+    { name: 'Violence', value: '1', checked: false },
+    { name: 'Sexual', value: '2', checked: false },
+    { name: 'Other', value: '3', checked: false }
   ]
 
   get selectedOptions() {

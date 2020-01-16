@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": "dist/architecture",
+    "ignore": [
+      "firebase.json",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/svc/**",
+        "function": "app"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
