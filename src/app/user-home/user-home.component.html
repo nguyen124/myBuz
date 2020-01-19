@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="updateUser()">
+<form [formGroup]="userForm" (ngSubmit)="updateUser()" autocomplete="on">
   <div class="row">
     <h5 *ngIf="userForm.invalid && error" class="text-center text-danger">Update failed. Something wrong happened!</h5>
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">

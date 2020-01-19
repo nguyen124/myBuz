@@ -47,11 +47,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  loginWithGoogle() {
+  loginWithGoogle($event) {
+    $event.preventDefault();
     this._authSvc.loginWithGoogle();
   }
 
-  loginWithFacebook() {
+  loginWithFacebook($event) {
+    $event.preventDefault();
     this._authSvc.loginWithFacebook();
   }
 }

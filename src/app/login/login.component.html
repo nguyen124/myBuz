@@ -5,7 +5,7 @@
         <div class="card-body">
           <h5 class="card-title text-center text-success">Sign In</h5>
           <h5 *ngIf="error" class="alert-danger">{{error}}</h5>
-          <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
+          <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="on">
             <div class="form-label-group">
               <label class="text-primary" for="username">Username</label>
               <input type="text" autofocus formControlName="username" class="form-control"
@@ -37,9 +37,9 @@
               </div>
             </div>
             <hr class="my-4">
-            <button class="btn-primary btn-lg btn-block " type="submit" (click)="loginWithGoogle()">
+            <button class="btn-primary btn-lg btn-block " type="submit" (click)="loginWithGoogle($event);">
               Sign in with Google</button>
-            <button class="btn-success btn-lg btn-block " type="submit" (click)="loginWithFacebook()">
+            <button class="btn-success btn-lg btn-block " type="submit" (click)="loginWithFacebook($event);">
               Sign in with Facebook</button>
             <div class="form-group">
             </div>
