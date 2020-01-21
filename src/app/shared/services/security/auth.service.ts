@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    this.loggedIn = !!this._systemSvc.getCookie("myname.sid");
+    this.loggedIn = !!this._systemSvc.getCookie("__session");
     return this.loggedIn;
   }
 
@@ -47,9 +47,9 @@ export class AuthService {
 
   logout() {
     this.loggedIn = false;
-    this._systemSvc.eraseCookie("myname.sid");
+    this._systemSvc.eraseCookie("__session");
     localStorage.removeItem("user");
-    return this._http.get("/svc/user/logout");
+    return this._http.post("/svc/user/logout", {});
   }
 }
 

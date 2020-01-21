@@ -73,7 +73,7 @@ let jQuery: any = window['$'];
     ReactComponent,
     RegisterComponent,
     ReportComponent,
-    SaveLoginComponent,
+    SaveLoginComponent
   ],
   imports: [
     AdsenseModule.forRoot({

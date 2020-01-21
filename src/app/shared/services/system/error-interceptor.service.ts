@@ -13,6 +13,9 @@ export class ErrorInterceptorService implements HttpInterceptor {
   constructor(private _router: Router, @Inject(JQ_TOKEN) private $: any) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    request = request.clone({
+      withCredentials: true
+    });
     var that = this;
     return next.handle(request).pipe(catchError(err => {
       if (err.status === UNAUTHORIZED) {
