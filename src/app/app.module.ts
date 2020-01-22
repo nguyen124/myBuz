@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SocialSharingModule } from './social-sharing/social-sharing.module';
+import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
 
@@ -47,6 +47,7 @@ import { DatePipe } from './date-pipe.pipe';
 
 import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
+import { PolicyComponent } from './policy/policy.component';
 
 let jQuery: any = window['$'];
 
@@ -73,7 +74,8 @@ let jQuery: any = window['$'];
     ReactComponent,
     RegisterComponent,
     ReportComponent,
-    SaveLoginComponent
+    SaveLoginComponent,
+    PolicyComponent
   ],
   imports: [
     AdsenseModule.forRoot({
@@ -87,7 +89,7 @@ let jQuery: any = window['$'];
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocialSharingModule,
+    ShareButtonsModule,
     UsersModule,
     ToastrModule.forRoot(),
     routing

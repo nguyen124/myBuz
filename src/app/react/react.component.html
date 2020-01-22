@@ -8,7 +8,9 @@
     <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="menu" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"></button>
     <div class="dropdown-menu" aria-label="menu">
-        <app-facebook></app-facebook>
+        <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter','pinterest','reddit']" [show]="2"
+            [size]="-3" url="https://m2meme.firebaseapp.com/items?itemId={{item._id}}" [autoSetMeta]="false">
+        </share-buttons>
         <div class="text-danger" *ngIf="authSvc.user && !(authSvc.user.username == item.createdBy['username'])">
             <div class="dropdown-divider"></div>
             <div *ngIf="!item.hasReported; else elseBlock">
