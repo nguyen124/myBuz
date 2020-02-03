@@ -78,7 +78,8 @@ export class UploadComponent implements OnInit {
           tags: this.parsedTags,
           categories: [this.f.categories.value],
           title: this.f.title.value,
-          url: event.body["fileLocation"]
+          url: event.body["fileLocation"],
+          filename: event.body["filename"]
         };
 
         this._itemSvc.createItem(item).subscribe(newItem => {
