@@ -7,7 +7,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { SaveLoginComponent } from './save-login/save-login.component';
-import { PolicyComponent } from './policy/policy.component';
+import { PolicyComponent } from './policy-term/policy/policy.component';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
@@ -15,11 +15,14 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'savelogin', component: SaveLoginComponent },
-    { path: 'policy', component: PolicyComponent },
     { path: 'user/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     {
         path: 'user/profile',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+    },
+    {
+        path: 'legal',
+        loadChildren: () => import('./policy-term/policy-term.module').then(m => m.PolicyTermModule)
     },
     {
         path: '',

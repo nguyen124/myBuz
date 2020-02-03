@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UserService } from '../shared/services/user-service.service';
-import { IUser } from '../shared/model/user';
-import { AuthService } from '../shared/services/security/auth.service';
+import { UserService } from '../../shared/services/user-service.service';
+import { IUser } from '../../shared/model/user';
+import { AuthService } from '../../shared/services/security/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SystemService } from '../shared/services/utils/system.service';
-import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { SystemService } from '../../shared/services/utils/system.service';
+import { JQ_TOKEN } from '../../shared/services/jQuery.service';
 import { HttpEventType } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
