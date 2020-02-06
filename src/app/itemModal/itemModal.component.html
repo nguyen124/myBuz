@@ -42,16 +42,12 @@
                 </div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-md-12 ml-1 mt-1">
-                <app-comment-box [item]="item"></app-comment-box>
-              </div>
-            </div>
           </div>
 
           <div class="col-md-6 overflow-scroll">
-            <app-comments></app-comments>
+            <app-comments [item]="item"></app-comments>
+            <app-comment-box [item]="item" [isTopCommentBox]="true" (topCommentBoxFocused)="handleTopCommentBoxFocus()">
+            </app-comment-box>
           </div>
         </div>
       </div>

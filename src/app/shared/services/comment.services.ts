@@ -6,7 +6,6 @@ import { JQ_TOKEN } from './jQuery.service';
 
 @Injectable()
 export class CommentService {
-    parentCommentId: string;
     latestComment: IComment;
     edittingComment: IComment;
     edittingCommentIndex: number;
@@ -28,12 +27,8 @@ export class CommentService {
         return this._http.put<number>("/svc/current-user/downvote", { itemId: itemId, commentId: commentId });
     }
 
-    addComment(itemId: string, content: string): Observable<any> {
-        return this._http.post<any>('/svc/current-user/comment', {
-            parentCommentId: this.parentCommentId,
-            itemId: itemId,
-            content: content
-        });
+    addComment(comment: IComment): Observable<any> {
+        return this._http.post<any>('/svc/current-user/comment', comment);
     }
 
     updateComment(comment: IComment, content: string): Observable<any> {

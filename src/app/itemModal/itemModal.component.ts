@@ -17,7 +17,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   comment: IComment
   subScription: Subscription;
 
-  @ViewChild(CommentsComponent, {static: false}) commentComp: CommentsComponent;
+  @ViewChild(CommentsComponent, { static: false }) commentComp: CommentsComponent;
   constructor(
     private _commSvc: CommunicateService,
     private _log: LoggingService,
@@ -33,6 +33,16 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         }, 0);
       }
     });
+  }
+
+  handleTopCommentBoxFocus() {
+    this.hideChildCommentsBox();
+  }
+
+  @ViewChild(CommentsComponent, { static: false }) commentsCmp: CommentsComponent;
+  hideChildCommentsBox() {
+    this.commentsCmp.hideCommentBox();
+    this.commentsCmp.commentCmp.hideCommentBox();
   }
 
   ngOnDestroy() {

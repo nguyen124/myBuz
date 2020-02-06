@@ -122,6 +122,7 @@ export class UserHomeComponent implements OnInit {
           this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           newInfo["avatar"] = event.body["fileLocation"];
+          newInfo["filename"] = event.body["filename"];
           this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
             this.afterUpdate(result);
           }, err => {

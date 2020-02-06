@@ -1,0 +1,11 @@
+<div *ngIf="voicePreviewSrc" id="previewVoiceDiv" class="row m-0">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <audio id='audioId' controls style="width: 100%; height: 100%;">
+            <source id='voice' [src]='voicePreviewSrc' type='audio/mpeg'>
+        </audio>
+        <button *ngIf="showCloseBtn" class="btn btn-xs btn-primary upright-corner" (click)="removePreviewVoice()"
+            id="removeVoiceBtn">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>

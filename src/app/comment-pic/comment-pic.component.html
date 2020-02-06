@@ -1,0 +1,9 @@
+<div *ngIf="previewPicSrc" id='previewPicDiv' class='row m-0'>
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <img class='previewPic' id='pic' [src]='previewPicSrc' />
+        <button *ngIf="showCloseBtn" class="btn btn-xs btn-primary upright-corner" id="removePicBtn"
+            (click)="removePreviewPic()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>

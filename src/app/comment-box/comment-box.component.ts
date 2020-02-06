@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Inject, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
@@ -9,6 +9,11 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { SystemService } from '../shared/services/utils/system.service';
 import { AuthService } from '../shared/services/security/auth.service';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CommentPicComponent } from '../comment-pic/comment-pic.component';
+import { CommentVoiceComponent } from '../comment-voice/comment-voice.component';
+import { IComment } from '../shared/model/comment';
+
 
 @Component({
   selector: 'app-comment-box',
@@ -16,13 +21,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./comment-box.component.css']
 })
 export class CommentBoxComponent implements OnInit, OnDestroy {
-  @Input()
-  item: IItem;
+  @Input() item: IItem;
+  @Input() comment: IComment;
+  @Input() isTopCommentBox: boolean;
+  @Output() topCommentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
+
   isRecording: boolean;
   isUploading: boolean;
   commentType: string = "ItemComment";
   uploadedFile: File;
   voiceRecord: any;
+  previewPicSrc: any;
+  voicePreviewSrc: any;
+  commentContent: Array<object> = [];
+
+  @ViewChild(CommentPicComponent, { static: false }) commentPicCmp: CommentPicComponent;
+  @ViewChild(CommentVoiceComponent, { static: false }) commentVoiceCmp: CommentVoiceComponent;
+  @ViewChild('txtReplyBox', { static: true }) txtReplyBox: ElementRef;
 
   constructor(
     private _commentSvc: CommentService,
@@ -32,18 +47,27 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     private _authSvc: AuthService,
     private _router: Router,
     @Inject(JQ_TOKEN) private $: any,
-    private _toastr: ToastrService) {
+    private _toastr: ToastrService,
+    private _san: DomSanitizer) {
   }
 
   ngOnInit() {
     setTimeout(() => {
-      this.$("#txtReplyBox").focus();
+      this.txtReplyBox.nativeElement.focus();
     }, 1000);
   }
 
   writeTextComment() {
     if (this._authSvc.isLoggedIn()) {
-      this._uploadPic(this._uploadVoice);
+      if (this.isTopCommentBox) {
+        this.topCommentBoxFocused.emit("");
+      }
+      this.commentPicCmp.removePreviewPic();
+      this.commentVoiceCmp.removePreviewVoice();
+      var that = this;
+      setTimeout(() => {
+        that._uploadPic(that._uploadVoice);
+      }, 0);
     } else {
       this.closeModal();
       this._router.navigate(['login']);
@@ -55,103 +79,19 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
   }
 
-  voiceCommentPreview() {
-    if (this._authSvc.isLoggedIn()) {
-      this.isRecording = !this.isRecording;
-      if (this.isRecording) {
-        this._voiceSvc.startRecord();
-      } else {
-        this._voiceSvc.stopRecord().then(record => {
-          this.voiceRecord = record;
-          var that = this,
-            oldPreviewVoiceDiv = this.$("#previewVoiceDiv");
-
-          that.removeElement(oldPreviewVoiceDiv);
-          var previewVoiceDiv = this.$('<div id="previewVoiceDiv" class="col-md-5"></div>'),
-            newVoice = this.$(`
-          <audio id='audioId' controls> 
-            <source  id='voice' src='' type='audio/mpeg'> 
-          </audio>`),
-            removeVoiceBtn = this.$(`
-          <button class="btn btn-xs btn-primary upright-corner" id="removeVoiceBtn"> 
-            <span aria-hidden="true">&times;</span>
-          </button>`);
-
-          removeVoiceBtn.bind('click', () => {
-            that.voiceRecord = null;
-            that.removeElement(previewVoiceDiv);
-          })
-
-          var blob = window.URL || window["webkitURL"];
-          if (!blob) {
-            this._toastr.error('Your browser does not support Blob URLs');
-            return;
-          }
-          var fileURL = blob.createObjectURL(<File>record["blob"]);
-          newVoice.children()[0].setAttribute('src', fileURL);
-
-          this.$("#txtReplyBox").append(previewVoiceDiv.append(newVoice).append(removeVoiceBtn));
-        })
-      }
-    } else {
-      this.closeModal();
-      this._router.navigate(['login']);
-    }
-  }
-
-  _uploadVoice(that) {
-    var thatt = that;
-    if (that.voiceRecord) {
-      that._voiceSvc.uploadVoiceRecord(that.voiceRecord).subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          that._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
-        } else if (event.type === HttpEventType.Response) {
-          var url = event.body["fileLocation"];
-          that.$("#voice").attr('src', url);
-          thatt._f(that);
-        }
-      });
-    } else {
-      thatt._f(that);
-    }
-  }
-
-  _f(that) {
-    var removeBtn = that.$("#removeVoiceBtn"),
-      removePicBtn = that.$("#removePicBtn");
-    that.removeElement(removeBtn);
-    that.removeElement(removePicBtn);
-
-    var el = that.$("#txtReplyBox"),
-      content = el.html();
-
-    if (content) {
-      if (!that._commentSvc.edittingComment) {
-        that._commentSvc.addComment(that.item._id, content, null).subscribe(newComment => {
-          that.afterAddingComment(newComment);
-        });
-      } else {
-        if (that._commentSvc.edittingComment.content !== content) {
-          that._commentSvc.updateComment(that._commentSvc.edittingComment, content).subscribe(newComment => {
-            that.afterEdittingComment(newComment)
-          });
-        } else {
-          that.$("#txtReplyBox").html("");
-        }
-      }
-    } else {
-      that._toastr.warning("Please enter non-empty comment!")
-    }
-  }
-
   _uploadPic(callback) {
+    this._addTextContent();
     if (this.uploadedFile) {
       this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
-          var url = event.body["fileLocation"];
-          this.$("#pic").attr("src", url);
+          var picObj = {
+            url: event.body["fileLocation"],
+            filename: event.body["filename"],
+            type: "image"
+          }
+          this.commentContent.push(picObj);
           callback(this);
         }
       }, err => {
@@ -162,51 +102,126 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }
   }
 
+  _addTextContent() {
+    var content = this.txtReplyBox.nativeElement.innerText,
+      textObj = {
+        type: "text",
+        content: content
+      };
+    if (content.trim()) {
+      this.commentContent.push(textObj);
+    }
+  }
+
+  _uploadVoice(that) {
+    var thatt = that;
+    if (that.voiceRecord) {
+      that._voiceSvc.uploadVoiceRecord(that.voiceRecord).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          that._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        } else if (event.type === HttpEventType.Response) {
+          var voiceObj = {
+            url: event.body["fileLocation"],
+            filename: event.body["filename"],
+            type: "sound"
+          };
+          that.commentContent.push(voiceObj);
+          thatt._f(that);
+        }
+      });
+    } else {
+      thatt._f(that);
+    }
+  }
+
+  _f(that) {
+    if (that.commentContent.length > 0) {
+      if (!that._commentSvc.edittingComment) {
+        var comment = {
+          parentCommentId: (this.comment) ? (this.comment.parentCommentId || this.comment._id) : null,
+          itemId: this.item._id,
+          content: that.commentContent
+        }
+        that._commentSvc.addComment(comment).subscribe(newComment => {
+          that.afterAddingComment(newComment);
+        });
+      }
+
+      // else {
+      //   if (that._commentSvc.edittingComment.content !== content) {
+      //     that._commentSvc.updateComment(that._commentSvc.edittingComment, content).subscribe(newComment => {
+      //       that.afterEdittingComment(newComment)
+      //     });
+      //   } else {
+      //     this.txtReplyBox.nativeElement.innerText = '';
+      //   }
+      // }
+    } else {
+      that._toastr.warning("Please enter non-empty comment!")
+    }
+  }
+
+  @ViewChild('picComment', { static: false }) picComment: ElementRef;
   picCommentPreview() {
     if (this._authSvc.isLoggedIn()) {
-      var that = this;
-      // preview pic
-      this.$("#picComment").bind('change', function (event) {
-        if (event && event.currentTarget && event.currentTarget.files) {
-          that.uploadedFile = <File>event.currentTarget.files.item(0);
-          if (that.uploadedFile) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              var oldPreviewPicDiv = that.$('#previewPicDiv');
-              that.removeElement(oldPreviewPicDiv);
-              var previewPicDiv = that.$("<div id='previewPicDiv' class='col-md-5'></div>"),
-                newPic = that.$("<img class='previewPic' id='pic'/>"),
-                removePicBtn = that.$(`
-                  <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
-                  <span aria-hidden="true">&times;</span>
-                  </button>`);
-              removePicBtn.bind('click', () => {
-                that.uploadedFile = null;
-                that.removeElement(previewPicDiv);
-              });
-              newPic.attr('src', e.target["result"]);
-              that.$("#txtReplyBox").append(previewPicDiv.append(newPic).append(removePicBtn));
-            }
-            reader.readAsDataURL(that.uploadedFile);
-          }
-        }
-      }).click();
+      if (this.isTopCommentBox) {
+        this.topCommentBoxFocused.emit("");
+      }
+      this.picComment.nativeElement.click();
     } else {
       this.closeModal();
       this._router.navigate(['login']);
     }
   }
 
-  removeElement(element) {
-    if (element) {
-      element.remove();
+  voiceCommentPreview() {
+    if (this._authSvc.isLoggedIn()) {
+      if (this.isTopCommentBox) {
+        this.topCommentBoxFocused.emit("");
+      }
+      this.isRecording = !this.isRecording;
+      if (this.isRecording) {
+        this._voiceSvc.startRecord();
+        this.voicePreviewSrc = null;
+      } else {
+        this._voiceSvc.stopRecord().then(record => {
+          this.voiceRecord = record;
+          var blob = window.URL || window["webkitURL"];
+          if (!blob) {
+            this._toastr.error('Your browser does not support Blob URLs');
+            return;
+          }
+          this.voicePreviewSrc = this._san.bypassSecurityTrustResourceUrl(blob.createObjectURL(<File>record["blob"]));
+        })
+      }
+    } else {
+      this.closeModal();
+      this._router.navigate(['login']);
     }
+  }
+
+  changeValue(event) {
+    if (event && event.currentTarget && event.currentTarget.files) {
+      var that = this;
+      this.uploadedFile = <File>event.currentTarget.files.item(0);
+      if (this.uploadedFile) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          that.previewPicSrc = e.target["result"];
+        }
+        reader.readAsDataURL(this.uploadedFile);
+      }
+    }
+  }
+
+  clearValue(event) {
+    this.previewPicSrc = '';
+    event.currentTarget.value = null;
   }
 
   afterAddingComment(newComment) {
     this.item.noOfComments++;
-    this.$("#txtReplyBox").html("");
-    this._commentSvc.parentCommentId = null;// after reply remove parentCommentId
+    this.txtReplyBox.nativeElement.innerText = '';
     this._commSvc.changeComment(newComment);
     this.uploadedFile = null;
     this.voiceRecord = null;
@@ -214,10 +229,16 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   afterEdittingComment(newComment) {
-    this.$("#txtReplyBox").html("");
+    this.txtReplyBox.nativeElement.innerText = '';
     this.uploadedFile = null;
     this.voiceRecord = null;
     this._commSvc.changeComment(newComment);
+  }
+
+  handleOnFocus() {
+    if (this.isTopCommentBox) {
+      this.topCommentBoxFocused.emit("");
+    }
   }
 
   ngOnDestroy() {

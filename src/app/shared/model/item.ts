@@ -1,6 +1,6 @@
 export interface IItem {
   _id?: string;
-  title: string;
+  title?: string;
   url?: string;
   modifiedDate?: number;
   createdBy?: object;

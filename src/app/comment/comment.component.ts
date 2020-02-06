@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';
@@ -15,13 +15,12 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
-  @Input()
-  comment: IComment;
-  @Input()
-  index: number;
-  @Input()
-  item: IItem;
+  @Input() comment: IComment;
+  @Input() index: number;
+  @Input() item: IItem;
+  @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
 
+  previousIndex: number = null;
   tooltip: string;
 
   user: IUser;
@@ -132,6 +131,22 @@ export class CommentComponent implements OnInit {
 
   editComment(index: number) {
     this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
+  }
+
+  showCommentBox(index: number): void {
+    this.commentBoxFocused.emit("");
+    if (this.previousIndex != null) {
+      this.comment.replies[this.previousIndex].showCommentBox = false;
+    }
+    this.comment.replies[index].showCommentBox = true;
+    this.previousIndex = index;
+  }
+
+  hideCommentBox() {
+    var box = this.comment.replies[this.previousIndex];
+    if (box) {
+      box.showCommentBox = false;
+    }
   }
 
   ngOnDestroy() {

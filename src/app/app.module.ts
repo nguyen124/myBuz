@@ -47,6 +47,9 @@ import { DatePipe } from './date-pipe.pipe';
 
 import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
+import { CommentPicComponent } from './comment-pic/comment-pic.component';
+import { CommentVoiceComponent } from './comment-voice/comment-voice.component';
+import { CommentReplytoComponent } from './comment-replyto/comment-replyto.component';
 
 
 let jQuery: any = window['$'];
@@ -74,7 +77,10 @@ let jQuery: any = window['$'];
     ReactComponent,
     RegisterComponent,
     ReportComponent,
-    SaveLoginComponent
+    SaveLoginComponent,
+    CommentPicComponent,
+    CommentVoiceComponent,
+    CommentReplytoComponent
   ],
   imports: [
     AdsenseModule.forRoot({

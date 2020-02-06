@@ -8,8 +8,12 @@
     </div>
   </div>
   <div class="col-md-10 col-sm-10 mt-2">
-    <div [innerHtml]="comment.content"></div>
-
+    <div *ngFor="let obj of comment.content; let i = index">
+      <div *ngIf="obj.type == 'text'"> {{obj.content}}</div>
+      <app-comment-pic *ngIf="obj.type == 'image'" [previewPicSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
+      <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
+      </app-comment-voice>
+    </div>
     <div>
       <app-comment-react [comment]="comment"></app-comment-react>
       <i class="btn btn-xs fa fa-comment text-success" (click)="showReplies(comment._id)">{{comment.noOfReplies}}</i>
@@ -31,7 +35,12 @@
     </div>
 
     <div class="col-md-10 col-sm-10 mt-2">
-      <div [innerHtml]="reply.content"></div>
+      <div *ngFor="let obj of reply.content; let i = index">
+        <div *ngIf="obj.type == 'text'"> {{obj.content}}</div>
+        <app-comment-pic *ngIf="obj.type == 'image'" [previewPicSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
+        <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
+        </app-comment-voice>
+      </div>
       <div>
         <audio *ngIf="reply.url" class="voice-comment" controls>
           <source [src]="reply.url" type="audio/mpeg">
@@ -39,8 +48,10 @@
         </audio>
       </div>
       <div>
-        <app-comment-react [comment]="reply"></app-comment-react>
+        <app-comment-react [comment]="reply">
+        </app-comment-react>
         <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
+        <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
         <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
         </button>
@@ -51,10 +62,16 @@
             *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
+        <div *ngIf="reply.showCommentBox" class="row">
+          <div class="col-md-12 ml-1 mt-1">
+            <app-comment-box [item]="item" [comment]="reply">
+              <app-comment-replyto [personName]="comment.writtenBy.username"></app-comment-replyto>
+            </app-comment-box>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
 
 <div *ngIf="isShowingReply && comment.replies.length > 0" class="row mt-2">

@@ -1,7 +1,8 @@
 <div *ngFor="let comment of comments; let i = index">
   <div *ngIf="!comment.parentCommentId" class="pb-2 d-flex">
     <div class="w-100">
-      <app-comment [comment]="comment" [item]="item">
+      <app-comment [comment]="comment" [item]="item" (commentBoxFocused)="handleCommentBoxFocus()">
+        <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
         <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
         </button>
@@ -12,12 +13,19 @@
             *ngIf="authSvc.user && authSvc.user.username == comment.writtenBy.username">Delete</a>
           <app-report [comment]="comment"></app-report>
         </div>
+        <div *ngIf="comment.showCommentBox" class="row">
+          <div class="col-md-12 ml-1 mt-1">
+            <app-comment-box [item]="item" [comment]="comment">
+              <app-comment-replyto [personName]="comment.writtenBy.username"></app-comment-replyto>
+            </app-comment-box>
+          </div>
+        </div>
       </app-comment>
     </div>
   </div>
 </div>
 
-<div *ngIf="comments && comments.length >0" class="row mt-2">
+<div *ngIf="comments && comments.length >0" class="row mt-2 mb-2">
   <a href="javascript:void(0)" (click)="getMoreComments()" class="btn-xs btn-primary d-inline" role="button">More
     comments <i class="fa fa-angle-double-right"></i> </a>
 </div>

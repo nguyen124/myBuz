@@ -9,9 +9,7 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
   styleUrls: ['./comment-react.component.css']
 })
 export class CommentReactComponent implements OnInit {
-  @Input()
-  comment: IComment;
-
+  @Input() comment: IComment;
   constructor(private _commentSvc: CommentService, @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -46,14 +44,6 @@ export class CommentReactComponent implements OnInit {
     this.comment.noOfPoints = newScore;
     this.comment.hasDownvoted = downvoted;
     this.comment.hasUpvoted = upvoted;
-  }
-
-  writeTextReply(): void {
-    this._commentSvc.parentCommentId = this.comment.parentCommentId || this.comment._id;
-    var el = this.$("#txtReplyBox");
-    el.html(`<a href='javascript:void()#${this.comment._id}' class='btn m-0 p-0 mb-1 reply-comment'>@${this.comment.writtenBy["username"]}:</a><span/>`).focus();
-    this.setCursor(el);
-
   }
 
   setCursor = function (el) {

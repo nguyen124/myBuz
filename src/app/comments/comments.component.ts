@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { CommentService } from '../shared/services/comment.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
+import { CommentComponent } from '../comment/comment.component';
 
 @Component({
   selector: 'app-comments',
@@ -16,9 +17,11 @@ import { IItem } from '../shared/model/item';
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
-  item: IItem;
+  @Input() item: IItem;
   nextPage = 0;
   perPage = 10;
+  previousIndex = null;
+
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
@@ -88,5 +91,30 @@ export class CommentsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._log.log("onDestroy CommentsComponent")
     this.subscription.unsubscribe();
+  }
+
+  showCommentBox(index: number): void {
+    this.hideChildCommentBox();
+    if (this.previousIndex != null) {
+      this.comments[this.previousIndex].showCommentBox = false;
+    }
+    this.comments[index].showCommentBox = true;
+    this.previousIndex = index;
+  }
+
+  hideCommentBox() {
+    var box = this.comments[this.previousIndex];
+    if (box) {
+      box.showCommentBox = false;
+    }
+  }
+
+  handleCommentBoxFocus() {
+    this.hideCommentBox();
+  }
+
+  @ViewChild(CommentComponent, { static: false }) commentCmp: CommentComponent;
+  hideChildCommentBox() {
+    this.commentCmp.hideCommentBox();
   }
 }
