@@ -1,6 +1,7 @@
 <div class="row">
   <div class="editable mb-1 mr-2" contenteditable="true" #txtReplyBox (focus)="handleOnFocus()">
-    <ng-content></ng-content>
+    <a *ngIf="personName" href='javascript:void()#${this.comment._id}'
+      class='btn m-0 p-0 mb-1 reply-comment'>@{{personName}}:&nbsp;</a>
     <app-comment-pic [previewPicSrc]="previewPicSrc" [showCloseBtn]="true"></app-comment-pic>
     <app-comment-voice [voicePreviewSrc]="voicePreviewSrc" [showCloseBtn]="true"></app-comment-voice>
   </div>

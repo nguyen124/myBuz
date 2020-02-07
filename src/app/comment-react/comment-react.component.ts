@@ -45,13 +45,4 @@ export class CommentReactComponent implements OnInit {
     this.comment.hasDownvoted = downvoted;
     this.comment.hasUpvoted = upvoted;
   }
-
-  setCursor = function (el) {
-    var range = document.createRange();
-    var sel = window.getSelection();
-    range.setStart(el.children()[1], 0);
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
-  };
 }

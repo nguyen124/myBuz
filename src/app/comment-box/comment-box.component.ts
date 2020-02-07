@@ -14,16 +14,17 @@ import { CommentPicComponent } from '../comment-pic/comment-pic.component';
 import { CommentVoiceComponent } from '../comment-voice/comment-voice.component';
 import { IComment } from '../shared/model/comment';
 
-
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
   styleUrls: ['./comment-box.component.css']
 })
 export class CommentBoxComponent implements OnInit, OnDestroy {
+
   @Input() item: IItem;
   @Input() comment: IComment;
   @Input() isTopCommentBox: boolean;
+  @Input() personName: string;
   @Output() topCommentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
 
   isRecording: boolean;
@@ -37,7 +38,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   @ViewChild(CommentPicComponent, { static: false }) commentPicCmp: CommentPicComponent;
   @ViewChild(CommentVoiceComponent, { static: false }) commentVoiceCmp: CommentVoiceComponent;
-  @ViewChild('txtReplyBox', { static: true }) txtReplyBox: ElementRef;
+  @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
 
   constructor(
     private _commentSvc: CommentService,
@@ -60,7 +61,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   writeTextComment() {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
-        this.topCommentBoxFocused.emit("");
+        this.topCommentBoxFocused.emit("top");
+      } else {
+        this.topCommentBoxFocused.emit("child");
       }
       this.commentPicCmp.removePreviewPic();
       this.commentVoiceCmp.removePreviewVoice();
@@ -146,7 +149,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           that.afterAddingComment(newComment);
         });
       }
-
       // else {
       //   if (that._commentSvc.edittingComment.content !== content) {
       //     that._commentSvc.updateComment(that._commentSvc.edittingComment, content).subscribe(newComment => {
@@ -165,7 +167,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   picCommentPreview() {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
-        this.topCommentBoxFocused.emit("");
+        this.topCommentBoxFocused.emit("top");
+      } else {
+        this.topCommentBoxFocused.emit("child");
       }
       this.picComment.nativeElement.click();
     } else {
@@ -177,7 +181,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   voiceCommentPreview() {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
-        this.topCommentBoxFocused.emit("");
+        this.topCommentBoxFocused.emit("top");
+      } else {
+        this.topCommentBoxFocused.emit("child");
       }
       this.isRecording = !this.isRecording;
       if (this.isRecording) {
@@ -221,7 +227,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   afterAddingComment(newComment) {
     this.item.noOfComments++;
-    this.txtReplyBox.nativeElement.innerText = '';
     this._commSvc.changeComment(newComment);
     this.uploadedFile = null;
     this.voiceRecord = null;
@@ -229,7 +234,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   afterEdittingComment(newComment) {
-    this.txtReplyBox.nativeElement.innerText = '';
     this.uploadedFile = null;
     this.voiceRecord = null;
     this._commSvc.changeComment(newComment);
@@ -237,8 +241,26 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   handleOnFocus() {
     if (this.isTopCommentBox) {
-      this.topCommentBoxFocused.emit("");
+      this.topCommentBoxFocused.emit("top");
+    } else {
+      this.topCommentBoxFocused.emit("child");
     }
+  }
+
+  // setCursorAfterPersonName() {
+  //   var editorLabel = this.$('#replyTo');
+  //   var editorLabelRect = editorLabel[0].getBoundingClientRect();    
+  //   this.txtReplyBox.nativeElement.style.textIndent = editorLabelRect.width + 'px';
+  // }
+
+  reset() {
+    for (var node of this.txtReplyBox.nativeElement.childNodes) {
+      if (node.nodeType == Node.TEXT_NODE) {
+        node.remove();
+      }
+    }
+    this.previewPicSrc = '';
+    this.voicePreviewSrc = '';
   }
 
   ngOnDestroy() {

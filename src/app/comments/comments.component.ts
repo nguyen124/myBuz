@@ -8,6 +8,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
 import { CommentComponent } from '../comment/comment.component';
+import { CommentBoxComponent } from '../comment-box/comment-box.component';
 
 @Component({
   selector: 'app-comments',
@@ -18,6 +19,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
   @Input() item: IItem;
+  @Input() topCommentBoxCmp: CommentBoxComponent;
+
+  @ViewChild(CommentBoxComponent, { static: false }) commentBoxComp: CommentBoxComponent;
+
   nextPage = 0;
   perPage = 10;
   previousIndex = null;
@@ -100,12 +105,30 @@ export class CommentsComponent implements OnInit, OnDestroy {
     }
     this.comments[index].showCommentBox = true;
     this.previousIndex = index;
+    setTimeout(() => {
+      this.setCursor(this.commentBoxComp.txtReplyBox.nativeElement);
+    }, 0);
+  }
+
+  setCursor = function (el) {
+    var range = document.createRange();
+    var sel = window.getSelection();
+    range.setStart(el.children[1], 0);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 
   hideCommentBox() {
-    var box = this.comments[this.previousIndex];
-    if (box) {
-      box.showCommentBox = false;
+    var comment = this.comments[this.previousIndex];
+    if (comment) {
+      comment.showCommentBox = false;
+    }
+  }
+
+  handleTopCommentBoxFocus(value) {
+    if (value == "child" && this.topCommentBoxCmp) {
+      this.topCommentBoxCmp.reset();
     }
   }
 
@@ -115,6 +138,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   @ViewChild(CommentComponent, { static: false }) commentCmp: CommentComponent;
   hideChildCommentBox() {
-    this.commentCmp.hideCommentBox();
+    if (this.commentCmp) {
+      this.commentCmp.hideCommentBox();
+    }
   }
 }

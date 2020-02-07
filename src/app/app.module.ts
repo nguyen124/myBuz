@@ -49,8 +49,6 @@ import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
 import { CommentPicComponent } from './comment-pic/comment-pic.component';
 import { CommentVoiceComponent } from './comment-voice/comment-voice.component';
-import { CommentReplytoComponent } from './comment-replyto/comment-replyto.component';
-
 
 let jQuery: any = window['$'];
 
@@ -79,8 +77,7 @@ let jQuery: any = window['$'];
     ReportComponent,
     SaveLoginComponent,
     CommentPicComponent,
-    CommentVoiceComponent,
-    CommentReplytoComponent
+    CommentVoiceComponent
   ],
   imports: [
     AdsenseModule.forRoot({

@@ -64,8 +64,8 @@
         </div>
         <div *ngIf="reply.showCommentBox" class="row">
           <div class="col-md-12 ml-1 mt-1">
-            <app-comment-box [item]="item" [comment]="reply">
-              <app-comment-replyto [personName]="comment.writtenBy.username"></app-comment-replyto>
+            <app-comment-box [item]="item" [comment]="reply" [personName]="reply.writtenBy.username"
+              (topCommentBoxFocused)="handleTopCommentBoxFocus($event)">
             </app-comment-box>
           </div>
         </div>

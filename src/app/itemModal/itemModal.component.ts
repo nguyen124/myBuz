@@ -6,6 +6,7 @@ import { IComment } from '../shared/model/comment';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentsComponent } from '../comments/comments.component';
+import { CommentBoxComponent } from '../comment-box/comment-box.component';
 
 @Component({
   selector: 'app-itemModal',
@@ -16,6 +17,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   item: IItem;
   comment: IComment
   subScription: Subscription;
+  topCommentBoxCmp: CommentBoxComponent;
 
   @ViewChild(CommentsComponent, { static: false }) commentComp: CommentsComponent;
   constructor(
@@ -35,14 +37,22 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleTopCommentBoxFocus() {
-    this.hideChildCommentsBox();
+  @ViewChild(CommentBoxComponent, { static: false }) commentBoxCmp: CommentBoxComponent;
+  handleTopCommentBoxFocus(value) {
+    if (value == "top") {
+      this.hideChildCommentsBox();
+      this.topCommentBoxCmp = this.commentBoxCmp;
+    }
   }
 
   @ViewChild(CommentsComponent, { static: false }) commentsCmp: CommentsComponent;
   hideChildCommentsBox() {
-    this.commentsCmp.hideCommentBox();
-    this.commentsCmp.commentCmp.hideCommentBox();
+    if (this.commentsCmp) {
+      this.commentsCmp.hideCommentBox();
+      if (this.commentsCmp.commentCmp) {
+        this.commentsCmp.commentCmp.hideCommentBox();
+      }
+    }
   }
 
   ngOnDestroy() {

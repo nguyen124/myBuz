@@ -1,7 +1,8 @@
 <div *ngFor="let comment of comments; let i = index">
   <div *ngIf="!comment.parentCommentId" class="pb-2 d-flex">
     <div class="w-100">
-      <app-comment [comment]="comment" [item]="item" (commentBoxFocused)="handleCommentBoxFocus()">
+      <app-comment [comment]="comment" [item]="item" [topCommentBoxCmp]="topCommentBoxCmp"
+        (commentBoxFocused)="handleCommentBoxFocus()">
         <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
         <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
@@ -15,8 +16,8 @@
         </div>
         <div *ngIf="comment.showCommentBox" class="row">
           <div class="col-md-12 ml-1 mt-1">
-            <app-comment-box [item]="item" [comment]="comment">
-              <app-comment-replyto [personName]="comment.writtenBy.username"></app-comment-replyto>
+            <app-comment-box [item]="item" [comment]="comment" [personName]="comment.writtenBy.username"
+              (topCommentBoxFocused)="handleTopCommentBoxFocus($event)">
             </app-comment-box>
           </div>
         </div>
