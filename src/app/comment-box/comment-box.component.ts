@@ -25,7 +25,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   @Input() comment: IComment;
   @Input() isTopCommentBox: boolean;
   @Input() personName: string;
-  @Output() topCommentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
+  @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
 
   isRecording: boolean;
   isUploading: boolean;
@@ -36,8 +36,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   voicePreviewSrc: any;
   commentContent: Array<object> = [];
 
-  @ViewChild(CommentPicComponent, { static: false }) commentPicCmp: CommentPicComponent;
-  @ViewChild(CommentVoiceComponent, { static: false }) commentVoiceCmp: CommentVoiceComponent;
   @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
 
   constructor(
@@ -61,12 +59,11 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   writeTextComment() {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
-        this.topCommentBoxFocused.emit("top");
+        this.commentBoxFocused.emit("top");
       } else {
-        this.topCommentBoxFocused.emit("child");
+        this.commentBoxFocused.emit("child");
       }
-      this.commentPicCmp.removePreviewPic();
-      this.commentVoiceCmp.removePreviewVoice();
+      this.removePreviewedMediaContent();
       var that = this;
       setTimeout(() => {
         that._uploadPic(that._uploadVoice);
@@ -146,6 +143,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           content: that.commentContent
         }
         that._commentSvc.addComment(comment).subscribe(newComment => {
+          that.reset();
           that.afterAddingComment(newComment);
         });
       }
@@ -167,9 +165,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   picCommentPreview() {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
-        this.topCommentBoxFocused.emit("top");
+        this.commentBoxFocused.emit("top");
       } else {
-        this.topCommentBoxFocused.emit("child");
+        this.commentBoxFocused.emit("child");
       }
       this.picComment.nativeElement.click();
     } else {
@@ -181,9 +179,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   voiceCommentPreview() {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
-        this.topCommentBoxFocused.emit("top");
+        this.commentBoxFocused.emit("top");
       } else {
-        this.topCommentBoxFocused.emit("child");
+        this.commentBoxFocused.emit("child");
       }
       this.isRecording = !this.isRecording;
       if (this.isRecording) {
@@ -241,9 +239,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   handleOnFocus() {
     if (this.isTopCommentBox) {
-      this.topCommentBoxFocused.emit("top");
+      this.commentBoxFocused.emit("top");
     } else {
-      this.topCommentBoxFocused.emit("child");
+      this.commentBoxFocused.emit("child");
     }
   }
 
@@ -259,6 +257,11 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         node.remove();
       }
     }
+    this.personName = '';
+    this.removePreviewedMediaContent();
+  }
+
+  removePreviewedMediaContent() {
     this.previewPicSrc = '';
     this.voicePreviewSrc = '';
   }

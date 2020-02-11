@@ -9,7 +9,7 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 export class CommentPicComponent implements OnInit {
 
   @Input() previewPicSrc;
-  @Input() showCloseBtn: boolean;
+  @Input() showCloseBtn: boolean = false;
   constructor(@Inject(JQ_TOKEN) private $: any) { }
 
   ngOnInit() {
