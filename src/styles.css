@@ -30,17 +30,6 @@
     right: 25%;
 }
 
-#my-tooltip {
-    margin: 8px;
-    padding: 8px;
-    border: 1px solid blue;
-    max-width: 320px;
-    position: absolute;
-    background: white;
-    color: black;
-    z-index: 1051;
-}
-
 @media (max-width: 575.98px) {
     .xs-w-25 {
         width: 25% !important;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Inject, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Inject, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
@@ -10,8 +10,6 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { AuthService } from '../shared/services/security/auth.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CommentPicComponent } from '../comment-pic/comment-pic.component';
-import { CommentVoiceComponent } from '../comment-voice/comment-voice.component';
 import { IComment } from '../shared/model/comment';
 
 @Component({
@@ -24,8 +22,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   @Input() item: IItem;
   @Input() comment: IComment;
   @Input() isTopCommentBox: boolean;
-  @Input() personName: string;
   @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
+  @Input() isShowing: boolean;
 
   isRecording: boolean;
   isUploading: boolean;
@@ -35,6 +33,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   previewPicSrc: any;
   voicePreviewSrc: any;
   commentContent: Array<object> = [];
+  replyToUsername: string;
 
   @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
 
@@ -51,8 +50,13 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.comment) {
+      this.replyToUsername = this.comment.writtenBy['username'];
+    }
     setTimeout(() => {
-      this.txtReplyBox.nativeElement.focus();
+      if (this.txtReplyBox) {
+        this.txtReplyBox.nativeElement.focus();
+      }
     }, 1000);
   }
 
@@ -60,9 +64,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
         this.commentBoxFocused.emit("top");
-      } else {
-        this.commentBoxFocused.emit("child");
       }
+
       this.removePreviewedMediaContent();
       var that = this;
       setTimeout(() => {
@@ -95,7 +98,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           callback(this);
         }
       }, err => {
-        this._toastr.error("Failed to upload profile avatar to server!. Please try again later.")
+        this._toastr.error("Failed to upload image!. Please try again later.")
       })
     } else {
       callback(this);
@@ -103,14 +106,13 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   _addTextContent() {
-    var content = this.txtReplyBox.nativeElement.innerText,
-      textObj = {
-        type: "text",
-        content: content
-      };
-    if (content.trim()) {
-      this.commentContent.push(textObj);
-    }
+    var content = this.txtReplyBox.nativeElement.innerText.trim();
+    var textObj = {
+      type: "text",
+      content: content,
+      replyTo: this.comment ? this.comment.writtenBy : null
+    };
+    this.commentContent.push(textObj);
   }
 
   _uploadVoice(that) {
@@ -166,8 +168,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
         this.commentBoxFocused.emit("top");
-      } else {
-        this.commentBoxFocused.emit("child");
       }
       this.picComment.nativeElement.click();
     } else {
@@ -180,8 +180,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this._authSvc.isLoggedIn()) {
       if (this.isTopCommentBox) {
         this.commentBoxFocused.emit("top");
-      } else {
-        this.commentBoxFocused.emit("child");
       }
       this.isRecording = !this.isRecording;
       if (this.isRecording) {
@@ -245,23 +243,20 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  // setCursorAfterPersonName() {
-  //   var editorLabel = this.$('#replyTo');
-  //   var editorLabelRect = editorLabel[0].getBoundingClientRect();    
-  //   this.txtReplyBox.nativeElement.style.textIndent = editorLabelRect.width + 'px';
-  // }
-
   reset() {
     for (var node of this.txtReplyBox.nativeElement.childNodes) {
       if (node.nodeType == Node.TEXT_NODE) {
         node.remove();
       }
     }
-    this.personName = '';
     this.removePreviewedMediaContent();
+    if (!this.isTopCommentBox) {
+      this.isShowing = false;
+    }
   }
 
   removePreviewedMediaContent() {
+    this.replyToUsername = '';
     this.previewPicSrc = '';
     this.voicePreviewSrc = '';
   }

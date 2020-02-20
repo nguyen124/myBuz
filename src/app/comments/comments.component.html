@@ -2,7 +2,7 @@
   <div *ngIf="!comment.parentCommentId" class="pb-2 d-flex">
     <div class="w-100">
       <app-comment [comment]="comment" [item]="item" [topCommentBoxCmp]="topCommentBoxCmp"
-        (commentBoxFocused)="handleCommentBoxFocus()">
+        (showCommentBoxEvent)="handleShowCommentBoxEvent()">
         <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
         <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
@@ -14,13 +14,9 @@
             *ngIf="authSvc.user && authSvc.user.username == comment.writtenBy.username">Delete</a>
           <app-report [comment]="comment"></app-report>
         </div>
-        <div *ngIf="comment.showCommentBox" class="row">
-          <div class="col-md-12 ml-1 mt-1">
-            <app-comment-box [item]="item" [comment]="comment" [personName]="comment.writtenBy.username"
-              (commentBoxFocused)="handleTopCommentBoxFocus($event)">
-            </app-comment-box>
-          </div>
-        </div>
+        <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox"
+          (commentBoxFocused)="handleCommentBoxFocus($event)">
+        </app-comment-box>
       </app-comment>
     </div>
   </div>

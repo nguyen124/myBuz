@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
 import { CommentComponent } from '../comment/comment.component';
 import { CommentBoxComponent } from '../comment-box/comment-box.component';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-comments',
@@ -32,6 +33,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
     private _toastr: ToastrService,
+    private _systemSvc: SystemService,
     private _log: LoggingService) { }
 
   ngOnInit() {
@@ -106,17 +108,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.comments[index].showCommentBox = true;
     this.previousIndex = index;
     setTimeout(() => {
-      this.setCursor(this.commentBoxComp.txtReplyBox.nativeElement);
+      if (this.commentBoxComp.txtReplyBox) {
+        this._systemSvc.setCursor(this.commentBoxComp.txtReplyBox.nativeElement);
+      }
     }, 0);
-  }
-
-  setCursor = function (el) {
-    var range = document.createRange();
-    var sel = window.getSelection();
-    range.setStart(el.children[1], 0);
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
   }
 
   hideCommentBox() {
@@ -126,13 +121,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleTopCommentBoxFocus(value) {
+  handleCommentBoxFocus(value) {
     if (value == "child" && this.topCommentBoxCmp) {
       this.topCommentBoxCmp.reset();
     }
   }
 
-  handleCommentBoxFocus() {
+  handleShowCommentBoxEvent() {
     this.hideCommentBox();
   }
 

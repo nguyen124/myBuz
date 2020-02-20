@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -73,5 +73,14 @@ export class SystemService {
   checkError(form: FormGroup, field: string, submitted: boolean) {
     var f = form.controls;
     return ((form.pristine && f[field].touched) || submitted) && f[field].errors;
+  }
+
+  public setCursor(el) {
+    var range = document.createRange();
+    var sel = window.getSelection();
+    range.setStart(el.children[1], 0);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 }

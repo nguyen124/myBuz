@@ -1,0 +1,10 @@
+#my-tooltip {
+    margin: 8px;
+    padding: 8px;
+    border: 1px solid blue;
+    max-width: 320px;
+    position: absolute;
+    background: white;
+    color: black;
+    z-index: 1051;
+}

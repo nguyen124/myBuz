@@ -9,7 +9,7 @@
   </div>
   <div class="col-md-10 col-sm-10 mt-2">
     <div *ngFor="let obj of comment.content; let i = index">
-      <div *ngIf="obj.type == 'text'"> {{obj.content}}</div>
+      <div *ngIf="obj.type == 'text' && obj.content"> {{obj.content}}</div>
       <app-comment-pic *ngIf="obj.type == 'image'" [previewPicSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
       <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
       </app-comment-voice>
@@ -36,7 +36,15 @@
 
     <div class="col-md-10 col-sm-10 mt-2">
       <div *ngFor="let obj of reply.content; let i = index">
-        <div *ngIf="obj.type == 'text'"> {{obj.content}}</div>
+        <div *ngIf="obj.type == 'text'">
+          <a *ngIf="obj.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 reply-comment'
+            (mouseenter)='onMouseEnterLink(reply._id)' (mouseout)="onMouseOutLink()">
+            @{{obj.replyTo.username}}:&nbsp;
+          </a>
+          <app-tooltip [showToolTip]="showToolTip"></app-tooltip>
+          {{obj.content}}
+        </div>
+
         <app-comment-pic *ngIf="obj.type == 'image'" [previewPicSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
         <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
         </app-comment-voice>
@@ -62,13 +70,9 @@
             *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
-        <div *ngIf="reply.showCommentBox" class="row">
-          <div class="col-md-12 ml-1 mt-1">
-            <app-comment-box [item]="item" [comment]="reply" [personName]="reply.writtenBy.username"
-              (commentBoxFocused)="handleTopCommentBoxFocus($event)">
-            </app-comment-box>
-          </div>
-        </div>
+        <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
+          (commentBoxFocused)="handleCommentBoxFocus($event)">
+        </app-comment-box>
       </div>
     </div>
   </div>

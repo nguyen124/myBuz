@@ -46,7 +46,7 @@
 
           <div class="col-md-6 overflow-scroll">
             <app-comments [item]="item" [topCommentBoxCmp]="topCommentBoxCmp"></app-comments>
-            <app-comment-box [item]="item" [isTopCommentBox]="true"
+            <app-comment-box [item]="item" [isTopCommentBox]="true" [isShowing]="true"
               (commentBoxFocused)="handleTopCommentBoxFocus($event)">
             </app-comment-box>
           </div>

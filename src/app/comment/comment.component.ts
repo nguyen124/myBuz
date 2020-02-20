@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentBoxComponent } from '../comment-box/comment-box.component';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-comment',
@@ -20,23 +21,24 @@ export class CommentComponent implements OnInit {
   @Input() index: number;
   @Input() item: IItem;
   @Input() topCommentBoxCmp: CommentBoxComponent;
-  @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
+  @Output() showCommentBoxEvent: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(CommentBoxComponent, { static: false }) replyCommentBoxCmp: CommentBoxComponent;
 
   previousIndex: number = null;
-  tooltip: string;
   user: IUser;
   subscription: Subscription;
   isShowingReply = false;
   nextPage = 0;
   perPage = 5;
+  showToolTip: boolean = false;
 
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
     private _toastr: ToastrService,
+    private _systemSvc: SystemService,
     @Inject(JQ_TOKEN) private $: any) {
 
   }
@@ -54,7 +56,6 @@ export class CommentComponent implements OnInit {
         this.comment.noOfReplies++;
         if (!this._commentSvc.edittingComment) {
           this.comment.replies.push(reply);
-          that.setMouseOverForReply(that)
         } else {
           this.comment.replies[this._commentSvc.edittingCommentIndex] = reply;
           this._commentSvc.edittingCommentIndex = -1;
@@ -75,37 +76,15 @@ export class CommentComponent implements OnInit {
     var that = this;
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
-      that.setMouseOverForReply(that)
     });
   }
 
-  setMouseOverForReply(that) {
-    setTimeout(() => {
-      that.$('.reply-comment').on('mouseover', function (event) {
-        if (event && event.currentTarget) {
-          var href = event.currentTarget.getAttribute('href');
-          if (href) {
-            var commentId = href.split('#')[1];
-            if (commentId) {
-              that._commentSvc.getCommentById(commentId).subscribe(comment => {
-                that.$('#my-tooltip').remove();
-                that.$(`<div id="my-tooltip"></div>`).html(comment.content).appendTo(event.currentTarget.parentElement);
-                // setTimeout(() => {
-                //   that.$('#my-tooltip').on('mouseout', function (innerEvt) {
-                //     innerEvt.currentTarget.remove();
-                //   });
-                // }, 0);
-              });
-            }
-          }
-        }
-      });
+  onMouseEnterLink(commentId) {
+    this.showToolTip = true;
+  }
 
-      that.$('.reply-comment').on('mouseout', function (event) {
-        that.$('#my-tooltip').remove();
-      });
-
-    }, 0);
+  onMouseOutLink() {
+    this.showToolTip = false;
   }
 
   showMoreReplies(commentId: string) {
@@ -119,7 +98,6 @@ export class CommentComponent implements OnInit {
       for (var i = 0; i < replies.length; i++) {
         this.comment.replies[this.nextPage * this.perPage + i] = replies[i];
       }
-      that.setMouseOverForReply(that);
     });
   }
 
@@ -137,7 +115,7 @@ export class CommentComponent implements OnInit {
   }
 
   showCommentBox(index: number): void {
-    this.commentBoxFocused.emit("");
+    this.showCommentBoxEvent.emit("");
     if (this.previousIndex != null) {
       this.comment.replies[this.previousIndex].showCommentBox = false;
     }
@@ -145,17 +123,8 @@ export class CommentComponent implements OnInit {
     this.previousIndex = index;
 
     setTimeout(() => {
-      this.setCursor(this.replyCommentBoxCmp.txtReplyBox.nativeElement)
+      this._systemSvc.setCursor(this.replyCommentBoxCmp.txtReplyBox.nativeElement)
     }, 0);
-  }
-
-  setCursor = function (el) {
-    var range = document.createRange();
-    var sel = window.getSelection();
-    range.setStart(el.children[1], 0);
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
   }
 
   hideCommentBox() {
@@ -165,7 +134,7 @@ export class CommentComponent implements OnInit {
     }
   }
 
-  handleTopCommentBoxFocus(value) {
+  handleCommentBoxFocus(value) {
     if (value == "child" && this.topCommentBoxCmp) {
       this.topCommentBoxCmp.reset();
     }

@@ -1,23 +1,25 @@
-<div class="row">
-  <div class="editable mb-1 mr-2" contenteditable="true" #txtReplyBox (focus)="handleOnFocus()">
-    <a *ngIf="personName" href='javascript:void()#${this.comment._id}'
-      class='btn m-0 p-0 mb-1 reply-comment'>@{{personName}}:&nbsp;</a>
-    <app-comment-pic [previewPicSrc]="previewPicSrc" [showCloseBtn]="true"></app-comment-pic>
-    <app-comment-voice [voicePreviewSrc]="voicePreviewSrc" [showCloseBtn]="true"></app-comment-voice>
-  </div>
-</div>
-<div class="row-fluid">
-  <div class="pull-right">
-    <button class="btn btn-xs btn-primary mr-1 ml-1" (click)="picCommentPreview()" [class.btn-secondary]="isRecording"
-      [disabled]="isRecording"><i class="fa fa-picture-o font-8" aria-hidden="true"></i></button>
-    <button class="btn btn-xs btn-primary mr-1 ml-1" (click)="voiceCommentPreview()" [class.btn-secondary]="isUploading"
-      [disabled]="isUploading">
-      <i class="fa fa-microphone font-10 pr-pl-1-px" aria-hidden="true" [class.red-micro]="isRecording"></i></button>
-    <button class="btn btn-xs mr-1 ml-1" (click)="writeTextComment()" [class.btn-secondary]="isRecording"
-      [class.btn-success]="!isRecording" [disabled]="isRecording"><i class="fa fa-share-square font-10"
-        aria-hidden="true"></i></button>
-  </div>
-</div>
+<div *ngIf="isShowing" class="col-md-12 ml-1 mt-1">
 
-<input type="file" #picComment style="display: none;" (click)="clearValue($event)" (change)="changeValue($event)"
-  accept="audio/*, video/*, image/*">
+  <div class="row">
+    <div class="editable mb-1 mr-2" contenteditable="true" #txtReplyBox (focus)="handleOnFocus()">
+      <a *ngIf="replyToUsername" href='javascript:void()'>@{{replyToUsername}}:&nbsp;</a><span></span>
+      <app-comment-pic [previewPicSrc]="previewPicSrc" [showCloseBtn]="true"></app-comment-pic>
+      <app-comment-voice [voicePreviewSrc]="voicePreviewSrc" [showCloseBtn]="true"></app-comment-voice>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="pull-right">
+      <button class="btn btn-xs btn-primary mr-1 ml-1" (click)="picCommentPreview()" [class.btn-secondary]="isRecording"
+        [disabled]="isRecording"><i class="fa fa-picture-o font-8" aria-hidden="true"></i></button>
+      <button class="btn btn-xs btn-primary mr-1 ml-1" (click)="voiceCommentPreview()"
+        [class.btn-secondary]="isUploading" [disabled]="isUploading">
+        <i class="fa fa-microphone font-10 pr-pl-1-px" aria-hidden="true" [class.red-micro]="isRecording"></i></button>
+      <button class="btn btn-xs mr-1 ml-1" (click)="writeTextComment()" [class.btn-secondary]="isRecording"
+        [class.btn-success]="!isRecording" [disabled]="isRecording"><i class="fa fa-share-square font-10"
+          aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <input type="file" #picComment style="display: none;" (click)="clearValue($event)" (change)="changeValue($event)"
+    accept="audio/*, video/*, image/*">
+</div>
