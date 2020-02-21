@@ -250,9 +250,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
       }
     }
     this.removePreviewedMediaContent();
-    if (!this.isTopCommentBox) {
-      this.isShowing = false;
-    }
   }
 
   removePreviewedMediaContent() {

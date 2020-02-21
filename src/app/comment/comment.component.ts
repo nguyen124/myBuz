@@ -45,7 +45,6 @@ export class CommentComponent implements OnInit {
 
   ngOnInit() {
     this.comment.replies = [];
-    var that = this;
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
       if (reply &&
         reply.parentCommentId == this.comment._id &&
@@ -73,7 +72,6 @@ export class CommentComponent implements OnInit {
       perPage: this.perPage
     };
     this.isShowingReply = true;
-    var that = this;
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
     });
@@ -88,7 +86,6 @@ export class CommentComponent implements OnInit {
   }
 
   showMoreReplies(commentId: string) {
-    var that = this;
     this.nextPage = Math.floor(this.comment.replies.length / this.perPage);
     var params = {
       page: this.nextPage,
@@ -104,6 +101,9 @@ export class CommentComponent implements OnInit {
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(parentComment => {
       this.comment.replies.splice(index, 1);
+      if (this.previousIndex >= index) {
+        this.previousIndex--;
+      }
       this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;
       this._toastr.success("Reply deleted!");
@@ -116,21 +116,21 @@ export class CommentComponent implements OnInit {
 
   showCommentBox(index: number): void {
     this.showCommentBoxEvent.emit("");
-    if (this.previousIndex != null) {
-      this.comment.replies[this.previousIndex].showCommentBox = false;
-    }
+    this.hideReplyCommentBox();
     this.comment.replies[index].showCommentBox = true;
     this.previousIndex = index;
 
     setTimeout(() => {
-      this._systemSvc.setCursor(this.replyCommentBoxCmp.txtReplyBox.nativeElement)
+      this._systemSvc.setCursor(this.replyCommentBoxCmp.txtReplyBox.nativeElement);
     }, 0);
   }
 
-  hideCommentBox() {
-    var comment = this.comment.replies[this.previousIndex];
-    if (comment) {
-      comment.showCommentBox = false;
+  hideReplyCommentBox() {
+    if (this.previousIndex !== null && this.previousIndex !== undefined) {
+      var comment = this.comment.replies[this.previousIndex];
+      if (comment) {
+        comment.showCommentBox = false;
+      }
     }
   }
 

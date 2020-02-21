@@ -17,9 +17,9 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   item: IItem;
   comment: IComment
   subScription: Subscription;
-  topCommentBoxCmp: CommentBoxComponent;
 
   @ViewChild(CommentsComponent, { static: false }) commentComp: CommentsComponent;
+
   constructor(
     private _commSvc: CommunicateService,
     private _log: LoggingService,
@@ -37,20 +37,19 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  @ViewChild(CommentBoxComponent, { static: false }) commentBoxCmp: CommentBoxComponent;
+  @ViewChild(CommentBoxComponent, { static: false }) topCommentBoxCmp: CommentBoxComponent;
   handleTopCommentBoxFocus(value) {
     if (value == "top") {
-      this.hideChildCommentsBox();
-      this.topCommentBoxCmp = this.commentBoxCmp;
+      this.hideAllOtherCommentsBoxes();
     }
   }
 
   @ViewChild(CommentsComponent, { static: false }) commentsCmp: CommentsComponent;
-  hideChildCommentsBox() {
+  hideAllOtherCommentsBoxes() {
     if (this.commentsCmp) {
       this.commentsCmp.hideCommentBox();
       if (this.commentsCmp.commentCmp) {
-        this.commentsCmp.commentCmp.hideCommentBox();
+        this.commentsCmp.commentCmp.hideReplyCommentBox();
       }
     }
   }

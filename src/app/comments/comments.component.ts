@@ -87,6 +87,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this._commentSvc.deleteComment(comment).subscribe(res => {
       this.item.noOfComments = this.item.noOfComments - (1 + this.comments[index].noOfReplies);
       this.comments.splice(index, 1);
+      if (this.previousIndex >= index) {
+        this.previousIndex--;
+      }
       this._toastr.success("Comment deleted!");
     });
   }
@@ -101,10 +104,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   showCommentBox(index: number): void {
-    this.hideChildCommentBox();
-    if (this.previousIndex != null) {
-      this.comments[this.previousIndex].showCommentBox = false;
-    }
+    this.hideCommentBox()
     this.comments[index].showCommentBox = true;
     this.previousIndex = index;
     setTimeout(() => {
@@ -115,10 +115,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   hideCommentBox() {
-    var comment = this.comments[this.previousIndex];
-    if (comment) {
-      comment.showCommentBox = false;
+    if (this.previousIndex !== undefined && this.previousIndex !== null) {
+      var comment = this.comments[this.previousIndex];
+      if (comment) {
+        comment.showCommentBox = false;
+      }
     }
+    this.hideReplyCommentBox();
   }
 
   handleCommentBoxFocus(value) {
@@ -132,9 +135,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   @ViewChild(CommentComponent, { static: false }) commentCmp: CommentComponent;
-  hideChildCommentBox() {
+  hideReplyCommentBox() {
     if (this.commentCmp) {
-      this.commentCmp.hideCommentBox();
+      this.commentCmp.hideReplyCommentBox();
     }
   }
 }
