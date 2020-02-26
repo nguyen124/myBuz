@@ -37,7 +37,6 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  @ViewChild(CommentBoxComponent, { static: false }) topCommentBoxCmp: CommentBoxComponent;
   handleTopCommentBoxFocus(value) {
     if (value == "top") {
       this.hideAllOtherCommentsBoxes();

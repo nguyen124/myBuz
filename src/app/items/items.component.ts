@@ -45,7 +45,9 @@ export class ItemsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subScription.unsubscribe();
+    if (this.subScription) {
+      this.subScription.unsubscribe();
+    }
   }
 
   loadNext() {

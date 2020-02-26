@@ -1,7 +1,7 @@
 <div *ngFor="let comment of comments; let i = index">
   <div *ngIf="!comment.parentCommentId" class="pb-2 d-flex">
     <div class="w-100">
-      <app-comment [comment]="comment" [item]="item" [topCommentBoxCmp]="topCommentBoxCmp"
+      <app-comment [comment]="comment" [item]="item"
         (showCommentBoxEvent)="handleShowCommentBoxEvent()">
         <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
         <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -14,8 +14,7 @@
             *ngIf="authSvc.user && authSvc.user.username == comment.writtenBy.username">Delete</a>
           <app-report [comment]="comment"></app-report>
         </div>
-        <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox"
-          (commentBoxFocused)="handleCommentBoxFocus($event)">
+        <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox">
         </app-comment-box>
       </app-comment>
     </div>

@@ -47,9 +47,11 @@ import { DatePipe } from './date-pipe.pipe';
 
 import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
-import { CommentPicComponent } from './comment-pic/comment-pic.component';
-import { CommentVoiceComponent } from './comment-voice/comment-voice.component';
+import { CommentPicComponent } from './comment-box/comment-pic/comment-pic.component';
+import { CommentVoiceComponent } from './comment-box/comment-voice/comment-voice.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { ReplyToComponent } from './comment-box/reply-to/reply-to';
+import { CommentPicDirective } from './shared/directive/comment-pic.directive';
 
 let jQuery: any = window['$'];
 
@@ -79,8 +81,11 @@ let jQuery: any = window['$'];
     SaveLoginComponent,
     CommentPicComponent,
     CommentVoiceComponent,
-    TooltipComponent
+    TooltipComponent,
+    ReplyToComponent,
+    CommentPicDirective
   ],
+  entryComponents: [CommentPicComponent],
   imports: [
     AdsenseModule.forRoot({
       adClient: 'ca-pub-7640562161899788',

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { JQ_TOKEN } from '../../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-comment-pic',
@@ -8,14 +8,14 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 })
 export class CommentPicComponent implements OnInit {
 
-  @Input() previewPicSrc;
+  @Input() picPreviewSrc: any;
   @Input() showCloseBtn: boolean = false;
-  constructor(@Inject(JQ_TOKEN) private $: any) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   removePreviewPic() {
-    this.previewPicSrc = null;
+    this.picPreviewSrc = null;
   }
 }

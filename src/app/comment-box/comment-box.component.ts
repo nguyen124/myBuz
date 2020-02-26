@@ -18,24 +18,24 @@ import { IComment } from '../shared/model/comment';
   styleUrls: ['./comment-box.component.css']
 })
 export class CommentBoxComponent implements OnInit, OnDestroy {
-
   @Input() item: IItem;
   @Input() comment: IComment;
   @Input() isTopCommentBox: boolean;
-  @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
   @Input() isShowing: boolean;
+  @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
 
   isRecording: boolean;
   isUploading: boolean;
   commentType: string = "ItemComment";
   uploadedFile: File;
   voiceRecord: any;
-  previewPicSrc: any;
+  textContent: string = '';
+  replyToUsername: string = '';
+  picPreviewSrc: any;
   voicePreviewSrc: any;
   commentContent: Array<object> = [];
-  replyToUsername: string;
-
-  @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
 
   constructor(
     private _commentSvc: CommentService,
@@ -50,27 +50,18 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.comment) {
-      this.replyToUsername = this.comment.writtenBy['username'];
-    }
-    setTimeout(() => {
-      if (this.txtReplyBox) {
-        this.txtReplyBox.nativeElement.focus();
-      }
-    }, 1000);
+    this.replyToUsername = this.comment ? this.comment.writtenBy['username'] : '';
+    // setTimeout(() => {
+    //   if (this.txtReplyBox) {
+    //     this.txtReplyBox.nativeElement.focus();
+    //   }
+    // }, 1000);
   }
 
   writeTextComment() {
     if (this._authSvc.isLoggedIn()) {
-      if (this.isTopCommentBox) {
-        this.commentBoxFocused.emit("top");
-      }
-
-      this.removePreviewedMediaContent();
       var that = this;
-      setTimeout(() => {
-        that._uploadPic(that._uploadVoice);
-      }, 0);
+      that._uploadPic(that._uploadVoice);
     } else {
       this.closeModal();
       this._router.navigate(['login']);
@@ -106,10 +97,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   _addTextContent() {
-    var content = this.txtReplyBox.nativeElement.innerText.trim();
     var textObj = {
       type: "text",
-      content: content,
+      content: this.textContent,
       replyTo: this.comment ? this.comment.writtenBy : null
     };
     this.commentContent.push(textObj);
@@ -145,7 +135,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           content: that.commentContent
         }
         that._commentSvc.addComment(comment).subscribe(newComment => {
-          that.reset();
           that.afterAddingComment(newComment);
         });
       }
@@ -209,7 +198,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
       if (this.uploadedFile) {
         var reader = new FileReader();
         reader.onload = function (e) {
-          that.previewPicSrc = e.target["result"];
+          that.picPreviewSrc = e.target["result"];
         }
         reader.readAsDataURL(this.uploadedFile);
       }
@@ -217,16 +206,25 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   clearValue(event) {
-    this.previewPicSrc = '';
-    event.currentTarget.value = null;
+    this.picPreviewSrc = null;
+    //event.currentTarget.value = null;
   }
 
   afterAddingComment(newComment) {
+    this.reset();
+    this.txtReplyBox.nativeElement.focus();
     this.item.noOfComments++;
     this._commSvc.changeComment(newComment);
     this.uploadedFile = null;
     this.voiceRecord = null;
     this._commentSvc.edittingComment = null;
+  }
+
+  reset() {
+    this.textContent = '';
+    this.commentContent = [];
+    this.picPreviewSrc = null;
+    this.voicePreviewSrc = null;
   }
 
   afterEdittingComment(newComment) {
@@ -238,24 +236,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   handleOnFocus() {
     if (this.isTopCommentBox) {
       this.commentBoxFocused.emit("top");
-    } else {
-      this.commentBoxFocused.emit("child");
     }
-  }
-
-  reset() {
-    for (var node of this.txtReplyBox.nativeElement.childNodes) {
-      if (node.nodeType == Node.TEXT_NODE) {
-        node.remove();
-      }
-    }
-    this.removePreviewedMediaContent();
-  }
-
-  removePreviewedMediaContent() {
-    this.replyToUsername = '';
-    this.previewPicSrc = '';
-    this.voicePreviewSrc = '';
   }
 
   ngOnDestroy() {

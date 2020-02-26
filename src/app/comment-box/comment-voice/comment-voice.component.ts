@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentVoiceComponent implements OnInit {
   @Input() voicePreviewSrc: any = null;
-  @Input() showCloseBtn: boolean;
+  @Input() showCloseBtn: boolean = false;
   constructor() { }
 
   ngOnInit() {

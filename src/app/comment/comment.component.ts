@@ -20,7 +20,7 @@ export class CommentComponent implements OnInit {
   @Input() comment: IComment;
   @Input() index: number;
   @Input() item: IItem;
-  @Input() topCommentBoxCmp: CommentBoxComponent;
+
   @Output() showCommentBoxEvent: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(CommentBoxComponent, { static: false }) replyCommentBoxCmp: CommentBoxComponent;
@@ -119,9 +119,11 @@ export class CommentComponent implements OnInit {
     this.hideReplyCommentBox();
     this.comment.replies[index].showCommentBox = true;
     this.previousIndex = index;
-
     setTimeout(() => {
-      this._systemSvc.setCursor(this.replyCommentBoxCmp.txtReplyBox.nativeElement);
+      var txtBox = this.replyCommentBoxCmp.txtReplyBox;
+      if (txtBox) {
+        txtBox.nativeElement.focus();
+      }
     }, 0);
   }
 
@@ -134,13 +136,11 @@ export class CommentComponent implements OnInit {
     }
   }
 
-  handleCommentBoxFocus(value) {
-    if (value == "child" && this.topCommentBoxCmp) {
-      this.topCommentBoxCmp.reset();
-    }
-  }
+
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
   }
 }

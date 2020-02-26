@@ -10,7 +10,7 @@
   <div class="col-md-10 col-sm-10 mt-2">
     <div *ngFor="let obj of comment.content; let i = index">
       <div *ngIf="obj.type == 'text' && obj.content"> {{obj.content}}</div>
-      <app-comment-pic *ngIf="obj.type == 'image'" [previewPicSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
+      <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
       <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
       </app-comment-voice>
     </div>
@@ -45,7 +45,7 @@
           {{obj.content}}
         </div>
 
-        <app-comment-pic *ngIf="obj.type == 'image'" [previewPicSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
+        <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
         <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
         </app-comment-voice>
       </div>
@@ -70,8 +70,7 @@
             *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
-        <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
-          (commentBoxFocused)="handleCommentBoxFocus($event)">
+        <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox">
         </app-comment-box>
       </div>
     </div>

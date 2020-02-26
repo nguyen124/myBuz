@@ -20,7 +20,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
   @Input() item: IItem;
-  @Input() topCommentBoxCmp: CommentBoxComponent;
 
   @ViewChild(CommentBoxComponent, { static: false }) commentBoxComp: CommentBoxComponent;
 
@@ -99,17 +98,21 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._log.log("onDestroy CommentsComponent")
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   showCommentBox(index: number): void {
     this.hideCommentBox()
     this.comments[index].showCommentBox = true;
     this.previousIndex = index;
+
+
     setTimeout(() => {
-      if (this.commentBoxComp.txtReplyBox) {
-        this._systemSvc.setCursor(this.commentBoxComp.txtReplyBox.nativeElement);
+      var txtBox = this.commentBoxComp.txtReplyBox;
+      if (txtBox) {
+        txtBox.nativeElement.focus();
       }
     }, 0);
   }
@@ -122,12 +125,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
       }
     }
     this.hideReplyCommentBox();
-  }
-
-  handleCommentBoxFocus(value) {
-    if (value == "child" && this.topCommentBoxCmp) {
-      this.topCommentBoxCmp.reset();
-    }
   }
 
   handleShowCommentBoxEvent() {
