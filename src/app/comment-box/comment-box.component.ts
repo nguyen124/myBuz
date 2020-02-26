@@ -97,12 +97,14 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   _addTextContent() {
-    var textObj = {
-      type: "text",
-      content: this.textContent,
-      replyTo: this.comment ? this.comment.writtenBy : null
-    };
-    this.commentContent.push(textObj);
+    if (this.textContent) {
+      var textObj = {
+        type: "text",
+        content: this.textContent,
+        replyTo: this.comment
+      };
+      this.commentContent.push(textObj);
+    }
   }
 
   _uploadVoice(that) {

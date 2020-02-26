@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TooltipComponent implements OnInit {
 
   @Input() showToolTip: boolean;
+  @Input() comment: Comment;
 
   constructor() { }
 

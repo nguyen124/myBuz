@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Inject, Output, EventEmitter, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';
@@ -7,9 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
-import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentBoxComponent } from '../comment-box/comment-box.component';
-import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-comment',
@@ -37,9 +35,7 @@ export class CommentComponent implements OnInit {
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
-    private _toastr: ToastrService,
-    private _systemSvc: SystemService,
-    @Inject(JQ_TOKEN) private $: any) {
+    private _toastr: ToastrService) {
 
   }
 
@@ -75,14 +71,6 @@ export class CommentComponent implements OnInit {
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       this.comment.replies = replies;
     });
-  }
-
-  onMouseEnterLink(commentId) {
-    this.showToolTip = true;
-  }
-
-  onMouseOutLink() {
-    this.showToolTip = false;
   }
 
   showMoreReplies(commentId: string) {
@@ -139,7 +127,7 @@ export class CommentComponent implements OnInit {
 
 
   ngOnDestroy() {
-    if(this.subscription){
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }

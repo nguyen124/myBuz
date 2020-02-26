@@ -51,7 +51,7 @@ import { CommentPicComponent } from './comment-box/comment-pic/comment-pic.compo
 import { CommentVoiceComponent } from './comment-box/comment-voice/comment-voice.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { ReplyToComponent } from './comment-box/reply-to/reply-to';
-import { CommentPicDirective } from './shared/directive/comment-pic.directive';
+import { TooltipDirective } from './shared/directive/tooltip.directive';
 
 let jQuery: any = window['$'];
 
@@ -83,9 +83,9 @@ let jQuery: any = window['$'];
     CommentVoiceComponent,
     TooltipComponent,
     ReplyToComponent,
-    CommentPicDirective
+    TooltipDirective
   ],
-  entryComponents: [CommentPicComponent],
+  entryComponents: [TooltipComponent],
   imports: [
     AdsenseModule.forRoot({
       adClient: 'ca-pub-7640562161899788',

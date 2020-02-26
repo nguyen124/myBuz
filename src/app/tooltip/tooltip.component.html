@@ -1,1 +1,20 @@
-<p *ngIf="showToolTip">tooltip works!</p>
+<div id="my-tooltip" *ngIf="showToolTip">
+    <div class="row p-1 m-0">
+        <div class="col-md-2 col-sm-2 text-success">
+            <div class="row">
+                <strong><span style="font-size: 10px;">{{comment.writtenBy['username']}}</span></strong>
+            </div>
+            <div class="row">
+                <img class="w-100 xs-w-25" src="{{comment.writtenBy['avatar']}}" alt="Avatar">
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-10 mt-2">
+            <div *ngFor="let obj of comment.content; let i = index">
+                <div *ngIf="obj.type == 'text' && obj.content"> {{obj.content}}</div>
+                <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+                <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url">
+                </app-comment-voice>
+            </div>
+        </div>
+    </div>
+</div>

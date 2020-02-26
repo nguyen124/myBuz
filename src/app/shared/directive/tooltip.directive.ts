@@ -1,9 +1,9 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[comment-pic]'
+  selector: '[tooltip-dir]'
 })
-export class CommentPicDirective {
+export class TooltipDirective {
 
   constructor(public viewContainerRef: ViewContainerRef) { }
 

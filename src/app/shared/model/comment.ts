@@ -11,5 +11,6 @@ export interface IComment {
     hasDownvoted?: boolean;
     hasReported?: boolean;
     replies?: IComment[];
-    showCommentBox?: boolean
+    showCommentBox?: boolean;
+    showToolTip?: boolean;
 }
