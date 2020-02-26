@@ -10,8 +10,8 @@
   <div class="col-md-10 col-sm-10 mt-2">
     <div *ngFor="let obj of comment.content; let i = index">
       <div *ngIf="obj.type == 'text' && obj.content"> {{obj.content}}</div>
-      <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
-      <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
+      <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+      <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url">
       </app-comment-voice>
     </div>
     <div>
@@ -45,8 +45,8 @@
           {{obj.content}}
         </div>
 
-        <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url" [showCloseBtn]="false"></app-comment-pic>
-        <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url" [showCloseBtn]="false">
+        <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+        <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url">
         </app-comment-voice>
       </div>
       <div>

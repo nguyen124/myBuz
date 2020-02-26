@@ -239,6 +239,16 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }
   }
 
+  removePreviewPic() {
+    this.picPreviewSrc = null;
+    this.uploadedFile = null;
+  }
+
+  removePreviewVoice() {
+    this.voicePreviewSrc = null;
+    this.voiceRecord = null;
+  }
+
   ngOnDestroy() {
   }
 }

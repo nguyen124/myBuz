@@ -7,15 +7,10 @@ import { JQ_TOKEN } from '../../shared/services/jQuery.service';
   styleUrls: ['./comment-pic.component.css']
 })
 export class CommentPicComponent implements OnInit {
-
   @Input() picPreviewSrc: any;
-  @Input() showCloseBtn: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
-  }
-
-  removePreviewPic() {
-    this.picPreviewSrc = null;
   }
 }
