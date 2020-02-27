@@ -6,6 +6,7 @@ import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ReportService } from '../shared/services/report.services';
 import { ToastrService } from 'ngx-toastr';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-react',
@@ -16,11 +17,7 @@ export class ReactComponent implements OnInit {
   @Input()
   item: IItem;
 
-  options = [
-    { name: 'Violence', value: '1', checked: false },
-    { name: 'Sexual', value: '2', checked: false },
-    { name: 'Other', value: '3', checked: false }
-  ]
+  options = [];
 
   get selectedOptions() {
     return this.options
@@ -34,10 +31,12 @@ export class ReactComponent implements OnInit {
     private _commSvc: CommunicateService,
     private _reportSvc: ReportService,
     private _toastr: ToastrService,
+    private _systemSvc: SystemService,
     public authSvc: AuthService) {
   }
 
   ngOnInit() {
+    this.options = this._systemSvc.getReasons();
   }
 
   upvote(): void {

@@ -75,12 +75,20 @@ export class SystemService {
     return ((form.pristine && f[field].touched) || submitted) && f[field].errors;
   }
 
-  public setCursor(el) {
+  setCursor(el) {
     var range = document.createRange();
     var sel = window.getSelection();
     range.setStart(el.children[1], 0);
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
+  }
+
+  getReasons() {
+    return [
+      { name: 'Duplicate', value: '1', checked: false },
+      { name: '18- Content', value: '2', checked: false },
+      { name: 'Other', value: '3', checked: false }
+    ]
   }
 }

@@ -14,6 +14,11 @@ import { Subscription } from 'rxjs';
 export class ItemsComponent implements OnInit, OnDestroy {
   @Input()
   items: IItem[];
+  @Input()
+  baseUrl: string = "/items";
+  @Input()
+  isShowingTag: boolean;
+
   subScription: Subscription;
   nextPage = 0;
   perPage = 4;

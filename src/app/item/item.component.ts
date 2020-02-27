@@ -9,6 +9,8 @@ import { ReactComponent } from '../react/react.component';
 })
 export class ItemComponent implements OnInit {
   @Input() item: IItem;
+  @Input() baseUrl: string;
+  @Input() isShowingTag: boolean;
   @ViewChild(ReactComponent, { static: false }) reactCompChild: ReactComponent;
   modifiedDate: any;
 

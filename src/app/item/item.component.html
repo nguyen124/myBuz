@@ -13,8 +13,9 @@
   </a>
 </div>
 <div class="text-success">Comments({{item.noOfComments}}) - Points({{item.noOfPoints}})</div>
-<div class="mb-2">
-  <a *ngFor="let tag of item.tags" [routerLink]="['/items']" [queryParams]="{tag: tag}" class="mr-1">#{{tag}}</a>
+<div *ngIf="isShowingTag" class="mb-2">
+  <a *ngFor="let tag of item.tags" [routerLink]="[baseUrl]" [queryParams]="{tag: tag, nextPage: 0}"
+    class="mr-1">#{{tag}}</a>
 </div>
 
 <div class="row">

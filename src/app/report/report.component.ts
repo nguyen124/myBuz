@@ -3,6 +3,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { IComment } from '../shared/model/comment';
 import { ReportService } from '../shared/services/report.services';
 import { ToastrService } from 'ngx-toastr';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-report',
@@ -13,11 +14,7 @@ export class ReportComponent implements OnInit {
 
   @Input() comment: IComment;
 
-  options = [
-    { name: 'OptionA', value: '1', checked: false },
-    { name: 'OptionB', value: '2', checked: false },
-    { name: 'OptionC', value: '3', checked: false }
-  ]
+  options = []
 
   get selectedOptions() {
     return this.options
@@ -28,9 +25,11 @@ export class ReportComponent implements OnInit {
   constructor(
     public authSvc: AuthService,
     private _reportSvc: ReportService,
-    private _toastr: ToastrService) { }
+    private _toastr: ToastrService,
+    private _systemSvc: SystemService) { }
 
   ngOnInit() {
+    this.options = this._systemSvc.getReasons();
   }
 
 
