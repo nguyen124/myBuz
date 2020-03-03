@@ -6,7 +6,6 @@ import { IComment } from '../shared/model/comment';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentsComponent } from '../comments/comments.component';
-import { CommentBoxComponent } from '../comment-box/comment-box.component';
 
 @Component({
   selector: 'app-itemModal',
@@ -45,7 +44,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
 
   hideAllOtherCommentsBoxes() {
     if (this.commentsComp) {
-      this.commentsComp.hidePreviousShowingCommentBox();
+      this.commentsComp.hidePreviousShowingCommentBox(null);
     }
   }
 

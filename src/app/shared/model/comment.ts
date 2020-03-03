@@ -1,7 +1,8 @@
-export interface IComment {
+import { Mask } from './mask';
+export interface IComment extends Mask {
     _id?: string;
     parentCommentId?: string;
-    content?: object[];
+    content?: any[];
     modifiedDate: string;
     writtenBy: object;
     itemId: string;
@@ -11,6 +12,4 @@ export interface IComment {
     hasDownvoted?: boolean;
     hasReported?: boolean;
     replies?: IComment[];
-    showCommentBox?: boolean;
-    showToolTip?: boolean;
 }

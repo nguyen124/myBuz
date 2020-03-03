@@ -1,6 +1,6 @@
 <div *ngIf="isShowing" class="col-md-12 ml-1 mt-1">
   <div class="row">
-    <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
+    <ng-content></ng-content>
     <input type="text" class="w-100 mb-1 mr-2" #txtReplyBox (focus)="handleOnFocus()" [(ngModel)]="textContent" />
   </div>
   <div class="row">

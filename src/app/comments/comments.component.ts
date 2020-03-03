@@ -19,7 +19,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   nextPage = 0;
   perPage = 10;
   previousIndex = null;
-
+  replyToUsername;
   @Input() item: IItem;
 
   @ViewChildren(CommentComponent) commentCmps: QueryList<CommentComponent>;
@@ -33,21 +33,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.comments = [];
     this.subscription = this._commSvc.newComment$.subscribe((comment: IComment) => {
-      if (
-        comment &&
-        !comment.parentCommentId &&
-        (!this._commentSvc.latestComment ||
-          this._commentSvc.latestComment._id != comment._id || // this is to prevent extra comment showing up after adding new comment
-          this._commentSvc.edittingComment)
-      ) {
-        if (!this._commentSvc.edittingComment) {
-          this.comments.push(comment);
-        } else {
-          this.comments[this._commentSvc.edittingCommentIndex] = comment;
-          this._commentSvc.edittingCommentIndex = -1;
-          this._commentSvc.edittingComment = null;
-        }
-        this._commentSvc.latestComment = comment;
+      if (comment && !comment.parentCommentId) {
+        this.comments.push(comment);
       }
     });
   }
@@ -89,7 +76,12 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   editComment(index: number) {
-    //this._commentSvc.populateDataToCommentbox(this.comments[index], index);
+    if (this.comments[index]) {
+      this.hidePreviousShowingCommentBox(index);
+      this.comments[index].showCommentBox = true;
+      this.comments[index].isEditting = true;
+      this.replyToUsername = '';
+    }
   }
 
   ngOnDestroy() {
@@ -99,12 +91,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   showCommentBox(index: number): void {
-    this.hidePreviousShowingCommentBox()
-    this.comments[index].showCommentBox = true;
-    this.previousIndex = index;
+    this.replyToUsername = this.comments[index] ? this.comments[index].writtenBy['username'] : '';
+    this.hidePreviousShowingCommentBox(index);
   }
 
-  hidePreviousShowingCommentBox() {
+  hidePreviousShowingCommentBox(index) {
     if (this.previousIndex !== undefined && this.previousIndex !== null) {
       var comment = this.comments[this.previousIndex];
       if (comment) {
@@ -112,16 +103,21 @@ export class CommentsComponent implements OnInit, OnDestroy {
       }
     }
     this.hideReplyCommentBox();
+    if (index !== null && index !== undefined) {
+      this.comments[index].showCommentBox = true;
+      this.comments[index].isEditting = false;
+    }
+    this.previousIndex = index;
   }
 
   handleShowCommentBoxEvent() {
-    this.hidePreviousShowingCommentBox();
+    this.hidePreviousShowingCommentBox(null);
   }
 
   hideReplyCommentBox() {
     this.commentCmps.forEach((el, idx) => {
       if (el) {
-        el.hideReplyCommentBox();
+        el.hidePreviousReplyCommentBox(null);
       }
     })
   }

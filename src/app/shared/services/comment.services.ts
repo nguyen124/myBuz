@@ -6,10 +6,6 @@ import { JQ_TOKEN } from './jQuery.service';
 
 @Injectable()
 export class CommentService {
-    latestComment: IComment;
-    edittingComment: IComment;
-    edittingCommentIndex: number;
-
     constructor(
         private _http: HttpClient,
         @Inject(JQ_TOKEN) private $: any) {

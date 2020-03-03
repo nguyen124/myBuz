@@ -25,12 +25,27 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this._isShowing = value;
     setTimeout(() => {
       this.setTextboxFocus();
-    })
+    }, 0)
   }
   get isShowing() {
     return this._isShowing;
   }
   private _isShowing: boolean;
+
+  @Input() set isEditting(value: boolean) {
+    this._isEditting = value;
+    if (this.isShowing) {
+      if (value) {
+        this.populateData();
+      } else {
+        this.reset();
+      }
+    }
+  }
+  get isEditting() {
+    return this._isEditting;
+  }
+  private _isEditting: boolean;
 
   @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
 
@@ -42,7 +57,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   uploadedFile: File;
   voiceRecord: any;
   textContent: string = '';
-  replyToUsername: string = '';
   picPreviewSrc: any;
   voicePreviewSrc: any;
   commentContent: Array<object> = [];
@@ -60,7 +74,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.replyToUsername = this.comment ? this.comment.writtenBy['username'] : '';
+
   }
 
   writeTextComment() {
@@ -135,7 +149,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   _f(that) {
     if (that.commentContent.length > 0) {
-      if (!that._commentSvc.edittingComment) {
+      if (!that.isEditting) {
         var comment = {
           parentCommentId: (this.comment) ? (this.comment.parentCommentId || this.comment._id) : null,
           itemId: this.item._id,
@@ -223,11 +237,12 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this._commSvc.changeComment(newComment);
     this.uploadedFile = null;
     this.voiceRecord = null;
-    this._commentSvc.edittingComment = null;
   }
 
   setTextboxFocus() {
-    this.txtReplyBox.nativeElement.focus();
+    if (this.txtReplyBox) {
+      this.txtReplyBox.nativeElement.focus();
+    }
   }
 
   reset() {
@@ -235,6 +250,18 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this.commentContent = [];
     this.picPreviewSrc = null;
     this.voicePreviewSrc = null;
+  }
+
+  populateData() {
+    for (var obj of this.comment.content) {
+      if (obj.type == 'text') {
+        this.textContent = obj.content;
+      } else if (obj.type == 'image') {
+        this.picPreviewSrc = obj.url;
+      } else if (obj.type == 'voice') {
+        this.voicePreviewSrc = obj.url;
+      }
+    }
   }
 
   afterEdittingComment(newComment) {

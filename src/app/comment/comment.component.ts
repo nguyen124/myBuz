@@ -30,6 +30,7 @@ export class CommentComponent implements OnInit {
   nextPage = 0;
   perPage = 5;
   showToolTip: boolean = false;
+  replyToUsername: string;
 
   constructor(
     private _commentSvc: CommentService,
@@ -42,21 +43,9 @@ export class CommentComponent implements OnInit {
   ngOnInit() {
     this.comment.replies = [];
     this.subscription = this._commSvc.newComment$.subscribe(reply => {
-      if (reply &&
-        reply.parentCommentId == this.comment._id &&
-        (!this._commentSvc.latestComment ||
-          this._commentSvc.latestComment._id != reply._id ||
-          this._commentSvc.edittingComment)
-      ) {
+      if (reply && reply.parentCommentId == this.comment._id) {
         this.comment.noOfReplies++;
-        if (!this._commentSvc.edittingComment) {
-          this.comment.replies.push(reply);
-        } else {
-          this.comment.replies[this._commentSvc.edittingCommentIndex] = reply;
-          this._commentSvc.edittingCommentIndex = -1;
-          this._commentSvc.edittingComment = null;
-        }
-        this._commentSvc.latestComment = reply;
+        this.comment.replies.push(reply);
       }
     });
   }
@@ -98,24 +87,38 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  editComment(index: number) {
-    //this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
+  editReply(index: number) {
+    if (this.comment.replies[index]) {
+      this.hideOtherCommentBox();
+      this.hidePreviousReplyCommentBox(index);
+      this.comment.replies[index].showCommentBox = true;
+      this.comment.replies[index].isEditting = true;
+      this.replyToUsername = '';
+    }
   }
 
-  showCommentBox(index: number): void {
-    this.showCommentBoxEvent.emit("");
-    this.hideReplyCommentBox();
-    this.comment.replies[index].showCommentBox = true;
-    this.previousIndex = index;
+  showReplyCommentBox(index: number): void {
+    this.replyToUsername = this.comment.replies[index] ? this.comment.replies[index].writtenBy['username'] : '';
+    this.hideOtherCommentBox();
+    this.hidePreviousReplyCommentBox(index);
   }
 
-  hideReplyCommentBox() {
+  hidePreviousReplyCommentBox(index) {
     if (this.previousIndex !== null && this.previousIndex !== undefined) {
       var comment = this.comment.replies[this.previousIndex];
       if (comment) {
         comment.showCommentBox = false;
       }
     }
+    if (index !== null && index !== undefined) {
+      this.comment.replies[index].showCommentBox = true;
+      this.comment.replies[index].isEditting = false;
+    }
+    this.previousIndex = index;
+  }
+
+  hideOtherCommentBox() {
+    this.showCommentBoxEvent.emit("");
   }
 
   ngOnDestroy() {

@@ -60,18 +60,20 @@
         <app-comment-react [comment]="reply">
         </app-comment-react>
         <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
-        <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
+        <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showReplyCommentBox(i)"></i>
         <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
         </button>
         <div class="dropdown-menu">
-          <a href="javascript:void(0)" (click)="editComment(i, reply._id)" class="ml-1 d-block"
+          <a href="javascript:void(0)" (click)="editReply(i)" class="ml-1 d-block"
             *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
           <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block"
             *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
-        <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox">
+        <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
+          [isEditting]="reply.isEditting">
+          <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
         </app-comment-box>
       </div>
     </div>
