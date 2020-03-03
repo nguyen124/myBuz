@@ -41,9 +41,7 @@
             (mouseenter)='reply.showToolTip = true;' (mouseout)="reply.showToolTip = false;">
             @{{obj.replyTo.writtenBy.username}}:&nbsp;
           </a>
-          <!-- <app-tooltip [showToolTip]="showToolTip"></app-tooltip> -->
           <app-tooltip [comment]="obj.replyTo" [showToolTip]="reply.showToolTip">
-
           </app-tooltip>
           {{obj.content}}
         </div>
