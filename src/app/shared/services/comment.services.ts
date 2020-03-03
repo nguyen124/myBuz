@@ -53,35 +53,6 @@ export class CommentService {
         return this._http.get<IComment>(`/svc/comments/${commentId}`);
     }
 
-    populateDataToCommentbox(comment: IComment, index: number) {
-        this.$("#txtReplyBox").html(comment.content);
-        var that = this;
-        var removePicBtn = this.$(`
-                <button class="btn btn-xs btn-primary upright-corner" id="removePicBtn"> 
-                    <span aria-hidden="true">&times;</span>
-                </button>`),
-            previewPicDiv = this.$("#previewPicDiv"),
-            removeVoiceBtn = this.$(`
-                <button class="btn btn-xs btn-primary upright-corner" id="removeVoiceBtn"> 
-                    <span aria-hidden="true">&times;</span>
-                </button>`),
-            previewVoiceDiv = this.$("#previewVoiceDiv");
-        removePicBtn.bind("click", () => {
-            that.removeElement(previewPicDiv)
-        });
-        removeVoiceBtn.bind("click", () => {
-            that.removeElement(previewVoiceDiv)
-        });
-        if (previewPicDiv) {
-            previewPicDiv.append(removePicBtn);
-        }
-        if (previewVoiceDiv) {
-            previewVoiceDiv.append(removeVoiceBtn);
-        }
-        this.edittingComment = comment;
-        this.edittingCommentIndex = index;
-    }
-
     removeElement(el) {
         if (el) {
             el.remove();

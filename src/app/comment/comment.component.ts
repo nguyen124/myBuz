@@ -99,7 +99,7 @@ export class CommentComponent implements OnInit {
   }
 
   editComment(index: number) {
-    this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
+    //this._commentSvc.populateDataToCommentbox(this.comment.replies[index], index);
   }
 
   showCommentBox(index: number): void {
@@ -107,12 +107,6 @@ export class CommentComponent implements OnInit {
     this.hideReplyCommentBox();
     this.comment.replies[index].showCommentBox = true;
     this.previousIndex = index;
-    setTimeout(() => {
-      var txtBox = this.replyCommentBoxCmp.txtReplyBox;
-      if (txtBox) {
-        txtBox.nativeElement.focus();
-      }
-    }, 0);
   }
 
   hideReplyCommentBox() {
@@ -123,8 +117,6 @@ export class CommentComponent implements OnInit {
       }
     }
   }
-
-
 
   ngOnDestroy() {
     if (this.subscription) {

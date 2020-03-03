@@ -1,15 +1,12 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
-import { LoggingService } from '../shared/services/system/logging.service';
 import { CommentService } from '../shared/services/comment.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
 import { CommentComponent } from '../comment/comment.component';
-import { CommentBoxComponent } from '../comment-box/comment-box.component';
-import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-comments',
@@ -19,21 +16,19 @@ import { SystemService } from '../shared/services/utils/system.service';
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
-  @Input() item: IItem;
-
-  @ViewChild(CommentBoxComponent, { static: false }) commentBoxComp: CommentBoxComponent;
-
   nextPage = 0;
   perPage = 10;
   previousIndex = null;
+
+  @Input() item: IItem;
+
+  @ViewChildren(CommentComponent) commentCmps: QueryList<CommentComponent>;
 
   constructor(
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
-    private _toastr: ToastrService,
-    private _systemSvc: SystemService,
-    private _log: LoggingService) { }
+    private _toastr: ToastrService) { }
 
   ngOnInit() {
     this.comments = [];
@@ -94,7 +89,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   editComment(index: number) {
-    this._commentSvc.populateDataToCommentbox(this.comments[index], index);
+    //this._commentSvc.populateDataToCommentbox(this.comments[index], index);
   }
 
   ngOnDestroy() {
@@ -104,20 +99,12 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   showCommentBox(index: number): void {
-    this.hideCommentBox()
+    this.hidePreviousShowingCommentBox()
     this.comments[index].showCommentBox = true;
     this.previousIndex = index;
-
-
-    setTimeout(() => {
-      var txtBox = this.commentBoxComp.txtReplyBox;
-      if (txtBox) {
-        txtBox.nativeElement.focus();
-      }
-    }, 0);
   }
 
-  hideCommentBox() {
+  hidePreviousShowingCommentBox() {
     if (this.previousIndex !== undefined && this.previousIndex !== null) {
       var comment = this.comments[this.previousIndex];
       if (comment) {
@@ -128,13 +115,14 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   handleShowCommentBoxEvent() {
-    this.hideCommentBox();
+    this.hidePreviousShowingCommentBox();
   }
 
-  @ViewChild(CommentComponent, { static: false }) commentCmp: CommentComponent;
   hideReplyCommentBox() {
-    if (this.commentCmp) {
-      this.commentCmp.hideReplyCommentBox();
-    }
+    this.commentCmps.forEach((el, idx) => {
+      if (el) {
+        el.hideReplyCommentBox();
+      }
+    })
   }
 }

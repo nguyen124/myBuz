@@ -21,7 +21,17 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   @Input() item: IItem;
   @Input() comment: IComment;
   @Input() isTopCommentBox: boolean;
-  @Input() isShowing: boolean;
+  @Input() set isShowing(value: boolean) {
+    this._isShowing = value;
+    setTimeout(() => {
+      this.setTextboxFocus();
+    })
+  }
+  get isShowing() {
+    return this._isShowing;
+  }
+  private _isShowing: boolean;
+
   @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
@@ -51,11 +61,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.replyToUsername = this.comment ? this.comment.writtenBy['username'] : '';
-    // setTimeout(() => {
-    //   if (this.txtReplyBox) {
-    //     this.txtReplyBox.nativeElement.focus();
-    //   }
-    // }, 1000);
   }
 
   writeTextComment() {
@@ -207,19 +212,22 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  clearValue(event) {
+  clearPreviewPic(event) {
     this.picPreviewSrc = null;
-    //event.currentTarget.value = null;
   }
 
   afterAddingComment(newComment) {
     this.reset();
-    this.txtReplyBox.nativeElement.focus();
+    this.setTextboxFocus();
     this.item.noOfComments++;
     this._commSvc.changeComment(newComment);
     this.uploadedFile = null;
     this.voiceRecord = null;
     this._commentSvc.edittingComment = null;
+  }
+
+  setTextboxFocus() {
+    this.txtReplyBox.nativeElement.focus();
   }
 
   reset() {

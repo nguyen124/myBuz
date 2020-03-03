@@ -18,7 +18,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   comment: IComment
   subScription: Subscription;
 
-  @ViewChild(CommentsComponent, { static: false }) commentComp: CommentsComponent;
+  @ViewChild(CommentsComponent, { static: false }) commentsComp: CommentsComponent;
 
   constructor(
     private _commSvc: CommunicateService,
@@ -31,7 +31,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         this.item = item;
         setTimeout(() => {
           this.$("#openModalBtn").click();
-          this.commentComp.getComments(this.item);
+          this.commentsComp.getComments(this.item);
         }, 0);
       }
     });
@@ -43,13 +43,9 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  @ViewChild(CommentsComponent, { static: false }) commentsCmp: CommentsComponent;
   hideAllOtherCommentsBoxes() {
-    if (this.commentsCmp) {
-      this.commentsCmp.hideCommentBox();
-      if (this.commentsCmp.commentCmp) {
-        this.commentsCmp.commentCmp.hideReplyCommentBox();
-      }
+    if (this.commentsComp) {
+      this.commentsComp.hidePreviousShowingCommentBox();
     }
   }
 
