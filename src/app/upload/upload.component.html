@@ -58,7 +58,7 @@
               </div>
               <div class="form-row mb-3">
                 <div class="col-md-12 mb-3">
-                  <img *ngIf="uploadedFile" src="{{uploadedFile}}" class="w-100" id="previewImg">
+                  <img *ngIf="uploadedFile" src="{{uploadedFile}}" class="w-100 rounded" id="previewImg">
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
   </div>
   <div *ngIf="isUploading" id="preloader">
     <div id="spinner_container">
-      <img id="spinner" src="../assets/image/giphy_s.gif" alt="" />
+      <img class="rounded" id="spinner" src="../assets/image/giphy_s.gif" alt="" />
     </div>
   </div>
 </div>

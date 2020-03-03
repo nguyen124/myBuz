@@ -20,3 +20,8 @@ li a {
 li a:hover {
     background-color: #C0C0C0;
 }
+
+.logo {
+    width: 32px; 
+    height: 32;
+}
