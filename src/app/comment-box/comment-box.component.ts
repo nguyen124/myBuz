@@ -258,7 +258,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         this.textContent = obj.content;
       } else if (obj.type == 'image') {
         this.picPreviewSrc = obj.url;
-      } else if (obj.type == 'voice') {
+      } else if (obj.type == 'sound') {
         this.voicePreviewSrc = obj.url;
       }
     }
