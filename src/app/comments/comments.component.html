@@ -14,7 +14,7 @@
           <app-report [comment]="comment"></app-report>
         </div>
         <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox"
-          [isEditting]="comment.isEditting">
+          [isEditting]="comment.isEditting" (editingCommentDone)="handleEditingCommentDone($event)">
           <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
         </app-comment-box>
       </app-comment>

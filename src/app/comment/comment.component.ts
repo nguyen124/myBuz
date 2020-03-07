@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, Output, EventEmitter, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';
@@ -31,6 +31,7 @@ export class CommentComponent implements OnInit {
   perPage = 5;
   showToolTip: boolean = false;
   replyToUsername: string;
+  edittingCommentIdx: number;
 
   constructor(
     private _commentSvc: CommentService,
@@ -78,8 +79,11 @@ export class CommentComponent implements OnInit {
   deleteComment(index: number, comment: IComment) {
     this._commentSvc.deleteComment(comment).subscribe(parentComment => {
       this.comment.replies.splice(index, 1);
-      if (this.previousIndex >= index) {
+      if (this.previousIndex > index) {
         this.previousIndex--;
+      }
+      if (this.edittingCommentIdx > index) {
+        this.edittingCommentIdx--;
       }
       this.item.noOfComments--;
       this.comment.noOfReplies = parentComment.noOfReplies;
@@ -93,8 +97,14 @@ export class CommentComponent implements OnInit {
       this.hidePreviousReplyCommentBox(index);
       this.comment.replies[index].showCommentBox = true;
       this.comment.replies[index].isEditting = true;
+      this.edittingCommentIdx = index;
       this.replyToUsername = '';
     }
+  }
+
+  handleEditingReplyCommentDone(newComment) {
+    this.comment.replies[this.edittingCommentIdx] = newComment;
+    this.comment.replies[this.edittingCommentIdx].isEditting = false;
   }
 
   showReplyCommentBox(index: number): void {

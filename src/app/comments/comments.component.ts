@@ -20,6 +20,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   perPage = 10;
   previousIndex = null;
   replyToUsername;
+  edittingCommentIdx: number;
+
   @Input() item: IItem;
 
   @ViewChildren(CommentComponent) commentCmps: QueryList<CommentComponent>;
@@ -68,8 +70,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this._commentSvc.deleteComment(comment).subscribe(res => {
       this.item.noOfComments = this.item.noOfComments - (1 + this.comments[index].noOfReplies);
       this.comments.splice(index, 1);
-      if (this.previousIndex >= index) {
+      if (this.previousIndex > index) {
         this.previousIndex--;
+      }
+      if (this.edittingCommentIdx > index) {
+        this.edittingCommentIdx--;
       }
       this._toastr.success("Comment deleted!");
     });
@@ -80,8 +85,14 @@ export class CommentsComponent implements OnInit, OnDestroy {
       this.hidePreviousShowingCommentBox(index);
       this.comments[index].showCommentBox = true;
       this.comments[index].isEditting = true;
+      this.edittingCommentIdx = index;
       this.replyToUsername = '';
     }
+  }
+
+  handleEditingCommentDone(newComment) {
+    this.comments[this.edittingCommentIdx] = newComment;
+    this.comments[this.edittingCommentIdx].isEditting = false;
   }
 
   ngOnDestroy() {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, Inject, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { IItem } from '../shared/model/item';
-import { CommentService } from '../shared/services/comment.services';
 import { VoiceMessageServiceService } from '../shared/services/voice-message.service';
 import { HttpEventType } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +10,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IComment } from '../shared/model/comment';
+import { CommentService } from '../shared/services/comment.services';
 
 @Component({
   selector: 'app-comment-box',
@@ -48,7 +48,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   private _isEditting: boolean;
 
   @Output() commentBoxFocused: EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() editingCommentDone: EventEmitter<IComment> = new EventEmitter<IComment>();
   @ViewChild('txtReplyBox', { static: false }) txtReplyBox: ElementRef;
 
   isRecording: boolean;
@@ -111,6 +111,13 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         this._toastr.error("Failed to upload image!. Please try again later.")
       })
     } else {
+      if (this.picPreviewSrc) {
+        var picObj = {
+          url: this.picPreviewSrc,
+          type: "image"
+        };
+        this.commentContent.push(picObj);
+      }
       callback(this);
     }
   }
@@ -143,6 +150,13 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         }
       });
     } else {
+      if (thatt.voicePreviewSrc) {
+        var voiceObj = {
+          url: thatt.voicePreviewSrc,
+          type: "sound"
+        };
+        thatt.commentContent.push(voiceObj);
+      }
       thatt._f(that);
     }
   }
@@ -151,23 +165,18 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (that.commentContent.length > 0) {
       if (!that.isEditting) {
         var comment = {
-          parentCommentId: (this.comment) ? (this.comment.parentCommentId || this.comment._id) : null,
-          itemId: this.item._id,
+          parentCommentId: (that.comment) ? (that.comment.parentCommentId || that.comment._id) : null,
+          itemId: that.item._id,
           content: that.commentContent
         }
         that._commentSvc.addComment(comment).subscribe(newComment => {
           that.afterAddingComment(newComment);
         });
+      } else {
+        that._commentSvc.updateComment(that.comment, that.commentContent).subscribe(updatedComment => {
+          that.afterEdittingComment(updatedComment);
+        });
       }
-      // else {
-      //   if (that._commentSvc.edittingComment.content !== content) {
-      //     that._commentSvc.updateComment(that._commentSvc.edittingComment, content).subscribe(newComment => {
-      //       that.afterEdittingComment(newComment)
-      //     });
-      //   } else {
-      //     this.txtReplyBox.nativeElement.innerText = '';
-      //   }
-      // }
     } else {
       that._toastr.warning("Please enter non-empty comment!")
     }
@@ -226,7 +235,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  clearPreviewPic(event) {
+  clearPreviewPic() {
     this.picPreviewSrc = null;
   }
 
@@ -265,9 +274,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   }
 
   afterEdittingComment(newComment) {
-    this.uploadedFile = null;
-    this.voiceRecord = null;
-    this._commSvc.changeComment(newComment);
+    this.comment = newComment;
+    this.editingCommentDone.emit(newComment);
+    this.reset();
   }
 
   handleOnFocus() {

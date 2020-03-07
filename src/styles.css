@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+html {
+    overflow-y: scroll;
+}
+
 .btn-xs {
     padding: .25rem .4rem;
     font-size: .875rem;
