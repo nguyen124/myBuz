@@ -108,7 +108,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           callback(this);
         }
       }, err => {
-        this._toastr.error("Failed to upload image!. Please try again later.")
+        this._toastr.error("Failed to upload data!. Please try again.");
+        this.reset();
       })
     } else {
       if (this.picPreviewSrc) {
@@ -147,7 +148,11 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           that.commentContent.push(voiceObj);
           thatt._f(that);
         }
-      });
+      },
+        err => {
+          thatt._toastr.error("Failed to upload data!. Please try again.");
+          thatt.reset();
+        });
     } else {
       if (thatt.voicePreviewSrc) {
         var voiceObj = {
@@ -175,11 +180,19 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         }
         that._commentSvc.addComment(comment).subscribe(newComment => {
           that.afterAddingComment(newComment);
-        });
+        },
+          err => {
+            that._toastr.error("Failed to add comment!. Please try again.");
+            that.reset();
+          });
       } else {
         that._commentSvc.updateComment(that.comment, that.commentContent).subscribe(updatedComment => {
           that.afterEdittingComment(updatedComment);
-        });
+        },
+          err => {
+            that._toastr.error("Failed to update comment!. Please try again.");
+            that.reset();
+          });
       }
     } else {
       that._toastr.warning("Please enter non-empty comment!")

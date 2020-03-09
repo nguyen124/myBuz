@@ -43,7 +43,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   deleteItem(index: number, id: string) {
     this._itemSvc.deleteItem(id).subscribe(res => {
       this.items.splice(index, 1);
-      this._toastr.success("Delete succeeded!");
+      this._toastr.success("Item deleted!");
     }, err => {
       this._toastr.error("Delete failed!");
     });
