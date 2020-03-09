@@ -35,17 +35,18 @@
     </div>
 
     <div class="col-md-10 col-sm-10 mt-2">
+      <div>
+        <a *ngIf="reply.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 reply-comment'
+          (mouseenter)='reply.showToolTip = true;' (mouseout)="reply.showToolTip = false;">
+          @{{reply.replyTo.writtenBy.username}}:&nbsp;
+        </a>
+        <app-tooltip [comment]="reply.replyTo" [showToolTip]="reply.showToolTip">
+        </app-tooltip>
+      </div>
       <div *ngFor="let obj of reply.content; let i = index">
         <div *ngIf="obj.type == 'text'">
-          <a *ngIf="obj.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 reply-comment'
-            (mouseenter)='reply.showToolTip = true;' (mouseout)="reply.showToolTip = false;">
-            @{{obj.replyTo.writtenBy.username}}:&nbsp;
-          </a>
-          <app-tooltip [comment]="obj.replyTo" [showToolTip]="reply.showToolTip">
-          </app-tooltip>
           {{obj.content}}
         </div>
-
         <app-comment-pic *ngIf="obj.type == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
         <app-comment-voice *ngIf="obj.type == 'sound'" [voicePreviewSrc]="obj.url">
         </app-comment-voice>

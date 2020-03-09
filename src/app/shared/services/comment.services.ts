@@ -27,9 +27,9 @@ export class CommentService {
         return this._http.post<any>('/svc/current-user/comment', comment);
     }
 
-    updateComment(comment: IComment, content: string): Observable<any> {
+    updateComment(comment: IComment, newCommentContent: any[]): Observable<any> {
         return this._http.put<any>(`/svc/items/${comment.itemId}/comments/${comment._id}`, {
-            content: content
+            content: newCommentContent
         });
     }
 

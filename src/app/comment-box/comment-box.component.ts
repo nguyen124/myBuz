@@ -126,8 +126,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     if (this.textContent) {
       var textObj = {
         type: "text",
-        content: this.textContent,
-        replyTo: this.comment
+        content: this.textContent
       };
       this.commentContent.push(textObj);
     }
@@ -167,7 +166,12 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         var comment = {
           parentCommentId: (that.comment) ? (that.comment.parentCommentId || that.comment._id) : null,
           itemId: that.item._id,
-          content: that.commentContent
+          content: that.commentContent,
+          replyTo: that.comment ? {
+            _id: that.comment._id,
+            content: that.comment.content,
+            writtenBy: that.comment.writtenBy
+          } : null
         }
         that._commentSvc.addComment(comment).subscribe(newComment => {
           that.afterAddingComment(newComment);
