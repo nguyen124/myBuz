@@ -19,6 +19,7 @@ export class UploadComponent implements OnInit {
   itemForm: FormGroup;
   submitted = false;
   isUploading = false;
+  previewImgSrc: any;
 
   constructor(
     private _itemSvc: ItemService,
@@ -54,7 +55,7 @@ export class UploadComponent implements OnInit {
     if (this.uploadedFile) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        that.$("#previewImg").attr('src', e.target["result"]);
+        that.previewImgSrc = e.target["result"];
       }
       reader.readAsDataURL(this.uploadedFile);
     }
@@ -87,8 +88,8 @@ export class UploadComponent implements OnInit {
           var modalDismiss = this.$("#cancelBtn");
           if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
           this._commSvc.uploadItem(newItem);
+          this.resetFormValues();
           this._router.navigate(["/user/items"]);
-          this.isUploading = false;
         }, err => {
           this._toastr.error("Oops! Failed to create post!");
         });
@@ -96,5 +97,13 @@ export class UploadComponent implements OnInit {
     }, err => {
       this._toastr.error("Oops! Failed to create post!");
     });
+  }
+
+  resetFormValues() {
+    this.itemForm.reset();
+    this.previewImgSrc = null;
+    this.isUploading = false;
+    this.submitted = false;
+    this.parsedTags = [];
   }
 }
