@@ -13,9 +13,13 @@
   </a>
 </div>
 <div class="text-success">Comments({{item.noOfComments}}) - Points({{item.noOfPoints}})</div>
-<div *ngIf="isShowingTag" class="mb-2">
-  <a *ngFor="let tag of item.tags" [routerLink]="[baseUrl]" [queryParams]="{tag: tag, nextPage: 0}"
-    class="mr-1">#{{tag}}</a>
+<div *ngIf="isShowingTag" class="row mb-2">
+  <div class="col-md-12 col-sm-12" style="overflow: auto;">
+    <a *ngFor="let cate of item.categories" merge [routerLink]="baseUrl" [queryParams]="{category: cate, nextPage: 0}"
+      class="mr-1">@{{cate}}</a>
+    <a *ngFor="let tag of item.tags" merge [routerLink]="baseUrl" [queryParams]="{tag: tag, nextPage: 0}"
+      class="mr-1">#{{tag}}</a>
+  </div>
 </div>
 
 <div class="row">

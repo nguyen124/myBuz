@@ -30,12 +30,15 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12 ml-1">
+              <div class="col-md-12  col-sm-12 ml-1" style="overflow: auto;">
                 <div class="row">
                   <span class="text-success">
-                    Comments({{item.noOfComments}}) - Points({{item.noOfPoints}})
+                    Comments({{item.noOfComments}}) - Points({{item.noOfPoints}}) &nbsp;
                   </span>
-                  <a *ngFor="let tag of item.tags" href="#" class="mr-1">#{{tag}}</a>
+                  <a *ngFor="let cate of item.categories" [routerLink]="'/items'" merge
+                    [queryParams]="{category: cate, nextPage: 0}" (click)="closeModal()" class="mr-1">@{{cate}}</a>
+                  <a *ngFor="let tag of item.tags" [routerLink]="'/items'" merge [queryParams]="{tag: tag, nextPage: 0}"
+                    (click)="closeModal()" class="mr-1">#{{tag}}</a>
                 </div>
                 <div class="row">
                   <app-react [item]="item"></app-react>

@@ -52,4 +52,8 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     this._log.log("Modal destroy");
     this.subScription.unsubscribe();
   }
+
+  closeModal() {
+    this.$("#closeModalBtn").click();
+  }
 }

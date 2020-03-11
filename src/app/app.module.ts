@@ -52,6 +52,7 @@ import { CommentVoiceComponent } from './comment-box/comment-voice/comment-voice
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { ReplyToComponent } from './comment-box/reply-to/reply-to';
 import { TooltipDirective } from './shared/directive/tooltip.directive';
+import { MergeQueryParamsDirective } from './shared/directive/merge-query-params.directive';
 
 let jQuery: any = window['$'];
 
@@ -83,7 +84,8 @@ let jQuery: any = window['$'];
     CommentVoiceComponent,
     TooltipComponent,
     ReplyToComponent,
-    TooltipDirective
+    TooltipDirective,
+    MergeQueryParamsDirective
   ],
   entryComponents: [TooltipComponent],
   imports: [
