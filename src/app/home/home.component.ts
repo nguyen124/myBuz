@@ -12,11 +12,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   items: IItem[];
   params: any = {
-    nextPage: 0,
+    page: 0,
     perPage: 4,
     tag: '',
     temp: "cold"
   };
+  nextPage = 0;
 
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
     this._activatedRoute.queryParams.subscribe(params => {
       if (Object.entries(params).length === 0 && params.constructor === Object) {
         this.params = {
-          nextPage: 0,
+          page: 0,
           perPage: 4,
           tag: '',
           temp: "cold"
@@ -48,29 +49,30 @@ export class HomeComponent implements OnInit {
   }
 
   getHot() {
-    Object.assign(this.params, { temp: 'hot', nextPage: 0 })
+    Object.assign(this.params, { temp: 'hot', page: 0 })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   getWarm() {
-    Object.assign(this.params, { temp: 'warm', nextPage: 0 })
+    Object.assign(this.params, { temp: 'warm', page: 0 })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   getCold() {
-    Object.assign(this.params, { temp: 'cold', nextPage: 0 })
+    Object.assign(this.params, { temp: 'cold', page: 0 })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   loadNext() {
     if (this.items) {
-      this.params.nextPage = Math.floor(this.items.length / this.params.perPage);
+      this.nextPage = Math.floor(this.items.length / this.params.perPage);
     } else {
-      this.params.nextPage = 0;
+      this.nextPage = 0;
     }
+    this.params.page = this.nextPage;
     this._itemService.getItems(this.params).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
-        this.items[this.params.nextPage * this.params.perPage + i] = newItems[i];
+        this.items[this.nextPage * this.params.perPage + i] = newItems[i];
       }
     });
   }

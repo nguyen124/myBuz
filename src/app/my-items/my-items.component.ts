@@ -31,7 +31,7 @@ export class MyItemsComponent implements OnInit {
     } else {
       this.nextPage = 0;
     }
-    this._itemService.getItems({ nextPage: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
+    this._itemService.getItems({ page: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.perPage + i] = newItems[i];
       }
