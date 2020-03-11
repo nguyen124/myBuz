@@ -261,8 +261,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this.setTextboxFocus();
     this.item.noOfComments++;
     this._commSvc.changeComment(newComment);
-    this.uploadedFile = null;
-    this.voiceRecord = null;
   }
 
   setTextboxFocus() {
@@ -276,6 +274,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this.commentContent = [];
     this.picPreviewSrc = null;
     this.voicePreviewSrc = null;
+    this.uploadedFile = null;
+    this.voiceRecord = null;
   }
 
   populateData() {

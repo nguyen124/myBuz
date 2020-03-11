@@ -30,5 +30,6 @@ export class CommunicateService {
 
   changeComment(comment: IComment) {
     this._newCommentSource.next(comment);
+    this._newCommentSource.next(null);// trick to clear out comment being sending again
   }
 }
