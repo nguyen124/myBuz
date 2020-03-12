@@ -9,14 +9,16 @@
 </div>
 <div class="picture-frame">
   <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
-    <img class="img-fluid img-thumbnail" src="{{item.url}}" alt="">
+    <img *ngIf="item.fileType === 'image/jpeg'" class="img-fluid img-thumbnail" src="{{item.url}}" alt="Unavailable">
+    <video *ngIf="item.fileType === 'video/mp4'" controls class="video img-fluid img-thumbnail" [src]="item.url" alt="Unavailable">
+    </video>
   </a>
 </div>
 <div class="text-success">Comments({{item.noOfComments}}) - Points({{item.noOfPoints}})</div>
 <div *ngIf="isShowingTag" class="row mb-2">
   <div class="col-md-12 col-sm-12" style="overflow: auto;">
-    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{category: cate}"
-      class="mr-1">@{{cate}}</a>
+    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl"
+      [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
     <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag}"
       class="mr-1">#{{tag}}</a>
   </div>

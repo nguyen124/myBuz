@@ -19,8 +19,8 @@ export class UploadComponent implements OnInit {
   itemForm: FormGroup;
   submitted = false;
   isUploading = false;
-  previewImgSrc: any;
-
+  previewMediaSrc: any;
+  fileType: string;
   constructor(
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
@@ -51,11 +51,12 @@ export class UploadComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.uploadedFile = <File>files.item(0);
+    this.fileType = this.uploadedFile.type;
     let that = this;
     if (this.uploadedFile) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        that.previewImgSrc = e.target["result"];
+        that.previewMediaSrc = e.target["result"];
       }
       reader.readAsDataURL(this.uploadedFile);
     }
@@ -80,7 +81,8 @@ export class UploadComponent implements OnInit {
           categories: [this.f.categories.value],
           title: this.f.title.value,
           url: event.body["fileLocation"],
-          filename: event.body["filename"]
+          filename: event.body["filename"],
+          fileType: this.fileType
         };
 
         this._itemSvc.createItem(item).subscribe(newItem => {
@@ -101,7 +103,7 @@ export class UploadComponent implements OnInit {
 
   resetFormValues() {
     this.itemForm.reset();
-    this.previewImgSrc = null;
+    this.previewMediaSrc = null;
     this.isUploading = false;
     this.submitted = false;
     this.parsedTags = [];
