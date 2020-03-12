@@ -11,14 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   items: IItem[];
-  params: any = {
-    page: 0,
-    perPage: 4,
-    tag: '',
-    temp: "cold"
-  };
+  params: any = {};
   nextPage = 0;
-
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
@@ -26,16 +20,16 @@ export class HomeComponent implements OnInit {
     this._activatedRoute.queryParams.subscribe(params => {
       if (Object.entries(params).length === 0 && params.constructor === Object) {
         this.params = {
-          page: 0,
           perPage: 4,
           tag: '',
           temp: "cold"
         };
+        this.getCold();
       } else {
         this.params = Object.assign(this.params, params);
+        this.getItems(this.params);
       }
-      this.getItems(this.params);
-    })
+    });
   }
 
   getItems(params) {
@@ -45,21 +39,21 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getItems(this.params);
+
   }
 
   getHot() {
-    Object.assign(this.params, { temp: 'hot', page: 0 })
+    Object.assign(this.params, { temp: 'hot' })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   getWarm() {
-    Object.assign(this.params, { temp: 'warm', page: 0 })
+    Object.assign(this.params, { temp: 'warm' })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   getCold() {
-    Object.assign(this.params, { temp: 'cold', page: 0 })
+    Object.assign(this.params, { temp: 'cold' })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
@@ -69,8 +63,8 @@ export class HomeComponent implements OnInit {
     } else {
       this.nextPage = 0;
     }
-    this.params.page = this.nextPage;
-    this._itemService.getItems(this.params).subscribe((newItems: IItem[]) => {
+    var sending = Object.assign({}, this.params, { page: this.nextPage });
+    this._itemService.getItems(sending).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.params.perPage + i] = newItems[i];
       }

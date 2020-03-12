@@ -15,9 +15,9 @@
 <div class="text-success">Comments({{item.noOfComments}}) - Points({{item.noOfPoints}})</div>
 <div *ngIf="isShowingTag" class="row mb-2">
   <div class="col-md-12 col-sm-12" style="overflow: auto;">
-    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{category: cate, page: 0}"
+    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{category: cate}"
       class="mr-1">@{{cate}}</a>
-    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag, page: 0}"
+    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag}"
       class="mr-1">#{{tag}}</a>
   </div>
 </div>

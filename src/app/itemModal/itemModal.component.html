@@ -36,9 +36,9 @@
                     Comments({{item.noOfComments}}) - Points({{item.noOfPoints}}) &nbsp;
                   </span>
                   <a *ngFor="let cate of item.categories" [routerLink]="'/items'" queryParamsHandling="merge"
-                    [queryParams]="{category: cate, page: 0}" (click)="closeModal()" class="mr-1">@{{cate}}</a>
+                    [queryParams]="{category: cate}" (click)="closeModal()" class="mr-1">@{{cate}}</a>
                   <a *ngFor="let tag of item.tags" [routerLink]="'/items'" queryParamsHandling="merge"
-                    [queryParams]="{tag: tag, page: 0}" (click)="closeModal()" class="mr-1">#{{tag}}</a>
+                    [queryParams]="{tag: tag}" (click)="closeModal()" class="mr-1">#{{tag}}</a>
                 </div>
                 <div class="row">
                   <app-react [item]="item"></app-react>

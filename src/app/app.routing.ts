@@ -7,7 +7,6 @@ import { AdminComponent } from './admin/admin.component';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { SaveLoginComponent } from './save-login/save-login.component';
-import { PolicyComponent } from './policy-term/policy/policy.component';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
