@@ -44,10 +44,10 @@
             <div class="col-md-7 mb-3 offset-md-1">
               <div class="form-row mb-3">
                 <div class="col-md-12 mb-3">
-                  <label class="text-primary" for="upload"><strong>Choose file</strong></label>
+                  <label class="text-primary" for="upload"><strong>Pictures/Videos</strong></label>
                   <div class="custom-file">
                     <label class="custom-file-label" for="upload">Choose file</label>
-                    <input type="file" class="custom-file-input" formControlName="file" id="upload"
+                    <input type="file" class="custom-file-input" formControlName="file" id="upload" multiple
                       (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
                       [ngClass]="{ 'is-invalid': checkError('file') }">
                     <div *ngIf="checkError('file')" class="invalid-feedback">
@@ -58,11 +58,13 @@
               </div>
               <div class="form-row mb-3">
                 <div class="col-md-12 mb-3">
-                  <img *ngIf="previewMediaSrc && fileType === 'image/jpeg'" [src]="previewMediaSrc"
-                    class="w-100 rounded" id="previewImg">
-                  <video *ngIf="previewMediaSrc && fileType === 'video/mp4'" controls class="video"
-                    class="w-100 rounded" [src]="previewMediaSrc">
-                  </video>
+                  <ng-container *ngFor="let previewMediaSrc of previewMediaSrcs">
+                    <img *ngIf="previewMediaSrc.type == 'image/jpeg' || previewMediaSrc.type == 'image/gif'"
+                      [src]="previewMediaSrc.url" class="img-fluid img-thumbnail" id="previewImg">
+                    <video *ngIf="previewMediaSrc.type === 'video/mp4'" [src]="previewMediaSrc.url" controls
+                      class="video img-fluid img-thumbnail">
+                    </video>
+                  </ng-container>
                 </div>
               </div>
             </div>

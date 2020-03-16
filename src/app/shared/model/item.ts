@@ -1,7 +1,7 @@
 export interface IItem {
   _id?: string;
   title?: string;
-  url?: string;
+  files?: any[];
   modifiedDate?: number;
   createdBy?: object;
   tags?: string[];
@@ -11,5 +11,4 @@ export interface IItem {
   hasUpvoted?: boolean;
   hasDownvoted?: boolean;
   hasReported?: boolean;
-  fileType?: string;
 }

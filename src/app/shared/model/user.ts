@@ -13,4 +13,5 @@ export interface IUser {
     gender?: string;
     nationality?: string;
     dob?: string;
+    role?: string;
 }

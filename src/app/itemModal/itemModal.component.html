@@ -25,12 +25,27 @@
               </div>
             </div>
 
-            <div class="row">
-              <img class="w-100 xs-w-100 pr-2 rounded" src="{{item.url}}" alt="">
+            <div *ngIf="item.files" class="row">
+              <ng-container *ngIf="item.files.length >1; else shortPost">
+                <div *ngFor="let file of item.files; let i = index;" class="picture-frame">
+                  <img *ngIf="file.type == 'image/jpeg' || file.type == 'image/gif'"
+                    class="img-fluid img-thumbnail mr-2 mb-2" [src]="file.url" alt="Unavailable">
+                  <video *ngIf="file.type === 'video/mp4'" controls class="video img-fluid img-thumbnail mr-2 mb-2"
+                    [src]="file.url" alt="Unavailable">
+                  </video>
+                </div>
+              </ng-container>
+              <ng-template #shortPost>
+                <img *ngIf="item.files[0].type == 'image/jpeg' || item.files[0].type == 'image/gif'" class="w-100 xs-w-100 pr-2 rounded mr-2 mb-2"
+                  [src]="item.files[0].url" alt="Unavailable">
+                <video *ngIf="item.files[0].type == 'video/mp4'" controls
+                  class="video w-100 xs-w-100 pr-2 rounded mr-2 mb-2" [src]="item.files[0].url" alt="Unavailable">
+                </video>
+              </ng-template>
             </div>
 
             <div class="row">
-              <div class="col-md-12  col-sm-12 ml-1" style="overflow: auto;">
+              <div class="col-md-12  col-sm-12 ml-1" style="overflow: visible;">
                 <div class="row">
                   <span class="text-success">
                     Comments({{item.noOfComments}}) - Points({{item.noOfPoints}}) &nbsp;

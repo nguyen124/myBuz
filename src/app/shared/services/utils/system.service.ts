@@ -86,7 +86,7 @@ export class SystemService {
 
   getReasons() {
     return [
-      { name: 'Duplicate', value: '1', checked: false },
+      { name: 'Graphic content', value: '1', checked: false },
       { name: '18- Content', value: '2', checked: false },
       { name: 'Other', value: '3', checked: false }
     ]

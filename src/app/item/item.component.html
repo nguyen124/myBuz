@@ -7,13 +7,19 @@
   <br>
   <div class="col-md-12 text-primary">{{item.title}}</div>
 </div>
-<div class="picture-frame">
-  <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
-    <img *ngIf="item.fileType === 'image/jpeg'" class="img-fluid img-thumbnail" src="{{item.url}}" alt="Unavailable">
-    <video *ngIf="item.fileType === 'video/mp4'" controls class="video img-fluid img-thumbnail" [src]="item.url" alt="Unavailable">
-    </video>
-  </a>
-</div>
+<ng-container *ngIf="item.files && item.files.length > 0">
+  <div class="picture-frame">
+    <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
+      <img *ngIf="item.files[0].type == 'image/jpeg' || item.files[0].type == 'image/gif'"
+        class="img-fluid img-thumbnail" [src]="item.files[0].url" alt="Unavailable">
+      <video *ngIf="item.files[0].type == 'video/mp4'" controls class="video img-fluid img-thumbnail"
+        [src]="item.files[0].url" alt="Unavailable">
+      </video>
+      <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long post</strong>
+      </div>
+    </a>
+  </div>
+</ng-container>
 <div class="text-success">Comments({{item.noOfComments}}) - Points({{item.noOfPoints}})</div>
 <div *ngIf="isShowingTag" class="row mb-2">
   <div class="col-md-12 col-sm-12" style="overflow: auto;">

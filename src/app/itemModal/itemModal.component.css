@@ -5,7 +5,7 @@
 
 .overflow-scroll {
     max-height: 48rem;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .pb-cmnt-container {

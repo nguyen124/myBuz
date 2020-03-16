@@ -14,13 +14,12 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-  uploadedFile: File = null;
+  uploadedFiles: File[] = [];
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
   isUploading = false;
-  previewMediaSrc: any;
-  fileType: string;
+  previewMediaSrcs: any[] = [];
   constructor(
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
@@ -50,15 +49,20 @@ export class UploadComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    this.uploadedFile = <File>files.item(0);
-    this.fileType = this.uploadedFile.type;
-    let that = this;
-    if (this.uploadedFile) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        that.previewMediaSrc = e.target["result"];
+    for (let idx = 0; idx < files.length; idx++) {
+      let uploadedFile = files[idx];
+      this.uploadedFiles.push(uploadedFile);
+      let that = this;
+      if (uploadedFile) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          that.previewMediaSrcs.push({
+            url: e.target["result"],
+            type: uploadedFile.type
+          });
+        }
+        reader.readAsDataURL(uploadedFile);
       }
-      reader.readAsDataURL(this.uploadedFile);
     }
   }
 
@@ -72,38 +76,47 @@ export class UploadComponent implements OnInit {
     if (this.itemForm.invalid) {
       return;
     }
-    this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
-      } else if (event.type === HttpEventType.Response) {
-        var item = {
-          tags: this.parsedTags,
-          categories: [this.f.categories.value],
-          title: this.f.title.value,
-          url: event.body["fileLocation"],
-          filename: event.body["filename"],
-          fileType: this.fileType
-        };
+    let uploadedResults = [];
+    this.uploadedFiles.forEach(file => {
+      this._systemSvc.uploadFile(file).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+        } else if (event.type === HttpEventType.Response) {
+          uploadedResults.push({
+            url: event.body["fileLocation"],
+            filename: event.body["filename"],
+            type: file.type
+          });
+          if (uploadedResults.length == this.uploadedFiles.length) {
+            let item = {
+              tags: this.parsedTags,
+              categories: [this.f.categories.value],
+              title: this.f.title.value,
+              files: uploadedResults
+            };
 
-        this._itemSvc.createItem(item).subscribe(newItem => {
-          this._toastr.success("New post has been created!")
-          var modalDismiss = this.$("#cancelBtn");
-          if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
-          this._commSvc.uploadItem(newItem);
-          this.resetFormValues();
-          this._router.navigate(["/user/items"]);
-        }, err => {
-          this._toastr.error("Oops! Failed to create post!");
-        });
-      }
-    }, err => {
-      this._toastr.error("Oops! Failed to create post!");
+            this._itemSvc.createItem(item).subscribe(newItem => {
+              this._toastr.success("New post has been created!")
+              var modalDismiss = this.$("#cancelBtn");
+              if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
+              this._commSvc.uploadItem(newItem);
+              this.resetFormValues();
+              this._router.navigate(["/user/items"]);
+            }, err => {
+              this._toastr.error("Oops! Failed to create post!");
+            });
+          }
+        }
+      }, err => {
+        this._toastr.error("Oops! Failed to create post!");
+      });
     });
   }
 
   resetFormValues() {
     this.itemForm.reset();
-    this.previewMediaSrc = null;
+    this.previewMediaSrcs = [];
+    this.uploadedFiles = [];
     this.isUploading = false;
     this.submitted = false;
     this.parsedTags = [];

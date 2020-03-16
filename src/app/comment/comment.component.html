@@ -69,7 +69,7 @@
           <a href="javascript:void(0)" (click)="editReply(i)" class="ml-1 d-block"
             *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
           <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block"
-            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Delete</a>
+            *ngIf="authSvc.user && (authSvc.user.username == reply.writtenBy.username || authSvc.user.role ==='ADMIN')">Delete</a>
           <app-report [comment]="reply"></app-report>
         </div>
         <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
