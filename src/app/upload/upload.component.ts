@@ -103,14 +103,19 @@ export class UploadComponent implements OnInit {
               this.resetFormValues();
               this._router.navigate(["/user/items"]);
             }, err => {
-              this._toastr.error("Oops! Failed to create post!");
+              this.handleError();
             });
           }
         }
       }, err => {
-        this._toastr.error("Oops! Failed to create post!");
+        this.handleError();
       });
     });
+  }
+
+  handleError() {
+    this._toastr.error("Oops! Failed to create post!");
+    this.isUploading = false;
   }
 
   resetFormValues() {
