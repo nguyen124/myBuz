@@ -56,7 +56,7 @@
                   </div>
                 </div>
 
-                <div id="preloader" class="text-center">
+                <div *ngIf="isUploading" id="preloader" class="text-center">
                   <div id="spinner_container">
                     <img class="rounded" id="spinner" src="../assets/image/giphy_s.gif" alt="" />
                   </div>
