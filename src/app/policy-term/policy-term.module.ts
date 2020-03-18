@@ -5,6 +5,9 @@ import { PolicyComponent } from './policy/policy.component';
 import { PolicyEuComponent } from './policy-eu/policy-eu.component';
 import { PolicyCaComponent } from './policy-ca/policy-ca.component';
 import { DoNotSellComponent } from './do-not-sell/do-not-sell.component';
+import { TosComponent } from './tos/tos.component';
+import { RulesComponent } from './rules/rules.component';
+import { ReferencesComponent } from './references/references.component';
 
 
 
@@ -13,7 +16,10 @@ import { DoNotSellComponent } from './do-not-sell/do-not-sell.component';
     PolicyComponent,
     PolicyEuComponent,
     PolicyCaComponent,
-    DoNotSellComponent
+    DoNotSellComponent,
+    TosComponent,
+    RulesComponent,
+    ReferencesComponent
   ],
   imports: [
     CommonModule,
