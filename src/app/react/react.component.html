@@ -9,10 +9,12 @@
         aria-haspopup="true" aria-expanded="false"></button>
     <div class="dropdown-menu" aria-label="menu">
         <!--,'pinterest','reddit'-->
-        <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter']" [show]="2" [size]="-3"
-            url="https://m2meme.firebaseapp.com/items?itemId={{item._id}}" [autoSetMeta]="false">
+        <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter']" [show]="2"
+            url="https://m2meme.firebaseapp.com/items?id={{item._id}}" [title]="item.title" [image]="item.files[0].url" [autoSetMeta]="true">
         </share-buttons>
-        <div class="text-danger" *ngIf="authSvc.user && !(authSvc.user.username == item.createdBy['username']) && authSvc.user.role != 'ADMIN'">
+
+        <div class="text-danger"
+            *ngIf="authSvc.user && !(authSvc.user.username == item.createdBy['username']) && authSvc.user.role != 'ADMIN'">
             <div class="dropdown-divider"></div>
             <div *ngIf="!item.hasReported; else elseBlock">
                 <button class="btn dropdown-item text-primary pl-0 ml-1"

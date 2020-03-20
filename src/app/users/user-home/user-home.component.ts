@@ -30,14 +30,14 @@ export class UserHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this._authSvc.user;
-    this.user.gender = this.user.gender || '';
-    this.user.nationality = this.user.nationality || '';
-    this.user.dob = this.user.dob || '';
     this.initValue();
   }
 
   initValue() {
+    this.user = this._authSvc.user;
+    this.user.gender = this.user.gender || '';
+    this.user.nationality = this.user.nationality || '';
+    this.user.dob = this.user.dob || '';
     this.uploadedFile = null;
     this.$("#avatar").attr("src", this.user.avatar);
     this.userForm = this._fb.group({
