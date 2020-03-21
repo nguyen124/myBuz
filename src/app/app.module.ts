@@ -53,6 +53,8 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { ReplyToComponent } from './comment-box/reply-to/reply-to';
 import { TooltipDirective } from './shared/directive/tooltip.directive';
 import { MergeQueryParamsDirective } from './shared/directive/merge-query-params.directive';
+import { FileValidatorDirective } from './upload/file-validator.directive';
+import { FileValueAccessor } from './upload/file-control-value-accessor';
 
 let jQuery: any = window['$'];
 
@@ -85,7 +87,9 @@ let jQuery: any = window['$'];
     TooltipComponent,
     ReplyToComponent,
     TooltipDirective,
-    MergeQueryParamsDirective
+    MergeQueryParamsDirective,
+    FileValueAccessor,
+    FileValidatorDirective
   ],
   entryComponents: [TooltipComponent],
   imports: [

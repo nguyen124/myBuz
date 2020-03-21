@@ -7,7 +7,7 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
-
+import { FileValidatorDirective } from './file-validator.directive';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -36,7 +36,7 @@ export class UploadComponent implements OnInit {
   initForm() {
     this.itemForm = this._fb.group({
       title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
-      file: ['', Validators.required],
+      file: ['', FileValidatorDirective.validate],
       categories: [''],
       tags: ['']
     });
@@ -72,13 +72,13 @@ export class UploadComponent implements OnInit {
 
   createPost() {
     this.submitted = true;
-    this.isUploading = true;
     if (this.itemForm.invalid) {
       return;
     }
     let uploadedResults = [];
     this.uploadedFiles.forEach(file => {
       this._systemSvc.uploadFile(file).subscribe(event => {
+        this.isUploading = true;
         if (event.type === HttpEventType.UploadProgress) {
           this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
