@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="form-row mb-3">
-                <div class="col-md-12 mb-3">
+                <div *ngIf="previewMediaSrcs && previewMediaSrcs.length" class="col-md-12 mb-3">
                   <ng-container *ngFor="let previewMediaSrc of previewMediaSrcs">
                     <img *ngIf="previewMediaSrc.type == 'image/jpeg' || previewMediaSrc.type == 'image/gif'"
                       [src]="previewMediaSrc.url" class="img-fluid img-thumbnail" id="previewImg">
