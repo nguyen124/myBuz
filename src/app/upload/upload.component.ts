@@ -76,9 +76,10 @@ export class UploadComponent implements OnInit {
       return;
     }
     let uploadedResults = [];
+    var that = this;
     this.uploadedFiles.forEach(file => {
       this._systemSvc.uploadFile(file).subscribe(event => {
-        this.isUploading = true;
+        that.isUploading = true;
         if (event.type === HttpEventType.UploadProgress) {
           this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
