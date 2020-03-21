@@ -35,6 +35,9 @@ html {
 }
 
 @media (max-width: 575.98px) {
+    .xs-h-50 {
+        height: 50% !important;
+    }
     .xs-w-25 {
         width: 25% !important;
     }
