@@ -11,4 +11,5 @@ export interface IItem {
   hasUpvoted?: boolean;
   hasDownvoted?: boolean;
   hasReported?: boolean;
+  description?: string;
 }
