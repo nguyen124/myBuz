@@ -10,7 +10,7 @@
     <div class="dropdown-menu" aria-label="menu">
         <!--,'pinterest','reddit'-->
         <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter']" [show]="2"
-            url="https://us-central1-m2meme.cloudfunctions.net/app?title=hay qua di thoi&image=https://m2meme.firebaseapp.com/assets/image/logo256x215.png&description=Hay qua M2meme oi&id={{item._id}}">
+            url="https://us-central1-m2meme.cloudfunctions.net/app?title={{item.title}}&image=https://m2meme.firebaseapp.com/assets/image/logo256x215.png&description={{item.description}}&id={{item._id}}">
         </share-buttons>
 
         <div class="text-danger"
