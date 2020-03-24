@@ -49,10 +49,13 @@ export class UploadComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
+    var fileArr = [],
+      that = this;
     for (let idx = 0; idx < files.length; idx++) {
-      let uploadedFile = files[idx];
-      this.uploadedFiles.push(uploadedFile);
-      let that = this;
+      fileArr.push(files[idx]);
+    }
+    fileArr.forEach(uploadedFile => {
+      that.uploadedFiles.push(uploadedFile);
       if (uploadedFile) {
         let reader = new FileReader();
         reader.onload = function (e) {
@@ -63,7 +66,7 @@ export class UploadComponent implements OnInit {
         }
         reader.readAsDataURL(uploadedFile);
       }
-    }
+    });
   }
 
   onTagsChange(input) {
@@ -72,7 +75,7 @@ export class UploadComponent implements OnInit {
 
   createPost() {
     this.submitted = true;
-    if (this.itemForm.invalid) {
+    if (this.itemForm.invalid && !this.uploadedFiles.length) {
       return;
     }
     let uploadedResults = [];
