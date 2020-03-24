@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from './file-validator.directive';
+import { throwIfEmpty } from 'rxjs/operators';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -54,6 +55,9 @@ export class UploadComponent implements OnInit {
     for (let idx = 0; idx < files.length; idx++) {
       fileArr.push(files[idx]);
     }
+    if (this.uploadedFiles && this.uploadedFiles.length) {
+      this.itemForm.controls.file.setValue(true);
+    }
     fileArr.forEach(uploadedFile => {
       that.uploadedFiles.push(uploadedFile);
       if (uploadedFile) {
@@ -75,7 +79,7 @@ export class UploadComponent implements OnInit {
 
   createPost() {
     this.submitted = true;
-    if (this.itemForm.invalid && !this.uploadedFiles.length) {
+    if (this.itemForm.invalid) {
       return;
     }
     let uploadedResults = [];

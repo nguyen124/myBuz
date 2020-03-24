@@ -57,8 +57,8 @@
                     <label class="custom-file-label" for="upload">Choose file</label>
                     <input type="file" class="custom-file-input" formControlName="file" id="upload" multiple
                       (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
-                      [ngClass]="{ 'is-invalid': uploadedFiles.length || checkError('file') }">
-                    <div *ngIf="checkError('file') && !uploadedFiles.length" class="invalid-feedback">
+                      [ngClass]="{'is-invalid' : checkError('file')}">
+                    <div *ngIf="checkError('file')" class="invalid-feedback">
                       <div *ngIf="f.file.errors.required">File is required</div>
                     </div>
                   </div>
