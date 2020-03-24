@@ -21,7 +21,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
 
   subScription: Subscription;
   nextPage = 0;
-  perPage = 4;
+  perPage = 40;
 
   constructor(
     private _itemSvc: ItemService,

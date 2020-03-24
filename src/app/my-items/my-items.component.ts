@@ -12,7 +12,7 @@ export class MyItemsComponent implements OnInit {
   items: IItem[];
   baseUrl: string = "/user/items";
   nextPage = 0;
-  perPage = 4;
+  perPage = 40;
 
   constructor(
     private _itemService: ItemService,

@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this._activatedRoute.queryParams.subscribe(params => {
       if (Object.entries(params).length === 0 && params.constructor === Object) {
         this.params = {
-          perPage: 4,
+          perPage: 40,
           tag: '',
           temp: "cold"
         };
