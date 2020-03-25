@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(private _itemService: ItemService, private _activatedRoute: ActivatedRoute, private _router: Router) {
     this._activatedRoute.queryParams.subscribe(params => {
       if (Object.entries(params).length === 0 && params.constructor === Object) {
-        this.params = {                    
+        this.params = {
           temp: "cold"
         };
         this.getCold();

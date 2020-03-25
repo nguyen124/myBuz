@@ -21,9 +21,11 @@ button.cold {
         border-top-right-radius: 0 !important;
         background: linear-gradient(to top, hsl(0, 100%, 50%), hsl(40, 100%, 50%));
     }
+
     button.warm {
         background: linear-gradient(to top, hsl(40, 100%, 50%), hsl(60, 100%, 50%));
     }
+
     button.cold {
         border-bottom-left-radius: 0 !important;
         border-top-right-radius: 10px !important;
@@ -36,11 +38,26 @@ button.cold {
     div.cold {
         padding-right: 0;
     }
+
     div.warm {
         padding-left: 0;
         padding-right: 0;
     }
+
     div.hot {
         padding-left: 0;
+    }
+
+    .round-right-16 {
+        border-bottom-right-radius: 16px !important;
+    }
+
+    .round-right-left-16 {
+        border-bottom-right-radius: 16px !important;
+        border-bottom-left-radius: 16px !important;
+    }
+
+    .round-right-16 {
+        border-bottom-right-radius: 16px !important;
     }
 }
