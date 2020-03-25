@@ -42,6 +42,7 @@ import { JQ_TOKEN } from './shared/services/jQuery.service';
 
 import { ChildrenAuthGuard } from './shared/guard/childrenGuard';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
+import { AdminAuthGuard } from './shared/guard/adminGuard';
 
 import { DatePipe } from './date-pipe.pipe';
 
@@ -117,6 +118,7 @@ let jQuery: any = window['$'];
     ItemService,
     NotificationService,
     ParentAuthGuard,
+    AdminAuthGuard,
     VoiceMessageServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: JQ_TOKEN, useValue: jQuery }

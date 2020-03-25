@@ -7,10 +7,11 @@ import { AdminComponent } from './admin/admin.component';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { SaveLoginComponent } from './save-login/save-login.component';
+import { AdminAuthGuard } from './shared/guard/adminGuard';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
-    { path: 'admin', component: AdminComponent, canActivate: [ParentAuthGuard] },
+    { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'savelogin', component: SaveLoginComponent },

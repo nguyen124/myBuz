@@ -32,9 +32,9 @@
       <div class="row">
         <div class="col-12">
           <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl"
-            [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
+            [queryParams]="{category: cate}" class="mr-1 d-inline-flex">@{{cate}}</a>
           <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag}"
-            class="mr-1">#{{tag}}</a>
+            class="mr-1 d-inline-flex">#{{tag}}</a>
         </div>
       </div>
     </ng-container>
