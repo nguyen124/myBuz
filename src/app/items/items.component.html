@@ -1,6 +1,6 @@
 <div class="row text-lg-left" id="items-container">
   <ng-container *ngFor="let item of items; let i = index;">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3" style="overflow: auto;">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 overflow">
       <app-item [item]="item" [baseUrl]="baseUrl" [isShowingTag]="isShowingTag">
         <div *ngIf="authSvc.user && (authSvc.user.username == item.createdBy.username || authSvc.user.role ==='ADMIN')">
           <div class="dropdown-divider"></div>

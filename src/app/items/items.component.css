@@ -1,0 +1,7 @@
+.overflow {
+    overflow: hidden;
+}
+
+.overflow:hover {
+    overflow: auto;
+}

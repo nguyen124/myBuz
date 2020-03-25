@@ -38,12 +38,15 @@ html {
     .xs-h-50 {
         height: 50% !important;
     }
+
     .xs-w-25 {
         width: 25% !important;
     }
+
     .xs-w-15 {
         width: 15% !important;
     }
+
     .xs-w-100 {
         width: 100% !important;
     }
