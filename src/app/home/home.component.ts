@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
         };
         this.getCold();
       } else {
-        this.params = Object.assign(this.params, params);
+        this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
         this.getItems(this.params);
       }
     });
@@ -67,5 +67,10 @@ export class HomeComponent implements OnInit {
         this.items[this.nextPage * this.params.perPage + i] = newItems[i];
       }
     });
+  }
+
+  removeFilter(key) {
+    delete this.params[key];
+    this._router.navigate(['.'], { queryParams: this.params });
   }
 }

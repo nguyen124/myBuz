@@ -61,3 +61,20 @@ button.cold {
         border-bottom-left-radius: 16px !important;
     }
 }
+
+.top-right {
+    background-color: #007bff;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: 15px;
+    top: -10px;
+    position: relative;
+}
+
+button:hover {
+    font-weight: bold;
+}
