@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadNext() {
+    this.params.perPage = this.params.perPage || 40;
     if (this.items) {
       this.nextPage = Math.floor(this.items.length / this.params.perPage);
     } else {
