@@ -73,10 +73,10 @@
               <div class="form-row mb-3">
                 <div *ngIf="previewMediaSrcs && previewMediaSrcs.length" class="col-md-12 mb-3">
                   <ng-container *ngFor="let previewMediaSrc of previewMediaSrcs">
-                    <div *ngIf="previewMediaSrc.type.match('image*')">
+                    <div *ngIf="previewMediaSrc.fileType.match('image*')">
                       <img [src]="previewMediaSrc.url" class="img-fluid img-thumbnail" id="previewImg">
                     </div>
-                    <div *ngIf="previewMediaSrc.type.match('video*')">
+                    <div *ngIf="previewMediaSrc.fileType.match('video*')">
                       <video [src]="previewMediaSrc.url" controls class="video img-fluid img-thumbnail">
                       </video>
                     </div>

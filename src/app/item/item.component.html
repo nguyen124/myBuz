@@ -14,9 +14,9 @@
   <ng-container *ngIf="item.files && item.files.length > 0">
     <div class="picture-frame">
       <a class="d-block item-pic" href="javascript:void(0)" (click)="showItemModal()">
-        <img *ngIf="item.files[0].type.match('image*')" class="img-fluid img-thumbnail" [src]="item.files[0].url"
+        <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail" [src]="item.files[0].url"
           alt="Unavailable">
-        <video *ngIf="item.files[0].type.match('video*')" controls class="video img-fluid img-thumbnail not-playable"
+        <video *ngIf="item.files[0].fileType.match('video*')" controls class="video img-fluid img-thumbnail not-playable"
           [src]="item.files[0].url" alt="Unavailable">
         </video>
         <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long post</strong>
