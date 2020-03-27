@@ -102,7 +102,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           var picObj = {
             url: event.body["fileLocation"],
             filename: event.body["filename"],
-            type: "image"
+            fileType: "image"
           }
           this.commentContent.push(picObj);
           callback(this);
@@ -115,7 +115,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
       if (this.picPreviewSrc) {
         var picObj = {
           url: this.picPreviewSrc,
-          type: "image"
+          fileType: "image"
         };
         this.commentContent.push(picObj);
       }
@@ -126,8 +126,9 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   _addTextContent() {
     if (this.textContent) {
       var textObj = {
-        type: "text",
-        content: this.textContent
+        url: this.textContent,
+        filename: '',
+        fileType: "text"
       };
       this.commentContent.push(textObj);
     }
@@ -143,7 +144,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           var voiceObj = {
             url: event.body["fileLocation"],
             filename: event.body["filename"],
-            type: "sound"
+            fileType: "sound"
           };
           that.commentContent.push(voiceObj);
           thatt._f(that);
@@ -157,7 +158,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
       if (thatt.voicePreviewSrc) {
         var voiceObj = {
           url: thatt.voicePreviewSrc,
-          type: "sound"
+          fileType: "sound"
         };
         thatt.commentContent.push(voiceObj);
       }
@@ -280,8 +281,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   populateData() {
     for (var obj of this.comment.content) {
-      if (obj.type == 'text') {
-        this.textContent = obj.content;
+      if (obj.type == 'text' && obj.url.trim()) {
+        this.textContent = obj.url;
       } else if (obj.type == 'image') {
         this.picPreviewSrc = obj.url;
       } else if (obj.type == 'sound') {

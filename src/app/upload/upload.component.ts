@@ -65,7 +65,7 @@ export class UploadComponent implements OnInit {
         reader.onload = function (e) {
           that.previewMediaSrcs.push({
             url: e.target["result"],
-            type: uploadedFile.type
+            fileType: uploadedFile.type
           });
         }
         reader.readAsDataURL(uploadedFile);
@@ -93,7 +93,7 @@ export class UploadComponent implements OnInit {
           uploadedResults.push({
             url: event.body["fileLocation"],
             filename: event.body["filename"],
-            type: file.type
+            fileType: file.type
           });
           if (uploadedResults.length == this.uploadedFiles.length) {
             let item = {
