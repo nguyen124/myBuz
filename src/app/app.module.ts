@@ -44,8 +44,9 @@ import { ChildrenAuthGuard } from './shared/guard/childrenGuard';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { AdminAuthGuard } from './shared/guard/adminGuard';
 
-import { DatePipe } from './shared/pipe/date-pipe.pipe';
-import { KeyPipe } from './shared/pipe/key-pipe.pipe';
+import { DatePipe } from './shared/pipe/date.pipe';
+import { KeyPipe } from './shared/pipe/key.pipe';
+import { NumberPipe } from './shared/pipe/number.pipe';
 
 import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
@@ -70,6 +71,7 @@ let jQuery: any = window['$'];
     CommentReactComponent,
     DatePipe,
     KeyPipe,
+    NumberPipe,
     FilterComponent,
     FooterComponent,
     HeaderComponent,

@@ -12,12 +12,14 @@ ul#listItemsDetails {
 @media (max-width: 1440px) {
     .avatar {
         width: 85%;
+        max-width: 85%;
     }
 }
 
 @media (max-width: 1024px) {
     .avatar {
         width: 85%;
+        max-width: 85%;
     }
 }
 
@@ -30,6 +32,7 @@ ul#listItemsDetails {
 @media (max-width: 575px) {
     .avatar {
         width: 25%;
+        max-width: 25%;
     }
 }
 
@@ -37,41 +40,21 @@ ul#listItemsDetails {
     pointer-events: none;
 }
 
-@media (min-width: 767.98px) {
-    .item-height {
-        height: 450px;
-    }
+.overflow-hidden {
+    overflow: hidden;
 }
 
-@media (min-width: 1024px) {
-    .item-height {
-        height: 550px;
-    }
+.overflow-hidden:hover a {
+    display: inline-flex !important;
 }
 
-@media (min-width: 1440px) {
-    .item-height {
-        height: 650px;
-    }
+.text-overflow div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media (min-width: 2560px) {
-    .item-height {
-        height: 750px;
-    }
-}
-
-.item-header {
-    height: 15%;
-    overflow: auto;
-}
-
-.item-pic {
-    height: 70%;
-    overflow: auto;
-}
-
-.item-footer {
-    width: 100%;
-    height: 15%;
+.text-overflow div:hover {
+    overflow: visible;
+    white-space: pre-wrap;
 }
