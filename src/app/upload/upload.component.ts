@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
@@ -30,6 +30,11 @@ export class UploadComponent implements OnInit {
     private _fb: FormBuilder,
     @Inject(JQ_TOKEN) private $: any) { }
 
+  @HostListener('document:keydown.escape', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    this.resetFormValues();
+  }
+
   ngOnInit() {
     this.initForm();
   }
@@ -39,7 +44,8 @@ export class UploadComponent implements OnInit {
       title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
       file: ['', FileValidatorDirective.validate],
       categories: [''],
-      tags: ['']
+      tags: [''],
+      description: ['', Validators.maxLength(500)],
     });
   }
 

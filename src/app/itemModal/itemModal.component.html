@@ -5,62 +5,61 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="row">
+          <div class="col-1">
+            <div class="col-md-1 col-sm-1">
+              <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="clearData()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="row">
+            <div class="row text-overflow">
               <div class="col-md-3 col-sm-2">
-                <div class="row text-success">
-                  <strong><span class="font-10">{{item.createdBy.username}}</span></strong>
-                </div>
-                <div class="row">
-                  <img class="w-100 h-50 xs-h-50 xs-w-25 mb-1 rounded" src="{{item.createdBy.avatar}}" alt="Avatar">
-                </div>
+                <img class="rounded mw-100" src="{{item.createdBy.avatar}}" alt="Avatar">
               </div>
-              <div class="col-md-8 col-sm-9">
-                <h5 class="modal-title text-primary" id="exampleModalLabel">{{item.title}}</h5>
-              </div>
-              <div class="col-md-1 col-sm-1">
-                <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"
-                  (click)="clearData()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+              <div class="col-md-9 col-sm-10 text-success">
+                {{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}
               </div>
             </div>
-
+            <div class="row text-overflow mb-1">
+              <div class="col-12">
+                <div class="text-success font-18 font-weight-bold">{{item.title}}</div>
+              </div>
+            </div>
+            <div class="row overflow-hidden">
+              <div class="col-12">
+                <a *ngFor="let cate of item.categories" [routerLink]="'/items'" queryParamsHandling="merge"
+                  [queryParams]="{category: cate}" (click)="closeModal()" class="mr-1">@{{cate}}</a>
+                <a *ngFor="let tag of item.tags" [routerLink]="'/items'" queryParamsHandling="merge"
+                  [queryParams]="{tag: tag}" (click)="closeModal()" class="mr-1">#{{tag}}</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <app-react [item]="item"></app-react>
+              </div>
+            </div>
             <div *ngIf="item.files" class="row">
               <ng-container *ngIf="item.files.length >1; else shortPost">
-                <div *ngFor="let file of item.files; let i = index;" class="picture-frame">
-                  <img *ngIf="file.fileType.match('image*')" class="img-fluid img-thumbnail mr-2 mb-2" [src]="file.url"
+                <div *ngFor="let file of item.files; let i = index;" class="col-6">
+                  <img *ngIf="file.fileType.match('image*')" class="mw-100 m-2" [src]="file.url" alt="Unavailable">
+                  <video *ngIf="file.fileType.match('video*')" controls class="video mw-100 m-2" [src]="file.url"
                     alt="Unavailable">
-                  <video *ngIf="file.fileType.match('video*')" controls class="video img-fluid img-thumbnail mr-2 mb-2"
-                    [src]="file.url" alt="Unavailable">
                   </video>
                 </div>
               </ng-container>
               <ng-template #shortPost>
-                <img *ngIf="item.files[0].fileType.match('image*')" class="w-100 xs-w-100 pr-2 rounded mr-2 mb-2"
+                <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 m-2" [src]="item.files[0].url"
+                  alt="Unavailable">
+                <video *ngIf="item.files[0].fileType.match('video*')" controls class="video mw-100 m-2"
                   [src]="item.files[0].url" alt="Unavailable">
-                <video *ngIf="item.files[0].fileType.match('video*')" controls
-                  class="video w-100 xs-w-100 pr-2 rounded mr-2 mb-2" [src]="item.files[0].url" alt="Unavailable">
                 </video>
               </ng-template>
             </div>
 
-            <div class="row">
-              <div class="col-md-12  col-sm-12 ml-1" style="overflow: visible;">
-                <div class="row">
-                  <span class="text-success">
-                    Comments({{item.noOfComments}}) - Points({{item.noOfPoints}}) &nbsp;
-                  </span>
-                  <a *ngFor="let cate of item.categories" [routerLink]="'/items'" queryParamsHandling="merge"
-                    [queryParams]="{category: cate}" (click)="closeModal()" class="mr-1">@{{cate}}</a>
-                  <a *ngFor="let tag of item.tags" [routerLink]="'/items'" queryParamsHandling="merge"
-                    [queryParams]="{tag: tag}" (click)="closeModal()" class="mr-1">#{{tag}}</a>
-                </div>
-                <div class="row">
-                  <app-react [item]="item"></app-react>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="col-md-6 overflow-scroll">

@@ -5,7 +5,15 @@
       <div class="modal-body">
         <form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="createPost()" autocomplete="on">
           <div class="form-row">
-            <div class="col-md-4 mb-3">
+            <div class="col-1">
+              <button id="closeModalBtn" type="button" class="close float-left" data-dismiss="modal" aria-label="Close"
+                (click)="resetFormValues()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-5 mb-3">
               <div class="form-row mb-3">
                 <div class="col-md-12 mb-3">
                   <label class="text-primary"><strong>Title</strong></label>
@@ -48,8 +56,20 @@
                     (input)="onTagsChange($event.target.value)">
                 </div>
               </div>
+              <div class="row mb-3">
+                <div class="col-md-12 mb-3">
+                  <label class="text-primary" for="description"><strong>Description (max 500
+                      characters)</strong></label>
+                  <textarea type="text" formControlName="description" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('description') }"></textarea>
+                  <div *ngIf="checkError('description')" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 500 characters!
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-7 mb-3 offset-md-1">
+            <div class="col-md-7 mb-3">
               <div class="form-row mb-3">
                 <div class="col-md-12 mb-3">
                   <label class="text-primary" for="upload"><strong>Pictures/Videos</strong></label>

@@ -3,15 +3,13 @@
     <div class="col-sm-2 col-md-3 pr-0">
       <img class="rounded avatar" src="{{item.createdBy['avatar']}}" alt="Avatar">
     </div>
-    <div class="col-sm-10 col-md-9 text-success">{{modifiedDate | date:'shortDate'}} . {{item.createdBy['username']}}
+    <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy['username']}}
     </div>
   </div>
   <div class="row text-overflow">
-    <ng-container>
-      <div class="col-12">
-        <div class="text-success">{{item.title}}</div>
-      </div>
-    </ng-container>
+    <div class="col-12">
+      <div class="text-success font-18 font-weight-bold">{{item.title}}</div>
+    </div>
   </div>
   <div>
     <ng-container *ngIf="isShowingTag">

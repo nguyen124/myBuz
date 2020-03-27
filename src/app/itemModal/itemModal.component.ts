@@ -64,6 +64,6 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   clearData() {
-    this.item = null;
+    this.item = null;    
   }
 }

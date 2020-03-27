@@ -39,23 +39,3 @@ ul#listItemsDetails {
 .not-playable {
     pointer-events: none;
 }
-
-.overflow-hidden {
-    overflow: hidden;
-}
-
-.overflow-hidden:hover a {
-    display: inline-flex !important;
-}
-
-.text-overflow div {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.text-overflow div:hover {
-    overflow: visible;
-    white-space: pre-wrap;
-    word-break: break-all;
-}
