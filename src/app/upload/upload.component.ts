@@ -45,7 +45,7 @@ export class UploadComponent implements OnInit {
       file: ['', FileValidatorDirective.validate],
       categories: [''],
       tags: [''],
-      description: ['', Validators.maxLength(500)],
+      description: ['', [Validators.maxLength(500), this._systemSvc.nonSpaceString]],
     });
   }
 

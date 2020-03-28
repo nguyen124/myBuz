@@ -12,8 +12,9 @@
             <input type="text" formControlName="username" class="form-control"
               [ngClass]="{ 'is-invalid': checkError('username') }" />
             <div *ngIf="checkError('username')" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">Username is required</div>
-              <div *ngIf="f.username.errors.whitespace">Username can't be blank space</div>
+              <div *ngIf="f.username.errors.required">Username is required!</div>
+              <div *ngIf="f.username.errors.whitespace">Username can't be blank space!</div>
+              <div *ngIf="f.username.errors.maxlength">Username should contain no more than 50 characters!</div>
             </div>
           </div>
           <div class="form-group">
@@ -21,8 +22,9 @@
             <input type="email" formControlName="email" class="form-control"
               [ngClass]="{ 'is-invalid': checkError('email') }" />
             <div *ngIf="checkError('email')" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              <div *ngIf="f.email.errors.required">Email is required!</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address format!</div>
+              <div *ngIf="f.email.errors.maxlength">Email should contain no more than 50 characters!</div>
             </div>
           </div>
           <div class="form-group" formGroupName="passwords">
@@ -31,10 +33,15 @@
               <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': checkError('passwords') || checkGroupError('password')}" />
               <div *ngIf="checkError('passwords')" class="invalid-feedback">
-                <div *ngIf="f.passwords.errors.matched">Password is not matched</div>
+                <div *ngIf="f.passwords.errors.matched">Password is not matched!</div>
               </div>
               <div *ngIf="checkGroupError('password')" class="invalid-feedback">
-                <div *ngIf="f.passwords.controls.password.errors.required">Password is required</div>
+                <div *ngIf="f.passwords.controls.password.errors.required">Password is required!</div>
+                <div *ngIf="f.passwords.controls.password.errors.maxlength">Password should contain no more than 50
+                  characters!!</div>
+                <div *ngIf="f.passwords.controls.password.errors.minlength">Password should contain more than 6
+                  characters!</div>
+                <div *ngIf="f.passwords.controls.password.errors.whitespace">Password can't be blank space only!</div>
               </div>
             </div>
             <div>
@@ -42,10 +49,17 @@
               <input type="password" formControlName="confirmPassword" class="form-control"
                 [ngClass]="{ 'is-invalid': checkError('passwords') || checkGroupError('confirmPassword') }" />
               <div *ngIf="checkError('passwords')" class="invalid-feedback">
-                <div *ngIf="f.passwords.errors.matched">Password is not matched</div>
+                <div *ngIf="f.passwords.errors.matched">Password is not matched!</div>
               </div>
               <div *ngIf="checkGroupError('confirmPassword')" class="invalid-feedback">
-                <div *ngIf="f.passwords.controls.confirmPassword.errors.required">Confirm password is required</div>
+                <div *ngIf="f.passwords.controls.confirmPassword.errors.required">Confirm password is required!</div>
+                <div *ngIf="f.passwords.controls.confirmPassword.errors.maxlength">Password should contain no more than
+                  50
+                  characters!!</div>
+                <div *ngIf="f.passwords.controls.confirmPassword.errors.minlength">Password should contain more than 6
+                  characters!</div>
+                <div *ngIf="f.passwords.controls.confirmPassword.errors.whitespace">Password can't be blank space only!
+                </div>
               </div>
             </div>
           </div>

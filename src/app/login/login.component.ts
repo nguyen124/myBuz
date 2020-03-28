@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/security/auth.service';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +20,15 @@ export class LoginComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _authSvc: AuthService) {
+    private _authSvc: AuthService,
+    private _systemSvc: SystemService) {
     this.returnUrl = this._route.snapshot.queryParamMap.get('returnUrl') || '/';
   }
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.maxLength(50)]],
+      password: ['', [Validators.required]]
     })
   }
 

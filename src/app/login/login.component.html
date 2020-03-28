@@ -7,11 +7,13 @@
           <h5 *ngIf="error" class="alert-danger">{{error}}</h5>
           <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="on">
             <div class="form-label-group">
-              <label class="text-primary" for="username">Username</label>
+              <label class="text-primary" for="username">Username/Email</label>
               <input type="text" autofocus formControlName="username" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
               <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                <div *ngIf="f.username.errors.required">Username is required</div>
+                <div *ngIf="f.username.errors.required">Username is required!</div>
+                <div *ngIf="f.username.errors.maxlength">Username should contain no more than 50 characters!</div>
+                <div *ngIf="f.username.errors.whitespace">Username can't be blank space only!</div>
               </div>
             </div>
 
@@ -20,7 +22,7 @@
               <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="on" />
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.required">Password is required!</div>
               </div>
             </div>
 

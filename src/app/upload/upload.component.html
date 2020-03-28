@@ -20,8 +20,8 @@
                   <input type="text" formControlName="title" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('title') }">
                   <div *ngIf="checkError('title')" class="invalid-feedback">
-                    <div *ngIf="f.title.errors.required">Title is required</div>
-                    <div *ngIf="f.title.errors.whitespace">Title can't be blank space</div>
+                    <div *ngIf="f.title.errors.required">Title is required!</div>
+                    <div *ngIf="f.title.errors.whitespace">Title can't be blank space!</div>
                   </div>
                 </div>
               </div>
@@ -58,13 +58,14 @@
               </div>
               <div class="row mb-3">
                 <div class="col-md-12 mb-3">
-                  <label class="text-primary" for="description"><strong>Description (max 500
-                      characters)</strong></label>
+                  <label class="text-primary" for="description"><strong>Description (Optional! Max 500
+                      characters.)</strong></label>
                   <textarea type="text" formControlName="description" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('description') }"></textarea>
                   <div *ngIf="checkError('description')" class="invalid-feedback">
                     <div *ngIf="f.description.errors.maxlength">The description should contain no more 500 characters!
                     </div>
+                    <div *ngIf="f.description.errors.whitespace">The description can't be blank space only!</div>
                   </div>
                 </div>
               </div>
