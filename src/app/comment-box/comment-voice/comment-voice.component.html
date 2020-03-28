@@ -1,6 +1,6 @@
 <div *ngIf="voicePreviewSrc" id="previewVoiceDiv" class="row m-0">
-    <div class="col-md-12 col-sm-12 col-xs-12 p-0" style="max-width: 300px;">
-        <audio id='audioId' controls>
+    <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+        <audio id='audioId' style="max-width: 100%;" controls>
             <source id='voice' [src]='voicePreviewSrc' type='audio/mpeg'>
         </audio>
         <ng-content></ng-content>

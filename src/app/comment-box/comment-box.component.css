@@ -27,9 +27,3 @@ div.editable {
 .pull-right {
     float: right;
 }
-
-.upright-corner {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}

@@ -79,3 +79,9 @@ html {
 .overflow-hidden:hover a {
     display: inline-flex !important;
 }
+
+.upright-corner {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
