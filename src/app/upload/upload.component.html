@@ -65,7 +65,6 @@
                   <div *ngIf="checkError('description')" class="invalid-feedback">
                     <div *ngIf="f.description.errors.maxlength">The description should contain no more 500 characters!
                     </div>
-                    <div *ngIf="f.description.errors.whitespace">The description can't be blank space only!</div>
                   </div>
                 </div>
               </div>
@@ -80,7 +79,10 @@
                       (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
                       [ngClass]="{'is-invalid' : checkError('file')}">
                     <div *ngIf="checkError('file')" class="invalid-feedback">
-                      <div *ngIf="f.file.errors.required">File is required</div>
+                      <div *ngIf="f.file.errors.required">File is required!</div>
+                      <ng-container *ngIf="f.file.errors.largeFile">
+                        <div *ngIf="f.file.errors.largeFile">Each uploaded file can't be larger than 10MB!</div>
+                      </ng-container>
                     </div>
                   </div>
                 </div>
@@ -92,23 +94,23 @@
                 </div>
               </div>
               <div class="form-row mb-3">
-                <div *ngIf="previewMediaSrcs && previewMediaSrcs.length; let i = index" class="col-md-12 mb-3">
-                  <ng-container *ngFor="let previewMediaSrc of previewMediaSrcs">
-                    <div *ngIf="previewMediaSrc.fileType.match('image*')">
-                      <img [src]="previewMediaSrc.url" class="img-fluid img-thumbnail" id="previewImg">
+                <ng-container *ngIf="previewMediaSrcs && previewMediaSrcs.length">
+                  <ng-container *ngFor="let previewMediaSrc of previewMediaSrcs; let i = index">
+                    <div class="col-6" *ngIf="previewMediaSrc.fileType.match('image*')">
+                      <img [src]="previewMediaSrc.url" class="mw-100 m-2" id="previewImg">
                       <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div *ngIf="previewMediaSrc.fileType.match('video*')">
-                      <video [src]="previewMediaSrc.url" controls class="video img-fluid img-thumbnail">
+                    <div class="col-6" *ngIf="previewMediaSrc.fileType.match('video*')">
+                      <video [src]="previewMediaSrc.url" controls class="mw-100 m-2">
                       </video>
                       <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                   </ng-container>
-                </div>
+                </ng-container>
               </div>
             </div>
           </div>

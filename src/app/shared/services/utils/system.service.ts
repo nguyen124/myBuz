@@ -70,6 +70,30 @@ export class SystemService {
     return isValid ? null : { whitespace: true };
   }
 
+  checkFileMaxSize(control: FormControl) {
+    let files = control.value;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].size / (1024 * 1024) > 10) {
+          return { largeFile: true };
+        }
+      }
+    }
+    // let errorIndexes = [];
+    // if (files) {
+    //   for (let i = 0; i < files.length; i++) {
+    //     if (files[i].size / (1024 * 1024) > 10) {
+    //       errorIndexes.push(i);
+    //     }
+    //   }
+    //   if (errorIndexes.length > 0) {
+    //     return { largeFile: errorIndexes };
+    //   }
+    //   return null;
+    // }
+    return null;
+  }
+
   checkError(form: FormGroup, field: string, submitted: boolean) {
     var f = form.controls;
     return ((form.pristine && f[field].touched) || submitted) && f[field].errors;

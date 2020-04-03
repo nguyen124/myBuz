@@ -1,6 +1,9 @@
-.container {
-    max-width: 90%;
+@media (min-width: 575.98px) {
+    .container {
+        max-width: 95%;
+    }
 }
+
 
 .picture-frame {
     height: 100%;

@@ -20,13 +20,13 @@
               <div class="col-md-3 col-sm-2">
                 <img class="rounded mw-100" src="{{item.createdBy.avatar}}" alt="Avatar">
               </div>
-              <div class="col-md-9 col-sm-10 text-success">
-                {{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}
+              <div class="col-md-9 col-sm-10 text-success mt-1">
+                <strong>{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}</strong>
               </div>
             </div>
             <div class="row text-overflow mb-1">
               <div class="col-12">
-                <div class="text-success font-18 font-weight-bold">{{item.title}}</div>
+                <div class="text-success font-weight-bold">{{item.title}}</div>
               </div>
             </div>
             <div class="row overflow-hidden">
@@ -42,21 +42,23 @@
                 <app-react [item]="item"></app-react>
               </div>
             </div>
-            <div *ngIf="item.files" class="row">
+            <div *ngIf="item.files" class="row mt-3">
               <ng-container *ngIf="item.files.length >1; else shortPost">
                 <div *ngFor="let file of item.files; let i = index;" class="col-6">
-                  <img *ngIf="file.fileType.match('image*')" class="mw-100 m-2" [src]="file.url" alt="Unavailable">
-                  <video *ngIf="file.fileType.match('video*')" controls class="video mw-100 m-2" [src]="file.url"
+                  <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden" [src]="file.url" alt="Unavailable">
+                  <video *ngIf="file.fileType.match('video*')" controls class="video mw-100 overflow-hidden" [src]="file.url"
                     alt="Unavailable">
                   </video>
                 </div>
               </ng-container>
               <ng-template #shortPost>
-                <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 m-2" [src]="item.files[0].url"
+                <div class="col-12">
+                <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 overflow-hidden" [src]="item.files[0].url"
                   alt="Unavailable">
-                <video *ngIf="item.files[0].fileType.match('video*')" controls class="video mw-100 m-2"
+                <video *ngIf="item.files[0].fileType.match('video*')" controls class="video mw-100 overflow-hidden"
                   [src]="item.files[0].url" alt="Unavailable">
                 </video>
+              </div>
               </ng-template>
             </div>
 

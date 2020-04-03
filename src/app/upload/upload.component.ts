@@ -42,10 +42,10 @@ export class UploadComponent implements OnInit {
   initForm() {
     this.itemForm = this._fb.group({
       title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
-      file: ['', FileValidatorDirective.validate],
+      file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
       categories: [''],
       tags: [''],
-      description: ['', [Validators.maxLength(500), this._systemSvc.nonSpaceString]],
+      description: ['', [Validators.maxLength(500)]],
     });
   }
 
@@ -106,6 +106,7 @@ export class UploadComponent implements OnInit {
               tags: this.parsedTags,
               categories: [this.f.categories.value],
               title: this.f.title.value,
+              description: this.f.description.value == null ? '' : this.f.description.value.trim(),
               files: uploadedResults
             };
 
@@ -139,5 +140,11 @@ export class UploadComponent implements OnInit {
     this.isUploading = false;
     this.submitted = false;
     this.parsedTags = [];
+  }
+
+  removePreviewMedia(index) {
+    this.previewMediaSrcs.splice(index, 1);
+    this.uploadedFiles.splice(index, 1);
+    return false;
   }
 }

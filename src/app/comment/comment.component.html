@@ -1,17 +1,15 @@
-<div class="row">
+<div class="row hover-high-light">
   <div class="col-md-2 col-sm-2 text-success">
-    <div class="row">
-      <strong><span style="font-size: 10px;">{{comment.writtenBy['username']}}</span></strong>
-    </div>
-    <div class="row">
+    <div class="row text-overflow">
+      <div class="mt-1"><strong>{{comment.writtenBy['username']}}</strong></div>
       <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy['avatar']}}" alt="Avatar">
     </div>
   </div>
   <div class="col-md-10 col-sm-10 mt-2">
     <div *ngFor="let obj of comment.content; let i = index">
-      <div *ngIf="obj.fileTdype == 'text' && obj.url.trim()"> {{obj.url}}</div>
-      <app-comment-pic *ngIf="obj.fileTdype == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
-      <app-comment-voice *ngIf="obj.fileTdype == 'sound'" [voicePreviewSrc]="obj.url">
+      <div *ngIf="obj.fileType == 'text' && obj.url.trim()"> {{obj.url}}</div>
+      <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+      <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
       </app-comment-voice>
     </div>
     <div>
@@ -24,10 +22,10 @@
 </div>
 
 <div *ngFor="let reply of comment.replies; let i = index">
-  <div class="row">
+  <div class="row hover-high-light">
     <div class="col-md-2 col-sm-2">
-      <div class="row">
-        <strong><span class="text-success" style="font-size: 10px;">{{reply.writtenBy['username']}}</span></strong>
+      <div class="row text-overflow">
+        <div class="text-success"><strong>{{reply.writtenBy['username']}}</strong></div>
       </div>
       <div class="row">
         <img class="w-75 xs-w-15 rounded" src="{{reply.writtenBy['avatar']}}" alt="Avatar">
@@ -36,9 +34,9 @@
 
     <div class="col-md-10 col-sm-10 mt-2">
       <div>
-        <a *ngIf="reply.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 reply-comment'
+        <a *ngIf="reply.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 mw-100 reply-comment text-overflow'
           (mouseenter)='reply.showToolTip = true;' (mouseout)="reply.showToolTip = false;">
-          @{{reply.replyTo.writtenBy.username}}:&nbsp;
+          <div>@{{reply.replyTo.writtenBy.username}}:</div>
         </a>
         <app-tooltip [comment]="reply.replyTo" [showToolTip]="reply.showToolTip">
         </app-tooltip>
