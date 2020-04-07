@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../model/user';
 import { Observable } from 'rxjs';
-import { AuthService } from './security/auth.service';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private _http: HttpClient, private _authSvc: AuthService) { }
+  constructor(private _http: HttpClient) { }
 
   register(user: IUser): Observable<any> {
     return this._http.post("/svc/user/register", user);

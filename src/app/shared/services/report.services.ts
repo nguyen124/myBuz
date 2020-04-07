@@ -19,4 +19,8 @@ export class ReportService {
         var reportedComment = commentId ? "&reportedCommentId=" + commentId : "";
         return this._http.delete("/svc/reports?reportedItemId=" + itemId + reportedComment);
     }
+
+    getReports(params): Observable<IReport[]> {
+        return this._http.get<IReport[]>("/svc/reports", { params: params });
+    }
 }

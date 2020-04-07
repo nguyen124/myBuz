@@ -1,38 +1,36 @@
 <form [formGroup]="userForm" (ngSubmit)="updateUser()" autocomplete="on">
-  <div class="row">
-    <h5 *ngIf="userForm.invalid && error" class="text-center text-danger">Update failed. Something wrong happened!</h5>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-      <div class="form-group text-center">
-        <input type="file" formControlName="file" id="fileUpload" style="display: none;"
-          accept="audio/*, video/*, image/*">
-        <a (click)="chooseFile()" href="javascript:void(0)">
-          <img id="avatar" class="w-100 rounded" />
-        </a>
-      </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input id="username" formControlName="username" class="form-control" type="text"
-          [ngClass]="{ 'is-invalid': checkError('username') }">
-        <div *ngIf="checkError('username')" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required">Username is required</div>
-          <div *ngIf="f.username.errors.whitespace">Username can't be blank space</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="dob">Birthday</label>
-        <input id="dob" formControlName="dob" class="form-control" type="date">
-      </div>
-      <div class="form-group">
-        <label for="gender">Gender</label>
-        <select formControlName="gender" class="form-control">
+    <div class="row">
+        <h5 *ngIf="userForm.invalid && error" class="text-center text-danger">Update failed. Something wrong happened!</h5>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group text-center">
+                <input type="file" formControlName="file" id="fileUpload" style="display: none;" accept="audio/*, video/*, image/*">
+                <a (click)="chooseFile()" href="javascript:void(0)">
+                    <img id="avatar" class="mw-100 rounded" />
+                </a>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" formControlName="username" class="form-control" type="text" [ngClass]="{ 'is-invalid': checkError('username') }">
+                <div *ngIf="checkError('username')" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Username is required</div>
+                    <div *ngIf="f.username.errors.whitespace">Username can't be blank space</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dob">Birthday</label>
+                <input id="dob" formControlName="dob" class="form-control" type="date">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select formControlName="gender" class="form-control">
           <option value=""></option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label for="nationality">Nationality</label>
-        <select id="nationality" formControlName="nationality" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="nationality">Nationality</label>
+                <select id="nationality" formControlName="nationality" class="form-control">
           <option value=""></option>
           <option value="AF">Afghanistan</option>
           <option value="AX">Åland Islands</option>
@@ -284,15 +282,13 @@
           <option value="ZM">Zambia</option>
           <option value="ZW">Zimbabwe</option>
         </select>
-      </div>
-      <div class="form-group">
-        <button [disabled]="!hasChangedValues()" type="button" class="mr-2"
-          [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">Cancel</button>
-        <button [disabled]="!hasChangedValues()" type="submit"
-          [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">Update</button>
-      </div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="!hasChangedValues()" type="button" class="mr-2" [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">Cancel</button>
+                <button [disabled]="!hasChangedValues()" type="submit" [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">Update</button>
+            </div>
+        </div>
     </div>
-  </div>
 </form>
 <!-- {{ userForm.value | json }} -->
 <!-- {{user | json}} -->
