@@ -1,48 +1,44 @@
 <div>
-  <div class="row text-overflow">
-    <div class="col-sm-2 col-md-3 pr-0">
-      <img class="rounded avatar" src="{{item.createdBy['avatar']}}" alt="Avatar">
+    <div class="row text-overflow">
+        <div class="col-sm-2 col-md-3 pr-0">
+            <img class="rounded avatar" src="{{item.createdBy['avatar']}}" alt="Avatar">
+        </div>
+        <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy['username']}}
+        </div>
     </div>
-    <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy['username']}}
-    </div>
-  </div>
-  <div class="row text-overflow">
-    <div class="col-12">
-      <div class="text-success font-weight-bold">{{item.title}}</div>
-    </div>
-  </div>
-  <div>
-    <ng-container *ngIf="isShowingTag">
-      <div class="row overflow-hidden">
+    <div class="row text-overflow">
         <div class="col-12">
-          <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl"
-            [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
-          <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag}"
-            class="mr-1">#{{tag}}</a>
+            <div class="text-success font-weight-bold">{{item.title}}</div>
         </div>
-      </div>
-    </ng-container>
-    <div class="row text-success">
     </div>
-    <div class="row">
-      <div class="col-12">
-        <app-react [item]="item">
-          <ng-content></ng-content>
-        </app-react>
-      </div>
+    <div>
+        <ng-container *ngIf="isShowingTag">
+            <div class="row overflow-hidden">
+                <div class="col-12">
+                    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
+                    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag}" class="mr-1">#{{tag}}</a>
+                </div>
+            </div>
+        </ng-container>
+        <div class="row text-success">
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <app-react [item]="item">
+                    <ng-content></ng-content>
+                </app-react>
+            </div>
+        </div>
     </div>
-  </div>
-  <ng-container *ngIf="item.files && item.files.length > 0">
-    <div class="picture-frame">
-      <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
-        <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail" [src]="item.files[0].url"
-          alt="Unavailable">
-        <video *ngIf="item.files[0].fileType.match('video*')" controls
-          class="video img-fluid img-thumbnail not-playable" [src]="item.files[0].url" alt="Unavailable">
+    <ng-container *ngIf="item.files && item.files.length > 0">
+        <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.description}}">
+            <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
+                <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail" [src]="item.files[0].url" alt="Unavailable">
+                <video *ngIf="item.files[0].fileType.match('video*')" controls class="video img-fluid img-thumbnail not-playable" [src]="item.files[0].url" alt="Unavailable">
         </video>
-        <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long post</strong>
+                <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long post</strong>
+                </div>
+            </a>
         </div>
-      </a>
-    </div>
-  </ng-container>
+    </ng-container>
 </div>

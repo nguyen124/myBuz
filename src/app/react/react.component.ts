@@ -70,12 +70,13 @@ export class ReactComponent implements OnInit {
   }
 
   showItemModal() {
-    this._itemSvc.getItems({ id: this.item._id }).subscribe(newItems => {
-      if (newItems.length > 0) {
-        this.item.hasUpvoted = newItems[0].hasUpvoted;
-        this.item.hasDownvoted = newItems[0].hasDownvoted;
-        this.item.noOfComments = newItems[0].noOfComments;
-        this.item.noOfPoints = newItems[0].noOfPoints;
+    this._itemSvc.getItemById(this.item._id).subscribe(newItem => {
+      if (newItem) {
+        this.item.hasUpvoted = newItem.hasUpvoted;
+        this.item.hasDownvoted = newItem.hasDownvoted;
+        this.item.noOfComments = newItem.noOfComments;
+        this.item.noOfPoints = newItem.noOfPoints;
+        this.item.noOfViews = newItem.noOfViews;
         this._commSvc.changeItem(this.item);
       }
     });

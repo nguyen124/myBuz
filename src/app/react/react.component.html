@@ -7,21 +7,18 @@
             {{item.noOfPoints | pointPipe}}</i></button>
     <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-comment-o">
             {{item.noOfComments | pointPipe}}</i></button>
-    <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="menu" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"></button>
+    <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-eye">
+                {{item.noOfViews | pointPipe}}</i></button>
+    <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
     <div class="dropdown-menu" aria-label="menu">
         <!--,'pinterest','reddit'-->
-        <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter']" [show]="2"
-            url="https://us-central1-m2meme.cloudfunctions.net/app?title={{item.title}}&image={{item.files[0].url}}&description={{item.description}}&id={{item._id}}?url=https://me2meme.com/?id={{item._id}}">
+        <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter']" [show]="2" url="https://us-central1-m2meme.cloudfunctions.net/app?title={{item.title}}&image={{item.files[0].url}}&description={{item.description}}&id={{item._id}}?url=https://me2meme.com/?id={{item._id}}">
         </share-buttons>
 
-        <div class="text-danger"
-            *ngIf="authSvc.user && !(authSvc.user.username == item.createdBy['username']) && authSvc.user.role != 'ADMIN'">
+        <div class="text-danger" *ngIf="authSvc.user && !(authSvc.user.username == item.createdBy['username']) && authSvc.user.role != 'ADMIN'">
             <div class="dropdown-divider"></div>
             <div *ngIf="!item.hasReported; else elseBlock">
-                <button class="btn dropdown-item text-primary pl-0 ml-1"
-                    [ngClass]="selectedOptions.length < 1 ? 'text-secondary' : ''" href="javascript:void(0)"
-                    (click)="reportItem(item)" [disabled]="selectedOptions.length < 1">Report</button>
+                <button class="btn dropdown-item text-primary pl-0 ml-1" [ngClass]="selectedOptions.length < 1 ? 'text-secondary' : ''" href="javascript:void(0)" (click)="reportItem(item)" [disabled]="selectedOptions.length < 1">Report</button>
                 <div class="mt-2 ml-3">
                     <div *ngFor="let option of options">
                         <label>
