@@ -8,8 +8,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
+import { AdminModule } from './admin/admin.module';
 
-import { AdminComponent } from './admin/admin.component';
 import { AppComponent } from './app.component';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { CommentComponent } from './comment/comment.component';
@@ -63,7 +63,6 @@ let jQuery: any = window['$'];
 
 @NgModule({
   declarations: [
-    AdminComponent,
     AppComponent,
     CommentComponent,
     CommentBoxComponent,
@@ -111,6 +110,7 @@ let jQuery: any = window['$'];
     ReactiveFormsModule,
     ShareButtonsModule,
     UsersModule,
+    AdminModule,
     ToastrModule.forRoot(),
     routing
   ],
