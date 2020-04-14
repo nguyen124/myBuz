@@ -2,17 +2,21 @@
     <div class="row hover-high-light">
         <div class="col-12">
             <div class="row">
-                <div class="col-4">Item: {{report.reportedItemId}}</div>
-                <div class="col-4">Comment: {{report.reportedCommentId}}</div>
-                <div class="col-4">Reason: {{report.reasons | reasonPipe}}</div>
+                <div class="col-3">Item: {{report.reportedItemId}}</div>
+                <div class="col-3">Comment: {{report.reportedCommentId}}</div>
+                <div class="col-3">Reason: {{report.reasons | reasonPipe}}</div>
+                <div class="col-3">
+                    <button class="btn-primary mr-1 d-inline" (click)="ignoreReport(i, report.reportedItemId, report.reportedCommentId)">Ignore</button>
+                    <button class="btn-primary mr-1 d-inline" (click)="accepReportAndDelete(i, report.reportedItemId, report.reportedCommentId)">Delete</button>
+                </div>
             </div>
             <div class="row">
                 <div class="col-3" *ngFor="let file of report.content">
                     <img *ngIf="file.fileType.match('image*')" class="img-fluid img-thumbnail" [src]="file.url" alt="Unavailable">
                     <video *ngIf="file.fileType.match('video*')" controls class="video img-fluid img-thumbnail not-playable" [src]="file.url" alt="Unavailable">
                         </video>
-                    <div *ngIf="file.fileType == 'text' && obj.url.trim()">
-                        {{obj.url}}
+                    <div *ngIf="file.fileType == 'text' && file.url.trim()">
+                        {{file.url}}
                     </div>
                     <audio *ngIf="file.fileType == 'sound'" id='audioId' style="max-width: 100%;" controls>
                         <source id='voice' [src]='file.url' type='audio/mpeg'>

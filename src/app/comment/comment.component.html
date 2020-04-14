@@ -1,86 +1,79 @@
 <div class="row hover-high-light">
-  <div class="col-md-2 col-sm-2 text-success">
-    <div class="row text-overflow">
-      <div class="mt-1"><strong>{{comment.writtenBy['username']}}</strong></div>
-      <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy['avatar']}}" alt="Avatar">
+    <div class="col-md-2 col-sm-2 text-success">
+        <div class="row text-overflow">
+            <div class="mt-1"><strong>{{comment.writtenBy['username']}}</strong></div>
+            <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy['avatar']}}" alt="Avatar">
+        </div>
     </div>
-  </div>
-  <div class="col-md-10 col-sm-10 mt-2">
-    <div *ngFor="let obj of comment.content; let i = index">
-      <div *ngIf="obj.fileType == 'text' && obj.url.trim()"> {{obj.url}}</div>
-      <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
-      <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
-      </app-comment-voice>
+    <div class="col-md-10 col-sm-10 mt-2">
+        <div *ngFor="let obj of comment.content; let i = index">
+            <div *ngIf="obj.fileType == 'text' && obj.url.trim()"> {{obj.url}}</div>
+            <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+            <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
+            </app-comment-voice>
+        </div>
+        <div>
+            <app-comment-react [comment]="comment"></app-comment-react>
+            <i class="btn btn-xs fa fa-comment text-success" (click)="showReplies(comment._id)">{{comment.noOfReplies}}</i>
+            <i class="btn-xs fa fa-star mr-1 text-primary">{{comment.noOfPoints}}</i>
+            <ng-content></ng-content>
+        </div>
     </div>
-    <div>
-      <app-comment-react [comment]="comment"></app-comment-react>
-      <i class="btn btn-xs fa fa-comment text-success" (click)="showReplies(comment._id)">{{comment.noOfReplies}}</i>
-      <i class="btn-xs fa fa-star mr-1 text-primary">{{comment.noOfPoints}}</i>
-      <ng-content></ng-content>
-    </div>
-  </div>
 </div>
 
 <div *ngFor="let reply of comment.replies; let i = index">
-  <div class="row hover-high-light">
-    <div class="col-md-2 col-sm-2">
-      <div class="row text-overflow">
-        <div class="text-success"><strong>{{reply.writtenBy['username']}}</strong></div>
-      </div>
-      <div class="row">
-        <img class="w-75 xs-w-15 rounded" src="{{reply.writtenBy['avatar']}}" alt="Avatar">
-      </div>
-    </div>
-
-    <div class="col-md-10 col-sm-10 mt-2">
-      <div>
-        <a *ngIf="reply.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 mw-100 reply-comment text-overflow'
-          (mouseenter)='reply.showToolTip = true;' (mouseout)="reply.showToolTip = false;">
-          <div>@{{reply.replyTo.writtenBy.username}}:</div>
-        </a>
-        <app-tooltip [comment]="reply.replyTo" [showToolTip]="reply.showToolTip">
-        </app-tooltip>
-      </div>
-      <div *ngFor="let obj of reply.content; let i = index">
-        <div *ngIf="obj.fileType == 'text' && obj.url.trim()">
-          {{obj.url}}
+    <div class="row hover-high-light">
+        <div class="col-md-2 col-sm-2">
+            <div class="row text-overflow">
+                <div class="text-success"><strong>{{reply.writtenBy['username']}}</strong></div>
+            </div>
+            <div class="row">
+                <img class="w-75 xs-w-15 rounded" src="{{reply.writtenBy['avatar']}}" alt="Avatar">
+            </div>
         </div>
-        <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
-        <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
-        </app-comment-voice>
-      </div>
-      <div>
-        <audio *ngIf="reply.url" class="voice-comment" controls>
+
+        <div class="col-md-10 col-sm-10 mt-2">
+            <div>
+                <a *ngIf="reply.replyTo" href='javascript:void()' class='btn m-0 p-0 mb-1 mw-100 reply-comment text-overflow' (mouseenter)='reply.showToolTip = true;' (mouseout)="reply.showToolTip = false;">
+                    <div>@{{reply.replyTo.writtenBy.username}}:</div>
+                </a>
+                <app-tooltip [comment]="reply.replyTo" [showToolTip]="reply.showToolTip">
+                </app-tooltip>
+            </div>
+            <div *ngFor="let obj of reply.content; let i = index">
+                <div *ngIf="obj.fileType == 'text' && obj.url.trim()">
+                    {{obj.url}}
+                </div>
+                <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+                <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
+                </app-comment-voice>
+            </div>
+            <div>
+                <audio *ngIf="reply.url" class="voice-comment" controls>
           <source [src]="reply.url" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
-      </div>
-      <div>
-        <app-comment-react [comment]="reply">
-        </app-comment-react>
-        <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
-        <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showReplyCommentBox(i)"></i>
-        <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
+            </div>
+            <div>
+                <app-comment-react [comment]="reply">
+                </app-comment-react>
+                <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
+                <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showReplyCommentBox(i)"></i>
+                <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         </button>
-        <div class="dropdown-menu">
-          <a href="javascript:void(0)" (click)="editReply(i)" class="ml-1 d-block"
-            *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
-          <a href="javascript:void(0)" (click)="deleteComment(i, reply)" class="ml-1 d-block"
-            *ngIf="authSvc.user && (authSvc.user.username == reply.writtenBy.username || authSvc.user.role ==='ADMIN')">Delete</a>
-          <app-report [comment]="reply"></app-report>
+                <div class="dropdown-menu">
+                    <a href="javascript:void(0)" (click)="editReply(i)" class="ml-1 d-block" *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
+                    <a href="javascript:void(0)" (click)="deleteComment(i, reply.itemId, reply._id)" class="ml-1 d-block" *ngIf="authSvc.user && (authSvc.user.username == reply.writtenBy.username || authSvc.user.role ==='ADMIN')">Delete</a>
+                    <app-report [comment]="reply"></app-report>
+                </div>
+                <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox" [isEditting]="reply.isEditting" [isEditting]="comment.isEditting" (editingCommentDone)="handleEditingReplyCommentDone($event)">
+                    <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
+                </app-comment-box>
+            </div>
         </div>
-        <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
-          [isEditting]="reply.isEditting" [isEditting]="comment.isEditting"
-          (editingCommentDone)="handleEditingReplyCommentDone($event)">
-          <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
-        </app-comment-box>
-      </div>
     </div>
-  </div>
 </div>
 
 <div *ngIf="isShowingReply && comment.replies.length > 0" class="row mt-2">
-  <a href="javascript:void(0)" (click)="showMoreReplies(comment._id)" class="btn-xs btn-primary d-inline"
-    role="button">More replies <i class="fa fa-angle-double-right"></i> </a>
+    <a href="javascript:void(0)" (click)="showMoreReplies(comment._id)" class="btn-xs btn-primary d-inline" role="button">More replies <i class="fa fa-angle-double-right"></i> </a>
 </div>

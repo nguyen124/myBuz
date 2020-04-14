@@ -41,8 +41,8 @@ export class CommentService {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies", { params: params });
     }
 
-    deleteComment(comment: IComment): Observable<any> {
-        return this._http.delete(`/svc/items/${comment.itemId}/comments/${comment._id}`);
+    deleteComment(itemId: string, commentId: string): Observable<any> {
+        return this._http.delete(`/svc/items/${itemId}/comments/${commentId}`);
     }
 
     getCommentById(commentId) {
