@@ -87,7 +87,8 @@ export class ReactComponent implements OnInit {
     if (reasons.length > 0) {
       var report = {
         reportedItemId: item._id,
-        reasons: reasons
+        reasons: reasons,
+        content: item.files
       };
       this._reportSvc.createReport(report).subscribe(res => {
         item.hasReported = true;

@@ -4,10 +4,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AdminComponent } from './admin/admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { ReasonPipe } from '../shared/pipe/reason.pipe';
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    ReasonPipe
   ],
   imports: [
     CommonModule,

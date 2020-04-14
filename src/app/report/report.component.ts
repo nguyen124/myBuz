@@ -39,6 +39,12 @@ export class ReportComponent implements OnInit {
       var report = {
         reportedItemId: comment.itemId,
         reportedCommentId: comment._id,
+        content: comment.content.map(comm => {
+          return {
+            url: comm.url,
+            fileType: comm.fileType
+          }
+        }),
         reasons: reasons
       };
       this._reportSvc.createReport(report).subscribe(res => {
