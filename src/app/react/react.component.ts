@@ -90,19 +90,17 @@ export class ReactComponent implements OnInit {
         reasons: reasons,
         content: item.files
       };
-      this._reportSvc.createReport(report).subscribe(res => {
-        item.hasReported = true;
-        this._toastr.success("Report submitted!")
-      }, err => {
-        this._toastr.error("Couldn't submit report!")
+      this._reportSvc.createReport(report).subscribe(res => {        
+        this._toastr.success("Thank you for helping us improve the quality of contents!");
+      }, err => {     
+        this._toastr.error(err.error.errors.message);
       });
     }
   }
 
   cancelReportItem(item: IItem) {
     this._reportSvc.cancelReport(item._id).subscribe(res => {
-      this._toastr.success("Report canceled!")
-      item.hasReported = false
+      this._toastr.success("Report canceled!")      
     }, err => {
       this._toastr.error("Couldn't cancel report!")
     });

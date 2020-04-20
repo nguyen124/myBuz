@@ -9,8 +9,7 @@ export interface IComment extends Mask {
     noOfPoints?: number;
     noOfReplies?: number;
     hasUpvoted?: boolean;
-    hasDownvoted?: boolean;
-    hasReported?: boolean;
+    hasDownvoted?: boolean;    
     replies?: IComment[];
     replyTo: any;
 }

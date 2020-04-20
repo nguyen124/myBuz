@@ -47,21 +47,19 @@ export class ReportComponent implements OnInit {
         }),
         reasons: reasons
       };
-      this._reportSvc.createReport(report).subscribe(res => {
-        comment.hasReported = true;
-        this._toastr.success("Report submitted!")
+      this._reportSvc.createReport(report).subscribe(res => {        
+        this._toastr.success("Thank you for helping us improve the quality of contents!");
       }, err => {
-        this._toastr.error("Couldn't submit report!")
+        this._toastr.error("Couldn't submit report!");
       })
     }
   }
 
   cancelReportComment(comment: IComment) {
     this._reportSvc.cancelReport(comment.itemId, comment._id).subscribe(res => {
-      this._toastr.success("Report canceled!")
-      comment.hasReported = false
+      this._toastr.success("Report canceled!");      
     }, err => {
-      this._toastr.error("Couldn't cancel report!")
+      this._toastr.error("Couldn't cancel report!");
     })
   }
 }
