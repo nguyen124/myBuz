@@ -10,6 +10,7 @@ export interface IItem {
   noOfViews?: number;
   noOfComments?: number;
   hasUpvoted?: boolean;
-  hasDownvoted?: boolean;  
+  hasDownvoted?: boolean;
+  hasReported?: boolean;
   description?: string;
 }
