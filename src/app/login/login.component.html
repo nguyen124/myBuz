@@ -17,7 +17,7 @@
               </div>
             </div>
 
-            <div class="form-label-group">
+            <div class="form-label-group mb-3">
               <label class="text-primary" for="password">Password</label>
               <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="on" />
@@ -26,13 +26,10 @@
               </div>
             </div>
 
-            <div class="custom-control custom-checkbox mb-3">
-              <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label text-primary" for="customCheck1">Remember password</label>
-            </div>
             <div class="row">
               <div class="col-md-6">
                 <button class="btn-success btn-lg btn-block " type="submit" value="Submit">Sign in</button>
+                <a href="/requestResetPassword">Forget password?</a>
               </div>
               <div class="col-md-6">
                 <a class="btn-primary btn-lg btn-block text-center" href="/register">Register</a>

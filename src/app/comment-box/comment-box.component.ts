@@ -10,7 +10,6 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IComment } from '../shared/model/comment';
-import { CommentService } from '../shared/services/comment.services';
 
 @Component({
   selector: 'app-comment-box',
@@ -62,7 +61,6 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   commentContent: Array<object> = [];
 
   constructor(
-    private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     private _voiceSvc: VoiceMessageServiceService,
     private _systemSvc: SystemService,

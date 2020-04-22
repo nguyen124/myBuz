@@ -58,6 +58,8 @@ import { TooltipDirective } from './shared/directive/tooltip.directive';
 import { MergeQueryParamsDirective } from './shared/directive/merge-query-params.directive';
 import { FileValidatorDirective } from './upload/file-validator.directive';
 import { FileValueAccessor } from './upload/file-control-value-accessor';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 
 let jQuery: any = window['$'];
 
@@ -93,7 +95,9 @@ let jQuery: any = window['$'];
     TooltipDirective,
     MergeQueryParamsDirective,
     FileValueAccessor,
-    FileValidatorDirective
+    FileValidatorDirective,
+    ResetPasswordComponent,
+    ResetPasswordFormComponent
   ],
   entryComponents: [TooltipComponent],
   imports: [

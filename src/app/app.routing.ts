@@ -8,12 +8,16 @@ import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { MyItemsComponent } from './my-items/my-items.component';
 import { SaveLoginComponent } from './save-login/save-login.component';
 import { AdminAuthGuard } from './shared/guard/adminGuard';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'requestResetPassword', component: ResetPasswordComponent },
+    { path: 'resetPassword', component: ResetPasswordFormComponent },
     { path: 'savelogin', component: SaveLoginComponent },
     { path: 'user/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     {

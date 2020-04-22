@@ -17,4 +17,12 @@ export class UserService {
   updateUser(id: string, newInfo: any): Observable<IUser> {
     return this._http.put<IUser>("/svc/users/" + id, newInfo);
   }
+
+  requestResetPassword(email): Observable<boolean> {
+    return this._http.post<boolean>("/svc/requestResetPassword", { email: email });
+  }
+
+  resetPassword(obj): Observable<boolean> {
+    return this._http.post<boolean>("/svc/resetPassword", obj);
+  }
 }
