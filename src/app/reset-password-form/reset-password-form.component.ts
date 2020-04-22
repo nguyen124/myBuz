@@ -58,8 +58,8 @@ export class ResetPasswordFormComponent implements OnInit {
     var obj = {
       email: this.f.email.value,
       resetPasscode: this.f.resetPasscode.value,
-      password: this.f.passwords.controls.password.value,
-      confirmPassword: this.f.passwords.controls.confirmPassword.value
+      password: this.f.passwords["controls"].password.value,
+      confirmPassword: this.f.passwords["controls"].confirmPassword.value
     }
     this._userSvc.resetPassword(obj).subscribe(res => {
       if (!res) {
