@@ -107,4 +107,8 @@ export class ReactComponent implements OnInit {
       this._toastr.error("Couldn't cancel report!");
     });
   }
+
+  encodeLink(url){
+    return encodeURI(url);
+  }
 }

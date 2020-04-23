@@ -13,8 +13,8 @@
         aria-haspopup="true" aria-expanded="false"></button>
     <div class="dropdown-menu" aria-label="menu">
         <!--,'pinterest','reddit'-->
-        <share-buttons [theme]="'modern-dark'" [include]="['facebook','twitter']" [show]="2"
-            url="https://us-central1-m2meme.cloudfunctions.net/app?title={{item.title}}&image={{item.files[0].url}}&description={{item.description}}&id={{item._id}}?url=https://me2meme.com/?id={{item._id}}">
+        <share-buttons [theme]="'modern-light'" [include]="['facebook','twitter']" [show]="2"
+            url="https://us-central1-m2meme.cloudfunctions.net/app?title={{encodeLink(item.title)}}&image={{item.files[0].url}}&description={{encodeLink(item.description)}}&id={{item._id}}?url=https://me2meme.com/?id={{item._id}}">
         </share-buttons>
 
         <div class="text-danger"
