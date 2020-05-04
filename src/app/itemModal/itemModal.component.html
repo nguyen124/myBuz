@@ -45,20 +45,23 @@
             <div *ngIf="item.files" class="row mt-3">
               <ng-container *ngIf="item.files.length >1; else shortPost">
                 <div *ngFor="let file of item.files; let i = index;" class="col-6">
-                  <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden" [src]="file.url" alt="Unavailable">
-                  <video *ngIf="file.fileType.match('video*')" controls class="video mw-100 overflow-hidden" [src]="file.url"
+                  <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden" [src]="file.url"
                     alt="Unavailable">
+                  <video *ngIf="file.fileType.match('video*')" class="video mw-100 overflow-hidden" alt="Unavailable"
+                    autoplay loop controls>
+                    <source [src]="file.url">
                   </video>
                 </div>
               </ng-container>
               <ng-template #shortPost>
                 <div class="col-12">
-                <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 overflow-hidden" [src]="item.files[0].url"
-                  alt="Unavailable">
-                <video *ngIf="item.files[0].fileType.match('video*')" controls class="video mw-100 overflow-hidden"
-                  [src]="item.files[0].url" alt="Unavailable">
-                </video>
-              </div>
+                  <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 overflow-hidden"
+                    [src]="item.files[0].url" alt="Unavailable">
+                  <video *ngIf="item.files[0].fileType.match('video*')" class="video mw-100 overflow-hidden"
+                    alt="Unavailable" autoplay loop controls>
+                    <source [src]="item.files[0].url">
+                  </video>
+                </div>
               </ng-template>
             </div>
 

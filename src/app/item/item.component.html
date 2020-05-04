@@ -3,7 +3,8 @@
         <div class="col-sm-2 col-md-3 pr-0">
             <img class="rounded avatar" src="{{item.createdBy['avatar']}}" alt="Avatar">
         </div>
-        <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy['username']}}
+        <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} .
+            {{item.createdBy['username']}}
         </div>
     </div>
     <div class="row text-overflow">
@@ -15,8 +16,10 @@
         <ng-container *ngIf="isShowingTag">
             <div class="row overflow-hidden">
                 <div class="col-12">
-                    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
-                    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl" [queryParams]="{tag: tag}" class="mr-1">#{{tag}}</a>
+                    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl"
+                        [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
+                    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl"
+                        [queryParams]="{tag: tag}" class="mr-1">#{{tag}}</a>
                 </div>
             </div>
         </ng-container>
@@ -33,10 +36,14 @@
     <ng-container *ngIf="item.files && item.files.length > 0">
         <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.description}}">
             <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
-                <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail" [src]="item.files[0].url" alt="Unavailable">
-                <video *ngIf="item.files[0].fileType.match('video*')" controls class="video img-fluid img-thumbnail not-playable" [src]="item.files[0].url" alt="Unavailable">
-        </video>
-                <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long post</strong>
+                <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail"
+                    [src]="item.files[0].url" alt="Unavailable">
+                <video *ngIf="item.files[0].fileType.match('video*')" alt="Unavailable"
+                    class="video img-fluid img-thumbnail" autoplay loop muted controls oncanplay="this.muted=true">
+                    <source [src]="item.files[0].url">
+                </video>
+                <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long
+                        post</strong>
                 </div>
             </a>
         </div>
