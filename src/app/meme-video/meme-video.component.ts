@@ -22,6 +22,7 @@ export class MemeVideoComponent implements OnInit {
   }
 
   checkScroll() {
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     if (this.video) {
       var rect = this.video.nativeElement.getBoundingClientRect();
       if (
@@ -30,7 +31,9 @@ export class MemeVideoComponent implements OnInit {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
       ) {
-        this.video.nativeElement.play();
+        if (vw > 768) {
+          this.video.nativeElement.play();
+        }
       } else {
         this.video.nativeElement.pause();
       }
