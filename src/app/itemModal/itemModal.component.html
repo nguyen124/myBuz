@@ -1,4 +1,5 @@
-<button id="openModalBtn" class="d-none" data-toggle="modal" data-target="#itemDetails" data-backdrop="static">HiddenBtn</button>
+<button id="openModalBtn" class="d-none" data-toggle="modal" data-target="#itemDetails"
+  data-backdrop="static">HiddenBtn</button>
 <div *ngIf="item" class="modal fade" id="itemDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div id="myModal" name="myModal" class="modal-dialog modal-large" role="document">
@@ -47,20 +48,18 @@
                 <div *ngFor="let file of item.files; let i = index;" class="col-6">
                   <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden" [src]="file.url"
                     alt="Unavailable">
-                  <video *ngIf="file.fileType.match('video*')" class="video mw-100 overflow-hidden" alt="Unavailable"
-                    autoplay loop controls>
-                    <source [src]="file.url">
-                  </video>
+                  <ng-container *ngIf="file.fileType.match('video*')">
+                    <app-meme-video [link]="file.url" fileType="file.fileType"></app-meme-video>
+                  </ng-container>
                 </div>
               </ng-container>
               <ng-template #shortPost>
                 <div class="col-12">
                   <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 overflow-hidden"
                     [src]="item.files[0].url" alt="Unavailable">
-                  <video *ngIf="item.files[0].fileType.match('video*')" class="video mw-100 overflow-hidden"
-                    alt="Unavailable" autoplay loop controls>
-                    <source [src]="item.files[0].url">
-                  </video>
+                  <ng-container *ngIf="item.files[0].fileType.match('video*')">
+                    <app-meme-video [link]="item.files[0].url" fileType="item.files[0].fileType"></app-meme-video>
+                  </ng-container>
                 </div>
               </ng-template>
             </div>

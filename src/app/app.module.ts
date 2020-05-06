@@ -60,6 +60,7 @@ import { FileValidatorDirective } from './upload/file-validator.directive';
 import { FileValueAccessor } from './upload/file-control-value-accessor';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
+import { MemeVideoComponent } from './meme-video/meme-video.component';
 
 let jQuery: any = window['$'];
 
@@ -98,7 +99,8 @@ let jQuery: any = window['$'];
     FileValueAccessor,
     FileValidatorDirective,
     ResetPasswordComponent,
-    ResetPasswordFormComponent
+    ResetPasswordFormComponent,
+    MemeVideoComponent
   ],
   entryComponents: [TooltipComponent],
   imports: [

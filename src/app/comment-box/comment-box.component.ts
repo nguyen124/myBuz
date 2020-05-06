@@ -10,6 +10,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IComment } from '../shared/model/comment';
+import { CommentService } from '../shared/services/comment.services';
 
 @Component({
   selector: 'app-comment-box',
@@ -66,6 +67,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     private _systemSvc: SystemService,
     private _authSvc: AuthService,
     private _router: Router,
+    private _commentSvc: CommentService,
     @Inject(JQ_TOKEN) private $: any,
     private _toastr: ToastrService,
     private _san: DomSanitizer) {
