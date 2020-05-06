@@ -39,8 +39,11 @@
                 <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail"
                     [src]="item.files[0].url" alt="Unavailable">
                 <video *ngIf="item.files[0].fileType.match('video*')" alt="Unavailable"
-                    class="video img-fluid img-thumbnail" autoplay loop muted controls oncanplay="this.muted=true">
-                    <source [src]="item.files[0].url">
+                    class="video img-fluid img-thumbnail" autoplay loop muted controls="true"
+                    oncanplay="this.muted=true">
+                    <source [src]="item.files[0].url" attr.type="{{item.files[0].fileType}}">
+                    <source *ngIf="item.files[0].fileType != 'video/mp4'" [src]="item.files[0].url | mp4Pipe" type="video/mp4">
+                    <p>I'm sorry; your browser doesn't support this video format.</p>
                 </video>
                 <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long
                         post</strong>

@@ -47,7 +47,7 @@ import { AdminAuthGuard } from './shared/guard/adminGuard';
 import { DatePipe } from './shared/pipe/date.pipe';
 import { KeyPipe } from './shared/pipe/key.pipe';
 import { NumberPipe } from './shared/pipe/number.pipe';
-
+import { Mp4Pipe } from './shared/pipe/mp4.pipe';
 import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
 import { CommentPicComponent } from './comment-box/comment-pic/comment-pic.component';
@@ -72,6 +72,7 @@ let jQuery: any = window['$'];
     CommentReactComponent,
     DatePipe,
     KeyPipe,
+    Mp4Pipe,
     NumberPipe,
     FilterComponent,
     FooterComponent,
