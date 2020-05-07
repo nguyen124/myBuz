@@ -281,11 +281,11 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
 
   populateData() {
     for (var obj of this.comment.content) {
-      if (obj.type == 'text' && obj.url.trim()) {
+      if (obj.fileType == 'text' && obj.url.trim()) {
         this.textContent = obj.url;
-      } else if (obj.type == 'image') {
+      } else if (obj.fileType == 'image') {
         this.picPreviewSrc = obj.url;
-      } else if (obj.type == 'sound') {
+      } else if (obj.fileType == 'sound') {
         this.voicePreviewSrc = obj.url;
       }
     }
