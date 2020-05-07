@@ -12,13 +12,11 @@ export class ItemComponent implements OnInit {
   @Input() baseUrl: string;
   @Input() isShowingTag: boolean;
   @ViewChild(ReactComponent, { static: false }) reactCompChild: ReactComponent;
-  modifiedDate: any;
 
   constructor() { }
 
   ngOnInit() {
-    var utc = new Date(this.item.modifiedDate);
-    this.modifiedDate = new Date(utc.getTime() + utc.getTimezoneOffset() * 60000);
+
   }
 
   showItemModal() {

@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from './file-validator.directive';
-import { throwIfEmpty } from 'rxjs/operators';
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -43,7 +43,7 @@ export class UploadComponent implements OnInit {
     this.itemForm = this._fb.group({
       title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-      categories: [''],
+      categories: ['General'],
       tags: [''],
       description: ['', [Validators.maxLength(500)]],
     });
@@ -94,7 +94,7 @@ export class UploadComponent implements OnInit {
       this._systemSvc.uploadFile(file).subscribe(event => {
         that.isUploading = true;
         if (event.type === HttpEventType.UploadProgress) {
-          this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          this._toastr.success('Uploading: ' + Math.round(event.loaded / event.total * 100) + "%");
         } else if (event.type === HttpEventType.Response) {
           uploadedResults.push({
             url: event.body["fileLocation"],
@@ -121,6 +121,8 @@ export class UploadComponent implements OnInit {
               this.handleError();
             });
           }
+        } else if (event.type = HttpEventType.User) {
+          this._toastr.success("Please wait for file processing ...");
         }
       }, err => {
         this.handleError();
@@ -135,6 +137,7 @@ export class UploadComponent implements OnInit {
 
   resetFormValues() {
     this.itemForm.reset();
+    this.initForm();
     this.previewMediaSrcs = [];
     this.uploadedFiles = [];
     this.isUploading = false;
