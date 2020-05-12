@@ -40,4 +40,7 @@ export class MemeVideoComponent implements OnInit {
     }
   }
 
+  onEnded() {
+    this.video.nativeElement.currentTime = 0;
+  }
 }
