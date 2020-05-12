@@ -107,3 +107,11 @@ html {
 .hover-high-light:hover {
     background-color: rgb(253, 249, 229);
 }
+
+*::-webkit-scrollbar {
+    width: 6px!important;
+    height: 6px!important;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+}
