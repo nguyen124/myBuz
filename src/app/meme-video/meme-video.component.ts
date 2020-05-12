@@ -10,7 +10,7 @@ export class MemeVideoComponent implements OnInit {
   link: string;
   @Input()
   fileType: string;
-  @ViewChild('video', { static: false }) video: ElementRef;
+  @ViewChild('video', { static: true }) video: ElementRef;
   @HostListener('window:scroll', ['$event'])
   handleKeyboardEvent(event) {
     console.log("scoll event")
@@ -19,6 +19,10 @@ export class MemeVideoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    if (this.video && vw <= 768) {
+      this.video.nativeElement.pause();
+    }
   }
 
   checkScroll() {
