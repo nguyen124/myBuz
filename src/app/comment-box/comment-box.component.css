@@ -15,15 +15,6 @@
     padding-left: 1px;
 }
 
-div.editable {
-    width: 100%;
-    max-width: 100%;
-    min-height: 25px;
-    height: 100%;
-    border: 1px solid #ccc;
-    padding: 5px;
-}
-
 .pull-right {
     float: right;
 }

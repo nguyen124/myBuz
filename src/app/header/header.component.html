@@ -25,6 +25,7 @@
     </div>
   </div>
   <div class="col-2">
-    <img class="rounded float-right header-avatar mt-1" src="{{authSvc.user['avatar']}}" alt="Avatar">
+    <img *ngIf="authSvc.user" class="rounded float-right header-avatar mt-1" src="{{authSvc.user['avatar']}}"
+      alt="Avatar">
   </div>
 </div>

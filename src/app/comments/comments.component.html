@@ -3,14 +3,19 @@
         <div class="w-100">
             <app-comment [comment]="comment" [item]="item" (showCommentBoxEvent)="handleShowCommentBoxEvent()">
                 <i class="btn btn-xs fa fa-reply mr-1 text-success font-size-115-rem" (click)="showCommentBox(i)"></i>
-                <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        </button>
+                <button type="button" class="btn-xs btn-success dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                </button>
                 <div class="dropdown-menu">
-                    <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block" *ngIf="authSvc.user && authSvc.user.username == comment.writtenBy.username">Edit</a>
-                    <a href="javascript:void(0)" (click)="deleteComment(i, comment.itemId, comment._id)" class="ml-1 d-block" *ngIf="authSvc.user && (authSvc.user.username == comment.writtenBy.username || authSvc.user.role === 'ADMIN')">Delete</a>
+                    <a href="javascript:void(0)" (click)="editComment(i, comment._id)" class="ml-1 d-block"
+                        *ngIf="authSvc.user && authSvc.user.username == comment.writtenBy.username">Edit</a>
+                    <a href="javascript:void(0)" (click)="deleteComment(i, comment.itemId, comment._id)"
+                        class="ml-1 d-block"
+                        *ngIf="authSvc.user && (authSvc.user.username == comment.writtenBy.username || authSvc.user.role === 'ADMIN')">Delete</a>
                     <app-report [comment]="comment"></app-report>
                 </div>
-                <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox" [isEditting]="comment.isEditting" (editingCommentDone)="handleEditingCommentDone($event)">
+                <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox"
+                    [isEditting]="comment.isEditting" (editingCommentDone)="handleEditingCommentDone($event)">
                     <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
                 </app-comment-box>
             </app-comment>
@@ -19,6 +24,8 @@
 </ng-container>
 
 <div *ngIf="comments && comments.length >0" class="col-12 mt-2 mb-2">
-    <a href="javascript:void(0)" (click)="getMoreComments()" class="btn-xs btn-primary d-inline" role="button">More
-    comments <i class="fa fa-angle-double-right"></i> </a>
+    <div class="row">
+        <a href="javascript:void(0)" (click)="getMoreComments()" class="btn-xs btn-primary d-inline" role="button">More
+            comments <i class="fa fa-angle-double-right"></i> </a>
+    </div>
 </div>
