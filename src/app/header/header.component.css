@@ -38,6 +38,6 @@ li a:hover {
 
 @media (max-width: 575.98px) {    
     .header-avatar {
-        width: 85%;
+        width: 100%;
     }
 }

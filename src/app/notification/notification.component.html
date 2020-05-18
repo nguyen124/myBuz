@@ -4,7 +4,7 @@
     <i class="fa fa-bell"></i>
     <i *ngIf="hasUnreadNotification" class="fa fa-exclamation text-red" style="position: absolute;"></i>
   </button>
-  <div id="notificationDrpdwn" class="dropdown-menu">
+  <div id="notificationDrpdwn" class="dropdown-menu notification-width">
     <div *ngFor="let notification of notifications" class="ml-1" (click)="openItem(notification.itemId, notification.commentId)">
       <div class="font-12">
         <span [ngClass]="!notification.hasRead ? 'text-primary':''">
