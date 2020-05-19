@@ -36,10 +36,10 @@
     <ng-container *ngIf="item.files && item.files.length > 0">
         <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.description}}">
             <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
-                <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail"
+                <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail mh-480"
                     [src]="item.files[0].url" alt="Unavailable">
                 <ng-container *ngIf="item.files[0].fileType.match('video*')">
-                    <app-meme-video [link]="item.files[0].url" fileType="item.files[0].fileType"></app-meme-video>
+                    <app-meme-video [link]="item.files[0].url" [fileType]="item.files[0].fileType"></app-meme-video>
                 </ng-container>
                 <div *ngIf="item.files && item.files.length >1" class="text-primary"><strong>>>Click to view long
                         post</strong>

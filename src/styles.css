@@ -120,3 +120,7 @@ html {
 *::-webkit-scrollbar-thumb {
     background-color: rgba(0,0,0,.2);
 }
+
+.mh-480 {
+    max-height: 480px;
+}
