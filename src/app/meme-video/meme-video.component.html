@@ -1,6 +1,7 @@
 <video #video alt="Unavailable" class="video img-fluid img-thumbnail" [ngClass]="customClass" autoplay muted
     controls="true" oncanplay="this.muted=true" (ended)="onEnded()">
-    <source [src]="link | mp4Pipe" default="{{link}}" type='video/mp4'>
+    <source [src]="link | mp4Pipe" type='video/mp4'>
+    <source [src]="link | mp4NotThumbPipe" type='video/mp4'>
     <source [src]="link" attr.type='{{fileType}}'>
     <p>I'm sorry; your browser doesn't support this video format.</p>
 </video>

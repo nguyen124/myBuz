@@ -63,7 +63,8 @@ import { ResetPasswordFormComponent } from './reset-password-form/reset-password
 import { MemeVideoComponent } from './meme-video/meme-video.component';
 import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
 import { DefaultImageDirective } from './shared/directive/default-image.directive';
-import { DefaultSourceDirective } from './shared/directive/default-source.directive';
+import { Mp4NotThumbPipe } from './shared/pipe/mp4-not-thumb.pipe';
+
 
 let jQuery: any = window['$'];
 
@@ -77,6 +78,7 @@ let jQuery: any = window['$'];
     DatePipe,
     KeyPipe,
     Mp4Pipe,
+    Mp4NotThumbPipe,
     NumberPipe,
     ImageMobileLinkPipe,
     FilterComponent,
@@ -105,8 +107,7 @@ let jQuery: any = window['$'];
     ResetPasswordComponent,
     ResetPasswordFormComponent,
     MemeVideoComponent,
-    DefaultImageDirective,
-    DefaultSourceDirective
+    DefaultImageDirective
   ],
   entryComponents: [TooltipComponent],
   imports: [
