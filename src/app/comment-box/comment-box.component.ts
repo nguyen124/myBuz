@@ -188,6 +188,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           });
       } else {
         that._commentSvc.updateComment(that.comment, that.commentContent).subscribe(updatedComment => {
+          that.removeOldMedia(that.comment.content, that.commentContent);
           that.afterEdittingComment(updatedComment);
         },
           err => {
@@ -295,6 +296,38 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this.comment = newComment;
     this.editingCommentDone.emit(newComment);
     this.reset();
+  }
+
+  removeOldMedia(oldComment, newComment) {
+    var i = 0;
+    for (; i < newComment.length; i++) {
+      if (newComment[i].fileType === "image") {
+        for (var content of oldComment) {
+          if (content.fileType === "image" && content.url !== newComment[i].url) {
+            this._systemSvc.deleteFileByUrl(content.url, content.fileType).subscribe((res) => {
+            });
+            break;
+          }
+        }
+      }
+      if (newComment[i].fileType === "sound") {
+        for (var content of oldComment) {
+          if (content.fileType === "sound" && content.url !== newComment[i].url) {
+            this._systemSvc.deleteFileByUrl(content.url, content.fileType).subscribe((res) => {
+            });
+            break;
+          }
+        }
+      }
+    }
+    if (i < oldComment.length) {
+      for (; i < oldComment.length; i++) {
+        if (oldComment[i].fileType === "image" || oldComment[i].fileType === "sound") {
+          this._systemSvc.deleteFileByUrl(oldComment[i].url, oldComment[i].fileType).subscribe((res) => {
+          });
+        }
+      }
+    }
   }
 
   handleOnFocus() {

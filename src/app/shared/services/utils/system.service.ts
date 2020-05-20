@@ -115,4 +115,8 @@ export class SystemService {
       { name: 'Other', value: '3', checked: false }
     ]
   }
+
+  deleteFileByUrl(url, fileType): Observable<any> {
+    return this._http.post("/svc/deleteFile", { url: url, fileType: fileType });
+  }
 }
