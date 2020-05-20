@@ -16,6 +16,9 @@ export class MemeVideoComponent implements OnInit {
     console.log("scoll event")
     this.checkScroll();
   }
+  @Input()
+  customClass: string;
+
   constructor() { }
 
   ngOnInit() {

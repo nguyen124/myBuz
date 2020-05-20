@@ -19,7 +19,8 @@
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="row text-overflow">
               <div class="col-md-3 col-sm-2">
-                <img class="rounded mw-100 xs-w-25" src="{{item.createdBy.avatar}}" alt="Avatar">
+                <img class="rounded mw-100 xs-w-25" src="{{item.createdBy.avatar | imageMobileLinkPipe}}"
+                  default="{{item.createdBy.avatar}}" alt="Avatar">
               </div>
               <div class="col-md-9 col-sm-10 text-success mt-1">
                 <strong>{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}</strong>
@@ -46,19 +47,19 @@
             <div *ngIf="item.files" class="row mt-3">
               <ng-container *ngIf="item.files.length >1; else shortPost">
                 <div *ngFor="let file of item.files; let i = index;" class="col-6">
-                  <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden" [src]="file.url"
-                    alt="Unavailable">
+                  <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden"
+                    [src]="file.url | imageMobileLinkPipe" default="{{file.url}}" alt="Unavailable">
                   <ng-container *ngIf="file.fileType.match('video*')">
-                    <app-meme-video [link]="file.url" fileType="file.fileType"></app-meme-video>
+                    <app-meme-video [link]="file.url" [fileType]="file.fileType"></app-meme-video>
                   </ng-container>
                 </div>
               </ng-container>
               <ng-template #shortPost>
                 <div class="col-12">
                   <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 overflow-hidden"
-                    [src]="item.files[0].url" alt="Unavailable">
+                    [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
                   <ng-container *ngIf="item.files[0].fileType.match('video*')">
-                    <app-meme-video [link]="item.files[0].url" fileType="item.files[0].fileType"></app-meme-video>
+                    <app-meme-video [link]="item.files[0].url" [fileType]="item.files[0].fileType"></app-meme-video>
                   </ng-container>
                 </div>
               </ng-template>

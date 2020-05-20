@@ -5,13 +5,15 @@
                 <div class="font-4">{{comment.writtenBy['username']}}</div>
             </div>
             <div class="row">
-                <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy['avatar']}}" alt="Avatar">
+                <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy['avatar'] | imageMobileLinkPipe}}"
+                    default="{{comment.writtenBy['avatar']}}" alt="Avatar">
             </div>
         </div>
         <div class="col-md-10 col-sm-10 mt-2">
             <div *ngFor="let obj of comment.content; let i = index">
                 <div *ngIf="obj.fileType == 'text' && obj.url.trim()"> {{obj.url}}</div>
-                <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url"></app-comment-pic>
+                <app-comment-pic *ngIf="obj.fileType == 'image'" [picPreviewSrc]="obj.url">
+                </app-comment-pic>
                 <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
                 </app-comment-voice>
             </div>

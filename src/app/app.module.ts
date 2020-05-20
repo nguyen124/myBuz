@@ -61,6 +61,9 @@ import { FileValueAccessor } from './upload/file-control-value-accessor';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { MemeVideoComponent } from './meme-video/meme-video.component';
+import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
+import { DefaultImageDirective } from './shared/directive/default-image.directive';
+import { DefaultSourceDirective } from './shared/directive/default-source.directive';
 
 let jQuery: any = window['$'];
 
@@ -75,6 +78,7 @@ let jQuery: any = window['$'];
     KeyPipe,
     Mp4Pipe,
     NumberPipe,
+    ImageMobileLinkPipe,
     FilterComponent,
     FooterComponent,
     HeaderComponent,
@@ -100,7 +104,9 @@ let jQuery: any = window['$'];
     FileValidatorDirective,
     ResetPasswordComponent,
     ResetPasswordFormComponent,
-    MemeVideoComponent
+    MemeVideoComponent,
+    DefaultImageDirective,
+    DefaultSourceDirective
   ],
   entryComponents: [TooltipComponent],
   imports: [
