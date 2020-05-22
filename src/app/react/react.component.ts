@@ -40,9 +40,9 @@ export class ReactComponent implements OnInit {
 
   buildShareUrl() {
     if (this.item.files[0].fileType.startsWith('image')) {
-      this.shareUrl = 'https://us-central1-m2meme.cloudfunctions.net/app?title=' + this.encodeLink(this.item.title) + '&image=' + this.item.files[0].url + '&description=' + this.encodeLink(this.item.description) + '&id=' + this.item._id + '?url=https://me2meme.com/?id=' + this.item._id;
+      this.shareUrl = 'https://me2meme.com/svc/share/image?title=' + this.encodeLink(this.item.title) + '&image=' + this.item.files[0].url + '&description=' + this.encodeLink(this.item.description) + '&id=' + this.item._id + '?url=https://me2meme.com/?id=' + this.item._id;
     } else if (this.item.files[0].fileType.startsWith('video')) {
-      this.shareUrl = 'https://us-central1-m2meme.cloudfunctions.net/app/share/video?title=' + this.encodeLink(this.item.title) + '&video=' + this.getMp4Link(this.item.files[0].url) + '&description=' + this.encodeLink(this.item.description) + '&id=' + this.item._id + '?url=https://me2meme.com/?id=' + this.item._id;
+      this.shareUrl = 'https://me2meme.com/svc/share/video?title=' + this.encodeLink(this.item.title) + '&video=' + this.getMp4Link(this.item.files[0].url) + '&description=' + this.encodeLink(this.item.description) + '&id=' + this.item._id + '?url=https://me2meme.com/?id=' + this.item._id;
     }
   }
 
