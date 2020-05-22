@@ -21,7 +21,7 @@ export class AuthService {
       this.user = res.user;
       localStorage.setItem("user", JSON.stringify(this.user));
     }, err => {
-      console.log(err);
+
     })
     return loginObs;
   }

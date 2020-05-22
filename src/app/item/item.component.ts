@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { ReactComponent } from '../react/react.component';
+import { MemeVideoComponent } from '../meme-video/meme-video.component';
 
 @Component({
   selector: 'app-item',
@@ -11,16 +11,26 @@ export class ItemComponent implements OnInit {
   @Input() item: IItem;
   @Input() baseUrl: string;
   @Input() isShowingTag: boolean;
-  @ViewChild(ReactComponent, { static: false }) reactCompChild: ReactComponent;
-
+  @Output() showModalEvent: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChildren(MemeVideoComponent) memeVideos: QueryList<MemeVideoComponent>;
   constructor() { }
 
   ngOnInit() {
 
   }
 
+  pause() {
+    setTimeout(() => {
+      this.memeVideos.forEach((el, idx) => {
+        if (el) {
+          el.pause();
+        }
+      });
+    }, 500);
+  }
+
   showItemModal() {
-    this.reactCompChild.showItemModal();
+    this.showModalEvent.emit();
   }
 }
 

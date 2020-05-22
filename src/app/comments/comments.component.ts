@@ -130,6 +130,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
       if (el) {
         el.hidePreviousReplyCommentBox(null);
       }
-    })
+    });
   }
 }

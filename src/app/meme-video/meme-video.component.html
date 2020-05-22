@@ -1,5 +1,5 @@
 <video #video alt="Unavailable" class="video img-fluid img-thumbnail" [ngClass]="customClass" autoplay muted
-    controls="true" oncanplay="this.muted=true" (ended)="onEnded()">
+    controls="true" oncanplay="this.muted=true" (ended)="onEnded()" (mouseenter)="onMouseEnter()">
     <source [src]="link | mp4Pipe" type='video/mp4'>
     <source [src]="link | mp4NotThumbPipe" type='video/mp4'>
     <source [src]="link" attr.type='{{fileType}}'>

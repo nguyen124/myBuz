@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit {
     this._reportSvc.getReports({}).subscribe(reports => {
       this.reports = reports;
     }, err => {
-      console.log(err);
+
     })
   }
 

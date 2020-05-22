@@ -18,8 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authSvc.logout().subscribe(
-      data => { console.log(data); this._router.navigate(["/"]) },
-      err => { console.log(err) }
+      data => { this._router.navigate(["/"]) },
+      err => { }
     );
   }
 

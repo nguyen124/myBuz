@@ -1,12 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IItem } from '../shared/model/item';
-import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { CommentService } from '../shared/services/comment.services';
-import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ReportService } from '../shared/services/report.services';
 import { ToastrService } from 'ngx-toastr';
 import { SystemService } from '../shared/services/utils/system.service';
+
 
 @Component({
   selector: 'app-react',
@@ -18,6 +17,7 @@ export class ReactComponent implements OnInit {
   item: IItem;
   shareUrl: String;
   options = [];
+  @Input() showModalEvent: EventEmitter<any>;
 
   get selectedOptions() {
     return this.options
@@ -27,8 +27,6 @@ export class ReactComponent implements OnInit {
 
   constructor(
     private _commentSvc: CommentService,
-    private _itemSvc: ItemService,
-    private _commSvc: CommunicateService,
     private _reportSvc: ReportService,
     private _toastr: ToastrService,
     private _systemSvc: SystemService,
@@ -79,16 +77,7 @@ export class ReactComponent implements OnInit {
   }
 
   showItemModal() {
-    this._itemSvc.getItemById(this.item._id).subscribe(newItem => {
-      if (newItem) {
-        this.item.hasUpvoted = newItem.hasUpvoted;
-        this.item.hasDownvoted = newItem.hasDownvoted;
-        this.item.noOfComments = newItem.noOfComments;
-        this.item.noOfPoints = newItem.noOfPoints;
-        this.item.noOfViews = newItem.noOfViews;
-        this._commSvc.changeItem(this.item);
-      }
-    });
+    this.showModalEvent.emit();
   }
 
   reportItem(item: IItem) {

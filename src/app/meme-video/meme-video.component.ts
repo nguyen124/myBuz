@@ -13,7 +13,6 @@ export class MemeVideoComponent implements OnInit {
   @ViewChild('video', { static: true }) video: ElementRef;
   @HostListener('window:scroll', ['$event'])
   handleKeyboardEvent(event) {
-    console.log("scoll event")
     this.checkScroll();
   }
   @Input()
@@ -23,31 +22,56 @@ export class MemeVideoComponent implements OnInit {
 
   ngOnInit() {
     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    if (this.video && vw <= 768) {
+    if (this.video) {
       this.video.nativeElement.pause();
     }
   }
 
   checkScroll() {
-    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+
+    if (this.isInMainPage()) {
+      if (!this.isVideoInScreen(this.video)) {
+        this.video.nativeElement.pause();
+      }
+    }
+  }
+
+  onMouseEnter() {
     if (this.video) {
-      var rect = this.video.nativeElement.getBoundingClientRect();
+      this.video.nativeElement.play();
+    }
+  }
+
+  isVideoInScreen(video) {
+    if (video) {
+      var rect = video.nativeElement.getBoundingClientRect();
       if (
         rect.top >= 0 &&
         rect.left >= 0 &&
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
       ) {
-        if (vw > 768) {
-          this.video.nativeElement.play();
-        }
+        return true
       } else {
-        this.video.nativeElement.pause();
+        return false;
       }
     }
   }
 
+  isInMainPage() {
+    return !!this.customClass;
+  }
+
   onEnded() {
-    this.video.nativeElement.currentTime = 0;
+    if (this.video) {
+      this.video.nativeElement.currentTime = 0;
+    }
+  }
+
+  pause() {
+    if (this.video) {
+      this.video.nativeElement.pause();
+    }
   }
 }

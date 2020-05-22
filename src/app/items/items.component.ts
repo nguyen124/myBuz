@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../shared/services/security/auth.service';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
+import { ItemComponent } from '../item/item.component';
 
 @Component({
   selector: 'app-items',
@@ -18,7 +19,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   baseUrl: string = "/items";
   @Input()
   isShowingTag: boolean;
-
+  @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   subScription: Subscription;
   nextPage = 0;
   perPage = 40;
@@ -66,5 +67,27 @@ export class ItemsComponent implements OnInit, OnDestroy {
         this.items[this.nextPage * this.perPage + i] = newItems[i];
       }
     });
+  }
+
+  showItemModal(index) {
+    this._itemSvc.getItemById(this.items[index]._id).subscribe(newItem => {
+      if (newItem) {
+        this.items[index].hasUpvoted = newItem.hasUpvoted;
+        this.items[index].hasDownvoted = newItem.hasDownvoted;
+        this.items[index].noOfComments = newItem.noOfComments;
+        this.items[index].noOfPoints = newItem.noOfPoints;
+        this.items[index].noOfViews = newItem.noOfViews;
+        this._commSvc.changeItem(this.items[index]);
+      }
+      this.childrenItems.forEach((el, idx) => {
+        if (el && idx == index) {
+          el.pause();
+        }
+      })
+    });
+  }
+
+  handleShowModalEvent(index) {
+    this.showItemModal(index);
   }
 }
