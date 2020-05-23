@@ -64,6 +64,7 @@ import { MemeVideoComponent } from './meme-video/meme-video.component';
 import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
 import { DefaultImageDirective } from './shared/directive/default-image.directive';
 import { Mp4NotThumbPipe } from './shared/pipe/mp4-not-thumb.pipe';
+import { PosterPipe } from './shared/pipe/poster.pipe';
 
 
 let jQuery: any = window['$'];
@@ -80,6 +81,7 @@ let jQuery: any = window['$'];
     Mp4Pipe,
     Mp4NotThumbPipe,
     NumberPipe,
+    PosterPipe,
     ImageMobileLinkPipe,
     FilterComponent,
     FooterComponent,

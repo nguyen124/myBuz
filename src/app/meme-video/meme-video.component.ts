@@ -6,17 +6,20 @@ import { Component, OnInit, Input, ElementRef, ViewChild, HostListener } from '@
   styleUrls: ['./meme-video.component.css']
 })
 export class MemeVideoComponent implements OnInit {
-  @Input()
-  link: string;
-  @Input()
-  fileType: string;
+  @Input() link: string;
+
+  @Input() fileType: string;
+
   @ViewChild('video', { static: true }) video: ElementRef;
+
   @HostListener('window:scroll', ['$event'])
   handleKeyboardEvent(event) {
     this.checkScroll();
   }
-  @Input()
-  customClass: string;
+
+  @Input() customClass: string;
+
+  mouseLeft: boolean;
 
   constructor() { }
 
@@ -28,8 +31,6 @@ export class MemeVideoComponent implements OnInit {
   }
 
   checkScroll() {
-
-
     if (this.isInMainPage()) {
       if (!this.isVideoInScreen(this.video)) {
         this.video.nativeElement.pause();
@@ -38,9 +39,19 @@ export class MemeVideoComponent implements OnInit {
   }
 
   onMouseEnter() {
-    if (this.video) {
-      this.video.nativeElement.play();
+    this.mouseLeft = false;
+    var that = this;
+    if (that.video) {
+      setTimeout(() => {
+        if (!that.mouseLeft) {
+          that.video.nativeElement.play();
+        }
+      }, 500);
     }
+  }
+
+  onMouseLeave() {
+    this.mouseLeft = true;
   }
 
   isVideoInScreen(video) {

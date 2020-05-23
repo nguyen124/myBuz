@@ -40,9 +40,9 @@ export class ReactComponent implements OnInit {
 
   buildShareUrl() {
     if (this.item.files[0].fileType.startsWith('image')) {
-      this.shareUrl = 'https://me2meme.com/svc/share/image?title=' + this.encodeLink(this.item.title) + '&image=' + this.item.files[0].url + '&description=' + this.encodeLink(this.item.description) + '&id=' + this.item._id + '?url=https://me2meme.com/?id=' + this.item._id;
+      this.shareUrl = 'https://me2meme.com/svc/share/image?title=' + this.encodeLink(this.item.title) + '&image=' + this.item.files[0].url + '&description=' + this.encodeLink(this.item.description) + '&url=' + this.encodeLink('https://me2meme.com/?id=' + this.item._id);
     } else if (this.item.files[0].fileType.startsWith('video')) {
-      this.shareUrl = 'https://me2meme.com/svc/share/video?title=' + this.encodeLink(this.item.title) + '&video=' + this.getMp4Link(this.item.files[0].url) + '&description=' + this.encodeLink(this.item.description) + '&id=' + this.item._id + '?url=https://me2meme.com/?id=' + this.item._id;
+      this.shareUrl = 'https://me2meme.com/svc/share/image?title=' + this.encodeLink(this.item.title) + '&image=' + this.getPoster(this.item.files[0].url) + '&description=' + this.encodeLink(this.item.description) + '&url=' + this.encodeLink('https://me2meme.com/?id=' + this.item._id);
     }
   }
 
@@ -110,17 +110,7 @@ export class ReactComponent implements OnInit {
     return encodeURI(url);
   }
 
-  getMp4Link(url) {
-    if (!url.endsWith('mp4')) {
-      const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      if (vw <= 425) {
-        var newValue = url.replace(/\.[^.]+$/, "_thumb_output.mp4");
-        return newValue;
-      } else {
-        var newValue = url.replace(/\.[^.]+$/, "_output.mp4");
-        return newValue;
-      }
-    }
-    return url;
+  getPoster(url) {
+    return url.replace(/\.[^.]+$/, "_poster.gif");
   }
 }
