@@ -111,6 +111,6 @@ export class ReactComponent implements OnInit {
   }
 
   getPoster(url) {
-    return url.replace(/\.[^.]+$/, "_poster.gif");
+    return url.replace(/\.[^.]+$/, "_poster.jpg");
   }
 }

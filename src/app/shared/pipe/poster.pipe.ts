@@ -7,7 +7,7 @@ export class PosterPipe implements PipeTransform {
 
   transform(value: any, ...args: any[]): any {
     if (value) {
-      return value.replace(/\.[^/.]+$/, '_poster.gif');
+      return value.replace(/\.[^/.]+$/, '_poster.jpg');
     }
     return value;
   }
