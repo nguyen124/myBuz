@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { IComment } from '../model/comment';
 import { JQ_TOKEN } from './jQuery.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class CommentService {
     constructor(
         private _http: HttpClient,

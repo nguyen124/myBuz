@@ -31,15 +31,8 @@ import { RegisterComponent } from './register/register.component';
 import { ReportComponent } from './report/report.component';
 import { UploadComponent } from './upload/upload.component';
 
-import { AuthService } from './shared/services/security/auth.service';
-import { CommentService } from './shared/services/comment.services';
-import { CommunicateService } from './shared/services/utils/communicate.service';
 import { ErrorInterceptorService } from './shared/services/system/error-interceptor.service';
-import { ItemService } from './shared/services/item.services';
-import { NotificationService } from './shared/services/notification.service';
-import { VoiceMessageServiceService } from './shared/services/voice-message.service'
 import { JQ_TOKEN } from './shared/services/jQuery.service';
-
 import { ChildrenAuthGuard } from './shared/guard/childrenGuard';
 import { ParentAuthGuard } from './shared/guard/parentGuard';
 import { AdminAuthGuard } from './shared/guard/adminGuard';
@@ -131,15 +124,9 @@ let jQuery: any = window['$'];
     routing
   ],
   providers: [
-    AuthService,
-    CommunicateService,
-    CommentService,
     ChildrenAuthGuard,
-    ItemService,
-    NotificationService,
     ParentAuthGuard,
     AdminAuthGuard,
-    VoiceMessageServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: JQ_TOKEN, useValue: jQuery }
   ],

@@ -3,7 +3,9 @@ import { IItem } from '../model/item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ItemService {
     constructor(
         private _http: HttpClient) {
