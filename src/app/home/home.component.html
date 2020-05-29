@@ -32,8 +32,19 @@
 </div>
 
 <div class="row mb-3">
-  <div class="input-group col-md-12">
-    <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">Next</a>
+  <div class="input-group col-md-10">
+    <div>
+      <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">Next</a>
+    </div>
+  </div>
+  <div class="input-group col-md-2 ">
+    <div class="float-right">
+      <div class="form-label-group">
+        <a routerLink="." queryParamsHandling="merge" [queryParams]="{page: actualPage}"
+          class="btn text-primary d-inline mr-1"> Go to page </a>
+        <input class="form-control d-inline w-25" type="text" autofocus [(ngModel)]="actualPage" />
+      </div>
+    </div>
   </div>
 </div>
 <ng-adsense></ng-adsense>
