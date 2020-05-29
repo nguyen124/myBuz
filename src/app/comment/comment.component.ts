@@ -28,7 +28,7 @@ export class CommentComponent implements OnInit {
   subscription: Subscription;
   isShowingReply = false;
   nextPage = 0;
-  perPage = 5;
+  PER_PAGE = 5;
   showToolTip: boolean = false;
   replyToUsername: string;
   edittingCommentIdx: number;
@@ -55,7 +55,7 @@ export class CommentComponent implements OnInit {
     this.nextPage = 0;
     var params = {
       page: this.nextPage,
-      perPage: this.perPage
+      perPage: this.PER_PAGE
     };
     this.isShowingReply = true;
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
@@ -64,14 +64,14 @@ export class CommentComponent implements OnInit {
   }
 
   showMoreReplies(commentId: string) {
-    this.nextPage = Math.floor(this.comment.replies.length / this.perPage);
+    this.nextPage = Math.floor(this.comment.replies.length / this.PER_PAGE);
     var params = {
       page: this.nextPage,
-      perPage: this.perPage
+      perPage: this.PER_PAGE
     };
     this._commentSvc.getRepliesOfComment(commentId, params).subscribe((replies) => {
       for (var i = 0; i < replies.length; i++) {
-        this.comment.replies[this.nextPage * this.perPage + i] = replies[i];
+        this.comment.replies[this.nextPage * this.PER_PAGE + i] = replies[i];
       }
     });
   }

@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   items: IItem[];
   params: any = {};
   nextPage = 0;
+  PER_PAGE = 8;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
@@ -41,22 +42,22 @@ export class HomeComponent implements OnInit {
   }
 
   getHot() {
-    Object.assign(this.params, { temp: 'hot' })
+    Object.assign(this.params, { temp: 'hot', page: 0, perPage: this.PER_PAGE })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   getWarm() {
-    Object.assign(this.params, { temp: 'warm' })
+    Object.assign(this.params, { temp: 'warm', page: 0, perPage: this.PER_PAGE })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   getCold() {
-    Object.assign(this.params, { temp: 'cold' })
+    Object.assign(this.params, { temp: 'cold', page: 0, perPage: this.PER_PAGE })
     this._router.navigate(['.'], { queryParams: this.params });
   }
 
   loadNext() {
-    this.params.perPage = this.params.perPage || 40;
+    this.params.perPage = this.params.perPage || this.PER_PAGE;
     if (this.items) {
       this.nextPage = Math.floor(this.items.length / this.params.perPage);
     } else {

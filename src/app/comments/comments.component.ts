@@ -17,7 +17,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
   nextPage = 0;
-  perPage = 10;
+  PER_PAGE = 10;
   previousIndex = null;
   replyToUsername;
   edittingCommentIdx: number;
@@ -46,7 +46,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.nextPage = 0;
     var params = {
       page: this.nextPage,
-      perPage: this.perPage
+      perPage: this.PER_PAGE
     };
     this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       this.comments = comments;
@@ -54,14 +54,14 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   getMoreComments() {
-    this.nextPage = Math.floor(this.comments.length / this.perPage);
+    this.nextPage = Math.floor(this.comments.length / this.PER_PAGE);
     var params = {
       page: this.nextPage,
-      perPage: this.perPage
+      perPage: this.PER_PAGE
     };
     this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       for (var i = 0; i < comments.length; i++) {
-        this.comments[this.nextPage * this.perPage + i] = comments[i];
+        this.comments[this.nextPage * this.PER_PAGE + i] = comments[i];
       }
     });
   }

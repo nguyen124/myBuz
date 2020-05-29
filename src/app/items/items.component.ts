@@ -22,14 +22,12 @@ export class ItemsComponent implements OnInit, OnDestroy {
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   subScription: Subscription;
   nextPage = 0;
-  perPage = 40;
 
   constructor(
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
     public authSvc: AuthService,
-    private _commSvc: CommunicateService,
-    private _itemService: ItemService) {
+    private _commSvc: CommunicateService) {
 
   }
 
@@ -54,19 +52,6 @@ export class ItemsComponent implements OnInit, OnDestroy {
     if (this.subScription) {
       this.subScription.unsubscribe();
     }
-  }
-
-  loadNext() {
-    if (this.items) {
-      this.nextPage = Math.floor(this.items.length / this.perPage);
-    } else {
-      this.nextPage = 0;
-    }
-    this._itemService.getItems({ page: this.nextPage }).subscribe((newItems: IItem[]) => {
-      for (var i = 0; i < newItems.length; i++) {
-        this.items[this.nextPage * this.perPage + i] = newItems[i];
-      }
-    });
   }
 
   showItemModal(index) {

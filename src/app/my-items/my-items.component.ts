@@ -12,7 +12,7 @@ export class MyItemsComponent implements OnInit {
   items: IItem[];
   baseUrl: string = "/user/items";
   nextPage = 0;
-  perPage = 40;
+  PER_PAGE = 40;
 
   constructor(
     private _itemService: ItemService,
@@ -27,13 +27,13 @@ export class MyItemsComponent implements OnInit {
 
   loadNext() {
     if (this.items) {
-      this.nextPage = Math.floor(this.items.length / this.perPage);
+      this.nextPage = Math.floor(this.items.length / this.PER_PAGE);
     } else {
       this.nextPage = 0;
     }
     this._itemService.getItems({ page: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
-        this.items[this.nextPage * this.perPage + i] = newItems[i];
+        this.items[this.nextPage * this.PER_PAGE + i] = newItems[i];
       }
     });
   }

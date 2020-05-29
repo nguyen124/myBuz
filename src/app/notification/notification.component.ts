@@ -13,7 +13,7 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 export class NotificationComponent implements OnInit {
   notifications: INotification[]
   hasUnreadNotification: Boolean;
-  perPage = 5;
+  PER_PAGE = 5;
   nextPage = 0;
   constructor(
     private _notificationSvc: NotificationService,
@@ -41,10 +41,10 @@ export class NotificationComponent implements OnInit {
   }
 
   showMoreNotifications() {
-    this.nextPage = Math.floor(this.notifications.length / this.perPage);
+    this.nextPage = Math.floor(this.notifications.length / this.PER_PAGE);
     this._notificationSvc.getNotifications({ page: this.nextPage }).subscribe((nextPageNotifications) => {
       for (var i = 0; i < nextPageNotifications.length; i++) {
-        this.notifications[this.nextPage * this.perPage + i] = nextPageNotifications[i];
+        this.notifications[this.nextPage * this.PER_PAGE + i] = nextPageNotifications[i];
       }
     });
   }
