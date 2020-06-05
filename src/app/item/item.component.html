@@ -10,7 +10,8 @@
     </div>
     <div class="row text-overflow">
         <div class="col-12">
-            <div class="text-success font-weight-bold">{{item.title}}</div>
+            <a [routerLink]="'.'" [queryParams]="{id: item._id}"
+                class="text-success font-weight-bold">{{item.title}}</a>
         </div>
     </div>
     <div>

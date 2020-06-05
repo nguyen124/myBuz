@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-items',
@@ -13,15 +14,20 @@ export class MyItemsComponent implements OnInit {
   baseUrl: string = "/user/items";
   nextPage = 0;
   PER_PAGE = 40;
-
+  params: any = {};
   constructor(
     private _itemService: ItemService,
-    private _authSvc: AuthService) {
+    private _authSvc: AuthService,
+    private _activatedRoute: ActivatedRoute) {
+
   }
 
   ngOnInit() {
-    this._itemService.getItems({ page: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
-      this.items = newItems;
+    this._activatedRoute.queryParams.subscribe(newParams => {
+      this.params = Object.assign({ page: this.nextPage, createdBy: this._authSvc.user._id }, newParams);
+      this._itemService.getItems(this.params).subscribe((newItems: IItem[]) => {
+        this.items = newItems;
+      });
     });
   }
 

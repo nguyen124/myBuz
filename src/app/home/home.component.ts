@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
       this.items = newItems;
       this.currentLength = this.items.length;
       this.offset = +params.page;
-      this.actualPage = +params.page;
+      this.actualPage = params.page ? +params.page : 0;
     });
   }
 

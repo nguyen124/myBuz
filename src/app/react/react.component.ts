@@ -39,11 +39,7 @@ export class ReactComponent implements OnInit {
   }
 
   buildShareUrl() {
-    if (this.item.files[0].fileType.startsWith('image')) {
-      this.shareUrl = 'https://me2meme.com/svc/share/image?title=' + this.encodeLink(this.item.title) + '&image=' + this.item.files[0].url + '&description=' + this.encodeLink(this.item.description) + '&url=' + this.encodeLink('https://me2meme.com/?id=' + this.item._id);
-    } else if (this.item.files[0].fileType.startsWith('video')) {
-      this.shareUrl = 'https://me2meme.com/svc/share/image?title=' + this.encodeLink(this.item.title) + '&image=' + this.getPoster(this.item.files[0].url) + '&description=' + this.encodeLink(this.item.description) + '&url=' + this.encodeLink('https://me2meme.com/?id=' + this.item._id);
-    }
+    this.shareUrl = 'https://me2meme.com/svc/metatags?id=' + this.item._id;
   }
 
   upvote(): void {
