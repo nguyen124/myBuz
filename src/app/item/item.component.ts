@@ -19,6 +19,10 @@ export class ItemComponent implements OnInit {
 
   }
 
+  onClickTitle() {
+    window.location.href = "/svc/metatags?id=" + this.item._id;
+  }
+
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
       if (params.id) {

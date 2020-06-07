@@ -6,6 +6,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
 import { ItemComponent } from '../item/item.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-items',
@@ -27,11 +28,17 @@ export class ItemsComponent implements OnInit, OnDestroy {
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
     public authSvc: AuthService,
-    private _commSvc: CommunicateService) {
+    private _commSvc: CommunicateService,
+    private _activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    this._activatedRoute.queryParams.subscribe(params => {
+      if (params.id && params.keep) {
+        window.history.pushState('item', 'details', '/svc/metatags?id=' + params.id);
+      }
+    })
     this.subScription = this._commSvc.newUploadedItem$.subscribe((item: IItem) => {
       if (this.items) {
         this.items.push(item);
