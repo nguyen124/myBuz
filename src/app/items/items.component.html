@@ -4,7 +4,7 @@
       <app-item [item]="item" [baseUrl]="baseUrl" [isShowingTag]="isShowingTag"
         (showModalEvent)="handleShowModalEvent(i)">
         <div
-          *ngIf="authSvc.user && (authSvc.user.username == item.createdBy.username || authSvc.user.role === 'ADMIN')">
+          *ngIf="authSvc?.user && (authSvc?.user?.username == item?.createdBy?.username || authSvc?.user?.role === 'ADMIN')">
           <div class="dropdown-divider"></div>
           <button class="btn dropdown-item text-primary pl-0 ml-1 w-75"
             (click)="deleteItem(i, item._id)">Delete</button>

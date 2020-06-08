@@ -30,10 +30,13 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
-    private _toastr: ToastrService) { }
+    private _toastr: ToastrService) {
+
+  }
 
   ngOnInit() {
     this.comments = [];
+    this.getComments(this.item);
     this.subscription = this._commSvc.newComment$.subscribe((comment: IComment) => {
       if (comment && !comment.parentCommentId) {
         this.comments.push(comment);

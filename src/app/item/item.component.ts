@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { MemeVideoComponent } from '../meme-video/meme-video.component';
-import { MetaTagService } from '../shared/services/meta-tag.services';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-item',
@@ -15,25 +13,11 @@ export class ItemComponent implements OnInit {
   @Input() isShowingTag: boolean;
   @Output() showModalEvent: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren(MemeVideoComponent) memeVideos: QueryList<MemeVideoComponent>;
-  constructor(private _activatedRoute: ActivatedRoute, private titleTagService: MetaTagService) {
 
-  }
-
-  onClickTitle() {
-    window.location.href = "/svc/metatags?id=" + this.item._id;
+  constructor() {
   }
 
   ngOnInit() {
-    this._activatedRoute.queryParams.subscribe(params => {
-      if (params.id) {
-        this.titleTagService.setTitle(this.item.title);
-        this.titleTagService.setSocialMediaTags(
-          "https://me2meme.com/items?id=" + this.item._id,
-          this.item.title,
-          this.item.description,
-          this.getThumbNailImage());
-      }
-    });
   }
 
   pause() {

@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ImageMobileLinkPipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
-    if (value.startsWith('http')) {
+  transform(value: any): any {
+    if (value && value.startsWith('http')) {
       const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       if (vw <= 425) {
         var x = value.lastIndexOf("/"),

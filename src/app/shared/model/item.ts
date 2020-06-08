@@ -3,7 +3,7 @@ export interface IItem {
   title?: string;
   files?: any[];
   modifiedDate?: number;
-  createdBy?: object;
+  createdBy?: any;
   tags?: string[];
   categories?: [string];
   noOfPoints?: number;

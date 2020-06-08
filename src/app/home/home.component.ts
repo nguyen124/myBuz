@@ -3,6 +3,7 @@ import { ItemService } from '../shared/services/item.services';
 import { IItem } from '../shared/model/item';
 import { ItemsComponent } from '../items/items.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,11 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
-  constructor(private _itemService: ItemService, private _activatedRoute: ActivatedRoute, private _router: Router) {
+  constructor(
+    private _itemService: ItemService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private _commSvc: CommunicateService) {
     this._activatedRoute.queryParams.subscribe(params => {
       if (Object.entries(params).length === 0 && params.constructor === Object) {
         this.params = {
@@ -31,7 +36,10 @@ export class HomeComponent implements OnInit {
         };
         this.getCold();
       } else {
-        this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
+        var itemId = this._activatedRoute.snapshot.queryParams['id'];
+        if (!itemId) {
+          this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
+        }
         this.getItems(this.params);
       }
     });
@@ -43,6 +51,13 @@ export class HomeComponent implements OnInit {
       this.currentLength = this.items.length;
       this.offset = +params.page;
       this.actualPage = params.page ? +params.page : 0;
+      var itemId = this._activatedRoute.snapshot.queryParams['id'];
+      if (itemId) {
+        this._itemService.getItemById(itemId).subscribe(item => {
+          window.history.pushState('item', 'details', '/svc/metatags?id=' + item._id);
+          this._commSvc.changeItem(item);
+        });
+      }
     });
   }
 

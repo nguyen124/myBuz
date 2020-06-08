@@ -1,17 +1,16 @@
-<div>
+<div *ngIf="item">
     <div class="row text-overflow">
         <div class="col-sm-2 col-md-3 pr-0">
-            <img class="rounded avatar" src="{{item.createdBy['avatar'] | imageMobileLinkPipe}}"
-                default="{{item.createdBy['avatar']}}" alt="Avatar">
+            <img class="rounded avatar" src="{{item.createdBy?.avatar | imageMobileLinkPipe}}"
+                default="{{item.createdBy?.avatar}}" alt="Avatar">
         </div>
         <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} .
-            {{item.createdBy['username']}}
+            {{item.createdBy?.username}}
         </div>
     </div>
     <div class="row text-overflow">
         <div class="col-12">
-            <a href="javascript:void(0)" (click)="onClickTitle()"
-                class="text-success font-weight-bold">{{item.title}}</a>
+            <a class="text-success font-weight-bold">{{item.title}}</a>
         </div>
     </div>
     <div>

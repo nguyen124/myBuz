@@ -17,7 +17,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   comment: IComment
   subScription: Subscription;
 
-  @ViewChild(CommentsComponent, { static: false }) commentsComp: CommentsComponent;
+  @ViewChild(CommentsComponent, { static: true }) commentsComp: CommentsComponent;
 
   @HostListener('document:keydown.escape', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -35,7 +35,6 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         this.item = item;
         setTimeout(() => {
           this.$("#openModalBtn").click();
-          this.commentsComp.getComments(this.item);
         }, 0);
       }
     });
