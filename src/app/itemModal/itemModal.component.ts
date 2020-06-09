@@ -6,6 +6,7 @@ import { IComment } from '../shared/model/comment';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentsComponent } from '../comments/comments.component';
+import { MetaTagService } from '../shared/services/meta-tag.services';
 
 @Component({
   selector: 'app-itemModal',
@@ -27,7 +28,9 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   constructor(
     private _commSvc: CommunicateService,
     private _log: LoggingService,
-    @Inject(JQ_TOKEN) private $: any) { }
+    private titleTagService: MetaTagService,
+    @Inject(JQ_TOKEN) private $: any) {
+  }
 
   ngOnInit() {
     this.subScription = this._commSvc.currentItemInModal$.subscribe(item => {
@@ -36,8 +39,18 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.$("#openModalBtn").click();
         }, 0);
+        this.setMetaTags();
       }
     });
+  }
+
+  setMetaTags() {
+    this.titleTagService.setTitle(this.item.title);
+    this.titleTagService.setSocialMediaTags(
+      "https://me2meme.com/items?id=" + this.item._id,
+      this.item.title,
+      this.item.description,
+      this.getThumbNailImage());
   }
 
   handleTopCommentBoxFocus(value) {
@@ -64,5 +77,21 @@ export class ItemModalComponent implements OnInit, OnDestroy {
 
   clearData() {
     this.item = null;
+  }
+
+  getThumbNailImage() {
+    if (this.item && this.item.files && this.item.files.length > 0) {
+      var fileType = this.item.files[0].fileType;
+      if (fileType.startsWith("video")) {
+        return this.getPoster(this.item.files[0].url);
+      } else if (fileType.startsWith("image")) {
+        return this.item.files[0].url;
+      }
+    }
+    return "https://me2meme.com/assets/image/logo256x215.png";
+  }
+
+  getPoster(url) {
+    return url.replace(/\.[^.]+$/, "_poster.jpg");
   }
 }

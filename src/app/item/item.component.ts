@@ -33,21 +33,5 @@ export class ItemComponent implements OnInit {
   showItemModal() {
     this.showModalEvent.emit();
   }
-
-  getThumbNailImage() {
-    if (this.item && this.item.files && this.item.files.length > 0) {
-      var fileType = this.item.files[0].fileType;
-      if (fileType.startsWith("video")) {
-        return this.getPoster(this.item.files[0].url);
-      } else if (fileType.startsWith("image")) {
-        return this.item.files[0].url;
-      }
-    }
-    return "https://me2meme.com/assets/image/logo256x215.png";
-  }
-
-  getPoster(url) {
-    return url.replace(/\.[^.]+$/, "_poster.jpg");
-  }
 }
 
