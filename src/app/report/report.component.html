@@ -1,4 +1,5 @@
-<div class="text-danger" *ngIf="comment && !(authSvc.user && authSvc.user.username == comment.writtenBy['username']) && (authSvc.user.role !== 'ADMIN')">
+<div class="text-danger"
+  *ngIf="comment && authSvc.user && !(authSvc.user && authSvc.user?.username == comment.writtenBy?.username) && (authSvc.user?.role !== 'ADMIN')">
   <div *ngIf="!comment.hasReported; else elseBlock">
     <button class="btn dropdown-item text-primary pl-0 ml-1"
       [ngClass]="selectedOptions.length<1 ? 'text-secondary' : ''" href="javascript:void(0)"

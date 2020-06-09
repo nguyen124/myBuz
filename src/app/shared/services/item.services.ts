@@ -19,7 +19,7 @@ export class ItemService {
         return this._http.delete("/svc/items/" + id);
     }
 
-    updateItem(item: object): void {
+    updateItem(item: any): void {
         this._http.put("/svc/items", item);
     }
 

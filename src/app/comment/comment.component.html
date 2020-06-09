@@ -1,11 +1,11 @@
 <div class="row hover-high-light">
     <div class="col-md-2 col-sm-2 text-success">
         <div class="row text-overflow">
-            <div class="text-success"><strong>{{comment.writtenBy['username']}}</strong></div>
+            <div class="text-success"><strong>{{comment.writtenBy.username}}</strong></div>
         </div>
         <div class="row">
             <img class="w-100 xs-w-25 rounded align-self-flex-start"
-                src="{{comment.writtenBy['avatar'] | imageMobileLinkPipe}}" default="{{comment.writtenBy['avatar']}}"
+                src="{{comment.writtenBy.avatar | imageMobileLinkPipe}}" default="{{comment.writtenBy.avatar}}"
                 alt="Avatar">
         </div>
     </div>
@@ -31,11 +31,11 @@
     <div class="row hover-high-light">
         <div class="col-md-2 col-sm-2">
             <div class="row text-overflow">
-                <div class="text-success"><strong>{{reply.writtenBy['username']}}</strong></div>
+                <div class="text-success"><strong>{{reply.writtenBy.username}}</strong></div>
             </div>
             <div class="row">
                 <img class="w-75 xs-w-15 rounded align-self-flex-start"
-                    src="{{reply.writtenBy['avatar'] | imageMobileLinkPipe}}" alt="Avatar">
+                    src="{{reply.writtenBy.avatar | imageMobileLinkPipe}}" alt="Avatar">
             </div>
         </div>
         <div class="col-md-10 col-sm-10 mt-2">
@@ -77,7 +77,7 @@
                         *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
                     <a href="javascript:void(0)" (click)="deleteComment(i, reply.itemId, reply._id)"
                         class="ml-1 d-block"
-                        *ngIf="authSvc.user && (authSvc.user.username == reply.writtenBy.username || authSvc.user.role === 'ADMIN')">Delete</a>
+                        *ngIf="authSvc.user && (authSvc.user?.username == reply.writtenBy?.username || authSvc.user?.role === 'ADMIN')">Delete</a>
                     <app-report [comment]="reply"></app-report>
                 </div>
                 <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"

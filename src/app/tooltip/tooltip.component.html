@@ -2,11 +2,11 @@
     <div class="row p-1 m-0">
         <div class="col-md-2 col-sm-2 text-success">
             <div class="row text-overflow">
-                <div class="font-4">{{comment.writtenBy['username']}}</div>
+                <div class="font-4">{{comment.writtenBy.username}}</div>
             </div>
             <div class="row">
-                <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy['avatar'] | imageMobileLinkPipe}}"
-                    default="{{comment.writtenBy['avatar']}}" alt="Avatar">
+                <img class="w-100 xs-w-25 rounded" src="{{comment.writtenBy.avatar | imageMobileLinkPipe}}"
+                    default="{{comment.writtenBy.avatar}}" alt="Avatar">
             </div>
         </div>
         <div class="col-md-10 col-sm-10 mt-2">

@@ -11,7 +11,7 @@
                         *ngIf="authSvc.user && authSvc.user.username == comment.writtenBy.username">Edit</a>
                     <a href="javascript:void(0)" (click)="deleteComment(i, comment.itemId, comment._id)"
                         class="ml-1 d-block"
-                        *ngIf="authSvc.user && (authSvc.user.username == comment.writtenBy.username || authSvc.user.role === 'ADMIN')">Delete</a>
+                        *ngIf="authSvc.user && (authSvc.user?.username == comment.writtenBy?.username || authSvc.user?.role === 'ADMIN')">Delete</a>
                     <app-report [comment]="comment"></app-report>
                 </div>
                 <app-comment-box [item]="item" [comment]="comment" [isShowing]="comment.showCommentBox"

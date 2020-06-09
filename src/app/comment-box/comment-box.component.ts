@@ -59,7 +59,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   textContent: string = '';
   picPreviewSrc: any;
   voicePreviewSrc: any;
-  commentContent: Array<object> = [];
+  commentContent: Array<any> = [];
 
   constructor(
     private _commSvc: CommunicateService,

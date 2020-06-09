@@ -4,7 +4,7 @@ export interface IReport {
     reportedItemId?: string;
     reportedCommentId?: string;
     reasons: string[];
-    reportedByUser?: object,
+    reportedByUser?: any,
     reportedDate?: Date,
     status?: String
 }

@@ -4,7 +4,7 @@ export interface IComment extends Mask {
     parentCommentId?: string;
     content?: any[];
     modifiedDate: string;
-    writtenBy: object;
+    writtenBy: any;
     itemId: string;
     noOfPoints?: number;
     noOfReplies?: number;

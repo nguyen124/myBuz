@@ -108,7 +108,7 @@ export class CommentComponent implements OnInit {
   }
 
   showReplyCommentBox(index: number): void {
-    this.replyToUsername = this.comment.replies[index] ? this.comment.replies[index].writtenBy['username'] : '';
+    this.replyToUsername = this.comment.replies[index] ? this.comment.replies[index].writtenBy.username : '';
     this.hideOtherCommentBox();
     this.hidePreviousReplyCommentBox(index);
   }

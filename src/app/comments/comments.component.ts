@@ -105,7 +105,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   showCommentBox(index: number): void {
-    this.replyToUsername = this.comments[index] ? this.comments[index].writtenBy['username'] : '';
+    this.replyToUsername = this.comments[index] ? this.comments[index].writtenBy.username : '';
     this.hidePreviousShowingCommentBox(index);
   }
 
