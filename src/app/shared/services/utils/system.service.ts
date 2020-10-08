@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MAX_FILE } from '../../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -74,23 +75,11 @@ export class SystemService {
     let files = control.value;
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        if (files[i].size / (1024 * 1024) > 10) {
+        if (files[i].size / (1024 * 1024) > MAX_FILE) {
           return { largeFile: true };
         }
       }
     }
-    // let errorIndexes = [];
-    // if (files) {
-    //   for (let i = 0; i < files.length; i++) {
-    //     if (files[i].size / (1024 * 1024) > 10) {
-    //       errorIndexes.push(i);
-    //     }
-    //   }
-    //   if (errorIndexes.length > 0) {
-    //     return { largeFile: errorIndexes };
-    //   }
-    //   return null;
-    // }
     return null;
   }
 

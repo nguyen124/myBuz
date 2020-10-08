@@ -1,5 +1,27 @@
 {
   "projects": {
     "default": "m2meme"
+  },
+  "targets": {
+    "m2meme": {
+      "hosting": {
+        "m2meme-dev": [
+          "m2meme-dev"
+        ],
+        "m2meme": [
+          "m2meme"
+        ]
+      },
+      "storage": {
+        "m2meme": [
+          "m2meme.appspot.com",
+          "staging.m2meme.appspot.com"
+        ],
+        "m2meme-dev": [
+          "m2meme-dev.appspot.com",
+          "staging.m2meme-dev.appspot.com"
+        ]
+      }
+    }
   }
 }

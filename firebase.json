@@ -1,19 +1,41 @@
 {
-  "hosting": {
-    "public": "dist/architecture",
-    "ignore": [
-      "firebase.json",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "/svc{,/**}",
-        "function": "app"
-      },
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+  "hosting": [
+    {
+      "target": "m2meme",
+      "public": "dist/architecture",
+      "ignore": [
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/svc{,/**}",
+          "function": "app"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "m2meme-dev",
+      "public": "dist/dev",
+      "ignore": [
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/svc{,/**}",
+          "function": "app"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
+  "storage": {
+    "rules": "storage.rules"
   }
 }

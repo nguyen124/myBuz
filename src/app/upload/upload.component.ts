@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
-import { HttpEventType } from '@angular/common/http';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
@@ -8,6 +7,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from './file-validator.directive';
+import { AuthService } from '../shared/services/security/auth.service';
+declare var firebase: any;
 
 @Component({
   selector: 'app-upload',
@@ -15,12 +16,16 @@ import { FileValidatorDirective } from './file-validator.directive';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-  uploadedFiles: File[] = [];
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
   isUploading = false;
-  previewMediaSrcs: any[] = [];
+
+  today = new Date();
+  destination: string = "";
+  filesArr: File[] = [];
+  toUploadFiles: any[] = [];
+
   constructor(
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
@@ -28,6 +33,7 @@ export class UploadComponent implements OnInit {
     private _toastr: ToastrService,
     private _router: Router,
     private _fb: FormBuilder,
+    private _authSvc: AuthService,
     @Inject(JQ_TOKEN) private $: any) { }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -37,6 +43,7 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
   }
 
   initForm() {
@@ -45,7 +52,7 @@ export class UploadComponent implements OnInit {
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
       categories: ['General'],
       tags: [''],
-      description: ['', [Validators.maxLength(500)]],
+      description: ['', [Validators.maxLength(10000)]],
     });
   }
 
@@ -61,20 +68,21 @@ export class UploadComponent implements OnInit {
     for (let idx = 0; idx < files.length; idx++) {
       fileArr.push(files[idx]);
     }
-    if (this.uploadedFiles && this.uploadedFiles.length) {
+    if (this.toUploadFiles && this.toUploadFiles.length) {
       this.itemForm.controls.file.setValue(true);
     }
-    fileArr.forEach(uploadedFile => {
-      that.uploadedFiles.push(uploadedFile);
-      if (uploadedFile) {
+
+    fileArr.forEach(toUploadFile => {
+      if (toUploadFile) {
         let reader = new FileReader();
         reader.onload = function (e) {
-          that.previewMediaSrcs.push({
+          that.toUploadFiles.push({
             url: e.target["result"],
-            fileType: uploadedFile.type
+            fileType: toUploadFile.type,
+            pathName: that.destination + toUploadFile.name
           });
         }
-        reader.readAsDataURL(uploadedFile);
+        reader.readAsDataURL(toUploadFile);
       }
     });
   }
@@ -90,64 +98,109 @@ export class UploadComponent implements OnInit {
     }
     let uploadedResults = [];
     var that = this;
-    this.uploadedFiles.forEach(file => {
-      this._systemSvc.uploadFile(file).subscribe(event => {
-        that.isUploading = true;
-        if (event.type === HttpEventType.UploadProgress) {
-          this._toastr.success('Uploading: ' + Math.round(event.loaded / event.total * 100) + "%");
-        } else if (event.type === HttpEventType.Response) {
-          uploadedResults.push({
-            url: event.body["fileLocation"],
-            filename: event.body["filename"],
-            fileType: file.type
-          });
-          if (uploadedResults.length == this.uploadedFiles.length) {
-            let item = {
-              tags: this.parsedTags,
-              categories: [this.f.categories.value],
-              title: this.f.title.value,
-              description: this.f.description.value == null ? '' : this.f.description.value.trim(),
-              files: uploadedResults
-            };
-
-            this._itemSvc.createItem(item).subscribe(newItem => {
-              this._toastr.success("New post has been created!")
-              var modalDismiss = this.$("#cancelBtn");
-              if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
-              this._commSvc.uploadItem(newItem);
-              this.resetFormValues();
-              this._router.navigate(["/user/items"]);
-            }, err => {
-              this.handleError();
-            });
-          }
-        } else if (event.type = HttpEventType.User) {
-          this._toastr.success("Please wait for file processing ...");
-        }
-      }, err => {
-        this.handleError();
+    let storage = firebase.storage().ref();
+    this.toUploadFiles.forEach(file => {
+      var storageRef = storage.child(file.pathName);
+      var uploadTask = storageRef.putString(file.url, 'data_url', {
+        contentType: file.fileType,
       });
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        (snapshot) => {
+          that.handleSnapshot(snapshot);
+        },
+        (error) => {
+          that.handleFirebaseUploadError(error);
+        },
+        () => {
+          that.handleSuccess(uploadTask, uploadedResults);
+        }
+      );
     });
   }
 
-  handleError() {
+  handleSnapshot(snapshot) {
+    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    var progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+    this._toastr.info('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // or 'paused'
+        this._toastr.info('Upload is paused');
+        break;
+      case firebase.storage.TaskState.RUNNING: // or 'running'
+        //that._toastr.info('Upload is running');
+        break;
+    }
+  }
+
+  handleSuccess(uploadTask, uploadedResults) {
+    // Upload completed successfully, now we can get the download URL
+    this._toastr.success("Upload finished!")
+    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
+      uploadedResults.push({
+        url: downloadURL,
+        filename: uploadTask.snapshot.metadata.fullPath,
+        fileType: uploadTask.snapshot.metadata.contentType
+      })
+      if (uploadedResults.length == this.toUploadFiles.length) {
+        let item = {
+          tags: this.parsedTags,
+          categories: [this.f.categories.value],
+          title: this.f.title.value,
+          description: this.f.description.value == null ? '' : this.f.description.value.trim(),
+          files: uploadedResults
+        };
+
+        this._itemSvc.createItem(item).subscribe(newItem => {
+          this._toastr.success("New post has been created!");
+          var modalDismiss = this.$("#cancelBtn");
+          if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
+          this._commSvc.uploadItem(newItem);
+          this.resetFormValues();
+          this._router.navigate(["/user/items"]);
+        }, err => {
+          this.handleError(err);
+        });
+      }
+    });
+  }
+
+  handleFirebaseUploadError(error) {
+    // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
+    switch (error.code) {
+      case 'storage/unauthorized':
+        // User doesn't have permission to access the object
+        break;
+
+      case 'storage/canceled':
+        // User canceled the upload
+        break;
+
+      case 'storage/unknown':
+        // Unknown error occurred, inspect error.serverResponse
+        break;
+    }
+  }
+
+  handleError(err) {
     this._toastr.error("Oops! Failed to create post!");
+    console.log(err);
     this.isUploading = false;
   }
 
   resetFormValues() {
     this.itemForm.reset();
     this.initForm();
-    this.previewMediaSrcs = [];
-    this.uploadedFiles = [];
+
+    this.toUploadFiles = [];
     this.isUploading = false;
     this.submitted = false;
     this.parsedTags = [];
   }
 
   removePreviewMedia(index) {
-    this.previewMediaSrcs.splice(index, 1);
-    this.uploadedFiles.splice(index, 1);
+    this.toUploadFiles.splice(index, 1);
     return false;
   }
 }

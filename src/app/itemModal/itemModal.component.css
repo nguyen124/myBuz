@@ -19,3 +19,10 @@
     line-height: .5;
     border-radius: .2rem;
 }
+
+.h-200 {
+  height: 200px;
+  overflow-y: auto;
+  word-break: break-all;
+  word-wrap: break-word;
+}
