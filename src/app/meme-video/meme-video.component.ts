@@ -25,10 +25,10 @@ export class MemeVideoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    if (this.video) {
-      this.video.nativeElement.pause();
-    }
+    // const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    // if (this.video) {
+    //   this.video.nativeElement.pause();
+    // }
   }
 
   checkScroll() {
