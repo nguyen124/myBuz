@@ -1,6 +1,5 @@
-<video #video alt="Unavailable" class="video img-fluid img-thumbnail" [ngClass]="customClass" muted controls="true"
-    (ended)="onEnded()" oncanplay="this.muted=true" (mouseenter)="onMouseEnter()" [poster]="link | posterPipe"
-    (mouseleave)="onMouseLeave()">
+<video #video alt="Unavailable" class="video img-fluid img-thumbnail" [ngClass]="customClass" controls="true"
+    (ended)="onEnded()" [poster]="link | posterPipe">
     <source [src]="link | mp4Pipe" type='video/mp4'>
     <source [src]="link | mp4NotThumbPipe" type='video/mp4'>
     <source [src]="link" attr.type='{{fileType}}'>

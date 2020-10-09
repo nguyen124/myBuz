@@ -19,7 +19,8 @@ export class MemeVideoComponent implements OnInit {
 
   @Input() customClass: string;
 
-  mouseLeft: boolean;
+  // mouseLeft: boolean;
+  // userClicked: boolean;
 
   constructor() { }
 
@@ -38,21 +39,28 @@ export class MemeVideoComponent implements OnInit {
     }
   }
 
-  onMouseEnter() {
-    this.mouseLeft = false;
-    var that = this;
-    if (that.video) {
-      setTimeout(() => {
-        if (!that.mouseLeft) {
-          that.video.nativeElement.play();
-        }
-      }, 500);
-    }
-  }
+  // onMouseEnter() {
+  //   this.mouseLeft = false;
+  //   var that = this;
+  //   if (that.video) {
+  //     setTimeout(() => {
+  //       if (!that.mouseLeft && !that.userClicked) {
+  //         that.video.nativeElement.play();
+  //       }
+  //     }, 750);
+  //   }
+  // }
 
-  onMouseLeave() {
-    this.mouseLeft = true;
-  }
+  // onMouseLeave() {
+  //   this.mouseLeft = true;
+  //   if (!this.userClicked) {
+  //     this.video.nativeElement.pause();
+  //   }
+  // }
+
+  // onClick() {
+  //   this.userClicked = true;
+  // }
 
   isVideoInScreen(video) {
     if (video) {
