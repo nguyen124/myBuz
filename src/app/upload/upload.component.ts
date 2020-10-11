@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, isDevMode } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
@@ -8,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from './file-validator.directive';
 import { AuthService } from '../shared/services/security/auth.service';
+import { environment } from '../../environments/environment';
+import { environment as prodEnvironment } from '../../environments/environment.prod';
+
+
 declare var firebase: any;
 
 @Component({
@@ -137,33 +141,37 @@ export class UploadComponent implements OnInit {
   handleSuccess(uploadTask, uploadedResults) {
     // Upload completed successfully, now we can get the download URL
     this._toastr.success("Upload finished!")
-    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
-      uploadedResults.push({
-        url: downloadURL,
-        filename: uploadTask.snapshot.metadata.fullPath,
-        fileType: uploadTask.snapshot.metadata.contentType
-      })
-      if (uploadedResults.length == this.toUploadFiles.length) {
-        let item = {
-          tags: this.parsedTags,
-          categories: [this.f.categories.value],
-          title: this.f.title.value,
-          description: this.f.description.value == null ? '' : this.f.description.value.trim(),
-          files: uploadedResults
-        };
+    // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
 
-        this._itemSvc.createItem(item).subscribe(newItem => {
-          this._toastr.success("New post has been created!");
-          var modalDismiss = this.$("#cancelBtn");
-          if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
-          this._commSvc.uploadItem(newItem);
-          this.resetFormValues();
-          this._router.navigate(["/user/items"]);
-        }, err => {
-          this.handleError(err);
-        });
-      }
-    });
+    // });
+    let bucketName = isDevMode() ? environment.bucketname : prodEnvironment.bucketname;
+    let downloadURL = 'https://storage.googleapis.com/' + bucketName + '/' + uploadTask.snapshot.metadata.fullPath;
+
+    uploadedResults.push({
+      url: downloadURL,
+      filename: uploadTask.snapshot.metadata.fullPath,
+      fileType: uploadTask.snapshot.metadata.contentType
+    })
+    if (uploadedResults.length == this.toUploadFiles.length) {
+      let item = {
+        tags: this.parsedTags,
+        categories: [this.f.categories.value],
+        title: this.f.title.value,
+        description: this.f.description.value == null ? '' : this.f.description.value.trim(),
+        files: uploadedResults
+      };
+
+      this._itemSvc.createItem(item).subscribe(newItem => {
+        this._toastr.success("New post has been created!");
+        var modalDismiss = this.$("#cancelBtn");
+        if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
+        this._commSvc.uploadItem(newItem);
+        this.resetFormValues();
+        this._router.navigate(["/user/items"]);
+      }, err => {
+        this.handleError(err);
+      });
+    }
   }
 
   handleFirebaseUploadError(error) {

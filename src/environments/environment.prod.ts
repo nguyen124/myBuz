@@ -4,5 +4,6 @@ export const environment = {
     apiKey: 'AIzaSyBm-x5W9WTIvamSBi8a1bRreI-014TNHWs',
     authDomain: 'm2meme.firebaseapp.com',
     projectId: 'm2meme'
-  }
+  },
+  bucketname: 'm2meme.appspot.com'
 };

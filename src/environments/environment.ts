@@ -8,7 +8,8 @@ export const environment = {
     apiKey: 'AIzaSyBHsnTznAoWO5P3exuNG_sWWUxJmJCs9tk',
     authDomain: 'm2meme-dev.firebaseapp.com',
     projectId: 'm2meme-dev'
-  }
+  },
+  bucketname: 'm2meme-dev.appspot.com'
 };
 
 /*
