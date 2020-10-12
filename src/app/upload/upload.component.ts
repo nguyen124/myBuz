@@ -116,10 +116,10 @@ export class UploadComponent implements OnInit {
           that.handleSnapshot(snapshot, that);
         },
         (error) => {
-          that.handleFirebaseUploadError(error);
+          that.handleFirebaseUploadError(error, that);
         },
         () => {
-          that.handleSuccess(that.uploadTask, uploadedResults);
+          that.handleSuccess(that.uploadTask, uploadedResults, that);
         }
       );
     });
@@ -141,9 +141,10 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  handleSuccess(uploadTask, uploadedResults) {
+  handleSuccess(uploadTask, uploadedResults, that) {
     // Upload completed successfully, now we can get the download URL
-    this._toastr.success("Upload finished!")
+    that.isUploading = false;
+    that._toastr.success("Upload finished!")
     // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
 
     // });
@@ -155,49 +156,49 @@ export class UploadComponent implements OnInit {
       filename: uploadTask.snapshot.metadata.fullPath,
       fileType: uploadTask.snapshot.metadata.contentType
     })
-    if (uploadedResults.length == this.toUploadFiles.length) {
+    if (uploadedResults.length == that.toUploadFiles.length) {
       let item = {
-        tags: this.parsedTags,
-        categories: [this.f.categories.value],
-        title: this.f.title.value,
-        description: this.f.description.value == null ? '' : this.f.description.value.trim(),
+        tags: that.parsedTags,
+        categories: [that.f.categories.value],
+        title: that.f.title.value,
+        description: that.f.description.value == null ? '' : that.f.description.value.trim(),
         files: uploadedResults
       };
 
-      this._itemSvc.createItem(item).subscribe(newItem => {
-        this._toastr.success("New post has been created!");
-        var modalDismiss = this.$("#cancelBtn");
+      that._itemSvc.createItem(item).subscribe(newItem => {
+        that._toastr.success("New post has been created!");
+        var modalDismiss = that.$("#cancelBtn");
         if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
-        this._commSvc.uploadItem(newItem);
-        this.resetFormValues();
-        this._router.navigate(["/user/items"]);
+        that._commSvc.uploadItem(newItem);
+        that.resetFormValues();
+        that._router.navigate(["/user/items"]);
       }, err => {
-        this.handleError(err);
+        that.handleError(err, that);
       });
     }
   }
 
-  handleFirebaseUploadError(error) {
+  handleFirebaseUploadError(error, that) {
+    that.isUploading = false;
     // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
     switch (error.code) {
       case 'storage/unauthorized':
-        // User doesn't have permission to access the object
+        that._toastr.error("Storage permission denied!");
         break;
 
       case 'storage/canceled':
-        // User canceled the upload
+        that._toastr.error("Upload canceled!");
         break;
 
       case 'storage/unknown':
-        // Unknown error occurred, inspect error.serverResponse
+        that._toastr.error("Unknown error in storage!");
         break;
     }
   }
 
-  handleError(err) {
-    this._toastr.error("Oops! Failed to create post!");
+  handleError(err, that) {
+    that._toastr.error("Oops! Failed to create post!");
     console.log(err);
-    this.isUploading = false;
   }
 
   resetFormValues() {

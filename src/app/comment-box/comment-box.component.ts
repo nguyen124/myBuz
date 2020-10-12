@@ -60,6 +60,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   picPreviewSrc: any;
   voicePreviewSrc: any;
   commentContent: Array<any> = [];
+  uploadingProgress: number;
 
   constructor(
     private _commSvc: CommunicateService,
@@ -96,18 +97,22 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     this._addTextContent();
     if (this.uploadedFile) {
       this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
+        this.isUploading = true;
         if (event.type === HttpEventType.UploadProgress) {
-          this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          // this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          this.uploadingProgress = Math.round((event.loaded / event.total) * 100);
         } else if (event.type === HttpEventType.Response) {
           var picObj = {
             url: event.body["fileLocation"],
             filename: event.body["filename"],
             fileType: "image"
           }
+          this.isUploading = false;
           this.commentContent.push(picObj);
           callback(this);
         }
       }, err => {
+        this.isUploading = false;
         this._toastr.error("Failed to upload data!. Please try again.");
         this.reset();
       })

@@ -25,6 +25,13 @@
       <button class="btn btn-xs mr-1 ml-1" (click)="writeTextComment()" [class.btn-secondary]="isRecording"
         [class.btn-success]="!isRecording" [disabled]="isRecording"><i class="fa fa-share-square font-10"
           aria-hidden="true"></i></button>
+      <div *ngIf="isUploading" id="preloader" class="preloader text-center" style="opacity: 0.85;">
+        <div id="spinner_container" class="spinner_container">
+          <circle-progress [backgroundColor]="'#007bff'" [backgroundOpacity]="1" [radius]="50"
+            [percent]="uploadingProgress">
+          </circle-progress>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -124,3 +124,17 @@ html {
 .mh-480 {
     max-height: 480px;
 }
+
+.preloader {
+  position: absolute;
+  top: 25%;
+  left: 15%;
+  opacity: 0.5;
+  z-index: 1051;
+}
+
+.spinner_container {
+  overflow: visible;
+  opacity: 1;
+  background: transparent;
+}
