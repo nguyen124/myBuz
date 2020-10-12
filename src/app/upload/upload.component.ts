@@ -24,11 +24,12 @@ export class UploadComponent implements OnInit {
   itemForm: FormGroup;
   submitted = false;
   isUploading = false;
-
+  uploadingProgress: number;
   today = new Date();
   destination: string = "";
   filesArr: File[] = [];
   toUploadFiles: any[] = [];
+  uploadTask: any;
 
   constructor(
     private _itemSvc: ItemService,
@@ -105,35 +106,37 @@ export class UploadComponent implements OnInit {
     let storage = firebase.storage().ref();
     this.toUploadFiles.forEach(file => {
       var storageRef = storage.child(file.pathName);
-      var uploadTask = storageRef.putString(file.url, 'data_url', {
+      that.uploadTask = storageRef.putString(file.url, 'data_url', {
         contentType: file.fileType,
       });
       // Listen for state changes, errors, and completion of the upload.
-      uploadTask.on(
+      that.uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
-          that.handleSnapshot(snapshot);
+          that.handleSnapshot(snapshot, that);
         },
         (error) => {
           that.handleFirebaseUploadError(error);
         },
         () => {
-          that.handleSuccess(uploadTask, uploadedResults);
+          that.handleSuccess(that.uploadTask, uploadedResults);
         }
       );
     });
   }
 
-  handleSnapshot(snapshot) {
+  handleSnapshot(snapshot, that) {
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    var progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-    this._toastr.info('Upload is ' + progress + '% done');
+    that.isUploading = true;
+    that.uploadingProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    // this._toastr.info('Upload is ' + this.uploadingProgress + '% done');
+
     switch (snapshot.state) {
       case firebase.storage.TaskState.PAUSED: // or 'paused'
-        this._toastr.info('Upload is paused');
+        that._toastr.info('Upload is paused');
         break;
       case firebase.storage.TaskState.RUNNING: // or 'running'
-        //that._toastr.info('Upload is running');
+        //this._toastr.info('Upload is running');
         break;
     }
   }
@@ -205,10 +208,20 @@ export class UploadComponent implements OnInit {
     this.isUploading = false;
     this.submitted = false;
     this.parsedTags = [];
+    this.cancelUploading(this);
   }
 
   removePreviewMedia(index) {
     this.toUploadFiles.splice(index, 1);
     return false;
+  }
+
+  cancelUploading(that) {
+    that.uploadTask.cancel();
+    // else {
+    //   //Upload is complete, but user wanted to cancel. Let's delete the file
+    //   that.uploadTask.snapshot.ref.delete();
+    //   // storageRef.delete(); // will delete all your files
+    // }
   }
 }

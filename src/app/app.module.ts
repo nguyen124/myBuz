@@ -58,6 +58,7 @@ import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
 import { DefaultImageDirective } from './shared/directive/default-image.directive';
 import { Mp4NotThumbPipe } from './shared/pipe/mp4-not-thumb.pipe';
 import { PosterPipe } from './shared/pipe/poster.pipe';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
 let jQuery: any = window['$'];
@@ -109,6 +110,15 @@ let jQuery: any = window['$'];
     AdsenseModule.forRoot({
       adClient: 'ca-pub-7640562161899788',
       adSlot: 7259870550,
+    }),
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animation: false
     }),
     BrowserAnimationsModule,
     BrowserModule,

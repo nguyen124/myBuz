@@ -94,7 +94,8 @@
 
                 <div *ngIf="isUploading" id="preloader" class="text-center">
                   <div id="spinner_container">
-                    <img class="rounded" id="spinner" src="../assets/gif/giphy_s.gif" alt="" />
+                    <circle-progress [percent]="uploadingProgress">
+                    </circle-progress>
                   </div>
                 </div>
               </div>
