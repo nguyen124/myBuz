@@ -10,29 +10,29 @@ import { MAX_FILE } from '../../constants';
 export class SystemService {
   constructor(private _http: HttpClient) { }
 
-  public uploadMultiFiles(files: Set<File>): { [key: string]: { progress: Observable<number> } } {
-    // this will be the resulting map
-    const status: { [key: string]: { progress: Observable<number> } } = {};
-    files.forEach(file => {
-      // create a new progress-subject for every file
-      const progress = new Subject<number>();
-      this.uploadFile(file).subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          const percentDone = Math.round(100 * event.loaded / event.total);
-          progress.next(percentDone);
-        } else if (event instanceof HttpResponse) {
-          // Close the progress-steam if we get an answer form the API
-          // The upload is complete
-          progress.complete();
-        }
-      });
-      //Save every progress-observable in a map of all observables
-      status[file.name] = {
-        progress: progress.asObservable()
-      };
-    });
-    return status;
-  }
+  // public uploadMultiFiles(files: Set<File>): { [key: string]: { progress: Observable<number> } } {
+  //   // this will be the resulting map
+  //   const status: { [key: string]: { progress: Observable<number> } } = {};
+  //   files.forEach(file => {
+  //     // create a new progress-subject for every file
+  //     const progress = new Subject<number>();
+  //     this.uploadFile(file).subscribe(event => {
+  //       if (event.type === HttpEventType.UploadProgress) {
+  //         const percentDone = Math.round(100 * event.loaded / event.total);
+  //         progress.next(percentDone);
+  //       } else if (event instanceof HttpResponse) {
+  //         // Close the progress-steam if we get an answer form the API
+  //         // The upload is complete
+  //         progress.complete();
+  //       }
+  //     });
+  //     //Save every progress-observable in a map of all observables
+  //     status[file.name] = {
+  //       progress: progress.asObservable()
+  //     };
+  //   });
+  //   return status;
+  // }
 
   uploadFile(uploadedFile: File): Observable<any> {
     if (uploadedFile) {

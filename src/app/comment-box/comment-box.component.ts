@@ -96,8 +96,8 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   _uploadPic(callback) {
     this._addTextContent();
     if (this.uploadedFile) {
+      this.isUploading = true;
       this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
-        this.isUploading = true;
         if (event.type === HttpEventType.UploadProgress) {
           // this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
           this.uploadingProgress = Math.round((event.loaded / event.total) * 100);
@@ -142,10 +142,13 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
   _uploadVoice(that) {
     var thatt = that;
     if (that.voiceRecord) {
+      that.isUploading = true;
       that._voiceSvc.uploadVoiceRecord(that.voiceRecord).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
-          that._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          //that._toastr.success('Upload voice comment progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          that.uploadingProgress = Math.round((event.loaded / event.total) * 100);
         } else if (event.type === HttpEventType.Response) {
+          that.isUploading = false;
           var voiceObj = {
             url: event.body["fileLocation"],
             filename: event.body["filename"],
@@ -156,6 +159,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         }
       },
         err => {
+          thatt.isUploading = false;
           thatt._toastr.error("Failed to upload data!. Please try again.");
           thatt.reset();
         });

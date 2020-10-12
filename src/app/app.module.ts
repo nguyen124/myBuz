@@ -60,7 +60,6 @@ import { Mp4NotThumbPipe } from './shared/pipe/mp4-not-thumb.pipe';
 import { PosterPipe } from './shared/pipe/poster.pipe';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
-
 let jQuery: any = window['$'];
 
 @NgModule({

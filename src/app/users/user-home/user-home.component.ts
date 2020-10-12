@@ -19,6 +19,8 @@ export class UserHomeComponent implements OnInit {
   userForm: FormGroup;
   submitted = false;
   error = null;
+  isUploading: boolean;
+  uploadingProgress: number;
 
   constructor(
     private _userSvc: UserService,
@@ -117,10 +119,13 @@ export class UserHomeComponent implements OnInit {
     };
 
     if (this.uploadedFile) {
+      this.isUploading = true;
       this._systemSvc.uploadFile(this.uploadedFile).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
-          this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          //this._toastr.success('Upload Progress: ' + Math.round(event.loaded / event.total * 100) + "%");
+          this.uploadingProgress = Math.round((event.loaded / event.total) * 100)
         } else if (event.type === HttpEventType.Response) {
+          this.isUploading = false;
           newInfo["avatar"] = event.body["fileLocation"];
           newInfo["filename"] = event.body["filename"];
           this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
@@ -131,6 +136,7 @@ export class UserHomeComponent implements OnInit {
           });
         }
       }, err => {
+        this.isUploading = false;
         this.error = err;
         this._toastr.error("Failed to upload profile avatar to server!. Please try again later.")
       })
