@@ -1,10 +1,7 @@
 {
   "/svc/*": {
-    "proxy": "http://svc:3000",
+    "target": "http://architecture_svc_1:3000",
     "secure": false,
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/svc": ""
-    }
+    "changeOrigin": true
   }
 }

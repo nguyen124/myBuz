@@ -15,6 +15,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY package.json /app/package.json
 COPY proxyconfig.json /app/proxyconfig.json
+#COPY nginx.conf /app/nginx.conf
+
 RUN npm install
 RUN npm install -g @angular/cli@8.3.22
 
