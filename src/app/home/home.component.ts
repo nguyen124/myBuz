@@ -46,18 +46,25 @@ export class HomeComponent implements OnInit {
   }
 
   getItems(params) {
-    this._itemService.getItems(params).subscribe((newItems: IItem[]) => {
-      this.items = newItems;
-      this.currentLength = this.items.length;
-      this.offset = +params.page;
-      this.actualPage = params.page ? +params.page : 0;
-      var itemId = this._activatedRoute.snapshot.queryParams['id'];
-      if (itemId) {
-        this._itemService.getItemById(itemId).subscribe(item => {
-          window.history.pushState('item', 'details', '/svc/metatags?id=' + item._id);
-          this._commSvc.changeItem(item);
-        });
-      }
+    let itemId = this._activatedRoute.snapshot.queryParams['id'];
+    let that = this;
+    if (itemId) {
+      this._itemService.getItemById(itemId).subscribe(item => {
+        window.history.pushState('item', 'details', '/svc/metatags?id=' + item._id);
+        that._commSvc.changeItem(item);
+        that.getItemsHelper(that, params);
+      });
+    } else {
+      that.getItemsHelper(that, params);
+    }
+  }
+
+  private getItemsHelper(that, params) {
+    that._itemService.getItems(params).subscribe((newItems: IItem[]) => {
+      that.items = newItems;
+      that.currentLength = that.items.length;
+      that.offset = +params.page;
+      that.actualPage = params.page ? +params.page : 0;
     });
   }
 

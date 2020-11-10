@@ -46,7 +46,7 @@
             </div>
             <div *ngIf="item.files" class="row mt-3">
               <ng-container *ngIf="item.files.length >1; else shortPost">
-                <div *ngFor="let file of item.files; let i = index;" class="col-6">
+                <div *ngFor="let file of item.files; let i = index;" class="col-6 mt-2 mb-2">
                   <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden"
                     [src]="file.url | imageMobileLinkPipe" default="{{file.url}}" alt="Unavailable">
                   <ng-container *ngIf="file.fileType.match('video*')">

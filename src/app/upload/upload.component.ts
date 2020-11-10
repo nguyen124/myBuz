@@ -29,8 +29,7 @@ export class UploadComponent implements OnInit {
   destination: string = "";
   filesArr: File[] = [];
   toUploadFiles: any[] = [];
-  uploadTask: any;
-
+  currentUploadTasks: any[] = [];
   constructor(
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
@@ -68,7 +67,7 @@ export class UploadComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    var fileArr = [],
+    let fileArr = [],
       that = this;
     for (let idx = 0; idx < files.length; idx++) {
       fileArr.push(files[idx]);
@@ -102,15 +101,16 @@ export class UploadComponent implements OnInit {
       return;
     }
     let uploadedResults = [];
-    var that = this;
+    let that = this;
     let storage = firebase.storage().ref();
     this.toUploadFiles.forEach(file => {
-      var storageRef = storage.child(file.pathName);
-      that.uploadTask = storageRef.putString(file.url, 'data_url', {
+      let storageRef = storage.child(file.pathName);
+      let uploadTask = storageRef.putString(file.url, 'data_url', {
         contentType: file.fileType,
       });
+      this.currentUploadTasks.push(uploadTask);
       // Listen for state changes, errors, and completion of the upload.
-      that.uploadTask.on(
+      uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
           that.handleSnapshot(snapshot, that);
@@ -119,7 +119,7 @@ export class UploadComponent implements OnInit {
           that.handleFirebaseUploadError(error, that);
         },
         () => {
-          that.handleSuccess(that.uploadTask, uploadedResults, that);
+          that.handleSuccess(uploadTask, uploadedResults, that);
         }
       );
     });
@@ -155,7 +155,8 @@ export class UploadComponent implements OnInit {
       url: downloadURL,
       filename: uploadTask.snapshot.metadata.fullPath,
       fileType: uploadTask.snapshot.metadata.contentType
-    })
+    });
+
     if (uploadedResults.length == that.toUploadFiles.length) {
       let item = {
         tags: that.parsedTags,
@@ -167,7 +168,7 @@ export class UploadComponent implements OnInit {
 
       that._itemSvc.createItem(item).subscribe(newItem => {
         that._toastr.success("New post has been created!");
-        var modalDismiss = that.$("#cancelBtn");
+        let modalDismiss = that.$("#cancelBtn");
         if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
         that._commSvc.uploadItem(newItem);
         that.resetFormValues();
@@ -218,11 +219,10 @@ export class UploadComponent implements OnInit {
   }
 
   cancelUploading(that) {
-    that.uploadTask.cancel();
-    // else {
-    //   //Upload is complete, but user wanted to cancel. Let's delete the file
-    //   that.uploadTask.snapshot.ref.delete();
-    //   // storageRef.delete(); // will delete all your files
-    // }
+    if (that && that.currentUploadTasks) {
+      that.currentUploadTasks.forEach(task => {
+        task.cancel();
+      });
+    }
   }
 }
