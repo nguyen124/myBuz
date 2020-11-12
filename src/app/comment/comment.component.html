@@ -75,7 +75,7 @@
                 <div class="dropdown-menu">
                     <a href="javascript:void(0)" (click)="editReply(i)" class="ml-1 d-block"
                         *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
-                    <a href="javascript:void(0)" (click)="deleteComment(i, reply.itemId, reply._id)"
+                    <a href="javascript:void(0)" (click)="deleteComment(i, reply._id)"
                         class="ml-1 d-block"
                         *ngIf="authSvc.user && (authSvc.user?.username == reply.writtenBy?.username || authSvc.user?.role === 'ADMIN')">Delete</a>
                     <app-report [comment]="reply"></app-report>

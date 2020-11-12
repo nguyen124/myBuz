@@ -11,18 +11,18 @@ export class UserService {
   constructor(private _http: HttpClient) { }
 
   register(user: IUser): Observable<any> {
-    return this._http.post("/svc/user/register", user);
+    return this._http.post("/svc/users/register", user);
   }
 
   updateUser(id: string, newInfo: any): Observable<IUser> {
-    return this._http.put<IUser>("/svc/users/" + id, newInfo);
+    return this._http.put<IUser>("/svc/users/" + id + "/update", newInfo);
   }
 
   requestResetPassword(email): Observable<boolean> {
-    return this._http.post<boolean>("/svc/requestResetPassword", { email: email });
+    return this._http.post<boolean>("/svc/users/password/request-reset", { email: email });
   }
 
   resetPassword(obj): Observable<boolean> {
-    return this._http.post<boolean>("/svc/resetPassword", obj);
+    return this._http.post<boolean>("/svc/users/password/reset", obj);
   }
 }

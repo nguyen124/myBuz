@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
         this._toastr.error("Delete failed!");
       });
     } else {
-      this._commentSvc.deleteComment(itemId, commentId).subscribe(parentComment => {
+      this._commentSvc.deleteComment(commentId).subscribe(parentComment => {
         this.reports.splice(index, 1);
         this._toastr.success("Accepted Report And Deleted!");
       });

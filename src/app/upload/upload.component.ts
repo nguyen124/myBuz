@@ -11,7 +11,6 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 
-
 declare var firebase: any;
 
 @Component({

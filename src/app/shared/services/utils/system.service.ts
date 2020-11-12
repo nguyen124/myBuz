@@ -38,7 +38,7 @@ export class SystemService {
     if (uploadedFile) {
       const fd = new FormData();
       fd.append('image', uploadedFile, uploadedFile.name);
-      return this._http.post("/svc/uploadFile", fd, {
+      return this._http.post("/svc/files/upload", fd, {
         reportProgress: true,
         observe: 'events'
       });
@@ -106,6 +106,6 @@ export class SystemService {
   }
 
   deleteFileByUrl(url, fileType): Observable<any> {
-    return this._http.post("/svc/deleteFile", { url: url, fileType: fileType });
+    return this._http.post("/svc/files/delete", { url: url, fileType: fileType });
   }
 }

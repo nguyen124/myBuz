@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChildren, QueryList } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
-import { CommentService } from '../shared/services/comment.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
 import { CommentComponent } from '../comment/comment.component';
+import { ItemService } from '../shared/services/item.services';
+import { CommentService } from '../shared/services/comment.services';
 
 @Component({
   selector: 'app-comments',
@@ -27,6 +28,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   @ViewChildren(CommentComponent) commentCmps: QueryList<CommentComponent>;
 
   constructor(
+    private _itemSvc: ItemService,
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
@@ -51,7 +53,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
       page: this.nextPage,
       perPage: this.PER_PAGE
     };
-    this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
+    this._itemSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       this.comments = comments;
     });
   }
@@ -62,15 +64,15 @@ export class CommentsComponent implements OnInit, OnDestroy {
       page: this.nextPage,
       perPage: this.PER_PAGE
     };
-    this._commentSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
+    this._itemSvc.getCommentsOfItem(this.item._id, params).subscribe((comments: IComment[]) => {
       for (var i = 0; i < comments.length; i++) {
         this.comments[this.nextPage * this.PER_PAGE + i] = comments[i];
       }
     });
   }
 
-  deleteComment(index: number, itemId: string, commentId: string) {
-    this._commentSvc.deleteComment(itemId, commentId).subscribe(res => {
+  deleteComment(index: number, commentId: string) {
+    this._commentSvc.deleteComment(commentId).subscribe(res => {
       this.item.noOfComments = this.item.noOfComments - (1 + this.comments[index].noOfReplies);
       this.comments.splice(index, 1);
       if (this.previousIndex > index) {

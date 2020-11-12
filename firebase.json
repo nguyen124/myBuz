@@ -8,6 +8,30 @@
       ],
       "rewrites": [
         {
+          "source": "/svc/items{,/**}",
+          "function": "itemController"
+        },
+        {
+          "source": "/svc/comments{,/**}",
+          "function": "commentController"
+        },
+        {
+          "source": "/svc/users{,/**}",
+          "function": "userController"
+        },
+        {
+          "source": "/svc/reports{,/**}",
+          "function": "reportController"
+        },
+        {
+          "source": "/svc/notifications{,/**}",
+          "function": "notificationController"
+        },
+        {
+          "source": "/svc/files{,/**}",
+          "function": "fileController"
+        },
+        {
           "source": "/svc{,/**}",
           "function": "app"
         },
@@ -24,6 +48,30 @@
         "**/node_modules/**"
       ],
       "rewrites": [
+        {
+          "source": "/svc/items{,/**}",
+          "function": "itemController"
+        },
+        {
+          "source": "/svc/comments{,/**}",
+          "function": "commentController"
+        },
+        {
+          "source": "/svc/users{,/**}",
+          "function": "userController"
+        },
+        {
+          "source": "/svc/reports{,/**}",
+          "function": "reportController"
+        },
+        {
+          "source": "/svc/notifications{,/**}",
+          "function": "notificationController"
+        },
+        {
+          "source": "/svc/files{,/**}",
+          "function": "fileController"
+        },
         {
           "source": "/svc{,/**}",
           "function": "app"

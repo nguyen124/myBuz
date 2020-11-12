@@ -76,8 +76,8 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  deleteComment(index: number, itemId: string, commentId: string) {
-    this._commentSvc.deleteComment(itemId, commentId).subscribe(parentComment => {
+  deleteComment(index: number, commentId: string) {
+    this._commentSvc.deleteComment(commentId).subscribe(parentComment => {
       this.comment.replies.splice(index, 1);
       if (this.previousIndex > index) {
         this.previousIndex--;

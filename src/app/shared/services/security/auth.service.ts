@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   localLogIn(username: string, password: string): Observable<any> {
-    var loginObs = this._http.post<any>('/svc/user/auth/local', { email: username, password: password });
+    var loginObs = this._http.post<any>('/svc/users/local-auth', { email: username, password: password });
     loginObs.subscribe(res => {
       this.loggedIn = true;
       this.user = res.user;
@@ -32,11 +32,11 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-    window.location.href = '/svc/user/auth/google';
+    window.location.href = '/svc/users/google-auth';
   };
 
   loginWithFacebook() {
-    window.location.href = '/svc/user/auth/facebook';
+    window.location.href = '/svc/users/facebook-auth';
   };
 
   saveThirdPartyLogin(user: string) {
@@ -49,7 +49,7 @@ export class AuthService {
     this.loggedIn = false;
     this._systemSvc.eraseCookie("__session");
     localStorage.removeItem("user");
-    return this._http.post("/svc/user/logout", {});
+    return this._http.post("/svc/users/logout", {});
   }
 }
 

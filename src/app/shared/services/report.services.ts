@@ -12,12 +12,12 @@ export class ReportService {
     constructor(private _http: HttpClient) { }
 
     createReport(report: IReport): Observable<any> {
-        return this._http.post("/svc/reports", report);
+        return this._http.post("/svc/reports/create", report);
     }
 
     cancelReport(itemId: string, commentId?: string): Observable<any> {
         var reportedComment = commentId ? "&reportedCommentId=" + commentId : "";
-        return this._http.delete("/svc/reports?reportedItemId=" + itemId + reportedComment);
+        return this._http.delete("/svc/reports/delete?reportedItemId=" + itemId + reportedComment);
     }
 
     getReports(params): Observable<IReport[]> {

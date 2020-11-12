@@ -28,7 +28,7 @@
             </div>
             <div class="row text-overflow mb-1">
               <div class="col-12">
-                <div class="text-success font-weight-bold">{{item.title}}</div>
+                <div class="text-success font-weight-bold font-24">{{item.title}}</div>
               </div>
             </div>
             <div class="row overflow-hidden">
@@ -44,7 +44,7 @@
                 <app-react [item]="item"></app-react>
               </div>
             </div>
-            <div *ngIf="item.files" class="row mt-3">
+            <div *ngIf="item.files" class="row mt-3 high-light">
               <ng-container *ngIf="item.files.length >1; else shortPost">
                 <div *ngFor="let file of item.files; let i = index;" class="col-6 mt-2 mb-2">
                   <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden"
@@ -64,7 +64,7 @@
                 </div>
               </ng-template>
             </div>
-            <div class="video img-thumbnail img-fluid">
+            <div *ngIf="item.description.trim().length" class="video img-thumbnail img-fluid">
               <div class="col-12 h-200">
                 <pre>{{item.description}}</pre>
               </div>

@@ -112,6 +112,10 @@ html {
     background-color: rgb(253, 249, 229);
 }
 
+.high-light {
+    background-color: rgb(253, 249, 229);
+}
+
 /*Fixing chrome56 overflow scrollbar flickering*/
 *::-webkit-scrollbar {
     width: 6px!important;

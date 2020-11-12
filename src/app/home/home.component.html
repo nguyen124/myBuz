@@ -41,7 +41,7 @@
     <div class="form-label-group">
       <a routerLink="." queryParamsHandling="merge" [queryParams]="{page: actualPage}"
         class="btn text-primary d-inline mr-1"> Go to page </a>
-      <input class="form-control mt-2 d-inline w-25" type="text" autofocus [(ngModel)]="actualPage" />
+      <input class="form-control mt-2 d-inline w-25" type="number" min="0" autofocus [(ngModel)]="actualPage" />
     </div>
   </div>
 </div>

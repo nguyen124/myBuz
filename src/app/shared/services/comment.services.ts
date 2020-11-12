@@ -14,37 +14,34 @@ export class CommentService {
     }
 
     upvote(itemId?: string, commentId?: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/upvote", { itemId: itemId, commentId: commentId });
+        return this._http.put<number>("/svc/comments/upvote", { itemId: itemId, commentId: commentId });
     }
 
     unvote(itemId?: string, commentId?: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/unvote", { itemId: itemId, commentId: commentId });
+        return this._http.put<number>("/svc/comments/unvote", { itemId: itemId, commentId: commentId });
     }
 
     downvote(itemId?: string, commentId?: string): Observable<number> {
-        return this._http.put<number>("/svc/current-user/downvote", { itemId: itemId, commentId: commentId });
+        return this._http.put<number>("/svc/comments/downvote", { itemId: itemId, commentId: commentId });
     }
 
     addComment(comment: IComment): Observable<any> {
-        return this._http.post<any>('/svc/current-user/comment', comment);
+        return this._http.post<any>('/svc/comments/create', comment);
     }
 
     updateComment(comment: IComment, newCommentContent: any[]): Observable<any> {
-        return this._http.put<any>(`/svc/items/${comment.itemId}/comments/${comment._id}`, {
+        return this._http.put<any>(`/svc/comments/${comment._id}/update`, {
+            itemId: comment.itemId,
             content: newCommentContent
         });
-    }
-
-    getCommentsOfItem(itemId: string, params): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments", { params: params });
     }
 
     getRepliesOfComment(commentId: string, params): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/comments/" + commentId + "/replies", { params: params });
     }
 
-    deleteComment(itemId: string, commentId: string): Observable<any> {
-        return this._http.delete(`/svc/items/${itemId}/comments/${commentId}`);
+    deleteComment(commentId: string): Observable<any> {
+        return this._http.delete(`/svc/comments/${commentId}/delete`);
     }
 
     getCommentById(commentId) {

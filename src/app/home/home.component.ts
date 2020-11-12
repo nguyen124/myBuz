@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   MAX_ITEMS = this.PER_PAGE * 4;
   currentLength: number;
   offset: number;
-  actualPage: any;
+  actualPage: any = 0;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
