@@ -31,7 +31,9 @@ export class ItemComponent implements OnInit {
   }
 
   showItemModal() {
-    this.showModalEvent.emit();
+    if (this.showModalEvent) {
+      this.showModalEvent.emit();
+    }
   }
 }
 

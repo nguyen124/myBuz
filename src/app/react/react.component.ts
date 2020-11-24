@@ -73,7 +73,9 @@ export class ReactComponent implements OnInit {
   }
 
   showItemModal() {
-    this.showModalEvent.emit();
+    if (this.showModalEvent) {
+      this.showModalEvent.emit();
+    }
   }
 
   reportItem(item: IItem) {
