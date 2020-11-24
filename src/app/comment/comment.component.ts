@@ -136,4 +136,16 @@ export class CommentComponent implements OnInit {
       this.subscription.unsubscribe();
     }
   }
+
+  showTooltip(reply) {
+    if (reply) {
+      reply.showToolTip = true;
+    }
+  }
+
+  hideTooltip(reply) {
+    if (reply) {
+      reply.showToolTip = false;
+    }
+  }
 }

@@ -55,6 +55,10 @@ html {
         width: 25% !important;
     }
 
+    .xs-h-25 {
+        height: 25% !important;
+    }
+
     .xs-w-15 {
         width: 15% !important;
     }
