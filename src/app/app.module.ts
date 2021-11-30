@@ -30,6 +30,7 @@ import { ReactComponent } from './react/react.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportComponent } from './report/report.component';
 import { UploadComponent } from './upload/upload.component';
+import { CreateNodeComponent } from './createNode/createNode.component';
 
 import { ErrorInterceptorService } from './shared/services/system/error-interceptor.service';
 import { JQ_TOKEN } from './shared/services/jQuery.service';
@@ -87,6 +88,7 @@ let jQuery: any = window['$'];
     MyItemsComponent,
     NotificationComponent,
     UploadComponent,
+    CreateNodeComponent,
     ReactComponent,
     RegisterComponent,
     ReportComponent,

@@ -1,0 +1,15 @@
+.modal-medium {
+    max-width: 95%;
+}
+
+#tagTextArea {
+    resize: none;
+}
+
+.height-350 {
+    height: 350px;
+}
+
+#spinner {
+    display: block;
+}

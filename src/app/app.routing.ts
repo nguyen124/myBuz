@@ -33,6 +33,10 @@ const appRoutes: Routes = [
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     },
     {
+        path: 'nodes',
+        loadChildren: () => import('./nodes-module/nodes.module').then(m => m.NodesModule)
+    },
+    {
         path: '',
         redirectTo: 'items',
         pathMatch: 'full'

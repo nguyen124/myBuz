@@ -1,0 +1,120 @@
+<!-- The Modal -->
+<div class="modal fade" id="createNodeModal" tabindex="-1">
+  <div class="modal-dialog modal-medium">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="createNode()" autocomplete="on">
+          <div class="form-row">
+            <div class="col-1">
+              <button id="closeModalBtn" type="button" class="close float-left" data-dismiss="modal" aria-label="Close"
+                (click)="resetFormValues()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-5 mb-3">
+              <div class="form-row mb-3">
+                <div class="col-md-12 mb-3">
+                  <label class="text-primary"><strong>Title</strong></label>
+                  <input type="text" formControlName="title" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('title') }">
+                  <div *ngIf="checkError('title')" class="invalid-feedback">
+                    <div *ngIf="f.title.errors.required">Title is required!</div>
+                    <div *ngIf="f.title.errors.whitespace">Title can't be blank space!</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                  <label class="text-primary"><strong>Categories</strong></label>
+                  <select formControlName="categories" class="custom-select">
+                    <option value="General">General</option>                                
+                    <option value="Music">Music</option>                    
+                    <option value="Sport">Sport</option>                    
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-12 mb-3">
+                  <label class="text-primary" for="tags"><strong>Tags</strong></label>
+                  <div>
+                    <ng-container *ngFor="let tag of parsedTags;">
+                      <a href="" class="mr-1">#{{tag}}</a>
+                    </ng-container>
+                  </div>
+                  <input id="tags" type="text" formControlName="tags" class="w-100"
+                    (input)="onTagsChange($event.target.value)">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-12 mb-3">
+                  <label class="text-primary" for="description"><strong>Description (Optional! Max 10000
+                      characters.)</strong></label>
+                  <textarea type="text" formControlName="description" class="form-control height-350"
+                    [ngClass]="{ 'is-invalid': checkError('description') }"></textarea>
+                  <div *ngIf="checkError('description')" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 10000 characters!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 mb-3">
+              <div class="form-row mb-3">
+                <div class="col-md-12 mb-3">
+                  <label class="text-primary" for="upload"><strong>Pictures/Videos</strong></label>
+                  <div class="custom-file">
+                    <label class="custom-file-label" for="upload">Choose file</label>
+                    <input type="file" class="custom-file-input" formControlName="file" id="upload" multiple
+                      (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
+                      [ngClass]="{'is-invalid' : checkError('file')}">
+                    <div *ngIf="checkError('file')" class="invalid-feedback">
+                      <div *ngIf="f.file.errors.required">File is required!</div>
+                      <ng-container *ngIf="f.file.errors.largeFile">
+                        <div *ngIf="f.file.errors.largeFile">Each uploaded file can't be larger than 1GB!</div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="isUploading" id="preloader" class="preloader text-center">
+                  <div id="spinner_container" class="spinner_container">
+                    <circle-progress [percent]="uploadingProgress">
+                    </circle-progress>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mb-3">
+                <ng-container *ngIf="toUploadFiles && toUploadFiles.length">
+                  <ng-container *ngFor="let previewMediaSrc of toUploadFiles; let i = index">
+                    <div class="col-6" *ngIf="previewMediaSrc.fileType.match('image*')">
+                      <img [src]="previewMediaSrc.url" class="mw-100 m-2" id="previewImg">
+                      <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="col-6" *ngIf="previewMediaSrc.fileType.match('video*')">
+                      <video [src]="previewMediaSrc.url" controls class="mw-100 m-2">
+                      </video>
+                      <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 col-sm-4 form-group">
+              <button type="button" id="cancelBtn" class="btn btn-primary mr-2" data-dismiss="modal"
+                (click)="resetFormValues()">Cancel</button>
+              <button type="submit" class="btn btn-success" [disabled]="isUploading">Create</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

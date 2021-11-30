@@ -1,0 +1,37 @@
+.abs {
+  top: 180px;
+  left: 180px;
+}
+
+.abs2 {
+  top: 280px;
+  left: 280px;
+}
+
+.border {
+  border: 3px solid #ad3121;
+  height: 100%;
+}
+
+.svg-border {
+  border: 3px solid #ad3121;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.hl {
+  border-top: 2px solid red;
+  position: absolute;
+  width: 200px;
+}
+
+.vl {
+  border-left: 2px solid red;
+  position: absolute;
+  height: 200px;
+}
+
+.line {
+  stroke: gray;
+}
