@@ -42,6 +42,7 @@ export class DraggableDirective implements OnInit, AfterViewInit {
 
     this.mousedrag = this.mousedown.pipe(
       map(event => {
+        console.log(this.element.nativeElement.getBoundingClientRect());
         return {
           top: event.clientY - this.element.nativeElement.getBoundingClientRect().top,
           left: event.clientX - this.element.nativeElement.getBoundingClientRect().left,

@@ -12,11 +12,13 @@ export class NodesComponent implements OnInit {
   @ViewChild('btn1', { static: false }) btn1: ElementRef;
   @ViewChild('btn2', { static: false }) btn2: ElementRef;
   @ViewChild('connectedLine', { static: false }) connectedLine: ElementRef;
+  @ViewChild('outterCanvas', { static: false }) outterCanvas: ElementRef;
 
   constructor() { }
 
   onFromValueReceived(value) {
     this.from = value;
+    console.log(this.from);
     this.drawLine(this.from, this.to);
   }
 
@@ -46,14 +48,15 @@ export class NodesComponent implements OnInit {
       to.top += value.top;
       to.left += value.left;
     }
+    const offset = this.outterCanvas.nativeElement.getBoundingClientRect();
     if (this.connectedLine) {
       if (this.from) {
-        this.connectedLine.nativeElement.setAttribute('y1', from.top + 'px');
-        this.connectedLine.nativeElement.setAttribute('x1', from.left + 'px');
+        this.connectedLine.nativeElement.setAttribute('y1', from.top - offset.top + 'px');
+        this.connectedLine.nativeElement.setAttribute('x1', from.left - offset.left + 'px');
       }
       if (this.to) {
-        this.connectedLine.nativeElement.setAttribute('y2', to.top + 'px');
-        this.connectedLine.nativeElement.setAttribute('x2', to.left + 'px');
+        this.connectedLine.nativeElement.setAttribute('y2', to.top - offset.top + 'px');
+        this.connectedLine.nativeElement.setAttribute('x2', to.left - offset.left + 'px');
       }
     }
   }
