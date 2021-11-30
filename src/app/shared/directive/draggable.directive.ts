@@ -12,10 +12,10 @@ export class DraggableDirective implements OnInit, AfterViewInit {
   mousedown = new EventEmitter<MouseEvent>();
   mousemove = new EventEmitter<MouseEvent>();
 
-  mousedrag: Observable<{ top, left, bottom, right }>;
-  boundingRect: { top, left, bottom, right };
+  mousedrag: Observable<{ top: number, left: number, bottom: number, right: number }>;
+  boundingRect: { top: number, left: number, bottom: number, right: number };
 
-  @Output() xyEmitter: EventEmitter<{ top, left, bottom, right }> = new EventEmitter<{ top, left, bottom, right }>();
+  @Output() xyEmitter: EventEmitter<{ top: number, left: number, bottom: number, right: number }> = new EventEmitter<{ top: number, left: number, bottom: number, right: number }>();
 
   @HostListener('document:mouseup', ['$event'])
   onMouseup(event: MouseEvent) {
@@ -42,7 +42,6 @@ export class DraggableDirective implements OnInit, AfterViewInit {
 
     this.mousedrag = this.mousedown.pipe(
       map(event => {
-        console.log(this.element.nativeElement.getBoundingClientRect());
         return {
           top: event.clientY - this.element.nativeElement.getBoundingClientRect().top,
           left: event.clientX - this.element.nativeElement.getBoundingClientRect().left,

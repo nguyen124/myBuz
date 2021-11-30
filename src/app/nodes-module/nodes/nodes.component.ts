@@ -6,34 +6,35 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
   styleUrls: ['./nodes.component.css']
 })
 export class NodesComponent implements OnInit {
-  nodes: [any];
-  from: { top, left, bottom, right } = undefined;
-  to: { top, left, bottom, right } = undefined;
-  @ViewChild('btn1', { static: false }) btn1: ElementRef;
-  @ViewChild('btn2', { static: false }) btn2: ElementRef;
-  @ViewChild('connectedLine', { static: false }) connectedLine: ElementRef;
+  nodes: any;
+  from: { top: number, left: number, bottom: number, right: number } = undefined;
+  to: { top: number, left: number, bottom: number, right: number }[] = [];
+  @ViewChild('root', { static: false }) root: ElementRef;
+  @ViewChildren('neighbors') neighbors: QueryList<ElementRef>;
+  @ViewChildren('connectedLines') connectedLines: QueryList<ElementRef>;
   @ViewChild('outterCanvas', { static: false }) outterCanvas: ElementRef;
 
   constructor() { }
 
   onFromValueReceived(value) {
     this.from = value;
-    console.log(this.from);
-    this.drawLine(this.from, this.to);
+    this.drawLineToNeighbors(this.from, this.to);
   }
 
-  onToValueReceived(value) {
-    this.to = value;
-    this.drawLine(this.from, this.to);
+  onToValueReceived(value: { top: number, left: number, bottom: number, right: number }, index: number) {
+    this.to[index] = value;
+    this.drawLine(this.from, index);
   }
 
   handleCanvasMoving(value) {
 
-    this.drawNode(this.btn1, value);
-    this.drawNode(this.btn2, value);
+    this.drawNode(this.root, value);
+    this.neighbors.forEach(neighbor => {
+      this.drawNode(neighbor, value);
+    })
 
 
-    this.drawLine(this.from, this.to, value);
+    this.drawLineToNeighbors(this.from, this.to, value);
   }
 
   drawNode(btn, value) {
@@ -41,23 +42,51 @@ export class NodesComponent implements OnInit {
     btn.nativeElement.style.left = btn.nativeElement.offsetLeft + value.left + 'px';
   }
 
-  drawLine(from, to, value?: any) {
+  drawLine(from, index) {
+    // if (value) {
+    //   from.top += value.top;
+    //   from.left += value.left;
+    //   to.top += value.top;
+    //   to.left += value.left;
+    // }
+    const offset = this.outterCanvas ? this.outterCanvas.nativeElement.getBoundingClientRect() : { top: 0, left: 0 };
+    if (this.connectedLines) {
+      this.connectedLines.forEach((connectedLine, idx) => {
+        if (idx === index) {
+          if (from) {
+            connectedLine.nativeElement.setAttribute('y1', from.top - offset.top + 'px');
+            connectedLine.nativeElement.setAttribute('x1', from.left - offset.left + 'px');
+          }
+          if (this.to[index]) {
+            connectedLine.nativeElement.setAttribute('y2', this.to[index].top - offset.top + 'px');
+            connectedLine.nativeElement.setAttribute('x2', this.to[index].left - offset.left + 'px');
+          }
+        }
+      });
+    }
+  }
+
+  drawLineToNeighbors(from, to, value?) {
     if (value) {
       from.top += value.top;
       from.left += value.left;
-      to.top += value.top;
-      to.left += value.left;
+      for (const t of this.to) {
+        t.top += value.top;
+        t.left += value.left;
+      }
     }
-    const offset = this.outterCanvas.nativeElement.getBoundingClientRect();
-    if (this.connectedLine) {
-      if (this.from) {
-        this.connectedLine.nativeElement.setAttribute('y1', from.top - offset.top + 'px');
-        this.connectedLine.nativeElement.setAttribute('x1', from.left - offset.left + 'px');
-      }
-      if (this.to) {
-        this.connectedLine.nativeElement.setAttribute('y2', to.top - offset.top + 'px');
-        this.connectedLine.nativeElement.setAttribute('x2', to.left - offset.left + 'px');
-      }
+    const offset = this.outterCanvas ? this.outterCanvas.nativeElement.getBoundingClientRect() : { top: 0, left: 0 };
+    if (this.connectedLines) {
+      this.connectedLines.forEach((connectedLine, idx) => {
+        if (from) {
+          connectedLine.nativeElement.setAttribute('y1', from.top - offset.top + 'px');
+          connectedLine.nativeElement.setAttribute('x1', from.left - offset.left + 'px');
+        }
+        if (to[idx]) {
+          connectedLine.nativeElement.setAttribute('y2', to[idx].top - offset.top + 'px');
+          connectedLine.nativeElement.setAttribute('x2', to[idx].left - offset.left + 'px');
+        }
+      });
     }
   }
 
@@ -78,8 +107,8 @@ export class NodesComponent implements OnInit {
           "Music"
         ],
         "_id": "619dacaed3771b1324074b1a",
-        "title": "asdasd",
-        "description": "asdasd",
+        "title": "Main",
+        "description": "Main",
         "createdBy": {
           "userId": "619d58d26fee6d3edc387f68",
           "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
@@ -88,7 +117,77 @@ export class NodesComponent implements OnInit {
         "modifiedDate": "2021-11-24T03:08:30.000Z",
         "noOfPoints": 0,
         "noOfComments": 0,
-        "__v": 0
+        "__v": 0,
+        "coordinates": {
+          "top": 200,
+          "left": 200
+        },
+        "neighbors": [
+          {
+            "files": [
+              {
+                "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+                "filename": "2021/10/23/haidapchai/Capture.PNG",
+                "fileType": "image/png"
+              }
+            ],
+            "tags": [
+              "asd"
+            ],
+            "categories": [
+              "Music"
+            ],
+            "_id": "619dacaed3771b1324074b1a",
+            "title": "Neighbor1",
+            "description": "Neighbor1",
+            "createdBy": {
+              "userId": "619d58d26fee6d3edc387f68",
+              "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+              "username": "haidapchai"
+            },
+            "modifiedDate": "2021-11-24T03:08:30.000Z",
+            "noOfPoints": 0,
+            "noOfComments": 0,
+            "__v": 0,
+            "coordinates": {
+              "top": 300,
+              "left": 300
+            },
+            "neighbors": [],
+          },
+          {
+            "files": [
+              {
+                "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+                "filename": "2021/10/23/haidapchai/Capture.PNG",
+                "fileType": "image/png"
+              }
+            ],
+            "tags": [
+              "asd"
+            ],
+            "categories": [
+              "Music"
+            ],
+            "_id": "619dacaed3771b1324074b1a",
+            "title": "Neighbor2",
+            "description": "Neighbor2",
+            "createdBy": {
+              "userId": "619d58d26fee6d3edc387f68",
+              "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+              "username": "haidapchai"
+            },
+            "modifiedDate": "2021-11-24T03:08:30.000Z",
+            "noOfPoints": 0,
+            "noOfComments": 0,
+            "__v": 0,
+            "coordinates": {
+              "top": 100,
+              "left": 400
+            },
+            "neighbors": [],
+          }
+        ]
       }
     ];
   }
