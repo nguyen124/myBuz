@@ -1,6 +1,6 @@
 <div #outterCanvas canvasNavigator (outterCanvasXYEmitter)="handleCanvasMoving($event)" class="border">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <line #connectedLines *ngFor="let node of node.neighbors; let i = index" stroke-width="1" class="line" />
+        <line #connectedLines *ngFor="let n of node.neighbors; let i = index" stroke-width="1" class="line" />
     </svg>
 
     <div #root myDraggable (xyEmitter)="onFromValueReceived($event)" [style.top.px]="node.coordinates.top"
@@ -16,4 +16,5 @@
             </app-node>
         </div>
     </ng-container>
+    
 </div>
