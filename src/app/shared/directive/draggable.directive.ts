@@ -1,5 +1,4 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { post } from 'jquery';
 import { Observable } from 'rxjs';
 import { flatMap, map, takeUntil } from 'rxjs/operators';
 

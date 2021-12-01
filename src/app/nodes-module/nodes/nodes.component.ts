@@ -6,7 +6,7 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
   styleUrls: ['./nodes.component.css']
 })
 export class NodesComponent implements OnInit {
-  nodes: any;
+  node: any;
   from: { top: number, left: number, bottom: number, right: number } = undefined;
   to: { top: number, left: number, bottom: number, right: number }[] = [];
   @ViewChild('root', { static: false }) root: ElementRef;
@@ -31,8 +31,7 @@ export class NodesComponent implements OnInit {
     this.drawNode(this.root, value);
     this.neighbors.forEach(neighbor => {
       this.drawNode(neighbor, value);
-    })
-
+    });
 
     this.drawLineToNeighbors(this.from, this.to, value);
   }
@@ -43,12 +42,6 @@ export class NodesComponent implements OnInit {
   }
 
   drawLine(from, index) {
-    // if (value) {
-    //   from.top += value.top;
-    //   from.left += value.left;
-    //   to.top += value.top;
-    //   to.left += value.left;
-    // }
     const offset = this.outterCanvas ? this.outterCanvas.nativeElement.getBoundingClientRect() : { top: 0, left: 0 };
     if (this.connectedLines) {
       this.connectedLines.forEach((connectedLine, idx) => {
@@ -91,105 +84,103 @@ export class NodesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nodes = [
-      {
-        "files": [
-          {
-            "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-            "filename": "2021/10/23/haidapchai/Capture.PNG",
-            "fileType": "image/png"
-          }
-        ],
-        "tags": [
-          "asd"
-        ],
-        "categories": [
-          "Music"
-        ],
-        "_id": "619dacaed3771b1324074b1a",
-        "title": "Main",
-        "description": "Main",
-        "createdBy": {
-          "userId": "619d58d26fee6d3edc387f68",
-          "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-          "username": "haidapchai"
-        },
-        "modifiedDate": "2021-11-24T03:08:30.000Z",
-        "noOfPoints": 0,
-        "noOfComments": 0,
-        "__v": 0,
-        "coordinates": {
-          "top": 200,
-          "left": 200
-        },
-        "neighbors": [
-          {
-            "files": [
-              {
-                "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-                "filename": "2021/10/23/haidapchai/Capture.PNG",
-                "fileType": "image/png"
-              }
-            ],
-            "tags": [
-              "asd"
-            ],
-            "categories": [
-              "Music"
-            ],
-            "_id": "619dacaed3771b1324074b1a",
-            "title": "Neighbor1",
-            "description": "Neighbor1",
-            "createdBy": {
-              "userId": "619d58d26fee6d3edc387f68",
-              "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-              "username": "haidapchai"
-            },
-            "modifiedDate": "2021-11-24T03:08:30.000Z",
-            "noOfPoints": 0,
-            "noOfComments": 0,
-            "__v": 0,
-            "coordinates": {
-              "top": 300,
-              "left": 300
-            },
-            "neighbors": [],
+    this.node =
+    {
+      "files": [
+        {
+          "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+          "filename": "2021/10/23/haidapchai/Capture.PNG",
+          "fileType": "image/png"
+        }
+      ],
+      "tags": [
+        "asd"
+      ],
+      "categories": [
+        "Music"
+      ],
+      "_id": "619dacaed3771b1324074b1a",
+      "title": "Main",
+      "description": "Main",
+      "createdBy": {
+        "userId": "619d58d26fee6d3edc387f68",
+        "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+        "username": "haidapchai"
+      },
+      "modifiedDate": "2021-11-24T03:08:30.000Z",
+      "noOfPoints": 0,
+      "noOfComments": 0,
+      "__v": 0,
+      "coordinates": {
+        "top": 100,
+        "left": 110
+      },
+      "neighbors": [
+        {
+          "files": [
+            {
+              "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+              "filename": "2021/10/23/haidapchai/Capture.PNG",
+              "fileType": "image/png"
+            }
+          ],
+          "tags": [
+            "asd"
+          ],
+          "categories": [
+            "Music"
+          ],
+          "_id": "619dacaed3771b1324074b1a",
+          "title": "Neighbor1",
+          "description": "Neighbor1",
+          "createdBy": {
+            "userId": "619d58d26fee6d3edc387f68",
+            "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+            "username": "haidapchai"
           },
-          {
-            "files": [
-              {
-                "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-                "filename": "2021/10/23/haidapchai/Capture.PNG",
-                "fileType": "image/png"
-              }
-            ],
-            "tags": [
-              "asd"
-            ],
-            "categories": [
-              "Music"
-            ],
-            "_id": "619dacaed3771b1324074b1a",
-            "title": "Neighbor2",
-            "description": "Neighbor2",
-            "createdBy": {
-              "userId": "619d58d26fee6d3edc387f68",
-              "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-              "username": "haidapchai"
-            },
-            "modifiedDate": "2021-11-24T03:08:30.000Z",
-            "noOfPoints": 0,
-            "noOfComments": 0,
-            "__v": 0,
-            "coordinates": {
-              "top": 100,
-              "left": 400
-            },
-            "neighbors": [],
-          }
-        ]
-      }
-    ];
+          "modifiedDate": "2021-11-24T03:08:30.000Z",
+          "noOfPoints": 0,
+          "noOfComments": 0,
+          "__v": 0,
+          "coordinates": {
+            "top": 300,
+            "left": 300
+          },
+          "neighbors": [],
+        },
+        {
+          "files": [
+            {
+              "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+              "filename": "2021/10/23/haidapchai/Capture.PNG",
+              "fileType": "image/png"
+            }
+          ],
+          "tags": [
+            "asd"
+          ],
+          "categories": [
+            "Music"
+          ],
+          "_id": "619dacaed3771b1324074b1a",
+          "title": "Neighbor2",
+          "description": "Neighbor2",
+          "createdBy": {
+            "userId": "619d58d26fee6d3edc387f68",
+            "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+            "username": "haidapchai"
+          },
+          "modifiedDate": "2021-11-24T03:08:30.000Z",
+          "noOfPoints": 0,
+          "noOfComments": 0,
+          "__v": 0,
+          "coordinates": {
+            "top": 100,
+            "left": 400
+          },
+          "neighbors": [],
+        }
+      ]
+    }
   }
-
 }
