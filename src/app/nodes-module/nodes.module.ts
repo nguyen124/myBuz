@@ -5,8 +5,9 @@ import { NodeRoutingModule } from './nodes-routing.module';
 import { DraggableDirective } from '../shared/directive/draggable.directive';
 import { CanvasNavigatorDirective } from '../shared/directive/canvasNavigator.directive';
 import { NodeComponent } from './node/node.component';
+import { MapComponent } from './map/map.component';
 @NgModule({
-  declarations: [NodesComponent, DraggableDirective, CanvasNavigatorDirective, NodeComponent],
+  declarations: [NodesComponent, DraggableDirective, CanvasNavigatorDirective, NodeComponent, MapComponent],
   imports: [
     CommonModule,
     NodeRoutingModule
