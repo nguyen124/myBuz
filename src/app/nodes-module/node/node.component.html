@@ -1,4 +1,5 @@
-<button class="btn btn-xs btn-success">
+<button #root myDraggable (xyEmitter)="onMoving($event)" class="btn btn-xs btn-success" [style.top.px]="node.coordinates.top"
+[style.left.px]="node.coordinates.left">
     <i class="fa fa-music mb-2"></i>
     <p>{{node.title}}</p>
 </button>

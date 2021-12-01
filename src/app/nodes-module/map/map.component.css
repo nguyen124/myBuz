@@ -1,0 +1,15 @@
+.border {
+  border: 3px solid #ad3121;
+  height: 100%;
+}
+
+.svg-border {
+  border: 3px solid #ad3121;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.line {
+  stroke: gray;
+}
