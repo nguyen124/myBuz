@@ -11,8 +11,8 @@ export class CanvasNavigatorDirective implements AfterViewInit {
   mousedown = new EventEmitter<MouseEvent>();
   mousemove = new EventEmitter<MouseEvent>();
 
-  mousedrag: Observable<{ top, left }>;
-  @Output() outterCanvasXYEmitter: EventEmitter<{ top, left }> = new EventEmitter<{ top, left }>();
+  mousedrag: Observable<{ top: number, left: number }>;
+  @Output() outterCanvasXYEmitter: EventEmitter<{ top: number, left: number }> = new EventEmitter<{ top: number, left: number }>();
 
   @HostListener('mouseup', ['$event'])
   onMouseup(event: MouseEvent) {
@@ -22,7 +22,7 @@ export class CanvasNavigatorDirective implements AfterViewInit {
   @HostListener('mousedown', ['$event'])
   onMousedown(event: MouseEvent) {
     this.mousedown.emit(event);
-    return false; // Call preventDefault() on the event
+    return false;
   }
 
   @HostListener('mousemove', ['$event'])
@@ -60,14 +60,6 @@ export class CanvasNavigatorDirective implements AfterViewInit {
     this.mousedrag.subscribe({
       next: (pos) => {
         this.outterCanvasXYEmitter.emit({ top: pos.top, left: pos.left });
-        //for (var child of this.element.nativeElement.children) {
-        //console.log("rec top:" + child.offsetTop + ",rec left:" + child.offsetLeft);
-
-        // child.style.top = child.offsetTop + pos.top + 'px';
-        // child.style.left = child.offsetLeft + pos.left + 'px';
-
-        //console.log("child top:" + child.style.top + ", child left:" + child.style.left);
-        //};
       }
     });
   }
