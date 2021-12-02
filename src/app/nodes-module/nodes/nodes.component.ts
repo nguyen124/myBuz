@@ -38,8 +38,8 @@ export class NodesComponent implements OnInit {
           "Music"
         ],
         "_id": "1",
-        "title": "Main",
-        "description": "Main",
+        "title": "Root",
+        "description": "Root",
         "createdBy": {
           "userId": "619d58d26fee6d3edc387f68",
           "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
@@ -51,7 +51,7 @@ export class NodesComponent implements OnInit {
         "__v": 0,
         "coordinates": {
           "top": 100,
-          "left": 110
+          "left": 100
         },
         "neighbors": [
           {
@@ -81,8 +81,8 @@ export class NodesComponent implements OnInit {
             "noOfComments": 0,
             "__v": 0,
             "coordinates": {
-              "top": 300,
-              "left": 300
+              "top": 100,
+              "left": 250
             },
             "neighbors": [],
           },
@@ -113,10 +113,75 @@ export class NodesComponent implements OnInit {
             "noOfComments": 0,
             "__v": 0,
             "coordinates": {
-              "top": 100,
-              "left": 400
+              "top": 300,
+              "left": 100
             },
-            "neighbors": [],
+            "neighbors": [
+              {
+                "files": [
+                  {
+                    "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+                    "filename": "2021/10/23/haidapchai/Capture.PNG",
+                    "fileType": "image/png"
+                  }
+                ],
+                "tags": [
+                  "asd"
+                ],
+                "categories": [
+                  "Music"
+                ],
+                "_id": "6",
+                "title": "Neighbor6",
+                "description": "Neighbor6",
+                "createdBy": {
+                  "userId": "619d58d26fee6d3edc387f68",
+                  "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+                  "username": "haidapchai"
+                },
+                "modifiedDate": "2021-11-24T03:08:30.000Z",
+                "noOfPoints": 0,
+                "noOfComments": 0,
+                "__v": 0,
+                "coordinates": {
+                  "top": 430,
+                  "left": 100
+                },
+                "neighbors": [],
+              },
+              {
+                "files": [
+                  {
+                    "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+                    "filename": "2021/10/23/haidapchai/Capture.PNG",
+                    "fileType": "image/png"
+                  }
+                ],
+                "tags": [
+                  "asd"
+                ],
+                "categories": [
+                  "Music"
+                ],
+                "_id": "7",
+                "title": "Neighbor7",
+                "description": "Neighbor7",
+                "createdBy": {
+                  "userId": "619d58d26fee6d3edc387f68",
+                  "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
+                  "username": "haidapchai"
+                },
+                "modifiedDate": "2021-11-24T03:08:30.000Z",
+                "noOfPoints": 0,
+                "noOfComments": 0,
+                "__v": 0,
+                "coordinates": {
+                  "top": 300,
+                  "left": 350
+                },
+                "neighbors": [],
+              }
+            ],
           }
         ]
       },
@@ -147,8 +212,8 @@ export class NodesComponent implements OnInit {
         "noOfComments": 0,
         "__v": 0,
         "coordinates": {
-          "top": 300,
-          "left": 300
+          "top": 100,
+          "left": 250
         },
         "neighbors": [
           {
@@ -178,8 +243,8 @@ export class NodesComponent implements OnInit {
             "noOfComments": 0,
             "__v": 0,
             "coordinates": {
-              "top": 500,
-              "left": 300
+              "top": 200,
+              "left": 250
             },
             "neighbors": [],
           },
@@ -210,7 +275,7 @@ export class NodesComponent implements OnInit {
             "noOfComments": 0,
             "__v": 0,
             "coordinates": {
-              "top": 600,
+              "top": 100,
               "left": 400
             },
             "neighbors": [],
