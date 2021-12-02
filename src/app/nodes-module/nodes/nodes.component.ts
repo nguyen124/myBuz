@@ -221,6 +221,9 @@ export class NodesComponent implements OnInit {
     this.bfs(this.nodes);
   }
 
+  nodesToShow = [];
+  linesToShow = [];
+  theStartNodes = {};
   bfs(nodes: any) {
     var visited = {};
     for (var n of nodes) {
@@ -229,16 +232,19 @@ export class NodesComponent implements OnInit {
       var size = 0;
       queue.push(n);
       size = queue.length;
+
       while (size > 0) {
         var node = queue[start];
         if (!visited[node._id]) {
           this.visit(visited, node);
+          this.theStartNodes[node._id] = node;
         }
         start++;
         size--;
         for (var childNode of node.neighbors) {
           if (!visited[childNode._id]) {
             queue.push(childNode);
+            this.linesToShow.push({ start: this.theStartNodes[node._id], end: childNode });
             size++;
           }
         }
@@ -248,8 +254,7 @@ export class NodesComponent implements OnInit {
 
   visit(visited, node) {
     visited[node._id] = true;
+    this.nodesToShow.push(node);
     console.log("Visit: " + node.title);
   }
-
-  visited = {};
 }

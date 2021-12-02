@@ -1,18 +1,13 @@
 <div #outterCanvas canvasNavigator (outterCanvasXYEmitter)="handleCanvasMoving($event)" class="border">
     <svg width="100%" height="100%">
-        <g *ngFor="let node of nodes">
-            <line *ngFor="let neighbor of node.neighbors" [attr.y1]="node.coordinates.top+'px'"
-                [attr.x1]="node.coordinates.left+'px'" [attr.y2]="neighbor.coordinates.top+'px'"
-                [attr.x2]="neighbor.coordinates.left +'px'" stroke-width="1" class="line" stroke-width="1"
-                class="line" />
-        </g>
+
+        <line *ngFor="let line of linesToShow" [attr.y1]="line.start.coordinates.top+'px'"
+            [attr.x1]="line.start.coordinates.left+'px'" [attr.y2]="line.end.coordinates.top+'px'"
+            [attr.x2]="line.end.coordinates.left +'px'" stroke-width="1" class="line" stroke-width="1" class="line" />
+
     </svg>
 
-    <ng-container *ngFor="let node of nodes">
+    <ng-container *ngFor="let node of nodesToShow">
         <app-node [node]="node" [canvasCoor]="canvasCoor"></app-node>
-        <ng-container *ngFor="let neighbor of node.neighbors; let i = index">
-            <app-node [(node)]="neighbor" [canvasCoor]="canvasCoor">
-            </app-node>
-        </ng-container>
     </ng-container>
 </div>
