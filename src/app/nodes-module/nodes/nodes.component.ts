@@ -12,64 +12,13 @@ export class NodesComponent implements OnInit {
   canvasCoor: { top: number, left: number };
 
   @ViewChildren('neighbors') neighbors: QueryList<ElementRef>;
-  @ViewChildren('connectedLines') connectedLines: QueryList<ElementRef>;
+
   @ViewChild('outterCanvas', { static: false }) outterCanvas: ElementRef;
   constructor() { }
 
-  onToValueReceived(value: { top: number, left: number, bottom: number, right: number }, index: number) {
-    this.to[index] = value;
-    this.drawLine(this.from, index);
-  }
 
   handleCanvasMoving(value) {
     this.canvasCoor = value;
-  }
-
-  drawNode(btn, value) {
-    btn.nativeElement.style.top = btn.nativeElement.offsetTop + value.top + 'px';
-    btn.nativeElement.style.left = btn.nativeElement.offsetLeft + value.left + 'px';
-  }
-
-  drawLine(from, index) {
-    const offset = this.outterCanvas ? this.outterCanvas.nativeElement.getBoundingClientRect() : { top: 0, left: 0 };
-    if (this.connectedLines) {
-      this.connectedLines.forEach((connectedLine, idx) => {
-        if (idx === index) {
-          if (from) {
-            connectedLine.nativeElement.setAttribute('y1', from.top - offset.top + 'px');
-            connectedLine.nativeElement.setAttribute('x1', from.left - offset.left + 'px');
-          }
-          if (this.to[index]) {
-            connectedLine.nativeElement.setAttribute('y2', this.to[index].top - offset.top + 'px');
-            connectedLine.nativeElement.setAttribute('x2', this.to[index].left - offset.left + 'px');
-          }
-        }
-      });
-    }
-  }
-
-  drawLineToNeighbors(from, to, value?) {
-    if (value) {
-      from.top += value.top;
-      from.left += value.left;
-      for (const t of this.to) {
-        t.top += value.top;
-        t.left += value.left;
-      }
-    }
-    const offset = this.outterCanvas ? this.outterCanvas.nativeElement.getBoundingClientRect() : { top: 0, left: 0 };
-    if (this.connectedLines) {
-      this.connectedLines.forEach((connectedLine, idx) => {
-        if (from) {
-          connectedLine.nativeElement.setAttribute('y1', from.top - offset.top + 'px');
-          connectedLine.nativeElement.setAttribute('x1', from.left - offset.left + 'px');
-        }
-        if (to[idx]) {
-          connectedLine.nativeElement.setAttribute('y2', to[idx].top - offset.top + 'px');
-          connectedLine.nativeElement.setAttribute('x2', to[idx].left - offset.left + 'px');
-        }
-      });
-    }
   }
 
   ngOnInit() {
@@ -186,8 +135,8 @@ export class NodesComponent implements OnInit {
           "Music"
         ],
         "_id": "2",
-        "title": "Main2",
-        "description": "Main2",
+        "title": "Neighbor1",
+        "description": "Neighbor1",
         "createdBy": {
           "userId": "619d58d26fee6d3edc387f68",
           "avatar": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
@@ -198,8 +147,8 @@ export class NodesComponent implements OnInit {
         "noOfComments": 0,
         "__v": 0,
         "coordinates": {
-          "top": 700,
-          "left": 110
+          "top": 300,
+          "left": 300
         },
         "neighbors": [
           {
@@ -269,5 +218,38 @@ export class NodesComponent implements OnInit {
         ]
       }
     ];
+    this.bfs(this.nodes);
   }
+
+  bfs(nodes: any) {
+    var visited = {};
+    for (var n of nodes) {
+      var queue = [];
+      var start = 0;
+      var size = 0;
+      queue.push(n);
+      size = queue.length;
+      while (size > 0) {
+        var node = queue[start];
+        if (!visited[node._id]) {
+          this.visit(visited, node);
+        }
+        start++;
+        size--;
+        for (var childNode of node.neighbors) {
+          if (!visited[childNode._id]) {
+            queue.push(childNode);
+            size++;
+          }
+        }
+      }
+    }
+  }
+
+  visit(visited, node) {
+    visited[node._id] = true;
+    console.log("Visit: " + node.title);
+  }
+
+  visited = {};
 }
