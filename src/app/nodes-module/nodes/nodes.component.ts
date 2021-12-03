@@ -34,9 +34,7 @@ export class NodesComponent implements OnInit {
         "tags": [
           "asd"
         ],
-        "categories": [
-          "Music"
-        ],
+        "category": "Music",
         "_id": "1",
         "title": "Root",
         "description": "Root",
@@ -65,8 +63,8 @@ export class NodesComponent implements OnInit {
             "tags": [
               "asd"
             ],
-            "categories": [
-              "Music"
+            "category": [
+              "Sport"
             ],
             "_id": "2",
             "title": "Neighbor1",
@@ -97,9 +95,7 @@ export class NodesComponent implements OnInit {
             "tags": [
               "asd"
             ],
-            "categories": [
-              "Music"
-            ],
+            "category": "Anime",
             "_id": "3",
             "title": "Neighbor2",
             "description": "Neighbor2",
@@ -128,9 +124,7 @@ export class NodesComponent implements OnInit {
                 "tags": [
                   "asd"
                 ],
-                "categories": [
-                  "Music"
-                ],
+                "category": "Movie",
                 "_id": "6",
                 "title": "Neighbor6",
                 "description": "Neighbor6",
@@ -160,9 +154,7 @@ export class NodesComponent implements OnInit {
                 "tags": [
                   "asd"
                 ],
-                "categories": [
-                  "Music"
-                ],
+                "category": "Anime",
                 "_id": "7",
                 "title": "Neighbor7",
                 "description": "Neighbor7",
@@ -196,9 +188,7 @@ export class NodesComponent implements OnInit {
         "tags": [
           "asd"
         ],
-        "categories": [
-          "Music"
-        ],
+        "category": "Book",
         "_id": "2",
         "title": "Neighbor1",
         "description": "Neighbor1",
@@ -227,9 +217,7 @@ export class NodesComponent implements OnInit {
             "tags": [
               "asd"
             ],
-            "categories": [
-              "Music"
-            ],
+            "category": "Fashion",
             "_id": "4",
             "title": "Neighbor21",
             "description": "Neighbor21",
@@ -259,9 +247,7 @@ export class NodesComponent implements OnInit {
             "tags": [
               "asd"
             ],
-            "categories": [
-              "Music"
-            ],
+            "category": "Cosmetic",
             "_id": "5",
             "title": "Neighbor22",
             "description": "Neighbor22",

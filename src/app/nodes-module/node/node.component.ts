@@ -37,4 +37,42 @@ export class NodeComponent implements OnInit {
   onMouseOut() {
     this.showTooltip = false;
   }
+
+  getClass() {
+    switch (this.node.category) {
+      case 'Sport':
+        return 'fa-swimmer'
+      case 'Movie':
+        return 'fa-film'
+      case 'Cosmetic':
+        return 'fa-disease'
+      case 'Anime':
+        return 'fa-dragon'
+      case 'Fashion':
+        return 'fa-tshirt'
+      case 'Book':
+        return 'fa-book'
+      default:
+        return 'fa-music'
+    }
+  }
+
+  getColor() {
+    switch (this.node.category) {
+      case 'Sport':
+        return 'bg-red'
+      case 'Movie':
+        return 'bg-green'
+      case 'Cosmetic':
+        return 'bg-blue'
+      case 'Anime':
+        return 'bg-purple'
+      case 'Fashion':
+        return 'bg-yellow'
+      case 'Book':
+        return 'bg-brow'
+      default:
+        return 'bg-lightCoral'
+    }
+  }
 }

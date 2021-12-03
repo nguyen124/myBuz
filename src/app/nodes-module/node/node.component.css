@@ -1,0 +1,27 @@
+.bg-red {
+  background-color: rgb(245, 45, 31);
+}
+
+.bg-green {
+  background-color: rgb(154, 205, 50);
+}
+
+.bg-blue {
+  background-color: rgb(37, 136, 202);
+}
+
+.bg-purple {
+  background-color: rgb(147, 112, 219);
+}
+
+.bg-yellow {
+  background-color: rgb(255, 215, 0);
+}
+
+.bg-brow {
+  background-color: rgb(27, 26, 3);
+}
+
+.bg-lightCoral {
+  background-color: rgb(240, 128, 128);
+}
