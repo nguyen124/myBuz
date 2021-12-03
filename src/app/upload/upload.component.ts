@@ -6,7 +6,7 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
-import { FileValidatorDirective } from './file-validator.directive';
+import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
 import { AuthService } from '../shared/services/security/auth.service';
 import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
