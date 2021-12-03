@@ -319,7 +319,6 @@ export class NodesComponent implements OnInit {
 
   visit(visited, node) {
     visited[node._id] = true;
-    this.nodesToShow.push(node);
-    console.log("Visit: " + node.title);
+    this.nodesToShow.push(node);    
   }
 }

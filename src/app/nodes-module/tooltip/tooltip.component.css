@@ -1,0 +1,11 @@
+#my-tooltip {
+  max-width: 200px;
+  max-height: 200px;
+  border: 2px solid red;
+  background: white;
+  border-radius: 0.4em;
+  top: 1%;
+  left: 99%;
+  z-index: 1051;
+  position: absolute;
+}

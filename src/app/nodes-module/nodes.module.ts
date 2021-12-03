@@ -7,8 +7,9 @@ import { CanvasNavigatorDirective } from '../shared/directive/canvasNavigator.di
 import { NodeComponent } from './node/node.component';
 import { MapComponent } from './map/map.component';
 import { LineComponent } from './line/line.component';
+import { TooltipComponent } from './tooltip/tooltip.component';
 @NgModule({
-  declarations: [NodesComponent, DraggableDirective, CanvasNavigatorDirective, NodeComponent, MapComponent, LineComponent],
+  declarations: [NodesComponent, DraggableDirective, CanvasNavigatorDirective, NodeComponent, MapComponent, LineComponent, TooltipComponent],
   imports: [
     CommonModule,
     NodeRoutingModule

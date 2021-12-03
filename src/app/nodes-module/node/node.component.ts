@@ -6,8 +6,8 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
   styleUrls: ['./node.component.css']
 })
 export class NodeComponent implements OnInit {
+  showTooltip: boolean;
   @Input() node: any;
-
   @Output() nodeCoorsEmitter: EventEmitter<{ top: number, left: number }> = new EventEmitter<{ top: number, left: number }>();
   @ViewChild('root', { static: false }) root: ElementRef;
   _canvasCoor: { top: number, left: number };
@@ -28,5 +28,13 @@ export class NodeComponent implements OnInit {
 
   onMoving(value: { top: number, left: number, bottom: number, right: number }) {
     this.node.coordinates = { top: value.top, left: value.left };
+  }
+
+  onMouseOver() {
+    this.showTooltip = true;
+  }
+
+  onMouseOut() {
+    this.showTooltip = false;
   }
 }

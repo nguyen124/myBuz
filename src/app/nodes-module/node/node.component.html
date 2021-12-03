@@ -1,5 +1,7 @@
-<button #root myDraggable (xyEmitter)="onMoving($event)" class="btn btn-xs btn-success" [style.top.px]="node.coordinates.top"
-[style.left.px]="node.coordinates.left">
+<button #root myDraggable (xyEmitter)="onMoving($event)" class="btn btn-xs btn-success"
+    [style.top.px]="node.coordinates.top" [style.left.px]="node.coordinates.left" (mouseenter)='onMouseOver()'
+    (mouseleave)='onMouseOut()'>
     <i class="fa fa-music mb-2"></i>
     <p>{{node.title}}</p>
+    <app-tooltip *ngIf="showTooltip" [description]="node.description"></app-tooltip>
 </button>
