@@ -1,7 +1,6 @@
 import { AdsenseModule } from 'ng2-adsense';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -41,7 +40,6 @@ import { AdminAuthGuard } from './shared/guard/adminGuard';
 import { DatePipe } from './shared/pipe/date.pipe';
 import { KeyPipe } from './shared/pipe/key.pipe';
 import { NumberPipe } from './shared/pipe/number.pipe';
-import { Mp4Pipe } from './shared/pipe/mp4.pipe';
 import { routing } from './app.routing';
 import { SaveLoginComponent } from './save-login/save-login.component';
 import { CommentPicComponent } from './comment-box/comment-pic/comment-pic.component';
@@ -54,12 +52,10 @@ import { FileValidatorDirective } from './shared/directive/file-validator.direct
 import { FileValueAccessor } from './upload/file-control-value-accessor';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
-import { MemeVideoComponent } from './meme-video/meme-video.component';
 import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
 import { DefaultImageDirective } from './shared/directive/default-image.directive';
-import { Mp4NotThumbPipe } from './shared/pipe/mp4-not-thumb.pipe';
-import { PosterPipe } from './shared/pipe/poster.pipe';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ShareModule } from './shared/share/share.module';
 
 let jQuery: any = window['$'];
 
@@ -71,11 +67,8 @@ let jQuery: any = window['$'];
     CommentsComponent,
     CommentReactComponent,
     DatePipe,
-    KeyPipe,
-    Mp4Pipe,
-    Mp4NotThumbPipe,
+    KeyPipe,    
     NumberPipe,
-    PosterPipe,
     ImageMobileLinkPipe,
     FilterComponent,
     FooterComponent,
@@ -103,7 +96,6 @@ let jQuery: any = window['$'];
     FileValidatorDirective,
     ResetPasswordComponent,
     ResetPasswordFormComponent,
-    MemeVideoComponent,
     DefaultImageDirective
   ],
   entryComponents: [TooltipComponent],
@@ -122,8 +114,7 @@ let jQuery: any = window['$'];
       animation: false
     }),
     BrowserAnimationsModule,
-    BrowserModule,
-    CommonModule,
+    BrowserModule,    
     FileUtils,
     FormsModule,
     HttpClientModule,
@@ -131,6 +122,7 @@ let jQuery: any = window['$'];
     ShareButtonsModule,
     UsersModule,
     AdminModule,
+    ShareModule,
     ToastrModule.forRoot(),
     routing
   ],

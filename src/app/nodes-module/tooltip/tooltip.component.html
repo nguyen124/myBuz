@@ -2,8 +2,10 @@
     <div class="row p-1 m-0">
         <div class="col-md-2 col-sm-2 text-success">
             <div class="row text-overflow">
-                {{description}}
+                {{node.description}}
             </div>
-        </div>      
+            <!-- <app-meme-video *ngIf="node.files[0].fileType.match('video*')" [link]="node.files[0].url"
+                [fileType]="node.files[0].fileType" [customClass]="'mh-480'"></app-meme-video> -->
+        </div>
     </div>
 </div>

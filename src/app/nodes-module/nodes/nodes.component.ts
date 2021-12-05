@@ -49,15 +49,16 @@ export class NodesComponent implements OnInit {
         "__v": 0,
         "coordinates": {
           "top": 100,
-          "left": 100
+          "left": 100,
+          "z-index": 0
         },
         "neighbors": [
           {
             "files": [
               {
-                "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/10/23/haidapchai/Capture.PNG",
-                "filename": "2021/10/23/haidapchai/Capture.PNG",
-                "fileType": "image/png"
+                "url": "https://storage.googleapis.com/m2meme-dev.appspot.com/2021/11/4/haidapchai/baby-aligator-feeding.mp4",
+                "filename": "2021/11/4/haidapchai/baby-aligator-feeding.mp4",
+                "fileType": "video/mp4"
               }
             ],
             "tags": [
@@ -80,7 +81,8 @@ export class NodesComponent implements OnInit {
             "__v": 0,
             "coordinates": {
               "top": 100,
-              "left": 250
+              "left": 250,
+              "z-index": 0
             },
             "neighbors": [],
           },
@@ -110,7 +112,8 @@ export class NodesComponent implements OnInit {
             "__v": 0,
             "coordinates": {
               "top": 300,
-              "left": 100
+              "left": 100,
+              "z-index": 0
             },
             "neighbors": [
               {
@@ -139,7 +142,8 @@ export class NodesComponent implements OnInit {
                 "__v": 0,
                 "coordinates": {
                   "top": 430,
-                  "left": 100
+                  "left": 100,
+                  "z-index": 0
                 },
                 "neighbors": [],
               },
@@ -169,7 +173,8 @@ export class NodesComponent implements OnInit {
                 "__v": 0,
                 "coordinates": {
                   "top": 300,
-                  "left": 350
+                  "left": 350,
+                  "z-index": 0
                 },
                 "neighbors": [],
               }
@@ -203,7 +208,8 @@ export class NodesComponent implements OnInit {
         "__v": 0,
         "coordinates": {
           "top": 100,
-          "left": 250
+          "left": 250,
+          "z-index": 0
         },
         "neighbors": [
           {
@@ -232,7 +238,8 @@ export class NodesComponent implements OnInit {
             "__v": 0,
             "coordinates": {
               "top": 200,
-              "left": 250
+              "left": 250,
+              "z-index": 0
             },
             "neighbors": [],
           },
@@ -262,7 +269,8 @@ export class NodesComponent implements OnInit {
             "__v": 0,
             "coordinates": {
               "top": 100,
-              "left": 400
+              "left": 400,
+              "z-index": 0
             },
             "neighbors": [],
           }
@@ -305,6 +313,6 @@ export class NodesComponent implements OnInit {
 
   visit(visited, node) {
     visited[node._id] = true;
-    this.nodesToShow.push(node);    
+    this.nodesToShow.push(node);
   }
 }

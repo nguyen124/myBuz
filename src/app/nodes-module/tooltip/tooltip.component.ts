@@ -6,8 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./tooltip.component.css']
 })
 export class TooltipComponent implements OnInit {
-
-  @Input() description: string;
+  @Input() node: any;
 
   constructor() { }
 
