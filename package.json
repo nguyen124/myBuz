@@ -35,6 +35,7 @@
     "@ngx-share/button": "^7.1.4",
     "@ngx-share/buttons": "^7.1.4",
     "@ngx-share/core": "^7.1.4",
+    "ckeditor4-angular": "^2.3.0",
     "core-js": "^2.5.4",
     "firebase": ">= 5.5.7 <8",
     "http-status": "^1.4.0",

@@ -29,7 +29,23 @@
                 <div class="col-md-6 mb-3">
                   <label class="text-primary"><strong>Categories</strong></label>
                   <select formControlName="categories" class="custom-select">
-                    <option value="General">General</option>
+                    <option value="diverLicense">Bằng Lái</option>
+                    <option value="realEstate">Bất Động Sản</option>
+                    <!-- <option value="Bầu Cử">Bầu Cử</option> -->
+                    <option value="insurance">Bảo Hiểm</option>
+                    <option value="studyAbroad">Du Học</option>
+                    <option value="study">Học Hành</option>
+                    <option value="group">Hội Nhóm</option>
+                    <option value="business">Kinh Doanh</option>
+                    <option value="experience">Kinh Nghiệm</option>
+                    <option value="nails">Nails</option>
+                    <option value="immigrant">Nhập Cư/Di Trú</option>
+                    <option value="children">Nuôi Dạy Con Cái</option>
+                    <option value="dating">Tìm Bạn Đời</option>
+                    <option value="car">Xe Cộ</option>
+                    <option value="jobs">Việc Làm/Tuyển Dụng</option>
+                    <option value="general">Chung chung</option>
+                    <!-- <option value="General">General</option>
                     <option value="Animal">Animal</option>
                     <option value="Anime">Anime</option>
                     <option value="Awesome">Awesome</option>
@@ -45,7 +61,7 @@
                     <option value="NotInOffice">Not In Office</option>
                     <option value="Politic">Politic</option>
                     <option value="Sport">Sport</option>
-                    <option value="Viral">Viral</option>
+                    <option value="Viral">Viral</option> -->
                   </select>
                 </div>
               </div>
@@ -65,12 +81,17 @@
                 <div class="col-md-12 mb-3">
                   <label class="text-primary" for="description"><strong>Description (Optional! Max 10000
                       characters.)</strong></label>
-                  <textarea type="text" formControlName="description" class="form-control height-350"
-                    [ngClass]="{ 'is-invalid': checkError('description') }"></textarea>
+                  <ckeditor formControlName="description"></ckeditor>
                   <div *ngIf="checkError('description')" class="invalid-feedback">
                     <div *ngIf="f.description.errors.maxlength">The description should contain no more 10000 characters!
                     </div>
                   </div>
+                  <!-- <textarea type="text" formControlName="description" class="form-control height-350"
+                    [ngClass]="{ 'is-invalid': checkError('description') }"></textarea>
+                  <div *ngIf="checkError('description')" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 10000 characters!
+                    </div>
+                  </div> -->
                 </div>
               </div>
             </div>

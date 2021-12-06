@@ -56,17 +56,14 @@
               </ng-container>
               <ng-template #shortPost>
                 <div class="col-12">
-                  <img *ngIf="item.files[0].fileType.match('image*')" class="mw-100 overflow-hidden"
-                    [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
+                  <img *ngIf="item.files[0].fileType.match('image*')" class="overflow-hidden"
+                    [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable" style="max-width: 25%;">
                   <ng-container *ngIf="item.files[0].fileType.match('video*')">
                     <app-meme-video [link]="item.files[0].url" [fileType]="item.files[0].fileType"></app-meme-video>
                   </ng-container>
                 </div>
               </ng-template>
-            </div>
-            <div *ngIf="item.description.trim().length" class="video img-thumbnail img-fluid">
-              <div class="col-12 h-200">
-                <pre>{{item.description}}</pre>
+              <div class="col-12 word-break" *ngIf="item.description.trim().length" [innerHTML]="item.description">
               </div>
             </div>
           </div>
