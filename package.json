@@ -8,7 +8,7 @@
     "dev-build": "ng build --output-path=dist/dev",
     "dev-deploy": "npm run dev-build && firebase deploy --only hosting:m2meme-dev",
     "dev-storage-deploy": "firebase target:apply storage m2meme-dev m2meme-dev.appspot.com && firebase deploy --only storage",
-    "prod-build": "ng build --prod --aot --output-path=dist/architecture",
+    "prod-build": "ng build --configuration production --aot --output-path=dist/architecture",
     "prod-deploy": "npm run prod-build && firebase deploy --only hosting:m2meme",
     "prod-storage-deploy": "firebase target:apply storage m2meme m2meme.appspot.com && firebase deploy --only storage",
     "test": "ng test",
@@ -18,16 +18,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~11.2.14",
+    "@angular/animations": "~12.2.14",
     "@angular/cdk": "^8.2.3",
-    "@angular/common": "~11.2.14",
-    "@angular/compiler": "~11.2.14",
-    "@angular/core": "~11.2.14",
+    "@angular/common": "~12.2.14",
+    "@angular/compiler": "~12.2.14",
+    "@angular/core": "~12.2.14",
     "@angular/fire": "^5.3.0",
-    "@angular/forms": "~11.2.14",
-    "@angular/platform-browser": "~11.2.14",
-    "@angular/platform-browser-dynamic": "~11.2.14",
-    "@angular/router": "~11.2.14",
+    "@angular/forms": "~12.2.14",
+    "@angular/platform-browser": "~12.2.14",
+    "@angular/platform-browser-dynamic": "~12.2.14",
+    "@angular/router": "~12.2.14",
     "@fortawesome/angular-fontawesome": "^0.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
@@ -50,14 +50,14 @@
     "recordrtc": "^5.5.8",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.1102.15",
-    "@angular-devkit/build-angular": "^0.1102.15",
-    "@angular/cli": "^11.2.15",
-    "@angular/compiler-cli": "~11.2.14",
-    "@angular/language-service": "~11.2.14",
+    "@angular-devkit/architect": "0.1202.13",
+    "@angular-devkit/build-angular": "^12.2.13",
+    "@angular/cli": "^12.2.13",
+    "@angular/compiler-cli": "~12.2.14",
+    "@angular/language-service": "~12.2.14",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/jquery": "^3.3.29",
@@ -78,6 +78,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.8"
+    "typescript": "~4.3.5"
   }
 }
