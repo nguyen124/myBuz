@@ -25,8 +25,9 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@ngx-share/button/themes/default/default-theme.css"
+              "node_modules/ngx-toastr/toastr.css",              
+              "node_modules/ngx-sharebuttons/themes/circles.scss",
+              "node_modules/ngx-sharebuttons/themes/modern.scss"              
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js"

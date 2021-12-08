@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
@@ -56,6 +55,8 @@ import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
 import { DefaultImageDirective } from './shared/directive/default-image.directive';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ShareModule } from './shared/share/share.module';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 let jQuery: any = window['$'];
 
@@ -100,6 +101,9 @@ let jQuery: any = window['$'];
   ],
   entryComponents: [TooltipComponent],
   imports: [
+    ShareButtonsModule.withConfig({
+      debug: true
+    }),
     AdsenseModule.forRoot({
       adClient: 'ca-pub-7640562161899788',
       adSlot: 7259870550,
@@ -120,6 +124,7 @@ let jQuery: any = window['$'];
     HttpClientModule,
     ReactiveFormsModule,
     ShareButtonsModule,
+    ShareIconsModule,
     UsersModule,
     AdminModule,
     ShareModule,
