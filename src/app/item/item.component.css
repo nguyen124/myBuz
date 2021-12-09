@@ -1,39 +1,43 @@
 ul#listItemsDetails {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .avatar {
-    width: 75%;
-    padding-right: 0;
-    border-radius: 5%;
-    margin-bottom: 0.05rem;
+  width: 75%;
+  padding-right: 0;
+  border-radius: 5%;
+  margin-bottom: 0.05rem;
 }
 
 @media (max-width: 1440px) {
-    .avatar {
-        width: 85%;
-        max-width: 85%;
-    }
+  .avatar {
+    width: 85%;
+    max-width: 85%;
+  }
 }
 
 @media (max-width: 1024px) {
-    .avatar {
-        width: 85%;
-        max-width: 85%;
-    }
+  .avatar {
+    width: 85%;
+    max-width: 85%;
+  }
 }
 
 @media (max-width: 767.98px) {
-    .avatar {
-        width: 100%;
-    }
+  .avatar {
+    width: 100%;
+  }
 }
 
 @media (max-width: 575px) {
-    .avatar {
-        width: 25%;
-        max-width: 25%;
-    }
+  .avatar {
+    width: 25%;
+    max-width: 25%;
+  }
+}
+
+.color-blue-navy {
+  color: rgb(22, 129, 218);
 }
 /* 
 .not-playable {

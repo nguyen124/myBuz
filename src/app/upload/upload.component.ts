@@ -55,7 +55,8 @@ export class UploadComponent implements OnInit {
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
       categories: ['General'],
       tags: [''],
-      description: ['', [Validators.maxLength(10000)]],
+      description: ['', [Validators.maxLength(100000)]],
+      overview: ['', [Validators.maxLength(1000)]]
     });
   }
 
@@ -162,7 +163,8 @@ export class UploadComponent implements OnInit {
         categories: [that.f.categories.value],
         title: that.f.title.value,
         description: that.f.description.value == null ? '' : that.f.description.value.trim(),
-        files: uploadedResults
+        files: uploadedResults,
+        overview: that.f.overview.value == null ? '' : that.f.overview.value.trim()
       };
 
       that._itemSvc.createItem(item).subscribe(newItem => {

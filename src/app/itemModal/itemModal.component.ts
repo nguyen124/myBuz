@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   subScription: Subscription;
 
   @ViewChild(CommentsComponent, { static: true }) commentsComp: CommentsComponent;
+  @ViewChild('closeModalBtn', { static: false }) closeModalBtn: ElementRef;
 
   @HostListener('document:keydown.escape', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -71,7 +72,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-    this.$("#closeModalBtn").click();
+    this.closeModalBtn.nativeElement.click();
     this.clearData();
   }
 

@@ -8,8 +8,8 @@
         <div class="row">
           <div class="col-1">
             <div class="col-md-1 col-sm-1">
-              <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"
-                (click)="clearData()">
+              <button #closeModalBtn id="closeModalBtn" type="button" class="close" data-dismiss="modal"
+                aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -57,7 +57,7 @@
               <ng-template #shortPost>
                 <div class="col-12">
                   <img *ngIf="item.files[0].fileType.match('image*')" class="overflow-hidden"
-                    [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable" style="max-width: 25%;">
+                  [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable" style="max-width: 25%;">
                   <ng-container *ngIf="item.files[0].fileType.match('video*')">
                     <app-meme-video [link]="item.files[0].url" [fileType]="item.files[0].fileType"></app-meme-video>
                   </ng-container>

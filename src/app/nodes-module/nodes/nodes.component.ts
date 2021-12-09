@@ -31,6 +31,7 @@ export class NodesComponent implements OnInit {
             "fileType": "image/png"
           }
         ],
+        "summary": "summary hehe",
         "tags": [
           "asd"
         ],
@@ -61,6 +62,7 @@ export class NodesComponent implements OnInit {
                 "fileType": "video/mp4"
               }
             ],
+            "summary": "summary hehe",
             "tags": [
               "asd"
             ],
@@ -94,6 +96,7 @@ export class NodesComponent implements OnInit {
                 "fileType": "image/png"
               }
             ],
+            "summary": "summary hehe",
             "tags": [
               "asd"
             ],
@@ -124,6 +127,7 @@ export class NodesComponent implements OnInit {
                     "fileType": "image/png"
                   }
                 ],
+                "summary": "summary hehe",
                 "tags": [
                   "asd"
                 ],
@@ -155,6 +159,7 @@ export class NodesComponent implements OnInit {
                     "fileType": "image/png"
                   }
                 ],
+                "summary": "summary hehe",
                 "tags": [
                   "asd"
                 ],
@@ -190,6 +195,7 @@ export class NodesComponent implements OnInit {
             "fileType": "image/png"
           }
         ],
+        "summary": "summary hehe",
         "tags": [
           "asd"
         ],
@@ -220,6 +226,7 @@ export class NodesComponent implements OnInit {
                 "fileType": "image/png"
               }
             ],
+            "summary": "summary hehe",
             "tags": [
               "asd"
             ],
@@ -251,6 +258,7 @@ export class NodesComponent implements OnInit {
                 "fileType": "image/png"
               }
             ],
+            "summary": "summary hehe",
             "tags": [
               "asd"
             ],

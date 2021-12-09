@@ -55,7 +55,7 @@ export class CreateNodeComponent implements OnInit {
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
       categories: ['General'],
       tags: [''],
-      description: ['', [Validators.maxLength(10000)]],
+      description: ['', [Validators.maxLength(100000)]],
     });
   }
 

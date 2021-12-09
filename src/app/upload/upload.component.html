@@ -79,19 +79,23 @@
               </div>
               <div class="row mb-3">
                 <div class="col-md-12 mb-3">
-                  <label class="text-primary" for="description"><strong>Description (Optional! Max 10000
-                      characters.)</strong></label>
-                  <ckeditor formControlName="description"></ckeditor>
-                  <div *ngIf="checkError('description')" class="invalid-feedback">
-                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 10000 characters!
+                  <label class="text-primary" for="overview"><strong>overview</strong></label>
+                  <ckeditor formControlName="overview"></ckeditor>
+                  <div *ngIf="checkError('overview')" class="invalid-feedback">
+                    <div *ngIf="f.overview.errors.maxlength">The description should contain no more 100000 characters!
                     </div>
                   </div>
-                  <!-- <textarea type="text" formControlName="description" class="form-control height-350"
-                    [ngClass]="{ 'is-invalid': checkError('description') }"></textarea>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-12 mb-3">
+                  <label class="text-primary" for="description"><strong>Description</strong></label>
+                  <ckeditor formControlName="description"></ckeditor>
                   <div *ngIf="checkError('description')" class="invalid-feedback">
-                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 10000 characters!
+                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 100000 characters!
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
