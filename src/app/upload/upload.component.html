@@ -1,5 +1,5 @@
 <!-- The Modal -->
-<div class="modal fade" id="uploadModal" tabindex="-1">
+<div class="modal fade" style="display: none;" id="uploadModal">
   <div class="modal-dialog modal-medium">
     <div class="modal-content">
       <div class="modal-body">
@@ -93,7 +93,8 @@
                   <label class="text-primary" for="description"><strong>Description</strong></label>
                   <ckeditor formControlName="description"></ckeditor>
                   <div *ngIf="checkError('description')" class="invalid-feedback">
-                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 100000 characters!
+                    <div *ngIf="f.description.errors.maxlength">The description should contain no more 100000
+                      characters!
                     </div>
                   </div>
                 </div>
