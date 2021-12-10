@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,8 @@ import { MetaTagService } from '../shared/services/meta-tag.services';
 @Component({
   selector: 'app-itemModal',
   templateUrl: './itemModal.component.html',
-  styleUrls: ['./itemModal.component.css']
+  styleUrls: ['./itemModal.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ItemModalComponent implements OnInit, OnDestroy {
   item: IItem;

@@ -1,23 +1,23 @@
 .modal-large {
-    max-width: 100%;
-    margin: 0.5rem;
+  max-width: 100%;
+  margin: 0.5rem;
 }
 
 .overflow-scroll {
-    max-height: 48rem;
-    overflow: auto;
+  max-height: 48rem;
+  overflow: auto;
 }
 
 .pb-cmnt-container {
-    font-family: Lato;
-    margin-top: 6.25rem;
+  font-family: Lato;
+  margin-top: 6.25rem;
 }
 
 .btn-xs {
-    padding: .25rem .4rem;
-    font-size: .875rem;
-    line-height: .5;
-    border-radius: .2rem;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.875rem;
+  line-height: 0.5;
+  border-radius: 0.2rem;
 }
 
 .h-200 {
@@ -27,6 +27,23 @@
   word-wrap: break-word;
 }
 
+.w-50-percent {
+  width: 50%;
+}
+
+.pt-20 {
+  margin-top: 20px;
+  border-top: 2px solid white;
+}
+
+.mw-none {
+  max-width: none;
+}
+
 .word-break {
-    word-break: break-word;
+  word-break: break-word;
+}
+
+#item-description img {
+  width: 75% !important;
 }

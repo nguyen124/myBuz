@@ -46,8 +46,8 @@
             </div>
             <div *ngIf="item.files" class="row mt-3 high-light">
               <ng-container *ngIf="item.files.length >1; else shortPost">
-                <div *ngFor="let file of item.files; let i = index;" class="col-6 mt-2 mb-2">
-                  <img *ngIf="file.fileType.match('image*')" class="mw-100 overflow-hidden"
+                <div *ngFor="let file of item.files; let i = index;" class="col-6 mt-2 mb-2 mw-none">
+                  <img *ngIf="file.fileType.match('image*')" class="w-50-percent overflow-hidden"
                     [src]="file.url | imageMobileLinkPipe" default="{{file.url}}" alt="Unavailable">
                   <ng-container *ngIf="file.fileType.match('video*')">
                     <app-meme-video [link]="file.url" [fileType]="file.fileType"></app-meme-video>
@@ -56,14 +56,15 @@
               </ng-container>
               <ng-template #shortPost>
                 <div class="col-12">
-                  <img *ngIf="item.files[0].fileType.match('image*')" class="overflow-hidden"
-                  [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable" style="max-width: 25%;">
+                  <img *ngIf="item.files[0].fileType.match('image*')" class="w-50-percent overflow-hidden"
+                    [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
                   <ng-container *ngIf="item.files[0].fileType.match('video*')">
                     <app-meme-video [link]="item.files[0].url" [fileType]="item.files[0].fileType"></app-meme-video>
                   </ng-container>
                 </div>
               </ng-template>
-              <div class="col-12 word-break" *ngIf="item.description.trim().length" [innerHTML]="item.description">
+              <div *ngIf="item.description.trim().length" id="item-description" [innerHTML]="item.description"
+                class="col-12 word-break pt-20">
               </div>
             </div>
           </div>
