@@ -4,7 +4,7 @@
             <div class="text-success"><strong>{{comment.writtenBy.username}}</strong></div>
         </div>
         <div class="row">
-            <img class="w-100 xs-w-25 rounded align-self-flex-start"
+            <img class="w-100-object-fit xs-w-50-object-fit rounded align-self-flex-start"
                 src="{{comment.writtenBy.avatar | imageMobileLinkPipe}}" default="{{comment.writtenBy.avatar}}"
                 alt="Avatar">
         </div>
@@ -34,7 +34,7 @@
                 <div class="text-success"><strong>{{reply.writtenBy.username}}</strong></div>
             </div>
             <div class="row">
-                <img class="w-75 xs-w-15 rounded align-self-flex-start"
+                <img class="w-75-object-fit xs-w-25-object-fit rounded align-self-flex-start"
                     src="{{reply.writtenBy.avatar | imageMobileLinkPipe}}" alt="Avatar">
             </div>
         </div>
