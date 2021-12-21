@@ -130,7 +130,9 @@ html {
 }
 
 .mh-480 {
-    max-height: 480px;
+    height: 480px;
+    width: 480px;
+    object-fit: scale-down;
 }
 
 .preloader {
