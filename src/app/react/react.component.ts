@@ -44,33 +44,51 @@ export class ReactComponent implements OnInit {
 
   upvote(): void {
     if (!this.item.hasUpvoted) {
+      this.item.hasUpvoted = true;
+      if (this.item.hasDownvoted) {
+        this.item.noOfPoints += 2;
+        this.item.hasDownvoted = false;
+      } else {
+        this.item.noOfPoints++;
+      }
       this._commentSvc.upvote(this.item._id).subscribe(newScore => {
-        this.setInfo(newScore, true, false);
+        //this.setInfo(newScore, true, false);
       });
     } else {
+      this.item.hasUpvoted = false;
+      this.item.noOfPoints--;
       this._commentSvc.unvote(this.item._id).subscribe(newScore => {
-        this.setInfo(newScore, false, false);
+        //this.setInfo(newScore, false, false);
       });
     }
   }
 
   downvote(): void {
     if (!this.item.hasDownvoted) {
+      this.item.hasDownvoted = true;
+      if (this.item.hasUpvoted) {
+        this.item.noOfPoints -= 2;
+        this.item.hasUpvoted = false;
+      } else {
+        this.item.noOfPoints--;
+      }
       this._commentSvc.downvote(this.item._id).subscribe(newScore => {
-        this.setInfo(newScore, false, true);
+        //this.setInfo(newScore, false, true);
       });
     } else {
+      this.item.noOfPoints++;
+      this.item.hasDownvoted = false;
       this._commentSvc.unvote(this.item._id).subscribe(newScore => {
-        this.setInfo(newScore, false, false);
+        //this.setInfo(newScore, false, false);
       });
     }
   }
 
-  setInfo(newScore, upvoted, downvoted) {
-    this.item.noOfPoints = newScore;
-    this.item.hasDownvoted = downvoted;
-    this.item.hasUpvoted = upvoted;
-  }
+  // setInfo(newScore, upvoted, downvoted) {
+  //   this.item.noOfPoints = newScore;
+  //   this.item.hasDownvoted = downvoted;
+  //   this.item.hasUpvoted = upvoted;
+  // }
 
   showItemModal() {
     if (this.showModalEvent) {

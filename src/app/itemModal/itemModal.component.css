@@ -27,10 +27,12 @@
   word-wrap: break-word;
 }
 
-.w-250-fit {
-  width: 250px;
+.img-fit {
+  max-width: 100%;
+  padding-top: 25px;
+  /* width: 250px;
   height: 250px;
-  object-fit: scale-down;
+  object-fit: scale-down; */
 }
 
 .pt-20 {
@@ -47,6 +49,10 @@
 }
 
 #item-description img {
-  width: 100% !important;
-  object-fit: scale-down;
+  max-width: 100% !important;
+}
+
+#item-description p {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

@@ -29,9 +29,9 @@
                 <div class="col-md-6 mb-3">
                   <label class="text-primary"><strong>Categories</strong></label>
                   <select formControlName="categories" class="custom-select">
-                    <option value="diverLicense">Bằng Lái</option>
+                    <!--option value="diverLicense">Bằng Lái</option>
                     <option value="realEstate">Bất Động Sản</option>
-                    <!-- <option value="Bầu Cử">Bầu Cử</option> -->
+                    <option value="Bầu Cử">Bầu Cử</option> 
                     <option value="insurance">Bảo Hiểm</option>
                     <option value="studyAbroad">Du Học</option>
                     <option value="study">Học Hành</option>
@@ -45,7 +45,8 @@
                     <option value="car">Xe Cộ</option>
                     <option value="jobs">Việc Làm/Tuyển Dụng</option>
                     <option value="general">Chung chung</option>
-                    <!-- <option value="General">General</option>
+                    -->
+                    <option value="General">General</option>
                     <option value="Animal">Animal</option>
                     <option value="Anime">Anime</option>
                     <option value="Awesome">Awesome</option>
@@ -61,7 +62,7 @@
                     <option value="NotInOffice">Not In Office</option>
                     <option value="Politic">Politic</option>
                     <option value="Sport">Sport</option>
-                    <option value="Viral">Viral</option> -->
+                    <option value="Viral">Viral</option>
                   </select>
                 </div>
               </div>
@@ -79,7 +80,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col-md-12 mb-3">
-                  <label class="text-primary" for="overview"><strong>overview</strong></label>
+                  <label class="text-primary" for="overview"><strong>Overview</strong></label>
                   <ckeditor formControlName="overview"></ckeditor>
                   <div *ngIf="checkError('overview')" class="invalid-feedback">
                     <div *ngIf="f.overview.errors.maxlength">The description should contain no more 100000 characters!
