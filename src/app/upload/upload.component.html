@@ -13,25 +13,26 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="col-md-5 mb-3">
-              <div class="form-row mb-3">
-                <div class="col-md-12 mb-3">
+            <div class="col-md-5 mb-1">
+              <div class="form-row mb-1">
+                <div class="col-md-12 mb-1">
                   <label class="text-primary"><strong>Tiêu Đề</strong></label>
                   <input type="text" formControlName="title" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('title') }">
                   <div *ngIf="checkError('title')" class="invalid-feedback">
                     <div *ngIf="f.title.errors.required">Bài Đăng Cần Có Tiêu Đề!</div>
-                    <div *ngIf="f.title.errors.whitespace">Tiêu Đề Không Được Để Trống!</div>
+                    <div *ngIf="f.title.errors.whitespace">Tiêu Đề Không Được Chỉ Chứa Kí Tự Trống!</div>
                   </div>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-md-6 mb-3">
-                  <label class="text-primary"><strong>Danh Mục</strong></label>
+              <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="categories"><strong>Danh Mục</strong></label>
                   <select formControlName="categories" class="custom-select">
-                    <option value="salonForSale">Cần Bán Tiệm</option>
-                    <option value="nailJob">Tuyển Thợ Nails</option>
-                    <option value="otherJobs">Tuyển Các Job Khác</option>
+                    <option value="Nail_Salon">Bán Tiệm Nail</option>
+                    <option value="Hiring_Nail_Tech">Tuyển Thợ Nails</option>
+                    <option value="Other_Business">Bán Tiệm Khác</option>
+                    <option value="Hiring_Other">Tuyển Các Job Khác</option>
                     <!-- <option value="Bầu Cử">Bầu Cử</option> 
                     <option value="insurance">Bảo Hiểm</option>
                     <option value="studyAbroad">Du Học</option>
@@ -67,9 +68,114 @@
                     <option value="Viral">Viral</option> -->
                   </select>
                 </div>
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="price"><strong>Giá $</strong></label>
+                  <input type="number" formControlName="price" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('price') }">
+                  <div *ngIf="checkError('price')" class="invalid-feedback">
+                    <div *ngIf="f.price.errors.min">Giá Không Được Là Số Âm!</div>
+                  </div>
+                </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-md-12 mb-3">
+              <div class="row mb-1">
+                <div class="col-md-10 mb-1">
+                  <label class="text-primary" for="address"><strong>Địa Chỉ</strong></label>
+                  <input formControlName="address" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('address') }">
+                  <div *ngIf="checkError('address')" class="invalid-feedback">
+                    <div *ngIf="f.address.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
+                  </div>
+                </div>
+                <div class="col-md-2 mb-1">
+                  <label class="text-primary" for="zipcode"><strong>Zip Code</strong></label>
+                  <input formControlName="zipcode" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('zipcode') }">
+                  <div *ngIf="checkError('zipcode')" class="invalid-feedback">
+                    <div *ngIf="f.zipcode.errors.required">Zip Code Tiệm Không Được Để Trống!</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="city"><strong>Nước</strong></label>
+                  <select formControlName="country" class="custom-select"
+                    (change)="onCountryChange($event.target.value)">
+                    <option value="USA">United States</option>
+                    <option value="Canada">Canada</option>
+                    <!-- <option value="Australia">Australia</option>
+                    <option value="German">Germany</option>
+                    <option value="England">England</option>
+                    <option value="France">France</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Other">Other Countries</option>-->
+                  </select>
+                </div>
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="state"><strong>Tiểu Bang/Tỉnh</strong></label>
+                  <!-- <input formControlName="state" class="form-control"> -->
+                  <select formControlName="state" class="custom-select" (change)="onStateChange($event.target.value)">
+                    <ng-container *ngFor="let state of states">
+                      <option value="{{state.Key}}">{{state.Value}}</option>
+                    </ng-container>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="city"><strong>Thành Phố</strong></label>
+                  <!-- <input formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': checkError('city') }"> -->
+                  <select formControlName="city" class="custom-select">
+                    <ng-container *ngFor="let city of cities">
+                      <option value="{{city}}">{{city}}</option>
+                    </ng-container>
+                  </select>
+                  <div *ngIf="checkError('city')" class="invalid-feedback">
+                    <div *ngIf="f.city.errors.required">Không Được Để Trống Thành Phố!</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="noOfChairs"><strong>Số Lượng Ghế</strong></label>
+                  <input type="number" formControlName="noOfChairs" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('noOfChairs') }">
+                  <div *ngIf="checkError('noOfChairs')" class="invalid-feedback">
+                    <div *ngIf="f.noOfChairs.errors.min">Số Lượng Ghế Không Được Là Số Âm!</div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="noOfTables"><strong>Số Lượng Bàn</strong></label>
+                  <input type="number" formControlName="noOfTables" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('noOfTables') }">
+                  <div *ngIf="checkError('noOfTables')" class="invalid-feedback">
+                    <div *ngIf="f.noOfTables.errors.min">Số Lượng Bàn Không Được Là Số Âm!</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="income"><strong>Thu Nhập Tiệm</strong></label>
+                  <input type="number" formControlName="income" class="form-control">
+                </div>
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="noOfEmployees"><strong>Số Lượng Thợ</strong></label>
+                  <input type="number" formControlName="noOfEmployees" class="form-control">
+                </div>
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="city"><strong>Tuổi Đời Tiệm</strong></label>
+                  <select formControlName="old" class="custom-select">
+                    <option value="1">1 năm</option>
+                    <option value="2">2 năm</option>
+                    <option value="3">3 năm</option>
+                    <option value="4">4 năm</option>
+                    <option value="5">5 năm trở lên</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-md-12 mb-1">
                   <label class="text-primary" for="tags"><strong>Thẻ</strong></label>
                   <div>
                     <ng-container *ngFor="let tag of parsedTags;">
@@ -80,8 +186,8 @@
                     (input)="onTagsChange($event.target.value)">
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-md-12 mb-3">
+              <div class="row mb-1">
+                <div class="col-md-12 mb-1">
                   <label class="text-primary" for="overview"><strong>Giới Thiệu Sơ Lược</strong></label>
                   <div>
                     <textarea rows="2" formControlName="description" style="width: 100%">
@@ -93,10 +199,9 @@
                   </div>
                 </div>
               </div>
-
-              <div class="row mb-3">
-                <div class="col-md-12 mb-3">
-                  <label class="text-primary" for="description"><strong>Mô Tả Chi Tiết</strong></label>
+              <div class="row mb-1">
+                <div class="col-md-12 mb-1">
+                  <label class="text-primary" for="description"><strong>Mô Tả Thêm Chi Tiết</strong></label>
                   <div>
                     <textarea rows="10" formControlName="description" style="width: 100%">
                   </textarea>
@@ -107,10 +212,21 @@
                   </div>
                 </div>
               </div>
+              <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="duration"><strong>Thời Gian Đăng</strong></label>
+                  <select formControlName="duration" class="custom-select">
+                    <option value="1">1 Tháng</option>
+                    <option value="3">3 Tháng</option>
+                    <option value="6">6 Tháng</option>
+                    <option value="12">12 Tháng</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <div class="col-md-7 mb-3">
-              <div class="form-row mb-3">
-                <div class="col-md-12 mb-3">
+            <div class="col-md-7 mb-1">
+              <div class="form-row mb-1">
+                <div class="col-md-12 mb-1">
                   <label class="text-primary" for="upload"><strong>Hình Ảnh/Video</strong></label>
                   <div class="custom-file">
                     <label class="custom-file-label" for="upload">Chọn tập tin</label>
@@ -133,7 +249,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-row mb-3">
+              <div class="form-row mb-1">
                 <ng-container *ngIf="toUploadFiles && toUploadFiles.length">
                   <ng-container *ngFor="let previewMediaSrc of toUploadFiles; let i = index">
                     <div class="col-6" *ngIf="previewMediaSrc.fileType.match('image*')">

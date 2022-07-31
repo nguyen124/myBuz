@@ -1,6 +1,11 @@
 import { Component, OnInit, Inject, HostListener, isDevMode } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { USA_STATES } from '../shared/services/utils/USA_STATES';
+import { CANADA_STATES } from '../shared/services/utils/CANADA_STATES';
+// import { VIETNAM_STATES } from '../shared/services/utils/VIETNAM_STATES';
+import { USA_CITIES } from '../shared/services/utils/USA_CITIES';
+import { CANADA_CITIES } from '../shared/services/utils/CANADA_CITIES';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -29,6 +34,10 @@ export class UploadComponent implements OnInit {
   filesArr: File[] = [];
   toUploadFiles: any[] = [];
   currentUploadTasks: any[] = [];
+  country = 'USA';
+  states = USA_STATES;
+  cities = [];
+
   constructor(
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
@@ -47,16 +56,26 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
+    this.cities = this.getCities('USA', this.states[0].Key);
   }
 
   initForm() {
     this.itemForm = this._fb.group({
       title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-      categories: ['General'],
+      categories: ['Nail_Salon'],
       tags: [''],
-      description: ['', [Validators.maxLength(100000)]],
-      overview: ['', [Validators.maxLength(1000)]]
+      price: [0, [Validators.min(0)]],
+      address: ['', [Validators.required]],
+      zipcode: ['00000', [Validators.required]],
+      city: [this.cities[0], [Validators.required]],
+      state: ['', []],
+      country: ['USA', [Validators.required]],
+      noOfChairs: [0, [Validators.min(0)]],
+      noOfTables: [0, [Validators.min(0)]],
+      description: ['', [Validators.maxLength(2000)]],
+      overview: ['', [Validators.maxLength(500)]],
+      duration: [1]
     });
   }
 
@@ -94,6 +113,37 @@ export class UploadComponent implements OnInit {
   onTagsChange(input) {
     this.parsedTags = input.split(/[ ,;.\/\\]+/).slice(0, 5).filter(el => el.length != 0);
   }
+
+  onCountryChange(input) {
+    switch (input) {
+      case 'Canada':
+        this.country = 'Canada';
+        this.states = CANADA_STATES;
+        this.getCities('Canada', this.states[0].Key);
+        break;
+      default:
+        this.country = 'USA';
+        this.states = USA_STATES;
+        this.getCities('USA', this.states[0].Key);
+    }
+  }
+
+  onStateChange(input) {
+    this.getCities(this.country, input);
+  }
+
+
+  getCities(country: string, stateCode: string): any {
+    switch (country) {
+      case 'Canada':
+        this.cities = CANADA_CITIES[stateCode];
+        break;
+      default:
+        this.cities = USA_CITIES[stateCode];
+    }
+
+  }
+
 
   createPost() {
     this.submitted = true;
