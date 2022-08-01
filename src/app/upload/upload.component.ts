@@ -80,6 +80,7 @@ export class UploadComponent implements OnInit {
       rentCost: [0, [Validators.min(0)]],
       otherCost: [0, [Validators.min(0)]],
       leaseEnd: [''],
+      yearOld: [1],
       squareFeet: [0, [Validators.min(0)]],
       description: ['', [Validators.maxLength(2000)]],
       overview: ['', [Validators.maxLength(500)]],
