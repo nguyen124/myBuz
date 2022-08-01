@@ -98,7 +98,7 @@
 
               <div class="row mb-1">
                 <div class="col-md-4 mb-1">
-                  <label class="text-primary" for="city"><strong>Nước</strong></label>
+                  <label class="text-primary" for="city"><strong>Quốc Gia</strong></label>
                   <select formControlName="country" class="custom-select"
                     (change)="onCountryChange($event.target.value)">
                     <option value="USA">United States</option>
@@ -135,7 +135,11 @@
               </div>
 
               <div class="row mb-1">
-                <div class="col-md-6 mb-1">
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="noOfEmployees"><strong>Số Lượng Thợ</strong></label>
+                  <input type="number" formControlName="noOfEmployees" class="form-control">
+                </div>
+                <div class="col-md-4 mb-1">
                   <label class="text-primary" for="noOfChairs"><strong>Số Lượng Ghế</strong></label>
                   <input type="number" formControlName="noOfChairs" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('noOfChairs') }">
@@ -143,7 +147,7 @@
                     <div *ngIf="f.noOfChairs.errors.min">Số Lượng Ghế Không Được Là Số Âm!</div>
                   </div>
                 </div>
-                <div class="col-md-6 mb-1">
+                <div class="col-md-4 mb-1">
                   <label class="text-primary" for="noOfTables"><strong>Số Lượng Bàn</strong></label>
                   <input type="number" formControlName="noOfTables" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('noOfTables') }">
@@ -154,13 +158,46 @@
               </div>
 
               <div class="row mb-1">
+
                 <div class="col-md-4 mb-1">
-                  <label class="text-primary" for="income"><strong>Thu Nhập Tiệm</strong></label>
-                  <input type="number" formControlName="income" class="form-control">
+                  <label class="text-primary" for="income"><strong>Thu Nhập/Tháng</strong></label>
+                  <input type="number" formControlName="income" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('income') }">
+                  <div *ngIf="checkError('income')" class="invalid-feedback">
+                    <div *ngIf="f.income.errors.min">Tiền Rent Không Được Là Số Âm!</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="rentCost"><strong>Rent/Tháng</strong></label>
+                  <input type="number" formControlName="rentCost" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('rentCost') }">
+                  <div *ngIf="checkError('rentCost')" class="invalid-feedback">
+                    <div *ngIf="f.rentCost.errors.min">Tiền Rent Không Được Là Số Âm!</div>
+                  </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                  <label class="text-primary" for="noOfEmployees"><strong>Số Lượng Thợ</strong></label>
-                  <input type="number" formControlName="noOfEmployees" class="form-control">
+                  <label class="text-primary" for="otherCost"><strong>Chi Phí Khác/Tháng</strong></label>
+                  <input type="number" formControlName="otherCost" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('otherCost') }">
+                  <div *ngIf="checkError('otherCost')" class="invalid-feedback">
+                    <div *ngIf="f.otherCost.errors.min">Các Chi Phí Khác Không Được Là Số Âm!</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="squareFeet"><strong>Diện Tích (Sq.ft)</strong></label>
+                  <input type="number" formControlName="squareFeet" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('squareFeet') }">
+                  <div *ngIf="checkError('squareFeet')" class="invalid-feedback">
+                    <div *ngIf="f.squareFeet.errors.min">Diện Tích Không Được Là Số Âm!</div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                  <label class="text-primary" for="leaseEnd"><strong>Lease hết hạn vào</strong></label>
+                  <input type="date" formControlName="leaseEnd" class="form-control">
                 </div>
                 <div class="col-md-4 mb-1">
                   <label class="text-primary" for="city"><strong>Tuổi Đời Tiệm</strong></label>
@@ -171,6 +208,22 @@
                     <option value="4">4 năm</option>
                     <option value="5">5 năm trở lên</option>
                   </select>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="contactPhoneNo"><strong>Số Phone Liên Lạc</strong></label>
+                  <input formControlName="contactPhoneNo" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
+                  <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">
+                    <div *ngIf="f.contactPhoneNo.errors.required">Số Phone Không Được Để Trống!</div>
+                    <div *ngIf="f.contactPhoneNo.errors.whitespace">Số Phone Không Được Chỉ Chứa Kí Tự Trống!</div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                  <label class="text-primary" for="contactEmail"><strong>Email Liên Lạc</strong></label>
+                  <input formControlName="contactEmail" class="form-control">
                 </div>
               </div>
 

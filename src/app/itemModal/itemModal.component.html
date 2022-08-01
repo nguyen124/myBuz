@@ -40,8 +40,11 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
+              <div class="col-12 mb-1">
                 <app-react [item]="item"></app-react>
+              </div>
+              <div class="col-12 mb-1">
+                <span>Địa Chỉ:  {{item.address}}, {{item.city}}, {{item.state}} {{item.zipcode}}</span>
               </div>
             </div>
             <div *ngIf="item.files" class="row mt-3 high-light">
