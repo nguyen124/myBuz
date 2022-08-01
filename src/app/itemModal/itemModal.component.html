@@ -19,8 +19,9 @@
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="row text-overflow">
               <div class="col-md-3 col-sm-2">
-                <img class="rounded w-100-object-fit xs-w-25-object-fit" src="{{item.createdBy.avatar | imageMobileLinkPipe}}"
-                  default="{{item.createdBy.avatar}}" alt="Avatar">
+                <img class="rounded w-100-object-fit xs-w-25-object-fit"
+                  src="{{item.createdBy.avatar | imageMobileLinkPipe}}" default="{{item.createdBy.avatar}}"
+                  alt="Avatar">
               </div>
               <div class="col-md-9 col-sm-10 text-success mt-1">
                 <strong>{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}</strong>
@@ -28,7 +29,7 @@
             </div>
             <div class="row text-overflow mb-1">
               <div class="col-12">
-                <div class="text-success font-weight-bold font-24">{{item.title}}</div>
+                <div class="text-success font-weight-bold font-24">{{ item.businessName }} - {{item.title}}</div>
               </div>
             </div>
             <div class="row overflow-hidden">
@@ -43,9 +44,67 @@
               <div class="col-12 mb-1">
                 <app-react [item]="item"></app-react>
               </div>
+            </div>
+            <div class="row">
               <div class="col-12 mb-1">
-                <span>Địa Chỉ:  {{item.address}}, {{item.city}}, {{item.state}} {{item.zipcode}}</span>
+                <label><strong>Địa chỉ: </strong></label>
+                <a href="http://maps.google.com/?q= {{item.address}}, {{item.city}}, {{item.state}}
+                {{item.zipcode}}, {{item.country}}"> {{item.address}}, {{item.city}}, {{item.state}}
+                  {{item.zipcode}}, {{item.country}}</a>
               </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mb-1">
+                <label><strong>Giá bán: </strong></label> <span> {{item.price | currency:'USD'}}</span>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>Thu nhập/Tháng: </strong></label> <span> {{item.income | currency:'USD'}}</span>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-6 mb-1">
+                <label><strong>Rent/Tháng: </strong></label> <span> {{item.rentCost | currency:'USD'}}</span>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>Chi phí khác/Tháng: </strong></label> <span> {{item.otherCost | currency:'USD'}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mb-1">
+                <label><strong>Số lượng nhân viên: </strong></label> <span> {{item.noOfEmployees}}</span>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>Diện tích: </strong></label> <span> {{item.area}} Sq.ft</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mb-1">
+                <label><strong>Số lượng bàn: </strong></label> <span> {{item.noOfTables}}</span>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>Số lượng ghế: </strong></label> <span> {{item.noOfChairs}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mb-1">
+                <label><strong>Ngày lease hết hạn: </strong></label> <span> {{item.leaseEnd | date:'longDate'}}</span>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>Tuổi tiệm: </strong></label> <span> {{item.yearOld}} năm</span>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-6 mb-1">
+                <label><strong>Contact Phone: </strong></label> <a href="tel:{{item.contactPhoneNo}}">
+                  {{item.contactPhoneNo}}</a>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>Contact Email: </strong></label> <a href="mailto:{{item.contactEmail}}">
+                  {{item.contactEmail}}</a>
+              </div>
+
             </div>
             <div *ngIf="item.files" class="row mt-3 high-light">
               <ng-container *ngIf="item.files.length >1; else shortPost">

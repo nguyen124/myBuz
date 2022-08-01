@@ -20,8 +20,19 @@
                   <input type="text" formControlName="title" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('title') }">
                   <div *ngIf="checkError('title')" class="invalid-feedback">
-                    <div *ngIf="f.title.errors.required">Bài Đăng Cần Có Tiêu Đề!</div>
+                    <div *ngIf="f.title.errors.required">Tiêu Đề Không Được Để Trống!</div>
                     <div *ngIf="f.title.errors.whitespace">Tiêu Đề Không Được Chỉ Chứa Kí Tự Trống!</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mb-1">
+                <div class="col-md-12 mb-1">
+                  <label class="text-primary"><strong>Tên Tiệm</strong></label>
+                  <input type="text" formControlName="businessName" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('businessName') }">
+                  <div *ngIf="checkError('businessName')" class="invalid-feedback">
+                    <div *ngIf="f.businessName.errors.required">Tên Tiệm Không Được Để Trống!</div>
+                    <div *ngIf="f.businessName.errors.whitespace">Tên Tiệm Không Được Chỉ Chứa Kí Tự Trống!</div>
                   </div>
                 </div>
               </div>
@@ -78,7 +89,7 @@
                 </div>
               </div>
               <div class="row mb-1">
-                <div class="col-md-10 mb-1">
+                <div class="col-md-9 mb-1">
                   <label class="text-primary" for="address"><strong>Địa Chỉ</strong></label>
                   <input formControlName="address" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('address') }">
@@ -86,12 +97,12 @@
                     <div *ngIf="f.address.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
                   </div>
                 </div>
-                <div class="col-md-2 mb-1">
+                <div class="col-md-3 mb-1">
                   <label class="text-primary" for="zipcode"><strong>Zip Code</strong></label>
                   <input formControlName="zipcode" class="form-control"
                     [ngClass]="{ 'is-invalid': checkError('zipcode') }">
                   <div *ngIf="checkError('zipcode')" class="invalid-feedback">
-                    <div *ngIf="f.zipcode.errors.required">Zip Code Tiệm Không Được Để Trống!</div>
+                    <div *ngIf="f.zipcode.errors.required">Zip Code Tiệm Không Được Để Trống Hoặc Bằng 00000!</div>
                   </div>
                 </div>
               </div>
@@ -129,7 +140,7 @@
                     </ng-container>
                   </select>
                   <div *ngIf="checkError('city')" class="invalid-feedback">
-                    <div *ngIf="f.city.errors.required">Không Được Để Trống Thành Phố!</div>
+                    <div *ngIf="f.city.errors.required">Thành Phố Không Được Để Trống !</div>
                   </div>
                 </div>
               </div>
@@ -188,11 +199,11 @@
 
               <div class="row mb-1">
                 <div class="col-md-4 mb-1">
-                  <label class="text-primary" for="squareFeet"><strong>Diện Tích (Sq.ft)</strong></label>
-                  <input type="number" formControlName="squareFeet" class="form-control"
-                    [ngClass]="{ 'is-invalid': checkError('squareFeet') }">
-                  <div *ngIf="checkError('squareFeet')" class="invalid-feedback">
-                    <div *ngIf="f.squareFeet.errors.min">Diện Tích Không Được Là Số Âm!</div>
+                  <label class="text-primary" for="area"><strong>Diện Tích (Sq.ft)</strong></label>
+                  <input type="number" formControlName="area" class="form-control"
+                    [ngClass]="{ 'is-invalid': checkError('area') }">
+                  <div *ngIf="checkError('area')" class="invalid-feedback">
+                    <div *ngIf="f.area.errors.min">Diện Tích Không Được Là Số Âm!</div>
                   </div>
                 </div>
                 <div class="col-md-4 mb-1">
@@ -247,7 +258,7 @@
                   </textarea>
                   </div>
                   <div *ngIf="checkError('overview')" class="invalid-feedback">
-                    <div *ngIf="f.overview.errors.maxlength">Không được quá 500 chữ!
+                    <div *ngIf="f.overview.errors.maxlength">Phần Sơ Lược Không Được Quá 500 Chữ!
                     </div>
                   </div>
                 </div>
@@ -261,14 +272,14 @@
                   </div> -->
                   <ckeditor formControlName="description"></ckeditor>
                   <div *ngIf="checkError('description')" class="invalid-feedback">
-                    <div *ngIf="f.description.errors.maxlength">Không được quá 2000 chữ!
+                    <div *ngIf="f.description.errors.maxlength">Phần Mô Tả Không Được Quá 2000 Chữ!
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-md-6 mb-1">
-                  <label class="text-primary" for="duration"><strong>Thời Gian Đăng</strong></label>
+                  <label class="text-primary" for="duration"><strong>Thời Gian Đăng (Kể Từ Ngày Đăng)</strong></label>
                   <select formControlName="duration" class="custom-select">
                     <option value="1">1 Tháng</option>
                     <option value="3">3 Tháng</option>
