@@ -255,10 +255,11 @@
               <div class="row mb-1">
                 <div class="col-md-12 mb-1">
                   <label class="text-primary" for="description"><strong>Mô Tả Thêm Chi Tiết</strong></label>
-                  <div>
+                  <!-- <div>
                     <textarea rows="10" formControlName="description" style="width: 100%">
                   </textarea>
-                  </div>
+                  </div> -->
+                  <ckeditor formControlName="description"></ckeditor>
                   <div *ngIf="checkError('description')" class="invalid-feedback">
                     <div *ngIf="f.description.errors.maxlength">Không được quá 2000 chữ!
                     </div>
