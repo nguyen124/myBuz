@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, isDevMode } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, isDevMode, SecurityContext } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { USA_STATES } from '../shared/services/utils/USA_STATES';
@@ -54,9 +54,9 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.invokeStripe();
     this.initForm();
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
-    this.cities = this.getCities('USA', this.states[0].Key);
   }
 
   initForm() {
@@ -69,8 +69,8 @@ export class UploadComponent implements OnInit {
       price: [0, [Validators.min(0)]],
       address: ['', [Validators.required]],
       zipcode: ['00000', [Validators.required]],
-      city: [this.cities[0], [Validators.required]],
-      state: [''],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
       country: ['USA', [Validators.required]],
       noOfEmployees: [0, [Validators.min(0)]],
       noOfChairs: [0, [Validators.min(0)]],
@@ -129,21 +129,21 @@ export class UploadComponent implements OnInit {
       case 'Canada':
         this.country = 'Canada';
         this.states = CANADA_STATES;
-        this.getCities('Canada', this.states[0].Key);
+        this.initCities('Canada', this.states[0].Key);
         break;
       default:
         this.country = 'USA';
         this.states = USA_STATES;
-        this.getCities('USA', this.states[0].Key);
+        this.initCities('USA', this.states[0].Key);
     }
   }
 
   onStateChange(input) {
-    this.getCities(this.country, input);
+    this.initCities(this.country, input);
   }
 
 
-  getCities(country: string, stateCode: string): any {
+  initCities(country: string, stateCode: string): any {
     switch (country) {
       case 'Canada':
         this.cities = CANADA_CITIES[stateCode];
@@ -154,12 +154,51 @@ export class UploadComponent implements OnInit {
 
   }
 
+  paymentHandler = null;
+
+  makePayment(amount: number) {
+    
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken);
+      }
+    });
+    paymentHandler.open({
+      name: 'Me2Meme',
+      description: 'Create Ads for 1 month',
+      amount: amount*100
+    });
+  }
+
+  invokeStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement('script');
+      script.id = 'stripe-script';
+      script.type = 'text/javascript';
+      script.src = 'https://checkout.stripe.com/checkout.js';
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken)
+          }
+        });
+      };
+      window.document.body.appendChild(script);
+    }
+  }
 
   createPost() {
     this.submitted = true;
     if (this.itemForm.invalid) {
       return;
     }
+
+    this.makePayment(100);
+
     let uploadedResults = [];
     let that = this;
     let storage = firebase.storage().ref();

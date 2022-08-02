@@ -6,12 +6,13 @@
     <div class="d-inline" *ngIf="!authSvc.isLoggedIn()">
       <a class="btn btn-xs btn-success mr-2" href="/login"><i class="fa fa-sign-in"></i></a>
     </div>
-    <div class="d-inline" *ngIf="authSvc.isLoggedIn()">
-      <app-upload></app-upload>
+    <div class="d-inline" *ngIf="authSvc.isLoggedIn()">      
       <!-- <create-node></create-node> -->
       <div class="btn-group">
-        <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
-            class="fa fa-plus"></i></button>
+        <a id="createItemBtn" class="btn btn-xs btn-success mr-2" routerLink="/user/upload"><i
+          class="fa fa-plus"></i></a>
+        <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
+            class="fa fa-plus"></i></button> -->
         <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#createNodeModal"><i
           class="fa fa-plus"></i></button> -->
         <button type="button" class="btn btn-xs btn-success dropdown-toggle mr-2" data-toggle="dropdown"

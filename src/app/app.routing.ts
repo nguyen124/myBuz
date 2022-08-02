@@ -10,6 +10,7 @@ import { SaveLoginComponent } from './save-login/save-login.component';
 import { AdminAuthGuard } from './shared/guard/adminGuard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
+import { UploadComponent } from './upload/upload.component';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     { path: 'resetPassword', component: ResetPasswordFormComponent },
     { path: 'savelogin', component: SaveLoginComponent },
     { path: 'user/items', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
+    { path: 'user/upload', component: UploadComponent, canActivate: [ParentAuthGuard] },
     {
         path: 'user/profile',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
