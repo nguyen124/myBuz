@@ -57,6 +57,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ShareModule } from './shared/share/share.module';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { PlaceSearchComponent } from './place-search/place-search.component';
 
 let jQuery: any = window['$'];
 
@@ -97,7 +98,8 @@ let jQuery: any = window['$'];
     FileValidatorDirective,
     ResetPasswordComponent,
     ResetPasswordFormComponent,
-    DefaultImageDirective
+    DefaultImageDirective,
+    PlaceSearchComponent
   ],
   entryComponents: [TooltipComponent],
   imports: [

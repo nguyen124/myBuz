@@ -8,12 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  location: string = "";
+
   constructor(public authSvc: AuthService, private _router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit() {    
   }
+
 
   logout() {
     this.authSvc.logout().subscribe(
