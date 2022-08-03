@@ -32,6 +32,10 @@
           "function": "fileController"
         },
         {
+          "source": "/svc/stripe{,/**}",
+          "function": "checkoutController"
+        },
+        {
           "source": "/svc{,/**}",
           "function": "app"
         },
@@ -71,6 +75,10 @@
         {
           "source": "/svc/files{,/**}",
           "function": "fileController"
+        },
+        {
+          "source": "/svc/stripe{,/**}",
+          "function": "checkoutController"
         },
         {
           "source": "/svc{,/**}",

@@ -15,6 +15,7 @@ import { FileValidatorDirective } from '../shared/directive/file-validator.direc
 import { AuthService } from '../shared/services/security/auth.service';
 import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
+import { CheckoutService } from '../shared/services/checkout.service';
 
 declare var firebase: any;
 
@@ -43,6 +44,7 @@ export class UploadComponent implements OnInit {
     private _systemSvc: SystemService,
     private _commSvc: CommunicateService,
     private _toastr: ToastrService,
+    private _checkoutSvc: CheckoutService,
     private _router: Router,
     private _fb: FormBuilder,
     private _authSvc: AuthService,
@@ -154,23 +156,6 @@ export class UploadComponent implements OnInit {
 
   }
 
-  paymentHandler = null;
-
-  makePayment(amount: number) {
-    
-    const paymentHandler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
-      locale: 'auto',
-      token: function (stripeToken: any) {
-        console.log(stripeToken);
-      }
-    });
-    paymentHandler.open({
-      name: 'Me2Meme',
-      description: 'Create Ads for 1 month',
-      amount: amount*100
-    });
-  }
 
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
@@ -196,9 +181,54 @@ export class UploadComponent implements OnInit {
     if (this.itemForm.invalid) {
       return;
     }
+    this.makePayment(this.f.duration.value);
+  }
 
-    this.makePayment(100);
+  paymentHandler = null;
+  charge = null;
+  makePayment(duration: string) {
+    let that = this;
+    let cost = 0;
+    let description = "";
+    duration += "";
+    switch (duration) {
+      case "1":
+        cost = 20;
+        description = "Tạo Quảng Cáo Cho 1 Tháng";
+        break;
+      case "3":
+        cost = 40;
+        description = "Tạo Quảng Cáo Cho 3 Tháng";
+        break;
+      case "6":
+        cost = 60;
+        description = "Tạo Quảng Cáo Cho 6 Tháng";
+        break;
+      case "12":
+        cost = 80;
+        description = "Tạo Quảng Cáo Cho 12 Tháng";
+        break;
+    }
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        that._checkoutSvc.makePayment({ duration, stripeToken }).subscribe((data: any) => {
+          if (data.status === "success") {
+            that.charge = data.charge;
+            that.startPostingAfterChargeSuccessfully();
+          }
+        });
+      }
+    });
+    paymentHandler.open({
+      name: 'Me2Meme',
+      description: description,
+      amount: cost * 100
+    });
+  }
 
+  startPostingAfterChargeSuccessfully() {
     let uploadedResults = [];
     let that = this;
     let storage = firebase.storage().ref();
@@ -211,17 +241,26 @@ export class UploadComponent implements OnInit {
       // Listen for state changes, errors, and completion of the upload.
       uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
+        (snapshot: any) => {
           that.handleSnapshot(snapshot, that);
         },
-        (error) => {
+        (error: any) => {
           that.handleFirebaseUploadError(error, that);
+          that.cancelCharge(that);
         },
         () => {
           that.handleSuccess(uploadTask, uploadedResults, that);
         }
       );
     });
+  }
+
+  cancelCharge(that) {
+    if (that.charge) {
+      that._checkoutSvc.refund({ chargeId: that.charge.id }).subscribe(data => {
+        that.charge = null;
+      });
+    }
   }
 
   handleSnapshot(snapshot, that) {
@@ -282,17 +321,18 @@ export class UploadComponent implements OnInit {
         duration: that.f.duration.value,
         description: that.f.description.value == null ? '' : that.f.description.value.trim(),
         files: uploadedResults,
-        overview: that.f.overview.value == null ? '' : that.f.overview.value.trim()
+        overview: that.f.overview.value == null ? '' : that.f.overview.value.trim(),
+        charge: that.charge
       };
+      //append charge info into item
 
-      that._itemSvc.createItem(item).subscribe(newItem => {
+      that._itemSvc.createItem(item).subscribe((newItem: any) => {
         that._toastr.success("New post has been created!");
-        let modalDismiss = that.$("#cancelBtn");
-        if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
         that._commSvc.uploadItem(newItem);
         that.resetFormValues();
         that._router.navigate(["/user/items"]);
-      }, err => {
+      }, (err: any) => {
+        that.cancelCharge(that);
         that.handleError(err, that);
       });
     }
@@ -329,6 +369,7 @@ export class UploadComponent implements OnInit {
     this.isUploading = false;
     this.submitted = false;
     this.parsedTags = [];
+    this.charge = null;
     this.cancelUploading(this);
   }
 

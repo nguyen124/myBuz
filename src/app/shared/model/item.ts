@@ -31,4 +31,5 @@ export interface IItem {
   yearOld?: number;
   area: number;
   description?: string;
+  charge?: any;
 }

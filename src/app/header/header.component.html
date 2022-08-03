@@ -1,22 +1,22 @@
 <div class="row mb-4">
-  <div class="col-10 mt-1">
+  <div class="col-lg-7 col-md-8 col-xs-6 mt-1">
     <div class="d-inline mr-2">
       <a routerLink='/'><img class="logo rounded" src="../../assets/image/logo64x51.png"></a>
     </div>
     <div class="d-inline" *ngIf="!authSvc.isLoggedIn()">
       <a class="btn btn-xs btn-success mr-2" href="/login"><i class="fa fa-sign-in"></i></a>
     </div>
-    <div class="d-inline" *ngIf="authSvc.isLoggedIn()">      
+    <div class="d-inline" *ngIf="authSvc.isLoggedIn()">
       <!-- <create-node></create-node> -->
       <div class="btn-group">
         <a id="createItemBtn" class="btn btn-xs btn-success mr-2" routerLink="/user/upload"><i
-          class="fa fa-plus"></i></a>
+            class="fa fa-plus"></i></a>
         <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
             class="fa fa-plus"></i></button> -->
         <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#createNodeModal"><i
           class="fa fa-plus"></i></button> -->
         <button type="button" class="btn btn-xs btn-success dropdown-toggle mr-2" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+          aria-haspopup="true" aria-expanded="false">{{authSvc.user.username}}
         </button>
         <div class="dropdown-menu">
           <a routerLink="/user/profile" class="ml-1 d-block">My profile</a>
@@ -28,8 +28,16 @@
       <app-notification></app-notification>
     </div>
   </div>
-  <div class="col-2">
-    <img *ngIf="authSvc.user" class="rounded float-right header-avatar mt-1"
-      src="{{authSvc.user['avatar'] | imageMobileLinkPipe}}" default="{{authSvc.user['avatar']}}" alt="Avatar">
+  <div class="offset-lg-2 col-lg-3 col-md-4 col-xs-6">
+    <div class="mt-2 mb-2 input-group input-group-sm">
+      <div class="input-group-prepend">
+        <span class="btn btn-xs btn-success" id="inputGroup-sizing-sm"><i class="fas fa-search"></i></span>
+      </div>
+      <input id="autocomplete" placeholder="enter searching area" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+        [(ngModel)]="location" style="text-align: right">
+      <div class="input-group-append">
+        <span class="btn btn-xs input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-location"></i></span>
+      </div>
+    </div>
   </div>
 </div>

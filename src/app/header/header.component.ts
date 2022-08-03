@@ -7,10 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-
+export class HeaderComponent implements OnInit {
+  location: string = "";
   constructor(public authSvc: AuthService, private _router: Router) {
-
   }
 
   ngOnInit() {
@@ -21,9 +20,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
       data => { this._router.navigate(["/"]) },
       err => { }
     );
-  }
-
-  ngOnDestroy() {
-
   }
 }
