@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
@@ -75,6 +75,7 @@ export class PlaceSearchComponent implements AfterViewInit {
   @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
 
   constructor(private _apiService: GoogleMapService,
+    private _ngZone: NgZone,
     private _route: ActivatedRoute,
     private _router: Router) {
   }
@@ -93,10 +94,13 @@ export class PlaceSearchComponent implements AfterViewInit {
     } else if (params.country) {
       Object.assign(params, { state: null, city: null, zipcode: null, address: null });
     }
-    this._router.navigate([], {
-      relativeTo: this._route,
-      queryParams: params,
-      queryParamsHandling: 'merge'
+    //put this navigation inside ngZone because this code is external javascript
+    this._ngZone.run(() => {
+      this._router.navigate([], {
+        relativeTo: this._route,
+        queryParams: params,
+        queryParamsHandling: 'merge'
+      });
     });
   }
 
