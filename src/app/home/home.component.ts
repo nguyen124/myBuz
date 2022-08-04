@@ -28,22 +28,23 @@ export class HomeComponent implements OnInit {
     private _router: Router,
     private _commSvc: CommunicateService) {
     this._activatedRoute.queryParams.subscribe(params => {
-      if (Object.entries(params).length === 0 && params.constructor === Object) {
-        this.params = {
-          temp: "cold",
-          page: 0,
-          perPage: this.PER_PAGE
-        };
-        this.getCold();
-      } else {
-        var itemId = this._activatedRoute.snapshot.queryParams['id'];
-        if (!itemId) {
-          this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
-        }
-        this.getItems(this.params);
+      //console.log(params);
+      var itemId = this._activatedRoute.snapshot.queryParams['id'];
+      if (!itemId) {
+        this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
       }
+      this.getItems(params);
     });
   }
+  itemsActive: boolean = true;
+  hiringActive: boolean = false;
+  licenseActive: boolean = false;
+  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
+    this.itemsActive = flag1;
+    this.hiringActive = flag2;
+    this.licenseActive = flag3;
+  }
+
 
   getItems(params) {
     let itemId = this._activatedRoute.snapshot.queryParams['id'];
@@ -69,22 +70,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
-  }
-
-  getHot() {
-    Object.assign(this.params, { temp: 'hot', page: 0, perPage: this.PER_PAGE })
-    this._router.navigate(['.'], { queryParams: this.params });
-  }
-
-  getWarm() {
-    Object.assign(this.params, { temp: 'warm', page: 0, perPage: this.PER_PAGE })
-    this._router.navigate(['.'], { queryParams: this.params });
-  }
-
-  getCold() {
-    Object.assign(this.params, { temp: 'cold', page: 0, perPage: this.PER_PAGE })
-    this._router.navigate(['.'], { queryParams: this.params });
   }
 
   loadNext() {
