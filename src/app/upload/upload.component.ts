@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, isDevMode, SecurityContext, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, isDevMode, SecurityContext, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ declare let google: any;
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent implements OnInit, AfterViewInit {
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
@@ -48,10 +48,14 @@ export class UploadComponent implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _authSvc: AuthService,
-    apiService: GoogleMapService,
+    private _apiService: GoogleMapService,
     private ngZone: NgZone,
     @Inject(JQ_TOKEN) private $: any) {
-    apiService.api.then((maps) => {
+
+  }
+
+  ngAfterViewInit() {
+    this._apiService.api.then((maps) => {
       this.buildAutoCompleteAddressForm();
     });
   }

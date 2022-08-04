@@ -1,4 +1,5 @@
-import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
 
@@ -7,7 +8,7 @@ declare let google: any;
   templateUrl: './place-search.component.html',
   styleUrls: ['./place-search.component.css']
 })
-export class PlaceSearchComponent {
+export class PlaceSearchComponent implements AfterViewInit {
   location: string = "";
   countryRestrict: any = { country: 'us' };
   MARKER_PATH: any = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -73,8 +74,34 @@ export class PlaceSearchComponent {
   autocomplete: any;
   @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
 
-  constructor(apiService: GoogleMapService, private ngZone: NgZone) {
-    apiService.api.then((maps) => {
+  constructor(private _apiService: GoogleMapService,
+    private _route: ActivatedRoute,
+    private _router: Router) {
+  }
+
+  goToNewPath(params) {
+    // changes the route without moving from the current view or
+    // triggering a navigation event,
+    if (params.address) {
+      Object.assign(params, { country: null, state: null, city: null, zipcode: null });
+    } else if (params.zipcode) {
+      Object.assign(params, { country: null, state: null, city: null, address: null });
+    } else if (params.city) {
+      Object.assign(params, { country: null, state: null, zipcode: null, address: null });
+    } else if (params.state) {
+      Object.assign(params, { country: null, city: null, zipcode: null, address: null });
+    } else if (params.country) {
+      Object.assign(params, { state: null, city: null, zipcode: null, address: null });
+    }
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  ngAfterViewInit() {
+    this._apiService.api.then((maps) => {
       this.buildAutoComplete();
       this.buildMap();
     });
@@ -114,47 +141,43 @@ export class PlaceSearchComponent {
   }
 
   searchItemWithinLocation(place) {
+    let address = "";
+    let zipcode = "";
+    let city = "";
+    let state = "";
+    let country = ""
     for (const component of place.address_components as any[]) {
-      // @ts-ignore remove once typings fixed
       const componentType = component.types[0];
-      let address1 = "";
-      let postcode = "";
       switch (componentType) {
         case "street_number": {
-          address1 = `${component.long_name} ${address1}`;
+          address = `${component.long_name} ${address}`;
           break;
         }
-
         case "route": {
-          address1 += component.short_name;
-          break;
+          address += component.short_name;
+          this.goToNewPath({ address });
+          return;
         }
-
         case "postal_code": {
-          postcode = `${component.long_name}${postcode}`;
-          break;
+          zipcode = `${component.long_name}${zipcode}`;
+          this.goToNewPath({ zipcode });
+          return;
         }
-
-        case "postal_code_suffix": {
-          postcode = `${postcode}-${component.long_name}`;
-          break;
+        case "locality": {
+          city = component.long_name;
+          this.goToNewPath({ city });
+          return;
         }
-
-        case "locality":
-          (document.querySelector("#locality") as HTMLInputElement).value =
-            component.long_name;
-          break;
-
         case "administrative_area_level_1": {
-          (document.querySelector("#state") as HTMLInputElement).value =
-            component.short_name;
-          break;
+          state = component.short_name;
+          this.goToNewPath({ state });
+          return;
         }
-
-        case "country":
-          (document.querySelector("#country") as HTMLInputElement).value =
-            component.long_name;
-          break;
+        case "country": {
+          country = component.long_name;
+          this.goToNewPath({ country });
+          return;
+        }
       }
     }
   }
