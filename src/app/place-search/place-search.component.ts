@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
 
@@ -71,6 +71,7 @@ export class PlaceSearchComponent {
   infoWindow: any;
   markers: any = [];
   autocomplete: any;
+  @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
 
   constructor(apiService: GoogleMapService, private ngZone: NgZone) {
     apiService.api.then((maps) => {
@@ -81,9 +82,8 @@ export class PlaceSearchComponent {
 
   buildAutoComplete() {
     this.autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('autocomplete') as HTMLInputElement,
+      this.autocompleteSearchBox.nativeElement,
       {
-        types: ['(regions)'],
         componentRestrictions: this.countryRestrict
       }
     );
@@ -105,10 +105,57 @@ export class PlaceSearchComponent {
   zoonInAndSearch = () => {
     let that = this;
     const place = that.autocomplete.getPlace();
+    that.searchItemWithinLocation(place);
     if (place.geometry && place.geometry.location) {
       that.map.panTo(place.geometry.location);
       that.map.setZoom(15);
       that.search();
+    }
+  }
+
+  searchItemWithinLocation(place) {
+    for (const component of place.address_components as any[]) {
+      // @ts-ignore remove once typings fixed
+      const componentType = component.types[0];
+      let address1 = "";
+      let postcode = "";
+      switch (componentType) {
+        case "street_number": {
+          address1 = `${component.long_name} ${address1}`;
+          break;
+        }
+
+        case "route": {
+          address1 += component.short_name;
+          break;
+        }
+
+        case "postal_code": {
+          postcode = `${component.long_name}${postcode}`;
+          break;
+        }
+
+        case "postal_code_suffix": {
+          postcode = `${postcode}-${component.long_name}`;
+          break;
+        }
+
+        case "locality":
+          (document.querySelector("#locality") as HTMLInputElement).value =
+            component.long_name;
+          break;
+
+        case "administrative_area_level_1": {
+          (document.querySelector("#state") as HTMLInputElement).value =
+            component.short_name;
+          break;
+        }
+
+        case "country":
+          (document.querySelector("#country") as HTMLInputElement).value =
+            component.long_name;
+          break;
+      }
     }
   }
 

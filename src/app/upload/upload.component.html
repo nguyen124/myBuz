@@ -90,7 +90,7 @@
       <div class="row mb-1">
         <div class="col-md-9 mb-1">
           <label class="text-primary" for="address"><strong>Địa Chỉ</strong></label>
-          <input formControlName="address" class="form-control"
+          <input #autoAddress formControlName="address" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('address') }">
           <div *ngIf="checkError('address')" class="invalid-feedback">
             <div *ngIf="f.address.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
@@ -105,44 +105,38 @@
           </div>
         </div>
       </div>
+      <div class="row mb-1">
+        <div class="col-md-9 mb-1">
+          <label class="text-primary" for="address2"><strong>Địa Chỉ 2</strong></label>
+          <input #address2 formControlName="address2" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('address2') }">
+          <div *ngIf="checkError('address2')" class="invalid-feedback">
+            <div *ngIf="f.address2.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
+          </div>
+        </div>
+      </div>
 
       <div class="row mb-1">
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="country"><strong>Quốc Gia</strong></label>
-          <select formControlName="country" class="custom-select"
-            (change)="onCountryChange($event.target.value)">
-            <option value="USA">United States</option>
-            <option value="Canada">Canada</option>
-            <!-- <option value="Australia">Australia</option>
-            <option value="German">Germany</option>
-            <option value="England">England</option>
-            <option value="France">France</option>
-            <option value="Vietnam">Vietnam</option>
-            <option value="Other">Other Countries</option>-->
-          </select>
+          <input formControlName="country" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('country') }">
+          <div *ngIf="checkError('country')" class="invalid-feedback">
+            <div *ngIf="f.country.errors.required">Quốc Gia Không Được Để Trống!</div>
+          </div>
         </div>
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="state"><strong>Tiểu Bang/Tỉnh</strong></label>
-          <!-- <input formControlName="state" class="form-control"> -->
-          <select formControlName="state" class="custom-select" (change)="onStateChange($event.target.value)"
+          <input #state formControlName="state" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('state') }">
-            <ng-container *ngFor="let state of states">
-              <option value="{{state.Key}}">{{state.Value}}</option>
-            </ng-container>
-          </select>
           <div *ngIf="checkError('state')" class="invalid-feedback">
-            <div *ngIf="f.state.errors.required">Tiểu Bang Không Được Để Trống!</div>
+            <div *ngIf="f.state.errors.required">Tiểu Bang/Tỉnh Không Được Để Trống!</div>
           </div>
         </div>
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="city"><strong>Thành Phố</strong></label>
-          <!-- <input formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': checkError('city') }"> -->
-          <select formControlName="city" class="custom-select"
+          <input #city formControlName="city" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('city') }">
-            <ng-container *ngFor="let city of cities">
-              <option value="{{city}}">{{city}}</option>
-            </ng-container>
-          </select>
           <div *ngIf="checkError('city')" class="invalid-feedback">
             <div *ngIf="f.city.errors.required">Thành Phố Không Được Để Trống!</div>
           </div>

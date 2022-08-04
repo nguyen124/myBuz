@@ -15,6 +15,7 @@ export interface IItem {
   hasReported?: boolean;
   price: number;
   address: string;
+  address2?: string;
   zipcode: string;
   city: string;
   state?: string;

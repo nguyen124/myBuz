@@ -1,11 +1,6 @@
-import { Component, OnInit, Inject, HostListener, isDevMode, SecurityContext } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, isDevMode, SecurityContext, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
-import { USA_STATES } from '../shared/services/utils/USA_STATES';
-import { CANADA_STATES } from '../shared/services/utils/CANADA_STATES';
-// import { VIETNAM_STATES } from '../shared/services/utils/VIETNAM_STATES';
-import { USA_CITIES } from '../shared/services/utils/USA_CITIES';
-import { CANADA_CITIES } from '../shared/services/utils/CANADA_CITIES';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,8 +11,10 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 import { CheckoutService } from '../shared/services/checkout.service';
+import { GoogleMapService } from '../shared/services/google-map.service';
 
 declare var firebase: any;
+declare let google: any;
 
 @Component({
   selector: 'app-upload',
@@ -35,9 +32,12 @@ export class UploadComponent implements OnInit {
   filesArr: File[] = [];
   toUploadFiles: any[] = [];
   currentUploadTasks: any[] = [];
-  country = 'USA';
-  states = USA_STATES;
-  cities = [];
+  @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
+  @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
+  @ViewChild('autoCountry', { static: false }) autoCountry: ElementRef;
+  @ViewChild('address2', { static: false }) address2: ElementRef;
+  countryRestrict: any = { country: 'us' };
+  autocompleteAddress: any;
 
   constructor(
     private _itemSvc: ItemService,
@@ -48,7 +48,13 @@ export class UploadComponent implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _authSvc: AuthService,
-    @Inject(JQ_TOKEN) private $: any) { }
+    apiService: GoogleMapService,
+    private ngZone: NgZone,
+    @Inject(JQ_TOKEN) private $: any) {
+    apiService.api.then((maps) => {
+      this.buildAutoCompleteAddressForm();
+    });
+  }
 
   @HostListener('document:keydown.escape', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -61,6 +67,68 @@ export class UploadComponent implements OnInit {
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
   }
 
+  buildAutoCompleteAddressForm() {
+    this.autocompleteAddress = new google.maps.places.Autocomplete(
+      this.autoAddress.nativeElement,
+      {
+        componentRestrictions: this.countryRestrict
+      }
+    );
+    this.autocompleteAddress.addListener('place_changed', this.autoFillAddress);
+  }
+
+  autoFillAddress = () => {
+    let that = this;
+    // Get the place details from the autocomplete object.
+    const place = that.autocompleteAddress.getPlace();
+    let address1 = "";
+    let postcode = "";
+    let city = "";
+    let state = "";
+    let country = "";
+    // Get each component of the address from the place details,
+    // and then fill-in the corresponding field on the form.
+    // place.address_components are google.maps.GeocoderAddressComponent objects
+    // which are documented at http://goo.gle/3l5i5Mr
+    for (const component of place.address_components as any[]) {
+      // @ts-ignore remove once typings fixed
+      const componentType = component.types[0];
+
+      switch (componentType) {
+        case "street_number": {
+          address1 = `${component.long_name} ${address1}`; break;
+        }
+        case "route": {
+          address1 += component.short_name; break;
+        }
+        case "postal_code": {
+          postcode = `${component.long_name}${postcode}`; break;
+        }
+        // case "postal_code_suffix": {
+        //   postcode = `${postcode}-${component.long_name}`;
+        //   break;
+        // }
+        case "locality":
+          city = component.long_name; break;
+        case "administrative_area_level_1":
+          state = component.short_name; break;
+        case "country":
+          country = component.long_name; break;
+      }
+    }
+
+    that.f.address.setValue(address1);
+    that.f.zipcode.setValue(postcode);
+    that.f.city.setValue(city);
+    that.f.state.setValue(state);
+    that.f.country.setValue(country);
+
+    // After filling the form with address components from the Autocomplete
+    // prediction, set cursor focus on the second address line to encourage
+    // entry of subpremise information such as apartment, unit, or floor number.
+    this.address2.nativeElement.focus();
+  }
+
   initForm() {
     this.itemForm = this._fb.group({
       title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
@@ -70,10 +138,11 @@ export class UploadComponent implements OnInit {
       tags: [''],
       price: [0, [Validators.min(0)]],
       address: ['', [Validators.required]],
-      zipcode: ['00000', [Validators.required]],
+      address2: ['', []],
+      zipcode: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      country: ['USA', [Validators.required]],
+      country: ['', [Validators.required]],
       noOfEmployees: [0, [Validators.min(0)]],
       noOfChairs: [0, [Validators.min(0)]],
       noOfTables: [0, [Validators.min(0)]],
@@ -125,37 +194,6 @@ export class UploadComponent implements OnInit {
   onTagsChange(input) {
     this.parsedTags = input.split(/[ ,;.\/\\]+/).slice(0, 5).filter(el => el.length != 0);
   }
-
-  onCountryChange(input) {
-    switch (input) {
-      case 'Canada':
-        this.country = 'Canada';
-        this.states = CANADA_STATES;
-        this.initCities('Canada', this.states[0].Key);
-        break;
-      default:
-        this.country = 'USA';
-        this.states = USA_STATES;
-        this.initCities('USA', this.states[0].Key);
-    }
-  }
-
-  onStateChange(input) {
-    this.initCities(this.country, input);
-  }
-
-
-  initCities(country: string, stateCode: string): any {
-    switch (country) {
-      case 'Canada':
-        this.cities = CANADA_CITIES[stateCode];
-        break;
-      default:
-        this.cities = USA_CITIES[stateCode];
-    }
-
-  }
-
 
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
@@ -303,6 +341,7 @@ export class UploadComponent implements OnInit {
         businessName: that.f.businessName.value,
         price: that.f.price.value,
         address: that.f.address.value,
+        address2: that.f.address2.value,
         zipcode: that.f.zipcode.value,
         city: that.f.city.value,
         state: that.f.state.value,
