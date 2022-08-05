@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, NgZone, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IItem } from '../shared/model/item';
 import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
 
@@ -73,6 +74,7 @@ export class PlaceSearchComponent implements AfterViewInit {
   infoWindow: any;
   markers: any = [];
   autocomplete: any;
+  @Input() items: IItem[];
   @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
 
   constructor(private _apiService: GoogleMapService,
@@ -137,13 +139,19 @@ export class PlaceSearchComponent implements AfterViewInit {
 
   zoonInAndSearch = () => {
     let that = this;
-    this.place = that.autocomplete.getPlace();
-    that.searchItemWithinLocation(this.place);
-    if (this.place.geometry && this.place.geometry.location) {
-      that.map.panTo(this.place.geometry.location);
-      that.map.setZoom(15);
-      that.search();
-    }
+    that.place = that.autocomplete.getPlace();
+    that.searchItemWithinLocation(that.place);
+  }
+
+  panTo;
+  zoomLevel;
+  ngOnChanges() {
+    let that = this;
+
+    that.map.panTo(this.panTo);
+    that.map.setZoom(this.zoomLevel);
+    that.dropMarkers();
+
   }
 
   searchItemWithinLocation(place) {
@@ -162,26 +170,36 @@ export class PlaceSearchComponent implements AfterViewInit {
         case "route": {
           address += component.short_name;
           this.goToNewPath({ address });
+          this.panTo = place.geometry.location;
+          this.zoomLevel = 15;
           return;
         }
         case "postal_code": {
           zipcode = `${component.long_name}${zipcode}`;
           this.goToNewPath({ zipcode });
+          this.panTo = place.geometry.location;
+          this.zoomLevel = 10;
           return;
         }
         case "locality": {
           city = component.long_name;
           this.goToNewPath({ city });
+          this.panTo = place.geometry.location;
+          this.zoomLevel = 8;
           return;
         }
         case "administrative_area_level_1": {
           state = component.short_name;
           this.goToNewPath({ state });
+          this.panTo = place.geometry.location;
+          this.zoomLevel = 5;
           return;
         }
         case "country": {
           country = component.long_name;
           this.goToNewPath({ country });
+          this.panTo = place.geometry.location;
+          this.zoomLevel = 3;
           return;
         }
       }
@@ -189,53 +207,39 @@ export class PlaceSearchComponent implements AfterViewInit {
   }
 
   // Search for hotels in the selected city, within the viewport of the map.
-  search() {
+  dropMarkers() {
     let that = this;
-    const search = {
-      bounds: that.map.getBounds() as any,
-      types: ['beauty_salon'],
+    that.clearResults();
+    that.clearMarkers();
+
+    // assign a letter of the alphabetic to each marker icon.
+    for (let i = 0; i < that.items.length; i++) {
+      const markerLetter = String.fromCharCode(
+        'A'.charCodeAt(0) + (i % 26)
+      );
+      const markerIcon = that.MARKER_PATH + markerLetter + '.png';
+
+      // Use marker animation to drop the icons incrementally on the map.
+      that.markers[i] = new google.maps.Marker({
+        position: that.items[i].geometry.location,
+        animation: google.maps.Animation.DROP,
+        icon: markerIcon,
+      });
+      // If the user clicks a  marker, show the details of that
+      // in an info window.
+      // @ts-ignore TODO refactor to avoid storing on marker      
+      google.maps.event.addListener(that.markers[i], 'click', () => {
+        that.showInfoWindow(that, that.markers[i]);
+      });
+      setTimeout(that.dropMarker(i), i * 100);
+    }
+  }
+
+  dropMarker(i) {
+    let that = this;
+    return function () {
+      that.markers[i].setMap(that.map);
     };
-
-    that.places = new google.maps.places.PlacesService(that.map);
-    that.places.nearbySearch(
-      search,
-      (
-        results: any | null,
-        status: any,
-        pagination: any | null
-      ) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          that.clearResults();
-          that.clearMarkers();
-
-          // Create a marker for each hotel found, and
-          // assign a letter of the alphabetic to each marker icon.
-          for (let i = 0; i < results.length; i++) {
-            const markerLetter = String.fromCharCode(
-              'A'.charCodeAt(0) + (i % 26)
-            );
-            const markerIcon = that.MARKER_PATH + markerLetter + '.png';
-
-            // Use marker animation to drop the icons incrementally on the map.
-            that.markers[i] = new google.maps.Marker({
-              position: (results[i].geometry as any)
-                .location,
-              animation: google.maps.Animation.DROP,
-              icon: markerIcon,
-            });
-            // If the user clicks a hotel marker, show the details of that hotel
-            // in an info window.
-            // @ts-ignore TODO refactor to avoid storing on marker
-            that.markers[i].placeResult = results[i];
-            google.maps.event.addListener(that.markers[i], 'click', () => {
-              that.showInfoWindow(that, that.markers[i]);
-            });
-            setTimeout(that.dropMarker(i), i * 100);
-            //that.addResult(results[i], i);
-          }
-        }
-      }
-    );
   }
 
   clearMarkers() {
@@ -248,44 +252,6 @@ export class PlaceSearchComponent implements AfterViewInit {
       this.markers = [];
     }
   }
-
-  dropMarker(i) {
-    let that = this;
-    return function () {
-      that.markers[i].setMap(that.map);
-    };
-  }
-
-  //addResult(result, i) {
-  //const results = document.getElementById('results') as HTMLElement;
-  //const markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-  //const markerIcon = this.MARKER_PATH + markerLetter + '.png';
-
-  //const tr = document.createElement('tr');
-
-  //tr.style.backgroundColor = i % 2 === 0 ? '#F0F0F0' : '#FFFFFF';
-
-  //let that = this;
-  // tr.onclick = function () {
-  //   google.maps.event.trigger(that.markers[i], 'click');
-  // };
-
-  //const iconTd = document.createElement('td');
-  //const nameTd = document.createElement('td');
-  //const icon = document.createElement('img');
-
-  //icon.src = markerIcon;
-  //icon.setAttribute('class', 'placeIcon');
-  //icon.setAttribute('className', 'placeIcon');
-
-  //const name = document.createTextNode(result.name);
-
-  //iconTd.appendChild(icon);
-  //nameTd.appendChild(name);
-  //tr.appendChild(iconTd);
-  //tr.appendChild(nameTd);
-  //results.appendChild(tr);
-  //}
 
   clearResults() {
     const results = document.getElementById('results') as HTMLElement;

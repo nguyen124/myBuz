@@ -32,6 +32,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
   filesArr: File[] = [];
   toUploadFiles: any[] = [];
   currentUploadTasks: any[] = [];
+  geometry: any;
+
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
   @ViewChild('autoCountry', { static: false }) autoCountry: ElementRef;
@@ -85,6 +87,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     let that = this;
     // Get the place details from the autocomplete object.
     const place = that.autocompleteAddress.getPlace();
+    this.geometry = place.geometry;
     let address1 = "";
     let postcode = "";
     let city = "";
@@ -365,7 +368,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
         description: that.f.description.value == null ? '' : that.f.description.value.trim(),
         files: uploadedResults,
         overview: that.f.overview.value == null ? '' : that.f.overview.value.trim(),
-        charge: that.charge
+        charge: that.charge,
+        geometry: that.geometry
       };
       //append charge info into item
 

@@ -34,4 +34,5 @@ export interface IItem {
   description?: string;
   charge?: any;
   status?: string;
+  geometry?: any;
 }
