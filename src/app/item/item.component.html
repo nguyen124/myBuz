@@ -18,9 +18,9 @@
             <div class="row overflow-hidden">
                 <div class="col-12">
                     <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl"
-                        [queryParams]="{category: cate}" class="mr-1">@{{cate}}</a>
+                        [queryParams]="{category: cate, id: null}" class="mr-1">@{{cate}}</a>
                     <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl"
-                        [queryParams]="{tag: tag}" class="mr-1">#{{tag}}</a>
+                        [queryParams]="{tag: tag, id: null}" class="mr-1">#{{tag}}</a>
                 </div>
             </div>
         </ng-container>
@@ -36,7 +36,7 @@
     </div>
     <ng-container *ngIf="item.files && item.files.length > 0">
         <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.title}}">
-            <a class="d-block" href="javascript:void(0)" (click)="showItemModal()">
+            <a class="d-block" routerLink="." queryParamsHandling="merge" [queryParams]="{id:item._id}">
                 <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail mh-480"
                     [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
                 <app-meme-video *ngIf="item.files[0].fileType.match('video*')" [link]="item.files[0].url"

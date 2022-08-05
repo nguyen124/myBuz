@@ -7,6 +7,8 @@ import { LoggingService } from '../shared/services/system/logging.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentsComponent } from '../comments/comments.component';
 import { MetaTagService } from '../shared/services/meta-tag.services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-itemModal',
@@ -31,6 +33,9 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     private _commSvc: CommunicateService,
     private _log: LoggingService,
     private titleTagService: MetaTagService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private _location: Location,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -78,6 +83,11 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   clearData() {
+    //let params = Object.assign({}, this._activatedRoute.snapshot.queryParams, { id: null });
+    let urlSegment = this._router.url.split("&");
+    let newUrl = urlSegment.slice(0, urlSegment.length - 1).join("&");
+    this._location.replaceState(newUrl);
+
     this.item = null;
   }
 

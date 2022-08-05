@@ -55,7 +55,6 @@ export class ItemsComponent implements OnInit, OnDestroy {
   }
 
   showItemModal(index) {
-    window.history.pushState('item', 'details', '/svc/metatags?id=' + this.items[index]._id);
     this._itemSvc.getItemById(this.items[index]._id).subscribe(newItem => {
       if (newItem) {
         this.items[index].hasUpvoted = newItem.hasUpvoted;

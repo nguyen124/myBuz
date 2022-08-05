@@ -10,14 +10,14 @@
   <div class="col-md-4 col-xs-4 warm">
     <a [routerLink]="'/hiring'" (click)="setFlag(false, true, false)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 warm"
-        [ngClass]="{'font-weight-bold text-success font-24 round-right-left-16' : hiringActive}">Tuyển Dụng
+        [ngClass]="{'font-weight-bold text-white font-24 round-right-left-16' : hiringActive}">Tuyển Dụng
       </button>
     </a>
   </div>
   <div class="col-md-4 col-xs-4 cold">
     <a [routerLink]="'/hiring'" (click)="setFlag(false, false, true)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 cold"
-        [ngClass]="{'font-weight-bold text-primary font-24 round-left-16' : licenseActive}">License</button>
+        [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : licenseActive}">License</button>
     </a>
   </div>
 </div>

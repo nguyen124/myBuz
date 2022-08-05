@@ -27,12 +27,9 @@ export class HomeComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _commSvc: CommunicateService) {
+    // this._router.navigate(["/items"], { queryParams: { temp: 'cold', 'page': 0, 'perPage': 40 } });
     this._activatedRoute.queryParams.subscribe(params => {
-      //console.log(params);
-      var itemId = this._activatedRoute.snapshot.queryParams['id'];
-      if (!itemId) {
-        this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
-      }
+      this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
       this.getItems(params);
     });
   }
@@ -45,15 +42,12 @@ export class HomeComponent implements OnInit {
     this.licenseActive = flag3;
   }
 
-
   getItems(params) {
     let itemId = this._activatedRoute.snapshot.queryParams['id'];
     let that = this;
     if (itemId) {
       this._itemService.getItemById(itemId).subscribe(item => {
-        window.history.pushState('item', 'details', '/svc/metatags?id=' + item._id);
         that._commSvc.changeItem(item);
-        that.getItemsHelper(that, params);
       });
     } else {
       that.getItemsHelper(that, params);
