@@ -33,4 +33,5 @@ export interface IItem {
   area: number;
   description?: string;
   charge?: any;
+  status?: string;
 }
