@@ -78,6 +78,7 @@ export class PlaceSearchComponent implements AfterViewInit {
   constructor(private _apiService: GoogleMapService,
     private _ngZone: NgZone,
     private _route: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _router: Router) {
   }
 
@@ -97,8 +98,8 @@ export class PlaceSearchComponent implements AfterViewInit {
     }
     //put this navigation inside ngZone because this code is external javascript
     this._ngZone.run(() => {
+      params = Object.assign(params, this._activatedRoute.snapshot.queryParams, { id: null });
       this._router.navigate([], {
-        relativeTo: this._route,
         queryParams: params,
         queryParamsHandling: 'merge'
       });
