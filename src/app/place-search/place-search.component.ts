@@ -9,7 +9,7 @@ declare let google: any;
   styleUrls: ['./place-search.component.css']
 })
 export class PlaceSearchComponent implements AfterViewInit {
-  location: string = "";
+  
   countryRestrict: any = { country: 'us' };
   MARKER_PATH: any = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
   hostnameRegexp: any = new RegExp('^https?://.+?/');
