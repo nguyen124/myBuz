@@ -9,7 +9,7 @@ declare let google: any;
   styleUrls: ['./place-search.component.css']
 })
 export class PlaceSearchComponent implements AfterViewInit {
-  
+
   countryRestrict: any = { country: 'us' };
   MARKER_PATH: any = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
   hostnameRegexp: any = new RegExp('^https?://.+?/');
@@ -69,6 +69,7 @@ export class PlaceSearchComponent implements AfterViewInit {
   };
   map: any;
   places: any;
+  place: any;
   infoWindow: any;
   markers: any = [];
   autocomplete: any;
@@ -135,10 +136,10 @@ export class PlaceSearchComponent implements AfterViewInit {
 
   zoonInAndSearch = () => {
     let that = this;
-    const place = that.autocomplete.getPlace();
-    that.searchItemWithinLocation(place);
-    if (place.geometry && place.geometry.location) {
-      that.map.panTo(place.geometry.location);
+    this.place = that.autocomplete.getPlace();
+    that.searchItemWithinLocation(this.place);
+    if (this.place.geometry && this.place.geometry.location) {
+      that.map.panTo(this.place.geometry.location);
       that.map.setZoom(15);
       that.search();
     }
@@ -229,7 +230,7 @@ export class PlaceSearchComponent implements AfterViewInit {
               that.showInfoWindow(that, that.markers[i]);
             });
             setTimeout(that.dropMarker(i), i * 100);
-            that.addResult(results[i], i);
+            //that.addResult(results[i], i);
           }
         }
       }
@@ -254,36 +255,36 @@ export class PlaceSearchComponent implements AfterViewInit {
     };
   }
 
-  addResult(result, i) {
-    const results = document.getElementById('results') as HTMLElement;
-    const markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-    const markerIcon = this.MARKER_PATH + markerLetter + '.png';
+  //addResult(result, i) {
+  //const results = document.getElementById('results') as HTMLElement;
+  //const markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+  //const markerIcon = this.MARKER_PATH + markerLetter + '.png';
 
-    const tr = document.createElement('tr');
+  //const tr = document.createElement('tr');
 
-    tr.style.backgroundColor = i % 2 === 0 ? '#F0F0F0' : '#FFFFFF';
+  //tr.style.backgroundColor = i % 2 === 0 ? '#F0F0F0' : '#FFFFFF';
 
-    let that = this;
-    tr.onclick = function () {
-      google.maps.event.trigger(that.markers[i], 'click');
-    };
+  //let that = this;
+  // tr.onclick = function () {
+  //   google.maps.event.trigger(that.markers[i], 'click');
+  // };
 
-    const iconTd = document.createElement('td');
-    const nameTd = document.createElement('td');
-    const icon = document.createElement('img');
+  //const iconTd = document.createElement('td');
+  //const nameTd = document.createElement('td');
+  //const icon = document.createElement('img');
 
-    icon.src = markerIcon;
-    icon.setAttribute('class', 'placeIcon');
-    icon.setAttribute('className', 'placeIcon');
+  //icon.src = markerIcon;
+  //icon.setAttribute('class', 'placeIcon');
+  //icon.setAttribute('className', 'placeIcon');
 
-    const name = document.createTextNode(result.name);
+  //const name = document.createTextNode(result.name);
 
-    iconTd.appendChild(icon);
-    nameTd.appendChild(name);
-    tr.appendChild(iconTd);
-    tr.appendChild(nameTd);
-    results.appendChild(tr);
-  }
+  //iconTd.appendChild(icon);
+  //nameTd.appendChild(name);
+  //tr.appendChild(iconTd);
+  //tr.appendChild(nameTd);
+  //results.appendChild(tr);
+  //}
 
   clearResults() {
     const results = document.getElementById('results') as HTMLElement;

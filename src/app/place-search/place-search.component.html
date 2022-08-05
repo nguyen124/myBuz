@@ -1,27 +1,14 @@
-<div class="col-lg-3 col-md-4 col-xs-6 pl-0 pr-0 pb-2">
-    <div class="mt-2 mb-2 input-group input-group-sm">
-        <div class="input-group-prepend">
-            <span class="btn btn-xs btn-success" id="inputGroup-sizing-sm"><i class="fas fa-search"></i></span>
-        </div>
-        <input #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area" type="text" class="form-control" aria-label="Small"
-            aria-describedby="inputGroup-sizing-sm" [(ngModel)]="location" style="text-align: right">
-        <div class="input-group-append">
-            <span class="btn btn-xs input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-location"></i></span>
-        </div>
-    </div>
+<div class="mt-2 mb-2 input-group input-group-sm">
+    <input #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area" type="text" class="form-control"
+        aria-label="Small" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="location" style="text-align: right">
 </div>
 
-<div class="row">
-    <div class="col-lg-7">
-        <div #map id="map" style="width: 500px; height: 500px;"></div>
-    </div>
-    <div class="col-lg-5">
-        <div id="listing">
-            <table id="resultsTable">
-                <tbody id="results"></tbody>
-            </table>
-        </div>
-    </div>
+<div #map id="map" style="width: 100%; height: 500px;"></div>
+
+<div id="listing">
+    <table id="resultsTable">
+        <tbody id="results"></tbody>
+    </table>
 </div>
 
 <div style="display: none">
