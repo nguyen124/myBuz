@@ -71,6 +71,15 @@ export class SystemService {
     return isValid ? null : { whitespace: true };
   }
 
+  validateEmail(email: FormControl) {
+    if (!email || !email.value || email.value.trim() === "") return null;
+    const isValid = email.value.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    return isValid ? null : { emailFormat: true };
+  };
+
+
   checkFileMaxSize(control: FormControl) {
     let files = control.value;
     if (files) {

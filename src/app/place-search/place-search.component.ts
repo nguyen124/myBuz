@@ -74,8 +74,11 @@ export class PlaceSearchComponent implements AfterViewInit {
   infoWindow: any;
   markers: any = [];
   autocomplete: any;
+  panTo: any;
+  zoomLevel: any;
   @Input() items: IItem[];
   @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
+  @ViewChild('infoContentRef', { static: false }) infoContentRef: ElementRef;
 
   constructor(private _apiService: GoogleMapService,
     private _ngZone: NgZone,
@@ -143,15 +146,13 @@ export class PlaceSearchComponent implements AfterViewInit {
     that.searchItemWithinLocation(that.place);
   }
 
-  panTo;
-  zoomLevel;
   ngOnChanges() {
     let that = this;
-
-    that.map.panTo(this.panTo);
-    that.map.setZoom(this.zoomLevel);
-    that.dropMarkers();
-
+    if (that.map) {
+      that.map.panTo(this.panTo);
+      that.map.setZoom(this.zoomLevel);
+      that.dropMarkers();
+    }
   }
 
   searchItemWithinLocation(place) {
@@ -209,7 +210,6 @@ export class PlaceSearchComponent implements AfterViewInit {
   // Search for hotels in the selected city, within the viewport of the map.
   dropMarkers() {
     let that = this;
-    that.clearResults();
     that.clearMarkers();
 
     // assign a letter of the alphabetic to each marker icon.
@@ -229,7 +229,7 @@ export class PlaceSearchComponent implements AfterViewInit {
       // in an info window.
       // @ts-ignore TODO refactor to avoid storing on marker      
       google.maps.event.addListener(that.markers[i], 'click', () => {
-        that.showInfoWindow(that, that.markers[i]);
+        that.showInfoWindow(that, that.markers[i], that.items[i]);
       });
       setTimeout(that.dropMarker(i), i * 100);
     }
@@ -253,94 +253,24 @@ export class PlaceSearchComponent implements AfterViewInit {
     }
   }
 
-  clearResults() {
-    const results = document.getElementById('results') as HTMLElement;
-
-    while (results.childNodes[0]) {
-      results.removeChild(results.childNodes[0]);
-    }
-  }
-
   // Get the place details for a hotel. Show the information in an info window,
   // anchored on the marker for the hotel that the user selected.
-  showInfoWindow(that, marker: any) {
-    // @ts-ignore
-    //const marker = this;
+  address: string;
+  contactPhoneNo: string;
+  url: string;
+  showInfoWindow(that: any, marker: any, item: any) {
+    if (item) {
+      that.address = item.address + ', ' + item.city + ', ' + item.state + ' ' + item.zipcode + ', ' +
+        item.country;
+      that.contactPhoneNo = item.contactPhoneNo;
+      that.url = item.files[0].url;
+    }
+    let infoContentEl = that.infoContentRef.nativeElement;
+    infoContentEl.setAttribute('style', 'display: block');
+
     that.infoWindow = new google.maps.InfoWindow({
-      content: document.getElementById('info-content') as HTMLElement,
+      content: infoContentEl as HTMLElement
     });
-    that.places.getDetails(
-      { placeId: marker.placeResult.place_id },
-      (place, status) => {
-        if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          return;
-        }
-
-        this.infoWindow.open(this.map, marker);
-        this.buildIWContent(place);
-      }
-    );
-  }
-
-  // Load the place information into the HTML elements used by the info window.
-  buildIWContent(place) {
-    (document.getElementById('iw-icon') as HTMLElement).innerHTML =
-      '<img class="hotelIcon" ' + 'src="' + place.icon + '"/>';
-    (document.getElementById('iw-url') as HTMLElement).innerHTML =
-      '<b><a href="' + place.url + '">' + place.name + '</a></b>';
-    (document.getElementById('iw-address') as HTMLElement).textContent =
-      place.vicinity;
-
-    if (place.formatted_phone_number) {
-      (document.getElementById('iw-phone-row') as HTMLElement).style.display = '';
-      (document.getElementById('iw-phone') as HTMLElement).textContent =
-        place.formatted_phone_number;
-    } else {
-      (document.getElementById('iw-phone-row') as HTMLElement).style.display =
-        'none';
-    }
-
-    // Assign a five-star rating to the hotel, using a black star ('&#10029;')
-    // to indicate the rating the hotel has earned, and a white star ('&#10025;')
-    // for the rating points not achieved.
-    if (place.rating) {
-      let ratingHtml = '';
-
-      for (let i = 0; i < 5; i++) {
-        if (place.rating < i + 0.5) {
-          ratingHtml += '&#10025;';
-        } else {
-          ratingHtml += '&#10029;';
-        }
-
-        (document.getElementById('iw-rating-row') as HTMLElement).style.display =
-          '';
-        (document.getElementById('iw-rating') as HTMLElement).innerHTML =
-          ratingHtml;
-      }
-    } else {
-      (document.getElementById('iw-rating-row') as HTMLElement).style.display =
-        'none';
-    }
-
-    // The regexp isolates the first part of the URL (domain plus subdomain)
-    // to give a short URL for displaying in the info window.
-    if (place.website) {
-      let fullUrl = place.website;
-      let website = String(this.hostnameRegexp.exec(place.website));
-
-      if (!website) {
-        website = 'http://' + place.website + '/';
-        fullUrl = website;
-      }
-
-      (document.getElementById('iw-website-row') as HTMLElement).style.display =
-        '';
-      (document.getElementById('iw-website') as HTMLElement).textContent =
-        website;
-    } else {
-      (document.getElementById('iw-website-row') as HTMLElement).style.display =
-        'none';
-    }
+    that.infoWindow.open(that.map, marker);
   }
 }

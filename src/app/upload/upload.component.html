@@ -10,7 +10,7 @@
   </div>
 </div> -->
 
-<form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="createPost()" autocomplete="on"> 
+<form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="createPost()" autocomplete="on">
   <div class="form-row">
     <div class="col-md-5 mb-1">
       <div class="form-row mb-1">
@@ -98,8 +98,7 @@
         </div>
         <div class="col-md-3 mb-1">
           <label class="text-primary" for="zipcode"><strong>Zip Code</strong></label>
-          <input formControlName="zipcode" class="form-control"
-            [ngClass]="{ 'is-invalid': checkError('zipcode') }">
+          <input formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': checkError('zipcode') }">
           <div *ngIf="checkError('zipcode')" class="invalid-feedback">
             <div *ngIf="f.zipcode.errors.required">Zip Code Tiệm Không Được Để Trống Hoặc Bằng 00000!</div>
           </div>
@@ -119,24 +118,21 @@
       <div class="row mb-1">
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="country"><strong>Quốc Gia</strong></label>
-          <input formControlName="country" class="form-control"
-            [ngClass]="{ 'is-invalid': checkError('country') }">
+          <input formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': checkError('country') }">
           <div *ngIf="checkError('country')" class="invalid-feedback">
             <div *ngIf="f.country.errors.required">Quốc Gia Không Được Để Trống!</div>
           </div>
         </div>
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="state"><strong>Bang/Tỉnh</strong></label>
-          <input #state formControlName="state" class="form-control"
-            [ngClass]="{ 'is-invalid': checkError('state') }">
+          <input #state formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': checkError('state') }">
           <div *ngIf="checkError('state')" class="invalid-feedback">
             <div *ngIf="f.state.errors.required">Tiểu Bang/Tỉnh Không Được Để Trống!</div>
           </div>
         </div>
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="city"><strong>Thành Phố</strong></label>
-          <input #city formControlName="city" class="form-control"
-            [ngClass]="{ 'is-invalid': checkError('city') }">
+          <input #city formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': checkError('city') }">
           <div *ngIf="checkError('city')" class="invalid-feedback">
             <div *ngIf="f.city.errors.required">Thành Phố Không Được Để Trống!</div>
           </div>
@@ -223,7 +219,7 @@
       <div class="row mb-1">
         <div class="col-md-6 mb-1">
           <label class="text-primary" for="contactPhoneNo"><strong>Số Phone Liên Lạc</strong></label>
-          <input formControlName="contactPhoneNo" class="form-control"
+          <input formControlName="contactPhoneNo" mask="(000) 000-0000" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
           <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">
             <div *ngIf="f.contactPhoneNo.errors.required">Số Phone Không Được Để Trống!</div>
@@ -232,7 +228,11 @@
         </div>
         <div class="col-md-6 mb-1">
           <label class="text-primary" for="contactEmail"><strong>Email Liên Lạc</strong></label>
-          <input formControlName="contactEmail" class="form-control">
+          <input type="email" formControlName="contactEmail" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('contactEmail') }">
+          <div *ngIf="checkError('contactEmail')" class="invalid-feedback">
+            <div *ngIf="f.contactEmail.errors.emailFormat">Email không đúng định dạng!</div>
+          </div>
         </div>
       </div>
 
@@ -244,8 +244,7 @@
               <a href="" class="mr-1">#{{tag}}</a>
             </ng-container>
           </div>
-          <input id="tags" type="text" formControlName="tags" class="w-100"
-            (input)="onTagsChange($event.target.value)">
+          <input id="tags" type="text" formControlName="tags" class="w-100" (input)="onTagsChange($event.target.value)">
         </div>
       </div>
       <div class="row mb-1">

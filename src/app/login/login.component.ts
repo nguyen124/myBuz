@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
       this._router.navigate([this.returnUrl])
     }, err => {
-      this.error = err.error;
+      this.error = err.statusText;
     });
   }
 

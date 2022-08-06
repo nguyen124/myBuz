@@ -58,6 +58,9 @@ import { ShareModule } from './shared/share/share.module';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { PlaceSearchComponent } from './place-search/place-search.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 let jQuery: any = window['$'];
 
@@ -103,6 +106,7 @@ let jQuery: any = window['$'];
   ],
   entryComponents: [TooltipComponent],
   imports: [
+    NgxMaskModule.forRoot(),
     ShareButtonsModule.withConfig({
       debug: true
     }),
