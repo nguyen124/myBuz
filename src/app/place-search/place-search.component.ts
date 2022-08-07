@@ -258,18 +258,45 @@ export class PlaceSearchComponent implements AfterViewInit {
   address: string;
   contactPhoneNo: string;
   url: string;
+  income: number;
+  rentCost: number;
+  otherCost: number;
+  noOfEmployees: number;
+  noOfTables: number;
+  noOfChairs: number;
+  lastElement: any;
   showInfoWindow(that: any, marker: any, item: any) {
     if (item) {
+      if (that.lastElement) {
+        that.lastElement.style.border = "";
+      }
+      let element = document.getElementById(item._id);
+      if (element) {
+        element.style.border = "3px solid #4287f5";
+        element.style.borderRadius = "5px";
+        that.lastElement = element;
+      }
       that.address = item.address + ', ' + item.city + ', ' + item.state + ' ' + item.zipcode + ', ' +
         item.country;
       that.contactPhoneNo = item.contactPhoneNo;
       that.url = item.files[0].url;
+      that.income = item.income;
+      that.rentCost = item.rentCost;
+      that.otherCost = item.otherCost;
+      that.noOfEmployees = item.noOfEmployees;
+      that.noOfTables = item.noOfTables;
+      that.noOfChairs = item.noOfChairs;
     }
     let infoContentEl = that.infoContentRef.nativeElement;
     infoContentEl.setAttribute('style', 'display: block');
 
     that.infoWindow = new google.maps.InfoWindow({
       content: infoContentEl as HTMLElement
+    });
+    google.maps.event.addListener(that.infoWindow, 'closeclick', () => {
+      if (that.lastElement) {
+        that.lastElement.style.border = "";
+      }
     });
     that.infoWindow.open(that.map, marker);
   }

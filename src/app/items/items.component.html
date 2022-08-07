@@ -3,7 +3,7 @@
     <app-place-search [items]="items"></app-place-search>
   </div>
   <ng-container *ngFor="let item of items; let i = index;">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 hover-high-light overflow">
+    <div id="{{item._id}}" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 hover-high-light overflow">
       <app-item [item]="item" [baseUrl]="baseUrl" [isShowingTag]="isShowingTag"
         (showModalEvent)="handleShowModalEvent(i)">
         <div

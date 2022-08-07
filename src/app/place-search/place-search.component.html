@@ -7,26 +7,42 @@
 <div #infoContentRef id="info-content">
     <table>
         <tr id="iw-url-row" class="iw_table_row">
-            <td class="iw_table_icon"><i class="fa fa-store"></i></td>
-            <td id="iw-url"><img [src]="url" style="width: 200px; height: 100px; object-fit: scale-down;">
+            <td class="header iw_table_icon"><i class="fa fa-store"></i></td>
+            <td class="data" id="iw-url"><img [src]="url" style="width: 200px; height: 100px; object-fit: scale-down;">
             </td>
         </tr>
         <tr id="iw-address-row" class="iw_table_row">
-            <td class="iw_attribute_name">Address:</td>
-            <td id="iw-address">
+            <td class="header iw_attribute_name">Địa chỉ:</td>
+            <td class="data" id="iw-address">
                 {{address}}</td>
         </tr>
         <tr id="iw-phone-row" class="iw_table_row">
-            <td class="iw_attribute_name">Telephone:</td>
-            <td id="iw-phone">{{contactPhoneNo | mask: '(000) 000-0000'}}</td>
+            <td class="header iw_attribute_name">Số Điện Thoại:</td>
+            <td class="data" id="iw-phone">{{contactPhoneNo | mask: '(000) 000-0000'}}</td>
         </tr>
-        <tr id="iw-rating-row" class="iw_table_row">
-            <td class="iw_attribute_name">Rating:</td>
-            <td id="iw-rating"></td>
+        <tr id="iw-income-row" class="iw_table_row">
+            <td class="header iw_attribute_name">Thu nhập/tháng:</td>
+            <td class="data" id="iw-income">{{income}}</td>
         </tr>
-        <tr id="iw-website-row" class="iw_table_row">
-            <td class="iw_attribute_name">Website:</td>
-            <td id="iw-website"></td>
+        <tr id="iw-rentCost-row" class="iw_table_row">
+            <td class="header iw_attribute_name">Rent/tháng:</td>
+            <td class="data" id="iw-rentCost">{{rentCost}}</td>
+        </tr>
+        <tr id="iw-otherCost-row" class="iw_table_row">
+            <td class="header iw_attribute_name">Chi phí khác/tháng:</td>
+            <td class="data" id="iw-otherCost">{{otherCost}}</td>
+        </tr>
+        <tr id="iw-noOfEmployees-row" class="iw_table_row">
+            <td class="header iw_attribute_name">Số thợ:</td>
+            <td class="data" id="iw-noOfEmployees">{{noOfEmployees}}</td>
+        </tr>
+        <tr id="iw-noOfTables-row" class="iw_table_row">
+            <td class="header iw_attribute_name">Số bàn:</td>
+            <td class="data" id="iw-noOfTables">{{noOfTables}}</td>
+        </tr>
+        <tr id="iw-noOfChairs-row" class="iw_table_row">
+            <td class="header iw_attribute_name">Số ghế:</td>
+            <td class="data" id="iw-noOfChairs">{{noOfChairs}}</td>
         </tr>
     </table>
 </div>
