@@ -13,16 +13,13 @@ import { ItemComponent } from '../item/item.component';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit, OnDestroy {
-  @Input()
-  items: IItem[];
-  @Input()
-  baseUrl: string = "/items";
-  @Input()
-  isShowingTag: boolean;
+  @Input() items: IItem[];
+  @Input() baseUrl: string = "/items";
+  @Input() isShowingTag: boolean = true;
+  @Input() showMap = true;
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   subScription: Subscription;
   nextPage = 0;
-
   constructor(
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
