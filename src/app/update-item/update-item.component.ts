@@ -32,6 +32,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   countryRestrict: any = { country: 'us' };
   autocompleteAddress: any;
   geometry: any;
+  isUploading: boolean = false;
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('address2', { static: false }) address2: ElementRef;
 

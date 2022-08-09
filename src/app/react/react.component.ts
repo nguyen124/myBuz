@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { CommentService } from '../shared/services/comment.services';
 import { AuthService } from '../shared/services/security/auth.service';
@@ -13,8 +13,8 @@ import { SystemService } from '../shared/services/utils/system.service';
   styleUrls: ['./react.component.css']
 })
 export class ReactComponent implements OnInit {
-  @Input()
-  item: IItem;
+  @Input() baseUrl: string;
+  @Input() item: IItem;
   shareUrl: String;
   options = [];
   @Input() showModalEvent: EventEmitter<any>;
