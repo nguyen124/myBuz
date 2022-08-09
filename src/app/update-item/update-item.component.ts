@@ -8,6 +8,7 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 import { GoogleMapService } from '../shared/services/google-map.service';
+import { ToastrService } from 'ngx-toastr';
 
 declare var firebase: any;
 declare var google: any;
@@ -18,6 +19,7 @@ declare var google: any;
   styleUrls: ['./update-item.component.css']
 })
 export class UpdateItemComponent implements OnInit, AfterViewInit {
+  parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted: boolean = false;
   currentUploadTasks: any[] = [];
@@ -40,7 +42,8 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _authSvc: AuthService,
-    private _apiService: GoogleMapService) {
+    private _apiService: GoogleMapService,
+    private _toastr: ToastrService) {
     this.itemForm = this._fb.group({});
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
   }
@@ -86,6 +89,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     this._route.params.subscribe(params => {
       this.itemId = params.itemId;
       this._itemSvc.getItemById(this.itemId).subscribe(item => {
+        this.parsedTags = item.tags;
         this.itemForm = this._fb.group({
           title: [item.title, [Validators.required, this._systemSvc.nonSpaceString]],
           businessName: [item.businessName, [Validators.required, this._systemSvc.nonSpaceString]],
@@ -117,6 +121,10 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
         this.toUploadFiles = item.files;
       });
     });
+  }
+
+  onTagsChange(input) {
+    this.parsedTags = input.split(/[ ,;.\/\\]+/).slice(0, 5).filter(el => el.length != 0);
   }
 
   buildAutoCompleteAddressForm() {
@@ -254,6 +262,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
           }
         );
       } else {
+        uploadedResults.push(file);
         that.handleSuccess(null, uploadedResults, that);
       }
     });
@@ -262,11 +271,10 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   handleSuccess(uploadTask, uploadedResults, that) {
     // Upload completed successfully, now we can get the download URL
     that.isUploading = false;
-    that._toastr.success("Upload finished!")
-    // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
-
+    // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {      
     // });
     if (uploadTask) {
+      that._toastr.success("Upload finished!")
       let bucketName = isDevMode() ? environment.bucketname : prodEnvironment.bucketname;
       let downloadURL = 'https://storage.googleapis.com/' + bucketName + '/' + uploadTask.snapshot.metadata.fullPath;
 

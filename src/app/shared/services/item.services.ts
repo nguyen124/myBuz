@@ -20,8 +20,8 @@ export class ItemService {
         return this._http.delete("/svc/items/" + id + "/delete");
     }
 
-    updateItem(itemId: string, item: any): void {
-        this._http.put("/svc/items/" + itemId + "/update", item);
+    updateItem(itemId: string, item: any): Observable<any> {
+        return this._http.put("/svc/items/" + itemId + "/update", item);
     }
 
     getItemById(itemId: string): Observable<IItem> {
