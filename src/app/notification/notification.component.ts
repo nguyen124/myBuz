@@ -49,7 +49,7 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  openItem(itemId, commentId) {
+  openItem(itemId: string) {
     this._itemSvc.getItemById(itemId).subscribe(item => {
       this._commSvc.changeItem(item);
     });

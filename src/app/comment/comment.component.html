@@ -80,8 +80,7 @@
                     <app-report [comment]="reply"></app-report>
                 </div>
                 <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
-                    [isEditting]="reply.isEditting" [isEditting]="comment.isEditting"
-                    (editingCommentDone)="handleEditingReplyCommentDone($event)">
+                    [isEditting]="reply.isEditting" (editingCommentDone)="handleEditingReplyCommentDone($event)">
                     <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
                 </app-comment-box>
             </div>

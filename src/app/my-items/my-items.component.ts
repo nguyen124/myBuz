@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-my-items',
@@ -18,16 +20,42 @@ export class MyItemsComponent implements OnInit {
   constructor(
     private _itemService: ItemService,
     private _authSvc: AuthService,
-    private _activatedRoute: ActivatedRoute) {
+    private _activatedRoute: ActivatedRoute,
+    private _commSvc: CommunicateService,
+    @Inject(JQ_TOKEN) private $: any) {
 
   }
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(newParams => {
       this.params = Object.assign({ page: this.nextPage, createdBy: this._authSvc.user._id }, newParams);
-      this._itemService.getItems(this.params).subscribe((newItems: IItem[]) => {
-        this.items = newItems;
+      this.getItems(this.params);
+    });
+  }
+
+  getItems(params) {
+    let itemId = this._activatedRoute.snapshot.queryParams['id'];
+    if (itemId) {
+      this._itemService.getItemById(itemId).subscribe(newItem => {
+        this._commSvc.changeItem(newItem);
       });
+    } else {
+      var modalDismiss = this.$("#closeModalBtn");
+      if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
+    }
+    if (!this.items) {
+      let obj = Object.assign({}, params);
+      delete obj.id;
+      this.getItemsHelper(this, obj);
+    }
+  }
+
+  private getItemsHelper(that, params) {
+    that._itemService.getItems(params).subscribe((newItems: IItem[]) => {
+      that.items = newItems;
+      that.currentLength = that.items.length;
+      that.offset = +params.page;
+      that.actualPage = params.page ? +params.page : 0;
     });
   }
 

@@ -83,12 +83,11 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   clearData() {
-    //let params = Object.assign({}, this._activatedRoute.snapshot.queryParams, { id: null });
-    let urlSegment = this._router.url.split("&");
-    let newUrl = urlSegment.slice(0, urlSegment.length - 1).join("&");
-    this._location.replaceState(newUrl);
-
-    this.item = null;
+    let params = Object.assign({}, this._activatedRoute.snapshot.queryParams, { id: null });
+    this._router.navigate([], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
   }
 
   getThumbNailImage() {

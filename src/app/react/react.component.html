@@ -3,12 +3,15 @@
             class="fa fa-thumbs-down" aria-hidden="true"></i></button>
     <button class="btn btn-xs mr-2" [ngClass]="item.hasUpvoted?'btn-primary':'btn-success'" (click)="upvote()"><i
             class="fa fa-thumbs-up" aria-hidden="true"></i></button>
-    <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-comment">
-            {{item.noOfComments | pointPipe}}</i></button>
-    <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-eye">
-            {{item.noOfViews | pointPipe}}</i></button>
-    <button class="btn btn-xs mr-2 btn-success" (click)="showItemModal()"><i class="fa fa-star">
-            {{item.noOfPoints | pointPipe}}</i></button>
+    <a class="btn btn-xs mr-2 btn-success" [routerLink]="baseUrl" queryParamsHandling="merge"
+        [queryParams]="{id:item._id}"><i class="fa fa-comment">
+            {{item.noOfComments | pointPipe}}</i></a>
+    <a class="btn btn-xs mr-2 btn-success" [routerLink]="baseUrl" queryParamsHandling="merge"
+        [queryParams]="{id:item._id}"><i class="fa fa-eye">
+            {{item.noOfViews | pointPipe}}</i></a>
+    <a class="btn btn-xs mr-2 btn-success" [routerLink]="baseUrl" queryParamsHandling="merge"
+        [queryParams]="{id:item._id}"><i class="fa fa-star">
+            {{item.noOfPoints | pointPipe}}</i></a>
     <button class="btn btn-xs btn-success dropdown-toggle" type="button" id="menu" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"></button>
     <div class="dropdown-menu" aria-label="menu">

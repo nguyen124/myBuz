@@ -10,8 +10,7 @@ import { MemeVideoComponent } from '../meme-video/meme-video.component';
 export class ItemComponent implements OnInit {
   @Input() item: IItem;
   @Input() baseUrl: string;
-  @Input() isShowingTag: boolean;
-  @Output() showModalEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Input() isShowingTag: boolean; 
   @ViewChildren(MemeVideoComponent) memeVideos: QueryList<MemeVideoComponent>;
 
   constructor() {
@@ -28,12 +27,6 @@ export class ItemComponent implements OnInit {
         }
       });
     }, 500);
-  }
-
-  showItemModal() {
-    if (this.showModalEvent) {
-      this.showModalEvent.emit();
-    }
   }
 }
 

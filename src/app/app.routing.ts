@@ -11,9 +11,11 @@ import { AdminAuthGuard } from './shared/guard/adminGuard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { UploadComponent } from './upload/upload.component';
+import { UpdateItemComponent } from './update-item/update-item.component';
 
 const appRoutes: Routes = [
     { path: 'items', component: HomeComponent },
+    { path: 'items/:itemId/update', component: UpdateItemComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },

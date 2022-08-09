@@ -90,12 +90,6 @@ export class ReactComponent implements OnInit {
   //   this.item.hasUpvoted = upvoted;
   // }
 
-  showItemModal() {
-    if (this.showModalEvent) {
-      this.showModalEvent.emit();
-    }
-  }
-
   reportItem(item: IItem) {
     var reasons = this.selectedOptions;
     if (reasons.length > 0) {

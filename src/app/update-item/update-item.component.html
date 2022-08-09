@@ -1,0 +1,286 @@
+<form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="updatePost()" autocomplete="on">
+    <div class="form-row">
+        <div class="col-md-5 mb-1">
+            <div class="form-row mb-1">
+                <div class="col-md-12 mb-1">
+                    <label class="text-primary"><strong>Tiêu Đề</strong></label>
+                    <input type="text" formControlName="title" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('title') }">
+                    <div *ngIf="checkError('title')" class="invalid-feedback">
+                        <div *ngIf="f.title.errors.required">Tiêu Đề Không Được Để Trống!</div>
+                        <div *ngIf="f.title.errors.whitespace">Tiêu Đề Không Được Chỉ Chứa Kí Tự Trống!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-1">
+                <div class="col-md-12 mb-1">
+                    <label class="text-primary"><strong>Tên Tiệm</strong></label>
+                    <input type="text" formControlName="businessName" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('businessName') }">
+                    <div *ngIf="checkError('businessName')" class="invalid-feedback">
+                        <div *ngIf="f.businessName.errors.required">Tên Tiệm Không Được Để Trống!</div>
+                        <div *ngIf="f.businessName.errors.whitespace">Tên Tiệm Không Được Chỉ Chứa Kí Tự Trống!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                    <label class="text-primary" for="categories"><strong>Danh Mục</strong></label>
+                    <select formControlName="categories" class="custom-select">
+                        <option value="Nail_Salon">Bán Tiệm Nail</option>
+                        <option value="Hiring_Nail_Tech">Tuyển Thợ Nails</option>
+                        <option value="Other_Business">Bán Tiệm Khác</option>
+                        <option value="Hiring_Other">Tuyển Các Job Khác</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <label class="text-primary" for="price"><strong>Giá $</strong></label>
+                    <input type="number" formControlName="price" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('price') }">
+                    <div *ngIf="checkError('price')" class="invalid-feedback">
+                        <div *ngIf="f.price.errors.min">Giá Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-9 mb-1">
+                    <label class="text-primary" for="address"><strong>Địa Chỉ</strong></label>
+                    <input #autoAddress formControlName="address" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('address') }">
+                    <div *ngIf="checkError('address')" class="invalid-feedback">
+                        <div *ngIf="f.address.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <label class="text-primary" for="zipcode"><strong>Zip Code</strong></label>
+                    <input formControlName="zipcode" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('zipcode') }">
+                    <div *ngIf="checkError('zipcode')" class="invalid-feedback">
+                        <div *ngIf="f.zipcode.errors.required">Zip Code Tiệm Không Được Để Trống Hoặc Bằng 00000!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-9 mb-1">
+                    <label class="text-primary" for="address2"><strong>Địa Chỉ 2</strong></label>
+                    <input #address2 formControlName="address2" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('address2') }">
+                    <div *ngIf="checkError('address2')" class="invalid-feedback">
+                        <div *ngIf="f.address2.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="country"><strong>Quốc Gia</strong></label>
+                    <input formControlName="country" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('country') }">
+                    <div *ngIf="checkError('country')" class="invalid-feedback">
+                        <div *ngIf="f.country.errors.required">Quốc Gia Không Được Để Trống!</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="state"><strong>Bang/Tỉnh</strong></label>
+                    <input #state formControlName="state" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('state') }">
+                    <div *ngIf="checkError('state')" class="invalid-feedback">
+                        <div *ngIf="f.state.errors.required">Tiểu Bang/Tỉnh Không Được Để Trống!</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="city"><strong>Thành Phố</strong></label>
+                    <input #city formControlName="city" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('city') }">
+                    <div *ngIf="checkError('city')" class="invalid-feedback">
+                        <div *ngIf="f.city.errors.required">Thành Phố Không Được Để Trống!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="noOfEmployees"><strong>Số Lượng Thợ</strong></label>
+                    <input type="number" formControlName="noOfEmployees" class="form-control">
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="noOfChairs"><strong>Số Lượng Ghế</strong></label>
+                    <input type="number" formControlName="noOfChairs" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('noOfChairs') }">
+                    <div *ngIf="checkError('noOfChairs')" class="invalid-feedback">
+                        <div *ngIf="f.noOfChairs.errors.min">Số Lượng Ghế Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="noOfTables"><strong>Số Lượng Bàn</strong></label>
+                    <input type="number" formControlName="noOfTables" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('noOfTables') }">
+                    <div *ngIf="checkError('noOfTables')" class="invalid-feedback">
+                        <div *ngIf="f.noOfTables.errors.min">Số Lượng Bàn Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="income"><strong>Thu Nhập/Tháng</strong></label>
+                    <input type="number" formControlName="income" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('income') }">
+                    <div *ngIf="checkError('income')" class="invalid-feedback">
+                        <div *ngIf="f.income.errors.min">Tiền Rent Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="rentCost"><strong>Rent/Tháng</strong></label>
+                    <input type="number" formControlName="rentCost" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('rentCost') }">
+                    <div *ngIf="checkError('rentCost')" class="invalid-feedback">
+                        <div *ngIf="f.rentCost.errors.min">Tiền Rent Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="otherCost"><strong>Chi Phí Khác/Tháng</strong></label>
+                    <input type="number" formControlName="otherCost" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('otherCost') }">
+                    <div *ngIf="checkError('otherCost')" class="invalid-feedback">
+                        <div *ngIf="f.otherCost.errors.min">Các Chi Phí Khác Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="area"><strong>Diện Tích (Sq.ft)</strong></label>
+                    <input type="number" formControlName="area" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('area') }">
+                    <div *ngIf="checkError('area')" class="invalid-feedback">
+                        <div *ngIf="f.area.errors.min">Diện Tích Không Được Là Số Âm!</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="leaseEnd"><strong>Lease hết hạn</strong></label>
+                    <input type="date" formControlName="leaseEnd" class="form-control">
+                </div>
+                <div class="col-md-4 mb-1">
+                    <label class="text-primary" for="yearOld"><strong>Tuổi Đời Tiệm</strong></label>
+                    <select formControlName="yearOld" class="custom-select">
+                        <option value="1">1 năm</option>
+                        <option value="2">2 năm</option>
+                        <option value="3">3 năm</option>
+                        <option value="4">4 năm</option>
+                        <option value="5">5 năm trở lên</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                    <label class="text-primary" for="contactPhoneNo"><strong>Số Phone Liên Lạc</strong></label>
+                    <input formControlName="contactPhoneNo" mask="(000) 000-0000" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
+                    <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">
+                        <div *ngIf="f.contactPhoneNo.errors.required">Số Phone Không Được Để Trống!</div>
+                        <div *ngIf="f.contactPhoneNo.errors.whitespace">Số Phone Không Được Chỉ Chứa Kí Tự Trống!</div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <label class="text-primary" for="contactEmail"><strong>Email Liên Lạc</strong></label>
+                    <input type="email" formControlName="contactEmail" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('contactEmail') }">
+                    <div *ngIf="checkError('contactEmail')" class="invalid-feedback">
+                        <div *ngIf="f.contactEmail.errors.emailFormat">Email không đúng định dạng!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col-md-12 mb-1">
+                    <label class="text-primary" for="tags"><strong>Thẻ</strong></label>
+                    <div>
+                        <ng-container *ngFor="let tag of parsedTags;">
+                            <a href="" class="mr-1">#{{tag}}</a>
+                        </ng-container>
+                    </div>
+                    <input id="tags" type="text" formControlName="tags" class="w-100"
+                        (input)="onTagsChange($event.target.value)">
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-12 mb-1">
+                    <label class="text-primary" for="overview"><strong>Giới Thiệu Sơ Lược</strong></label>
+                    <div>
+                        <textarea rows="2" formControlName="overview" style="width: 100%">
+            </textarea>
+                    </div>
+                    <div *ngIf="checkError('overview')" class="invalid-feedback">
+                        <div *ngIf="f.overview.errors.maxlength">Phần Sơ Lược Không Được Quá 500 Chữ!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-12 mb-1">
+                    <label class="text-primary" for="description"><strong>Mô Tả Thêm Chi Tiết</strong></label>
+                    <ckeditor formControlName="description"></ckeditor>
+                    <div *ngIf="checkError('description')" class="invalid-feedback">
+                        <div *ngIf="f.description.errors.maxlength">Phần Mô Tả Không Được Quá 2000 Chữ!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 mb-1">
+            <div class="form-row mb-1">
+                <div class="col-md-12 mb-1">
+                    <label class="text-primary" for="file"><strong>Hình Ảnh/Video</strong></label>
+                    <div class="custom-file">
+                        <label class="custom-file-label" for="file">Chọn tập tin</label>
+                        <input type="file" class="custom-file-input" formControlName="file" id="upload" multiple
+                            (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
+                            [ngClass]="{'is-invalid' : checkError('file')}">
+                        <div *ngIf="checkError('file')" class="invalid-feedback">
+                            <div *ngIf="f.file.errors.required">Cần Chọn Tập Tin Trước Khi Tạo Bài!</div>
+                            <ng-container *ngIf="f.file.errors.largeFile">
+                                <div *ngIf="f.file.errors.largeFile">Tập không được lớn hơn 1GB!</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="isUploading" id="preloader" class="preloader text-center">
+                    <div id="spinner_container" class="spinner_container">
+                        <circle-progress [percent]="uploadingProgress">
+                        </circle-progress>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mb-1">
+                <ng-container *ngIf="toUploadFiles && toUploadFiles.length">
+                    <ng-container *ngFor="let previewMediaSrc of toUploadFiles; let i = index">
+                        <div class="col-6" *ngIf="previewMediaSrc.fileType.match('image*')">
+                            <img [src]="previewMediaSrc.url" class="mw-100 m-2" id="previewImg">
+                            <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="col-6" *ngIf="previewMediaSrc.fileType.match('video*')">
+                            <video [src]="previewMediaSrc.url" controls class="mw-100 m-2">
+                            </video>
+                            <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 col-sm-4 form-group">
+            <button type="button" id="cancelBtn" class="btn btn-primary mr-2" data-dismiss="modal"
+                (click)="goBackToHomePage()">Hủy</button>
+            <button type="submit" class="btn btn-success" [disabled]="isUploading">Cập Nhật</button>
+        </div>
+    </div>
+</form>

@@ -59,6 +59,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { PlaceSearchComponent } from './place-search/place-search.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { UpdateItemComponent } from './update-item/update-item.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -102,7 +103,8 @@ let jQuery: any = window['$'];
     ResetPasswordComponent,
     ResetPasswordFormComponent,
     DefaultImageDirective,
-    PlaceSearchComponent
+    PlaceSearchComponent,
+    UpdateItemComponent
   ],
   entryComponents: [TooltipComponent],
   imports: [

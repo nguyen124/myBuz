@@ -31,8 +31,10 @@ export interface IItem {
   leaseEnd: string;
   yearOld?: number;
   area: number;
+  duration?: number;
+  overview?: string;
   description?: string;
   charge?: any;
-  status?: string;
   geometry?: any;
+  status?: string;
 }

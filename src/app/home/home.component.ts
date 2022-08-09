@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { IItem } from '../shared/model/item';
 import { ItemsComponent } from '../items/items.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,9 @@ export class HomeComponent implements OnInit {
   currentLength: number;
   offset: number;
   actualPage: any = 0;
+  itemsActive: boolean = true;
+  hiringActive: boolean = false;
+  licenseActive: boolean = false;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
@@ -26,16 +30,17 @@ export class HomeComponent implements OnInit {
     private _itemService: ItemService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _commSvc: CommunicateService) {
-    // this._router.navigate(["/items"], { queryParams: { temp: 'cold', 'page': 0, 'perPage': 40 } });
+    private _commSvc: CommunicateService,
+    @Inject(JQ_TOKEN) private $: any) {
+  }
+
+  ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
       this.getItems(params);
     });
   }
-  itemsActive: boolean = true;
-  hiringActive: boolean = false;
-  licenseActive: boolean = false;
+
   setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
     this.itemsActive = flag1;
     this.hiringActive = flag2;
@@ -44,13 +49,18 @@ export class HomeComponent implements OnInit {
 
   getItems(params) {
     let itemId = this._activatedRoute.snapshot.queryParams['id'];
-    let that = this;
     if (itemId) {
-      this._itemService.getItemById(itemId).subscribe(item => {
-        that._commSvc.changeItem(item);
+      this._itemService.upview(itemId).subscribe(newItem => {
+        this._commSvc.changeItem(newItem);
       });
     } else {
-      that.getItemsHelper(that, params);
+      var modalDismiss = this.$("#closeModalBtn");
+      if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
+    }
+    if (!this.items) {
+      let obj = Object.assign({}, params);
+      delete obj.id;
+      this.getItemsHelper(this, obj);
     }
   }
 
@@ -61,9 +71,6 @@ export class HomeComponent implements OnInit {
       that.offset = +params.page;
       that.actualPage = params.page ? +params.page : 0;
     });
-  }
-
-  ngOnInit() {
   }
 
   loadNext() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, isDevMode, SecurityContext, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, isDevMode, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { CheckoutService } from '../shared/services/checkout.service';
 import { GoogleMapService } from '../shared/services/google-map.service';
 
 declare var firebase: any;
-declare let google: any;
+declare var google: any;
 
 @Component({
   selector: 'app-upload',
@@ -33,13 +33,13 @@ export class UploadComponent implements OnInit, AfterViewInit {
   toUploadFiles: any[] = [];
   currentUploadTasks: any[] = [];
   geometry: any;
-
-  @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
-  @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
-  @ViewChild('autoCountry', { static: false }) autoCountry: ElementRef;
-  @ViewChild('address2', { static: false }) address2: ElementRef;
+  paymentHandler = null;
+  charge = null;
   countryRestrict: any = { country: 'us' };
   autocompleteAddress: any;
+
+  @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
+  @ViewChild('address2', { static: false }) address2: ElementRef;
 
   constructor(
     private _itemSvc: ItemService,
@@ -51,7 +51,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
     private _fb: FormBuilder,
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,
-    private ngZone: NgZone,
     @Inject(JQ_TOKEN) private $: any) {
 
   }
@@ -60,11 +59,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
     this._apiService.api.then((maps) => {
       this.buildAutoCompleteAddressForm();
     });
-  }
-
-  @HostListener('document:keydown.escape', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    this.resetFormValues();
   }
 
   ngOnInit() {
@@ -229,8 +223,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
     this.makePayment(this.f.duration.value);
   }
 
-  paymentHandler = null;
-  charge = null;
   makePayment(duration: string) {
     let that = this;
     let cost = 0;
@@ -374,9 +366,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
       //append charge info into item
 
       that._itemSvc.createItem(item).subscribe((newItem: any) => {
-        that._toastr.success("New post has been created!");
-        that._commSvc.uploadItem(newItem);
-        that.resetFormValues();
+        that._toastr.success("Bài Đăng Đã Được Tạo!");
         that._router.navigate(["/user/items"]);
       }, (err: any) => {
         that.cancelCharge(that);
@@ -408,28 +398,12 @@ export class UploadComponent implements OnInit, AfterViewInit {
     console.log(err);
   }
 
-  resetFormValues() {
-    this.itemForm.reset();
-    this.initForm();
-
-    this.toUploadFiles = [];
-    this.isUploading = false;
-    this.submitted = false;
-    this.parsedTags = [];
-    this.charge = null;
-    this.cancelUploading(this);
+  goBackToHomePage() {
+    this._router.navigate(["/items"]);
   }
 
   removePreviewMedia(index) {
     this.toUploadFiles.splice(index, 1);
     return false;
-  }
-
-  cancelUploading(that) {
-    if (that && that.currentUploadTasks) {
-      that.currentUploadTasks.forEach(task => {
-        task.cancel();
-      });
-    }
   }
 }

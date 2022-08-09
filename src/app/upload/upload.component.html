@@ -201,7 +201,7 @@
           </div>
         </div>
         <div class="col-md-4 mb-1">
-          <label class="text-primary" for="leaseEnd"><strong>Lease hết hạn vào</strong></label>
+          <label class="text-primary" for="leaseEnd"><strong>Lease hết hạn</strong></label>
           <input type="date" formControlName="leaseEnd" class="form-control">
         </div>
         <div class="col-md-4 mb-1">
@@ -251,7 +251,7 @@
         <div class="col-md-12 mb-1">
           <label class="text-primary" for="overview"><strong>Giới Thiệu Sơ Lược</strong></label>
           <div>
-            <textarea rows="2" formControlName="description" style="width: 100%">
+            <textarea rows="2" formControlName="overview" style="width: 100%">
           </textarea>
           </div>
           <div *ngIf="checkError('overview')" class="invalid-feedback">
@@ -335,7 +335,7 @@
   <div class="form-row">
     <div class="col-md-4 col-sm-4 form-group">
       <button type="button" id="cancelBtn" class="btn btn-primary mr-2" data-dismiss="modal"
-        (click)="resetFormValues()">Hủy</button>
+        (click)="goBackToHomePage()">Hủy</button>
       <button type="submit" class="btn btn-success" [disabled]="isUploading">Tạo</button>
     </div>
   </div>

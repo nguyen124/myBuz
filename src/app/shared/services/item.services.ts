@@ -20,19 +20,23 @@ export class ItemService {
         return this._http.delete("/svc/items/" + id + "/delete");
     }
 
-    // updateItem(item: any): void {
-    //     this._http.put("/svc/item._id/items", item);
-    // }
+    updateItem(itemId: string, item: any): void {
+        this._http.put("/svc/items/" + itemId + "/update", item);
+    }
+
+    getItemById(itemId: string): Observable<IItem> {
+        return this._http.get<IItem>("/svc/items/" + itemId);
+    }
+
+    upview(itemId: string): Observable<IItem> {
+        return this._http.post<IItem>("/svc/items/" + itemId + "/upview", {});
+    }
 
     createItem(item): Observable<IItem> {
         return this._http.post<IItem>("/svc/items/create", item);
     }
 
-    getItemById(itemId): Observable<IItem> {
-        return this._http.get<IItem>("/svc/items/" + itemId);
-    }
-
     getCommentsOfItem(itemId: string, params): Observable<IComment[]> {
-      return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments", { params: params });
-  }
+        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments", { params: params });
+    }
 }

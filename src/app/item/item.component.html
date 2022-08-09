@@ -28,7 +28,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <app-react [item]="item" [showModalEvent]="showModalEvent">
+                <app-react [item]="item">
                     <ng-content></ng-content>
                 </app-react>
             </div>
@@ -36,7 +36,7 @@
     </div>
     <ng-container *ngIf="item.files && item.files.length > 0">
         <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.title}}">
-            <a class="d-block" routerLink="." queryParamsHandling="merge" [queryParams]="{id:item._id}">
+            <a class="d-block" [routerLink]="baseUrl" queryParamsHandling="merge" [queryParams]="{id:item._id}">
                 <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail mh-480"
                     [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
                 <app-meme-video *ngIf="item.files[0].fileType.match('video*')" [link]="item.files[0].url"
