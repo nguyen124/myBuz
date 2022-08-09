@@ -112,7 +112,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
           income: [item.income, [Validators.min(0)]],
           rentCost: [item.rentCost, [Validators.min(0)]],
           otherCost: [item.otherCost, [Validators.min(0)]],
-          leaseEnd: [item.leaseEnd.split("T")[0]],
+          leaseEnd: [item.leaseEnd && item.leaseEnd.split("T")[0]],
           yearOld: [item.yearOld],
           area: [item.area, [Validators.min(0)]],
           description: [item.description, [Validators.maxLength(2000)]],
@@ -288,7 +288,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     if (uploadedResults.length == that.toUploadFiles.length) {
       let item = {
         tags: that.parsedTags,
-        categories: [that.f.categories.value],
+        categories: that.f.categories.value,
         title: that.f.title.value.trim(),
         businessName: that.f.businessName.value.trim(),
         price: that.f.price.value,
@@ -340,6 +340,11 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
         //this._toastr.info('Upload is running');
         break;
     }
+  }
+  
+  handleError(err, that) {
+    that._toastr.error("Oops! Không Thể Cập Nhật!");
+    console.log(err);
   }
 
   handleFirebaseUploadError(error, that) {
