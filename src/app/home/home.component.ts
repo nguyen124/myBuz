@@ -5,7 +5,7 @@ import { ItemsComponent } from '../items/items.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   itemsActive: boolean = true;
   hiringActive: boolean = false;
   licenseActive: boolean = false;
+  lastParams: any = null;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
 
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
-      this.getItems(params);
+      this.getItems(this.params);
     });
   }
 
@@ -57,14 +58,15 @@ export class HomeComponent implements OnInit {
       var modalDismiss = this.$("#closeModalBtn");
       if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
     }
-    if (!this.items) {
-      let obj = Object.assign({}, params);
-      delete obj.id;
+    let obj = Object.assign({}, params);
+    delete obj.id;
+    if (!_.isEqual(this.lastParams, obj)) {
+      this.lastParams = obj;
       this.getItemsHelper(this, obj);
     }
   }
 
-  private getItemsHelper(that, params) {
+  private getItemsHelper(that: any, params: any) {
     that._itemService.getItems(params).subscribe((newItems: IItem[]) => {
       that.items = newItems;
       that.currentLength = that.items.length;

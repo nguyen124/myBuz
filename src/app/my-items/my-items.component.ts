@@ -5,7 +5,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-my-items',
   templateUrl: './my-items.component.html',
@@ -17,6 +17,7 @@ export class MyItemsComponent implements OnInit {
   nextPage = 0;
   PER_PAGE = 40;
   params: any = {};
+  lastParams = null;
   constructor(
     private _itemService: ItemService,
     private _authSvc: AuthService,
@@ -43,9 +44,10 @@ export class MyItemsComponent implements OnInit {
       var modalDismiss = this.$("#closeModalBtn");
       if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
     }
-    if (!this.items) {
-      let obj = Object.assign({}, params);
-      delete obj.id;
+    let obj = Object.assign({}, params);
+    delete obj.id;
+    if (!_.isEqual(this.lastParams, obj)) {
+      this.lastParams = obj;
       this.getItemsHelper(this, obj);
     }
   }

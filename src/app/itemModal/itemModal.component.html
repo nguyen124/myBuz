@@ -35,9 +35,9 @@
             <div class="row overflow-hidden">
               <div class="col-12">
                 <a *ngFor="let cate of item.categories" [routerLink]="'/items'" queryParamsHandling="merge"
-                  [queryParams]="{category: cate, id: null}" (click)="closeModal()" class="mr-1">@{{cate}}</a>
+                  [queryParams]="{category: cate, id: null}" class="mr-1">@{{cate}}</a>
                 <a *ngFor="let tag of item.tags" [routerLink]="'/items'" queryParamsHandling="merge"
-                  [queryParams]="{tag: tag, id: null}" (click)="closeModal()" class="mr-1">#{{tag}}</a>
+                  [queryParams]="{tag: tag, id: null}" class="mr-1">#{{tag}}</a>
               </div>
             </div>
             <div class="row">
