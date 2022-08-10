@@ -2,7 +2,7 @@ import { AdsenseModule } from 'ng2-adsense';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
@@ -60,6 +60,9 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { PlaceSearchComponent } from './place-search/place-search.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { UpdateItemComponent } from './update-item/update-item.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -73,7 +76,7 @@ let jQuery: any = window['$'];
     CommentsComponent,
     CommentReactComponent,
     DatePipe,
-    KeyPipe,    
+    KeyPipe,
     NumberPipe,
     ImageMobileLinkPipe,
     FilterComponent,
@@ -125,8 +128,15 @@ let jQuery: any = window['$'];
       innerStrokeColor: "#C7E596",
       animation: false
     }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     BrowserAnimationsModule,
-    BrowserModule,    
+    BrowserModule,
     FileUtils,
     FormsModule,
     HttpClientModule,
@@ -149,3 +159,7 @@ let jQuery: any = window['$'];
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

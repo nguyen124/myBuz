@@ -3,21 +3,24 @@
     <a [routerLink]="'/items'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
       (click)="setFlag(true, false, false)"><button class="btn w-100 pr-0 pl-0 rounded-0 border-0 hot"
         [ngClass]="{'font-weight-bold text-white font-24 round-right-16' : itemsActive}">
-        Bán Tiệm
+        {{'home.topHeader.business' | translate}}
       </button>
     </a>
   </div>
   <div class="col-md-4 col-xs-4 warm">
     <a [routerLink]="'/hiring'" (click)="setFlag(false, true, false)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 warm"
-        [ngClass]="{'font-weight-bold text-white font-24 round-right-left-16' : hiringActive}">Tuyển Dụng
+        [ngClass]="{'font-weight-bold text-white font-24 round-right-left-16' : hiringActive}">
+        {{'home.topHeader.hiring' | translate}}
       </button>
     </a>
   </div>
   <div class="col-md-4 col-xs-4 cold">
     <a [routerLink]="'/hiring'" (click)="setFlag(false, false, true)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 cold"
-        [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : licenseActive}">Rao vặt</button>
+        [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : licenseActive}">
+        {{'home.topHeader.forSale' | translate}}
+      </button>
     </a>
   </div>
 </div>

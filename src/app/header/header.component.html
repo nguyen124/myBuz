@@ -28,4 +28,13 @@
       <app-notification></app-notification>
     </div>
   </div>
+  <div class="col-lg-5 col-md-4 col-xs-6 mt-1">
+    <button type="button" class="btn btn-sm btn-success dropdown-toggle mr-2 float-right" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">{{language}}
+    </button>
+    <div class="dropdown-menu">
+      <a class="ml-1 d-block" href="javascript:void(0)" (click)="useLanguage('en')">English</a>
+      <a class="ml-1 d-block" href="javascript:void(0)" (click)="useLanguage('vn')">Tiếng Việt</a>
+    </div>
+  </div>
 </div>
