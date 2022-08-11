@@ -105,7 +105,6 @@ export class HomeComponent implements OnInit {
 
   loadPage(event) {
     this.nextPage = +event.target.value;
-    console.log("Load page: " + event.target.value);
     this.loadNext();
   }
 }

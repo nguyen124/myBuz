@@ -3,5 +3,5 @@
     <source [src]="link | mp4Pipe" type='video/mp4'>
     <source [src]="link | mp4NotThumbPipe" type='video/mp4'>
     <source [src]="link" attr.type='{{fileType}}'>
-    <p>I'm sorry; your browser doesn't support this video format.</p>
+    <p>{{"common.video.error" | translate}}</p>
 </video>

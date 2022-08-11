@@ -25,7 +25,6 @@
 
 <div *ngIf="comments && comments.length >0" class="col-12 mt-2 mb-2">
     <div class="row">
-        <a href="javascript:void(0)" (click)="getMoreComments()" class="btn-xs btn-primary d-inline" role="button">More
-            comments <i class="fa fa-angle-double-right"></i> </a>
+        <a href="javascript:void(0)" (click)="getMoreComments()" class="btn-xs btn-primary d-inline" role="button">{{"comment.more.label" | translate}} <i class="fa fa-angle-double-right"></i> </a>
     </div>
 </div>

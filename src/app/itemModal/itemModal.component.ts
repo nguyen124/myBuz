@@ -8,7 +8,6 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentsComponent } from '../comments/comments.component';
 import { MetaTagService } from '../shared/services/meta-tag.services';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-itemModal',
@@ -35,7 +34,6 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     private titleTagService: MetaTagService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _location: Location,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -73,7 +71,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._log.log("Modal destroy");
+    //this._log.log("Modal destroy");
     this.subScription.unsubscribe();
   }
 

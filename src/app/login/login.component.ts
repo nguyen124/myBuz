@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
-      username: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.maxLength(50)]],
+      username: ['', [this._systemSvc.nonSpaceString, Validators.pattern(/^.{1,50}$/)]],
       password: ['', [Validators.required]]
     })
   }

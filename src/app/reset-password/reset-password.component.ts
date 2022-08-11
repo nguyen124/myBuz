@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemService } from '../shared/services/utils/system.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,11 +20,13 @@ export class ResetPasswordComponent implements OnInit {
     private _fb: FormBuilder,
     private _userSvc: UserService,
     private _toastr: ToastrService,
+    private _translate: TranslateService,
+    private _systemSvc: SystemService,
     private _router: Router) { }
 
   ngOnInit() {
     this.resetPasswordForm = this._fb.group({
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]]
+      email: ['', [this._systemSvc.nonSpaceString, Validators.email, Validators.pattern(/^.{5,50}$/)]]
     });
   }
 
@@ -35,13 +39,13 @@ export class ResetPasswordComponent implements OnInit {
     this.error = null;
     this._userSvc.requestResetPassword(this.f.email.value).subscribe(res => {
       if (!res) {
-        this.error = "Email is not existing!";
+        this.error = this._translate.instant("login.email.validate.notExist");
       } else {
         this.error = null;
         this.params = {
           email: this.f.email.value
         }
-        this._toastr.success("A temporary password has been sent to your email");
+        this._toastr.success(this._translate.instant("login.email.reset.success"));
         this._router.navigate(["resetPassword"], { queryParams: this.params });
       }
     }, err => {

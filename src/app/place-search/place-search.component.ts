@@ -253,8 +253,6 @@ export class PlaceSearchComponent implements AfterViewInit {
     }
   }
 
-  // Get the place details for a hotel. Show the information in an info window,
-  // anchored on the marker for the hotel that the user selected.
   address: string;
   contactPhoneNo: string;
   url: string;
@@ -265,6 +263,7 @@ export class PlaceSearchComponent implements AfterViewInit {
   noOfTables: number;
   noOfChairs: number;
   lastElement: any;
+  area: number;
   showInfoWindow(that: any, marker: any, item: any) {
     if (item) {
       if (that.lastElement) {
@@ -286,6 +285,7 @@ export class PlaceSearchComponent implements AfterViewInit {
       that.noOfEmployees = item.noOfEmployees;
       that.noOfTables = item.noOfTables;
       that.noOfChairs = item.noOfChairs;
+      that.area = item.area;
     }
     let infoContentEl = that.infoContentRef.nativeElement;
     infoContentEl.setAttribute('style', 'display: block');

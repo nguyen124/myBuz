@@ -5,6 +5,7 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { ReportService } from '../shared/services/report.services';
 import { ToastrService } from 'ngx-toastr';
 import { SystemService } from '../shared/services/utils/system.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class ReactComponent implements OnInit {
     private _reportSvc: ReportService,
     private _toastr: ToastrService,
     private _systemSvc: SystemService,
+    private _translate: TranslateService,
     public authSvc: AuthService) {
   }
 
@@ -100,9 +102,9 @@ export class ReactComponent implements OnInit {
       };
       this._reportSvc.createReport(report).subscribe(res => {
         item.hasReported = true;
-        this._toastr.success("Thank you for helping us improve the quality of contents!");
+        this._toastr.success(this._translate.instant("admin.report.create.success"));
       }, err => {
-        this._toastr.error(err.error.errors.message);
+        this._toastr.error(this._translate.instant("admin.report.create.error"));
       });
     }
   }
@@ -110,9 +112,9 @@ export class ReactComponent implements OnInit {
   cancelReportItem(item: IItem) {
     this._reportSvc.cancelReport(item._id).subscribe(res => {
       item.hasReported = false;
-      this._toastr.success("Report canceled!");
+      this._toastr.success(this._translate.instant("admin.report.cancel.success"));
     }, err => {
-      this._toastr.error("Couldn't cancel report!");
+      this._toastr.error(this._translate.instant("admin.report.cancel.error"));
     });
   }
 

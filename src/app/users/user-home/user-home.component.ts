@@ -7,6 +7,7 @@ import { SystemService } from '../../shared/services/utils/system.service';
 import { JQ_TOKEN } from '../../shared/services/jQuery.service';
 import { HttpEventType } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-home',
@@ -28,6 +29,7 @@ export class UserHomeComponent implements OnInit {
     private _systemSvc: SystemService,
     private _toastr: ToastrService,
     private _fb: FormBuilder,
+    private _translate: TranslateService,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -44,7 +46,7 @@ export class UserHomeComponent implements OnInit {
     this.$("#avatar").attr("src", this.user.avatar);
     this.userForm = this._fb.group({
       file: [null],
-      username: [this.user.username, [Validators.required, this._systemSvc.nonSpaceString]],
+      username: [this.user.username, [this._systemSvc.nonSpaceString, Validators.pattern(/^.{1,50}$/)]],
       nationality: [this.user.nationality],
       dob: [this.user.dob ? new Date(this.user.dob).toISOString().substring(0, 10) : ''],
       gender: [this.user.gender ? this.user.gender : '']
@@ -132,7 +134,7 @@ export class UserHomeComponent implements OnInit {
             this.afterUpdate(result);
           }, err => {
             this.error = err;
-            this._toastr.error("Failed to update profile!. Please try again later.")
+            this._toastr.error(this._translate.instant("user.update.updateError"));
           });
         }
       }, err => {

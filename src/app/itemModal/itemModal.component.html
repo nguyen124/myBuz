@@ -47,7 +47,7 @@
             </div>
             <div class="row">
               <div class="col-12 mb-1">
-                <label><strong>Địa chỉ: </strong></label>
+                <label><strong>{{"item.upload.address.address1" | translate}}: </strong></label>
                 <a href="http://maps.google.com/?q= {{item.address}}, {{item.city}}, {{item.state}}
                 {{item.zipcode}}, {{item.country}}"> {{item.address}}, {{item.city}}, {{item.state}}
                   {{item.zipcode}}, {{item.country}}</a>
@@ -55,53 +55,53 @@
             </div>
             <div class="row">
               <div class="col-6 mb-1">
-                <label><strong>Giá bán: </strong></label> <span> {{item.price | currency:'USD'}}</span>
+                <label><strong>{{"common.label.price" | translate}}: </strong></label> <span> {{item.price | currency:'USD'}}</span>
               </div>
               <div class="col-6 mb-1">
-                <label><strong>Thu nhập/Tháng: </strong></label> <span> {{item.income | currency:'USD'}}</span>
+                <label><strong>{{"item.upload.income.label" | translate}}: </strong></label> <span> {{item.income | currency:'USD'}}</span>
               </div>
 
             </div>
             <div class="row">
               <div class="col-6 mb-1">
-                <label><strong>Rent/Tháng: </strong></label> <span> {{item.rentCost | currency:'USD'}}</span>
+                <label><strong>{{"item.upload.rent.label" | translate}}: </strong></label> <span> {{item.rentCost | currency:'USD'}}</span>
               </div>
               <div class="col-6 mb-1">
-                <label><strong>Chi phí khác/Tháng: </strong></label> <span> {{item.otherCost | currency:'USD'}}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6 mb-1">
-                <label><strong>Số lượng nhân viên: </strong></label> <span> {{item.noOfEmployees}}</span>
-              </div>
-              <div class="col-6 mb-1">
-                <label><strong>Diện tích: </strong></label> <span> {{item.area}} Sq.ft</span>
+                <label><strong>{{"item.upload.otherCost.label" | translate}}: </strong></label> <span> {{item.otherCost | currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
               <div class="col-6 mb-1">
-                <label><strong>Số lượng bàn: </strong></label> <span> {{item.noOfTables}}</span>
+                <label><strong>{{"item.upload.noOfEmployees.label" | translate}}: </strong></label> <span> {{item.noOfEmployees}}</span>
               </div>
               <div class="col-6 mb-1">
-                <label><strong>Số lượng ghế: </strong></label> <span> {{item.noOfChairs}}</span>
+                <label><strong>{{"item.upload.area.label" | translate}}: </strong></label> <span> {{item.area}} Sq.ft</span>
               </div>
             </div>
             <div class="row">
               <div class="col-6 mb-1">
-                <label><strong>Ngày lease hết hạn: </strong></label> <span> {{item.leaseEnd | date:'longDate'}}</span>
+                <label><strong>{{"item.upload.noOfTables.label" | translate}}: </strong></label> <span> {{item.noOfTables}}</span>
               </div>
               <div class="col-6 mb-1">
-                <label><strong>Tuổi tiệm: </strong></label> <span> {{item.yearOld}} năm</span>
+                <label><strong>{{"item.upload.noOfChairs.label" | translate}}: </strong></label> <span> {{item.noOfChairs}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mb-1">
+                <label><strong>{{"item.upload.leaseEnd.label" | translate}}: </strong></label> <span> {{item.leaseEnd | date:'longDate'}}</span>
+              </div>
+              <div class="col-6 mb-1">
+                <label><strong>{{"item.upload.yearOld.label" | translate}}: </strong></label> <span> {{item.yearOld}}</span>
               </div>
             </div>
             <div class="row">
 
               <div class="col-6 mb-1">
-                <label><strong>Contact Phone: </strong></label> <a href="tel:{{item.contactPhoneNo}}">
+                <label><strong>>{{"item.upload.contactPhone.label" | translate}}: </strong></label> <a href="tel:{{item.contactPhoneNo}}">
                   {{item.contactPhoneNo | mask: '(000) 000-0000'}}</a>
               </div>
               <div class="col-6 mb-1">
-                <label><strong>Contact Email: </strong></label> <a href="mailto:{{item.contactEmail}}">
+                <label><strong>>{{"item.upload.contactEmail.label" | translate}}: </strong></label> <a href="mailto:{{item.contactEmail}}">
                   {{item.contactEmail}}</a>
               </div>
 

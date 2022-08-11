@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IComment } from '../shared/model/comment';
 import { CommentService } from '../shared/services/comment.services';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comment-box',
@@ -69,6 +70,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
     private _authSvc: AuthService,
     private _router: Router,
     private _commentSvc: CommentService,
+    private _translate: TranslateService,
     @Inject(JQ_TOKEN) private $: any,
     private _toastr: ToastrService,
     private _san: DomSanitizer) {
@@ -113,7 +115,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
         }
       }, err => {
         this.isUploading = false;
-        this._toastr.error("Failed to upload data!. Please try again.");
+        this._toastr.error(this._translate.instant("uploading.media.error"));
         this.reset();
       })
     } else {
@@ -160,7 +162,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
       },
         err => {
           thatt.isUploading = false;
-          thatt._toastr.error("Failed to upload data!. Please try again.");
+          thatt._toastr.error(this._translate.instant("uploading.media.error"));
           thatt.reset();
         });
     } else {
@@ -192,7 +194,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           that.afterAddingComment(newComment);
         },
           err => {
-            that._toastr.error("Failed to add comment!. Please try again.");
+            that._toastr.error(this._translate.instant("comment.add.error"));
             that.reset();
           });
       } else {
@@ -201,12 +203,12 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           that.afterEdittingComment(updatedComment);
         },
           err => {
-            that._toastr.error("Failed to update comment!. Please try again.");
+            that._toastr.error(this._translate.instant("comment.update.error"));
             that.reset();
           });
       }
     } else {
-      that._toastr.warning("Please enter non-empty comment!")
+      that._toastr.warning(this._translate.instant("comment.add.emptyError"));
     }
   }
 
@@ -237,7 +239,7 @@ export class CommentBoxComponent implements OnInit, OnDestroy {
           this.voiceRecord = record;
           var blob = window.URL || window["webkitURL"];
           if (!blob) {
-            this._toastr.error('Your browser does not support Blob URLs');
+            this._toastr.error(this._translate.instant("common.blob.error"));
             return;
           }
           this.voicePreviewSrc = this._san.bypassSecurityTrustResourceUrl(blob.createObjectURL(<File>record["blob"]));

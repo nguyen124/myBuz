@@ -25,7 +25,7 @@
             <div *ngIf="!item.hasReported; else elseBlock">
                 <button class="btn dropdown-item text-primary pl-0 ml-1"
                     [ngClass]="selectedOptions.length < 1 ? 'text-secondary' : ''" href="javascript:void(0)"
-                    (click)="reportItem(item)" [disabled]="selectedOptions.length < 1">Report</button>
+                    (click)="reportItem(item)" [disabled]="selectedOptions.length < 1">{{"admin.report.label" | translate}}</button>
                 <div class="mt-2 ml-3">
                     <div *ngFor="let option of options">
                         <label>
@@ -37,8 +37,7 @@
                 </div>
             </div>
             <ng-template #elseBlock>
-                <button class="btn dropdown-item text-primary pl-0 ml-1" (click)="cancelReportItem(item)">Cancel
-                    report</button>
+                <button class="btn dropdown-item text-primary pl-0 ml-1" (click)="cancelReportItem(item)">{{"admin.report.cancel.label" | translate}}</button>
             </ng-template>
         </div>
         <ng-content></ng-content>

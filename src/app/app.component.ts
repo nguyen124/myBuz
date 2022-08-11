@@ -1,4 +1,5 @@
 import { Component, OnInit, isDevMode } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { environment as prodEnvironment } from '../environments/environment.prod';
 
@@ -11,8 +12,9 @@ declare var firebase: any;
 })
 export class AppComponent implements OnInit {
 
-  constructor() {
-
+  constructor(private translate: TranslateService) {
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
   }
   ngOnInit() {
     // Your web app's Firebase configuration
@@ -41,5 +43,10 @@ export class AppComponent implements OnInit {
 
     // Initialize Firebase
     firebase.initializeApp(isDevMode() ? devConfig : prodConfig);
+  }
+
+  handleLanguageChange(value) {
+    this.translate.setDefaultLang(value);
+    this.translate.use(value);
   }
 }

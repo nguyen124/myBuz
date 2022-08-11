@@ -59,7 +59,7 @@
             <div>
                 <audio *ngIf="reply.url" class="voice-comment" controls>
                     <source [src]="reply.url" type="audio/mpeg">
-                    Your browser does not support the audio element.
+                    {{"common.audio.warning" | translate}}
                 </audio>
             </div>
             <div>
@@ -73,10 +73,10 @@
                 </button>
                 <div class="dropdown-menu">
                     <a href="javascript:void(0)" (click)="editReply(i)" class="ml-1 d-block"
-                        *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">Edit</a>
+                        *ngIf="authSvc.user && authSvc.user.username == reply.writtenBy.username">{{"common.label.edit" | translate}}</a>
                     <a href="javascript:void(0)" (click)="deleteComment(i, reply._id)"
                         class="ml-1 d-block"
-                        *ngIf="authSvc.user && (authSvc.user?.username == reply.writtenBy?.username || authSvc.user?.role === 'ADMIN')">Delete</a>
+                        *ngIf="authSvc.user && (authSvc.user?.username == reply.writtenBy?.username || authSvc.user?.role === 'ADMIN')">{{"common.label.delete" | translate}}</a>
                     <app-report [comment]="reply"></app-report>
                 </div>
                 <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
@@ -90,5 +90,5 @@
 
 <div *ngIf="isShowingReply && comment.replies.length > 0" class="row mt-2">
     <a href="javascript:void(0)" (click)="showMoreReplies(comment._id)" class="btn-xs btn-primary d-inline"
-        role="button">More replies <i class="fa fa-angle-double-right"></i> </a>
+        role="button">{{"comment.reply.more" | translate}} <i class="fa fa-angle-double-right"></i> </a>
 </div>

@@ -3,200 +3,199 @@
         <div class="col-md-5 mb-1">
             <div class="form-row mb-1">
                 <div class="col-md-12 mb-1">
-                    <label class="text-primary"><strong>Tiêu Đề</strong></label>
+                    <label class="text-primary"><strong>{{"common.label.title" | translate}}</strong></label>
                     <input type="text" formControlName="title" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('title') }">
                     <div *ngIf="checkError('title')" class="invalid-feedback">
-                        <div *ngIf="f.title.errors.required">Tiêu Đề Không Được Để Trống!</div>
-                        <div *ngIf="f.title.errors.whitespace">Tiêu Đề Không Được Chỉ Chứa Kí Tự Trống!</div>
+                        <div *ngIf="f.title.errors.pattern || f.title.errors.whitespace">{{"item.upload.title.validate.required" | translate}}</div>
                     </div>
                 </div>
             </div>
             <div class="form-row mb-1">
                 <div class="col-md-12 mb-1">
-                    <label class="text-primary"><strong>Tên Tiệm</strong></label>
+                    <label class="text-primary"><strong>{{"common.label.business" | translate}}</strong></label>
                     <input type="text" formControlName="businessName" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('businessName') }">
                     <div *ngIf="checkError('businessName')" class="invalid-feedback">
-                        <div *ngIf="f.businessName.errors.required">Tên Tiệm Không Được Để Trống!</div>
-                        <div *ngIf="f.businessName.errors.whitespace">Tên Tiệm Không Được Chỉ Chứa Kí Tự Trống!</div>
+                        <div *ngIf="f.businessName.errors.pattern || f.businessName.errors.whitespace">{{"item.upload.business.validate.required" | translate}}</div>
                     </div>
                 </div>
             </div>
             <div class="row mb-1">
                 <div class="col-md-6 mb-1">
-                    <label class="text-primary" for="categories"><strong>Danh Mục</strong></label>
+                    <label class="text-primary" for="categories"><strong>{{"common.label.category" | translate}}</strong></label>
                     <select formControlName="categories" class="custom-select">
-                        <option value="Nail_Salon">Bán Tiệm Nail</option>
-                        <option value="Hiring_Nail_Tech">Tuyển Thợ Nails</option>
-                        <option value="Other_Business">Bán Tiệm Khác</option>
-                        <option value="Hiring_Other">Tuyển Các Job Khác</option>
+                        <option value="Nail_Salon">{{"item.upload.category.nailSalon" | translate}}</option>
+                        <option value="Hair_Salon">{{"item.upload.category.hairSalon" | translate}}</option>
+                        <option value="Restaurent">{{"item.upload.category.restaurent" | translate}}</option>
+                        <option value="House">{{"item.upload.category.house" | translate}}</option>            
+                        <option value="Other_Business">{{"item.upload.category.otherBusiness" | translate}}</option>
                     </select>
                 </div>
                 <div class="col-md-6 mb-1">
-                    <label class="text-primary" for="price"><strong>Giá $</strong></label>
+                    <label class="text-primary" for="price"><strong>{{"common.label.price" | translate}}</strong></label>
                     <input type="number" formControlName="price" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('price') }">
                     <div *ngIf="checkError('price')" class="invalid-feedback">
-                        <div *ngIf="f.price.errors.min">Giá Không Được Là Số Âm!</div>
+                        <div *ngIf="f.price.errors.min">{{"item.upload.price.validate.negative" | translate}}</div>
                     </div>
                 </div>
             </div>
             <div class="row mb-1">
                 <div class="col-md-9 mb-1">
-                    <label class="text-primary" for="address"><strong>Địa Chỉ</strong></label>
+                    <label class="text-primary" for="address"><strong>{{"common.label.address" | translate}}</strong></label>
                     <input #autoAddress formControlName="address" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('address') }">
                     <div *ngIf="checkError('address')" class="invalid-feedback">
-                        <div *ngIf="f.address.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
+                        <div *ngIf="f.address.errors.pattern || f.address.errors.whitespace">{{"item.upload.address.validate.required" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-3 mb-1">
-                    <label class="text-primary" for="zipcode"><strong>Zip Code</strong></label>
+                    <label class="text-primary" for="zipcode"><strong>{{"common.label.zipcode" | translate}}</strong></label>
                     <input formControlName="zipcode" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('zipcode') }">
                     <div *ngIf="checkError('zipcode')" class="invalid-feedback">
-                        <div *ngIf="f.zipcode.errors.required">Zip Code Tiệm Không Được Để Trống Hoặc Bằng 00000!</div>
+                        <div *ngIf="f.zipcode.errors.pattern || f.zipcode.errors.whitespace">{{"item.upload.address.validate.zipcodeRequired" | translate}}</div>
                     </div>
                 </div>
             </div>
             <div class="row mb-1">
                 <div class="col-md-9 mb-1">
-                    <label class="text-primary" for="address2"><strong>Địa Chỉ 2</strong></label>
-                    <input #address2 formControlName="address2" class="form-control"
-                        [ngClass]="{ 'is-invalid': checkError('address2') }">
-                    <div *ngIf="checkError('address2')" class="invalid-feedback">
-                        <div *ngIf="f.address2.errors.required">Địa Chỉ Tiệm Không Được Để Trống!</div>
-                    </div>
+                    <label class="text-primary" for="address2"><strong>{{"item.upload.address.address2" | translate}}</strong></label>
+                    <input #address2 formControlName="address2" class="form-control">                    
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="country"><strong>Quốc Gia</strong></label>
+                    <label class="text-primary" for="country"><strong>{{"common.label.country" | translate}}</strong></label>
                     <input formControlName="country" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('country') }">
                     <div *ngIf="checkError('country')" class="invalid-feedback">
-                        <div *ngIf="f.country.errors.required">Quốc Gia Không Được Để Trống!</div>
+                        <div *ngIf="f.country.errors.pattern || f.country.errors.whitespace">{{"item.upload.address.validate.countryRequired" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="state"><strong>Bang/Tỉnh</strong></label>
+                    <label class="text-primary" for="state"><strong>{{"common.label.state" | translate}}</strong></label>
                     <input #state formControlName="state" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('state') }">
                     <div *ngIf="checkError('state')" class="invalid-feedback">
-                        <div *ngIf="f.state.errors.required">Tiểu Bang/Tỉnh Không Được Để Trống!</div>
+                        <div *ngIf="f.state.errors.pattern || f.state.errors.whitespace">{{"item.upload.address.validate.stateRequired" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="city"><strong>Thành Phố</strong></label>
+                    <label class="text-primary" for="city"><strong>{{"common.label.city" | translate}}</strong></label>
                     <input #city formControlName="city" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('city') }">
                     <div *ngIf="checkError('city')" class="invalid-feedback">
-                        <div *ngIf="f.city.errors.required">Thành Phố Không Được Để Trống!</div>
+                        <div *ngIf="f.city.errors.pattern || f.city.errors.whitespace">{{"item.upload.address.validate.cityRequired" | translate}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="noOfEmployees"><strong>Số Lượng Thợ</strong></label>
-                    <input type="number" formControlName="noOfEmployees" class="form-control">
+                    <label class="text-primary" for="noOfEmployees"><strong>{{"item.upload.noOfEmployees.label" | translate}}</strong></label>
+                    <input type="number" formControlName="noOfEmployees" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('noOfEmployees') }">
+                    <div *ngIf="checkError('noOfEmployees')" class="invalid-feedback">
+                        <div *ngIf="f.noOfEmployees.errors.min">{{"item.upload.noOfEmployees.validate.min" | translate}}</div>
+                    </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="noOfChairs"><strong>Số Lượng Ghế</strong></label>
+                    <label class="text-primary" for="noOfChairs"><strong>{{"item.upload.noOfChairs.label" | translate}}</strong></label>
                     <input type="number" formControlName="noOfChairs" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('noOfChairs') }">
                     <div *ngIf="checkError('noOfChairs')" class="invalid-feedback">
-                        <div *ngIf="f.noOfChairs.errors.min">Số Lượng Ghế Không Được Là Số Âm!</div>
+                        <div *ngIf="f.noOfChairs.errors.min">{{"item.upload.noOfChairs.validate.min" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="noOfTables"><strong>Số Lượng Bàn</strong></label>
+                    <label class="text-primary" for="noOfTables"><strong>{{"item.upload.noOfTables.label" | translate}}</strong></label>
                     <input type="number" formControlName="noOfTables" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('noOfTables') }">
                     <div *ngIf="checkError('noOfTables')" class="invalid-feedback">
-                        <div *ngIf="f.noOfTables.errors.min">Số Lượng Bàn Không Được Là Số Âm!</div>
+                        <div *ngIf="f.noOfTables.errors.min">{{"item.upload.noOfTables.validate.min" | translate}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="income"><strong>Thu Nhập/Tháng</strong></label>
+                    <label class="text-primary" for="income"><strong>{{"item.upload.income.label" | translate}}</strong></label>
                     <input type="number" formControlName="income" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('income') }">
                     <div *ngIf="checkError('income')" class="invalid-feedback">
-                        <div *ngIf="f.income.errors.min">Tiền Rent Không Được Là Số Âm!</div>
+                        <div *ngIf="f.income.errors.min">{{"item.upload.income.validate.min" | translate}}</div>
                     </div>
                 </div>
 
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="rentCost"><strong>Rent/Tháng</strong></label>
+                    <label class="text-primary" for="rentCost"><strong>{{"item.upload.rent.label" | translate}}</strong></label>
                     <input type="number" formControlName="rentCost" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('rentCost') }">
                     <div *ngIf="checkError('rentCost')" class="invalid-feedback">
-                        <div *ngIf="f.rentCost.errors.min">Tiền Rent Không Được Là Số Âm!</div>
+                        <div *ngIf="f.rentCost.errors.min">{{"item.upload.rent.validate.min" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="otherCost"><strong>Chi Phí Khác/Tháng</strong></label>
+                    <label class="text-primary" for="otherCost"><strong>{{"item.upload.otherCost.label" | translate}}</strong></label>
                     <input type="number" formControlName="otherCost" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('otherCost') }">
                     <div *ngIf="checkError('otherCost')" class="invalid-feedback">
-                        <div *ngIf="f.otherCost.errors.min">Các Chi Phí Khác Không Được Là Số Âm!</div>
+                        <div *ngIf="f.otherCost.errors.min">{{"item.upload.otherCost.validate.min" | translate}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="area"><strong>Diện Tích (Sq.ft)</strong></label>
+                    <label class="text-primary" for="area"><strong>{{"item.upload.area.label" | translate}}</strong></label>
                     <input type="number" formControlName="area" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('area') }">
                     <div *ngIf="checkError('area')" class="invalid-feedback">
-                        <div *ngIf="f.area.errors.min">Diện Tích Không Được Là Số Âm!</div>
+                        <div *ngIf="f.area.errors.min">{{"item.upload.area.validate.min" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="leaseEnd"><strong>Lease hết hạn</strong></label>
+                    <label class="text-primary" for="leaseEnd"><strong>{{"item.upload.leaseEnd.label" | translate}}</strong></label>
                     <input type="date" formControlName="leaseEnd" class="form-control">
                 </div>
                 <div class="col-md-4 mb-1">
-                    <label class="text-primary" for="yearOld"><strong>Tuổi Đời Tiệm</strong></label>
+                    <label class="text-primary" for="yearOld"><strong>{{"item.upload.yearsOld.label" | translate}}</strong></label>
                     <select formControlName="yearOld" class="custom-select">
-                        <option value="1">1 năm</option>
-                        <option value="2">2 năm</option>
-                        <option value="3">3 năm</option>
-                        <option value="4">4 năm</option>
-                        <option value="5">5 năm trở lên</option>
+                        <option value="1">1 {{"item.upload.yearsOld.yearLabel" | translate}}</option>
+                        <option value="2">2 {{"item.upload.yearsOld.yearLabel" | translate}}s</option>
+                        <option value="3">3 {{"item.upload.yearsOld.yearLabel" | translate}}s</option>
+                        <option value="4">4 {{"item.upload.yearsOld.yearLabel" | translate}}s</option>
+                        <option value="5">5 {{"item.upload.yearsOld.yearLabel" | translate}}s {{"item.upload.yearsOld.orMore" | translate}}</option>
                     </select>
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-6 mb-1">
-                    <label class="text-primary" for="contactPhoneNo"><strong>Số Phone Liên Lạc</strong></label>
-                    <input formControlName="contactPhoneNo" mask="(000) 000-0000" class="form-control"
+                    <label class="text-primary" for="contactPhoneNo"><strong>{{"item.upload.contactPhone.label" | translate}}</strong></label>
+                    <input formControlName="contactPhoneNo" mask="+00 (000) 000-0000" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
                     <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">
-                        <div *ngIf="f.contactPhoneNo.errors.required">Số Phone Không Được Để Trống!</div>
-                        <div *ngIf="f.contactPhoneNo.errors.whitespace">Số Phone Không Được Chỉ Chứa Kí Tự Trống!</div>
+                        <div *ngIf="f.contactPhoneNo.errors.mask || f.contactPhoneNo.errors.whitespace">{{"item.upload.contactPhone.validate.mask" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 mb-1">
-                    <label class="text-primary" for="contactEmail"><strong>Email Liên Lạc</strong></label>
+                    <label class="text-primary" for="contactEmail"><strong>{{"item.upload.contactEmail.label" | translate}}</strong></label>
                     <input type="email" formControlName="contactEmail" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('contactEmail') }">
                     <div *ngIf="checkError('contactEmail')" class="invalid-feedback">
-                        <div *ngIf="f.contactEmail.errors.emailFormat">Email không đúng định dạng!</div>
+                        <div *ngIf="f.contactEmail.errors.emailFormat">{{"item.upload.contactEmail.validate.emailFormat" | translate}}</div>
+                        <div *ngIf="f.contactEmail.errors.pattern">{{"item.upload.contactEmail.validate.pattern" | translate}}</div>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-1">
                 <div class="col-md-12 mb-1">
-                    <label class="text-primary" for="tags"><strong>Thẻ</strong></label>
+                    <label class="text-primary" for="tags"><strong>{{"item.upload.tag.label" | translate}}</strong></label>
                     <div>
                         <ng-container *ngFor="let tag of parsedTags;">
                             <a href="" class="mr-1">#{{tag}}</a>
@@ -208,24 +207,19 @@
             </div>
             <div class="row mb-1">
                 <div class="col-md-12 mb-1">
-                    <label class="text-primary" for="overview"><strong>Giới Thiệu Sơ Lược</strong></label>
-                    <div>
-                        <textarea rows="2" formControlName="overview" style="width: 100%">
-            </textarea>
-                    </div>
+                    <label class="text-primary" for="overview"><strong>{{"item.upload.overview.label" | translate}}</strong></label>          
+                    <textarea rows="2" type="text" formControlName="overview" class="form-control" [ngClass]="{ 'is-invalid': checkError('overview') }"></textarea>
                     <div *ngIf="checkError('overview')" class="invalid-feedback">
-                        <div *ngIf="f.overview.errors.maxlength">Phần Sơ Lược Không Được Quá 500 Chữ!
-                        </div>
+                      <div *ngIf="f.overview.errors.pattern">{{"item.upload.overview.validate.maxLength" | translate}}</div>
                     </div>
                 </div>
             </div>
             <div class="row mb-1">
                 <div class="col-md-12 mb-1">
-                    <label class="text-primary" for="description"><strong>Mô Tả Thêm Chi Tiết</strong></label>
-                    <ckeditor formControlName="description"></ckeditor>
-                    <div *ngIf="checkError('description')" class="invalid-feedback">
-                        <div *ngIf="f.description.errors.maxlength">Phần Mô Tả Không Được Quá 2000 Chữ!
-                        </div>
+                    <label class="text-primary" for="description"><strong>{{"item.upload.description.label" | translate}}</strong></label>
+                    <ckeditor formControlName="description" [ngClass]="{ 'is-invalid': checkError('description') }"></ckeditor>
+                    <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" | translate}}</div>
                     </div>
                 </div>
             </div>
@@ -233,16 +227,16 @@
         <div class="col-md-7 mb-1">
             <div class="form-row mb-1">
                 <div class="col-md-12 mb-1">
-                    <label class="text-primary" for="file"><strong>Hình Ảnh/Video</strong></label>
+                    <label class="text-primary" for="file"><strong>{{"item.upload.picture.label" | translate}}</strong></label>
                     <div class="custom-file">
-                        <label class="custom-file-label" for="file">Chọn tập tin</label>
+                        <label class="custom-file-label" for="file">{{"item.upload.picture.select.label" | translate}}</label>
                         <input type="file" class="custom-file-input" formControlName="file" id="upload" multiple
                             (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
                             [ngClass]="{'is-invalid' : checkError('file')}">
                         <div *ngIf="checkError('file')" class="invalid-feedback">
-                            <div *ngIf="f.file.errors.required">Cần Chọn Tập Tin Trước Khi Tạo Bài!</div>
+                            <div *ngIf="f.file.errors.required">{{"item.upload.picture.validate.required" | translate}}</div>
                             <ng-container *ngIf="f.file.errors.largeFile">
-                                <div *ngIf="f.file.errors.largeFile">Tập không được lớn hơn 1GB!</div>
+                                <div *ngIf="f.file.errors.largeFile">{{"item.upload.picture.largeFile" | translate}}</div>
                             </ng-container>
                         </div>
                     </div>
@@ -279,8 +273,8 @@
     <div class="form-row">
         <div class="col-md-4 col-sm-4 form-group">
             <button type="button" id="cancelBtn" class="btn btn-primary mr-2" data-dismiss="modal"
-                (click)="goBackToHomePage()">Hủy</button>
-            <button type="submit" class="btn btn-success" [disabled]="isUploading">Cập Nhật</button>
+                (click)="goBackToHomePage()">{{"common.label.cancel" | translate}}</button>
+            <button type="submit" class="btn btn-success" [disabled]="isUploading">{{"common.label.update" | translate}}</button>
         </div>
     </div>
 </form>

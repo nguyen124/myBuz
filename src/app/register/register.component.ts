@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
 import { SystemService } from '../shared/services/utils/system.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -16,15 +17,16 @@ export class RegisterComponent implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _userSvc: UserService,
-    private _systemSvc: SystemService) { }
+    private _systemSvc: SystemService,
+    private _translate: TranslateService) { }
 
   ngOnInit() {
     this.registerForm = this._fb.group({
-      username: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+      username: ['', [this._systemSvc.nonSpaceString, Validators.pattern(/^.{1,50}$/)]],
+      email: ['', [Validators.email, this._systemSvc.nonSpaceString, Validators.pattern(/^.{5,50}$/)]],
       passwords: this._fb.group({
-        password: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.minLength(6), Validators.maxLength(50)]],
-        confirmPassword: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.minLength(6), Validators.maxLength(50)]]
+        password: ['', [Validators.pattern(/^.{6,50}$/)]],
+        confirmPassword: ['', [Validators.pattern(/^.{6,50}$/)]]
       }, { validator: this.checkPasswords })
     });
   }
@@ -49,7 +51,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) {
-      this.error = { error: "Invalid Fields!" };
+      this.error = { error: this._translate.instant("login.username.validate.invalidData") };
       return;
     }
     this._userSvc.register(this.registerForm.value).subscribe(res => {

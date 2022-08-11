@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { MemeVideoComponent } from '../meme-video/meme-video.component';
 
@@ -7,16 +7,13 @@ import { MemeVideoComponent } from '../meme-video/meme-video.component';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent {
   @Input() item: IItem;
   @Input() baseUrl: string;
-  @Input() isShowingTag: boolean; 
+  @Input() isShowingTag: boolean;
   @ViewChildren(MemeVideoComponent) memeVideos: QueryList<MemeVideoComponent>;
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
   pause() {

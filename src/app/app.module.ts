@@ -14,7 +14,6 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentReactComponent } from './comment-react/comment-react.component';
 import { CommentsComponent } from './comments/comments.component';
 import { FileUtils } from './utils/FileUtils';
-import { FilterComponent } from './filter/filter.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -79,7 +78,6 @@ let jQuery: any = window['$'];
     KeyPipe,
     NumberPipe,
     ImageMobileLinkPipe,
-    FilterComponent,
     FooterComponent,
     HeaderComponent,
     HomeComponent,

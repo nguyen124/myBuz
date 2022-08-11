@@ -1,6 +1,6 @@
 <form [formGroup]="userForm" (ngSubmit)="updateUser()" autocomplete="on">
   <div class="row">
-    <h5 *ngIf="userForm.invalid && error" class="text-center text-danger">Update failed. Something wrong happened!
+    <h5 *ngIf="userForm.invalid && error" class="text-center text-danger">{{"user.update.error" | translate}}
     </h5>
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
       <div class="form-group text-center">
@@ -16,28 +16,28 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="username">{{"login.username.registerUsername" | translate}}</label>
         <input id="username" formControlName="username" class="form-control" type="text"
           [ngClass]="{ 'is-invalid': checkError('username') }">
         <div *ngIf="checkError('username')" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required">Username is required</div>
-          <div *ngIf="f.username.errors.whitespace">Username can't be blank space</div>
+          <div *ngIf="f.username.errors.pattern">{{"login.username.validate.between" | translate}}</div>
+          <div *ngIf="f.username.errors.whitespace">{{"login.username.validate.whitespace" | translate}}</div>
         </div>
       </div>
       <div class="form-group">
-        <label for="dob">Birthday</label>
+        <label for="dob">{{"user.update.birthDay" | translate}}</label>
         <input id="dob" formControlName="dob" class="form-control" type="date">
       </div>
       <div class="form-group">
-        <label for="gender">Gender</label>
+        <label for="gender">{{"user.update.gender" | translate}}</label>
         <select formControlName="gender" class="form-control">
           <option value=""></option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="male">{{"user.update.genderMale" | translate}}</option>
+          <option value="female">{{"user.update.genderFemale" | translate}}</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="nationality">Nationality</label>
+        <label for="nationality">{{"user.update.nationality" | translate}}</label>
         <select id="nationality" formControlName="nationality" class="form-control">
           <option value=""></option>
           <option value="AF">Afghanistan</option>
@@ -293,9 +293,9 @@
       </div>
       <div class="form-group">
         <button [disabled]="!hasChangedValues()" type="button" class="mr-2"
-          [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">Cancel</button>
+          [ngClass]="hasChangedValues()?'btn-primary':'btn-secondary'" (click)="initValue()">{{"common.label.cancel" | translate}}</button>
         <button [disabled]="!hasChangedValues()" type="submit"
-          [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">Update</button>
+          [ngClass]="hasChangedValues()?'btn-success':'btn-secondary'">{{"common.label.update" | translate}}</button>
       </div>
     </div>
   </div>

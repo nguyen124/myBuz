@@ -1,10 +1,10 @@
 <div id="myListItems">
-    <h2 class="text-center text-success mb-5">My Collections</h2>
+    <h2 class="text-center text-success mb-5">{{"common.label.myItems" | translate}}</h2>
     <app-items [items]="items" [baseUrl]="baseUrl" [showMap]="false" [isShowingTag]="false"></app-items>
 </div>
 
 <div class="row">
     <div class="input-group col-md-2">
-        <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">Next</a>
+        <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">{{"common.label.next" | translate}}</a>
     </div>
 </div>

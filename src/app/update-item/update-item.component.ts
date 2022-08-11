@@ -51,31 +51,31 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
 
   initForm() {
     this.itemForm = this._fb.group({
-      title: ['', [Validators.required, this._systemSvc.nonSpaceString]],
-      businessName: ['', [Validators.required, this._systemSvc.nonSpaceString]],
-      file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-      categories: ['Nail_Salon'],
+      title: ['', []],
+      businessName: ['', []],
+      file: ['', []],
+      categories: [''],
       tags: [''],
-      price: [0, [Validators.min(0)]],
-      address: ['', [Validators.required]],
+      price: [0, []],
+      address: ['', []],
       address2: ['', []],
-      zipcode: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      noOfEmployees: [0, [Validators.min(0)]],
-      noOfChairs: [0, [Validators.min(0)]],
-      noOfTables: [0, [Validators.min(0)]],
-      contactPhoneNo: ['', [Validators.required, this._systemSvc.nonSpaceString]],
-      contactEmail: ['', this._systemSvc.validateEmail],
-      income: [0, [Validators.min(0)]],
-      rentCost: [0, [Validators.min(0)]],
-      otherCost: [0, [Validators.min(0)]],
+      zipcode: ['', []],
+      city: ['', []],
+      state: ['', []],
+      country: ['', []],
+      noOfEmployees: [0, []],
+      noOfChairs: [0, []],
+      noOfTables: [0, []],
+      contactPhoneNo: ['', []],
+      contactEmail: ['', ],
+      income: [0, []],
+      rentCost: [0, []],
+      otherCost: [0, []],
       leaseEnd: [''],
       yearOld: [1],
-      area: [0, [Validators.min(0)]],
-      description: ['', [Validators.maxLength(2000)]],
-      overview: ['', [Validators.maxLength(500)]]
+      area: [0, []],
+      description: ['', []],
+      overview: ['', []]
     });
   }
 
@@ -92,31 +92,31 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       this._itemSvc.getItemById(this.itemId).subscribe(item => {
         this.parsedTags = item.tags;
         this.itemForm = this._fb.group({
-          title: [item.title, [Validators.required, this._systemSvc.nonSpaceString]],
-          businessName: [item.businessName, [Validators.required, this._systemSvc.nonSpaceString]],
+          title: [item.title, [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
+          businessName: [item.businessName, [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
           file: [, [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
           categories: [item.categories],
           tags: [item.tags],
           price: [item.price, [Validators.min(0)]],
-          address: [item.address, [Validators.required]],
+          address: [item.address, [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
           address2: [item.address2, []],
-          zipcode: [item.zipcode, [Validators.required]],
-          city: [item.city, [Validators.required]],
-          state: [item.state, [Validators.required]],
-          country: [item.country, [Validators.required]],
+          zipcode: [item.zipcode, [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
+          city: [item.city, [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
+          state: [item.state, [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
+          country: [item.country, [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
           noOfEmployees: [item.noOfEmployees, [Validators.min(0)]],
           noOfChairs: [item.noOfChairs, [Validators.min(0)]],
           noOfTables: [item.noOfTables, [Validators.min(0)]],
-          contactPhoneNo: [item.contactPhoneNo, [Validators.required, this._systemSvc.nonSpaceString]],
-          contactEmail: [item.contactEmail, this._systemSvc.validateEmail],
+          contactPhoneNo: [item.contactPhoneNo, [this._systemSvc.nonSpaceString]],
+          contactEmail: [item.contactEmail, [this._systemSvc.validateEmail, this._systemSvc.nonSpaceString, Validators.pattern(/^.{0,50}$/)]],
           income: [item.income, [Validators.min(0)]],
           rentCost: [item.rentCost, [Validators.min(0)]],
           otherCost: [item.otherCost, [Validators.min(0)]],
           leaseEnd: [item.leaseEnd && item.leaseEnd.split("T")[0]],
           yearOld: [item.yearOld],
           area: [item.area, [Validators.min(0)]],
-          description: [item.description, [Validators.maxLength(2000)]],
-          overview: [item.overview, [Validators.maxLength(500)]]
+          description: [item.description, [Validators.pattern(/^[\s\S]{0,1000}$/)]],
+          overview: [item.overview, [Validators.pattern(/^[\s\S]{0,180}$/)]]
         });
         this.geometry = item.geometry;
         this.toUploadFiles = item.files;
@@ -341,7 +341,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
         break;
     }
   }
-  
+
   handleError(err, that) {
     that._toastr.error("Oops! Không Thể Cập Nhật!");
     console.log(err);

@@ -2,14 +2,14 @@
     <div class="row hover-high-light">
         <div class="col-12">
             <div class="row">
-                <div class="col-3">Item: {{report.reportedItemId}}</div>
-                <div class="col-3" *ngIf="report.reportedCommentId">Comment: {{report.reportedCommentId}}</div>
-                <div class="col-3">Reason: {{report.reasons | reasonPipe}}</div>
+                <div class="col-3">{{"common.label.item" | translate}}: {{report.reportedItemId}}</div>
+                <div class="col-3" *ngIf="report.reportedCommentId">{{"common.label.comment" | translate}}: {{report.reportedCommentId}}</div>
+                <div class="col-3">{{"common.label.reason" | translate}}: {{report.reasons | reasonPipe}}</div>
                 <div class="col-3">
                     <button class="btn-primary mr-1 d-inline"
-                        (click)="ignoreReport(i, report.reportedItemId, report.reportedCommentId)">Cancel Report</button>
+                        (click)="ignoreReport(i, report.reportedItemId, report.reportedCommentId)">{{"admin.report.cancel.label" | translate}}</button>
                     <button class="btn-primary mr-1 d-inline"
-                        (click)="accepReportAndDelete(i, report.reportedItemId, report.reportedCommentId)">Delete Reported Item</button>
+                        (click)="accepReportAndDelete(i, report.reportedItemId, report.reportedCommentId)">{{"admin.report.delete.label" | translate}}</button>
                 </div>
             </div>
             <div class="row">

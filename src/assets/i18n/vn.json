@@ -1,9 +1,93 @@
 {
+  "common": {
+    "edit": {
+      "label": "Edit"
+    },
+    "delete": {
+      "label": "Delete"
+    },
+    "audio": {
+      "warning": "Your browser does not support the audio element."
+    },
+    "blob": {
+      "error": "Your browser does not support Blob URLs."
+    },
+    "policies": {
+      "label": "Policies"
+    },
+    "terms": {
+      "label": "Terms"
+    },
+    "rules": {
+      "label": "Rules"
+    },
+    "label": {
+      "profile": "Thông Tin",
+      "posts": "Bài Đăng",
+      "logout": "Đăng Xuất"
+    }
+  },
+  "uploading": {
+    "media": {
+      "error": "Failed to upload picture. Please try again!"
+    }
+  },
+  "item": {
+    "label": "Item"
+  },
+  "comment": {
+    "label": "Comment",
+    "reply": {
+      "more": "More replies"
+    },
+    "add": {
+      "error": "Failed to add comment. Please try again!",
+      "emptyError": "Please enter non-empty comment!"
+    },
+    "update": {
+      "error": "Failed to update comment. Please try again!"
+    },
+    "more": {
+      "label": "More comments"
+    },
+    "delete": {
+      "success": "Comment deleted!",
+      "error": "Deleting comment failed!"
+    }
+  },
   "home": {
     "topHeader": {
       "business": "Bán Tiệm",
       "hiring": "Tuyển Dụng",
       "forSale": "Rao Vặt"
+    }
+  },
+  "admin": {
+    "report": {
+      "reason": {
+        "label": "Reason"
+      },
+      "cancel": {
+        "label": "Cancel report",
+        "success": "Report canceled!",
+        "error": "Couldn't cancel report!"
+      },
+      "delete": {
+        "label": "Delete reported item",
+        "success": "Accepted report and deleted!",
+        "error": "Deleting report failed!"
+      },
+      "create": {
+        "label": "Create report",
+        "success": "Report created!",
+        "error": "Creating report failed!"
+      }
+    },
+    "comment": {
+      "delete": {
+        "success": "Accepted report and deleted!",
+        "error": "Deleting comment failed!"
+      }
     }
   }
 }

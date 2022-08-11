@@ -4,6 +4,7 @@ import { UserService } from '../shared/services/user-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reset-password-form',
@@ -22,6 +23,7 @@ export class ResetPasswordFormComponent implements OnInit {
     private _toastr: ToastrService,
     private _router: Router,
     private _systemSvc: SystemService,
+    private _translate: TranslateService,
     private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -29,8 +31,8 @@ export class ResetPasswordFormComponent implements OnInit {
       email: new FormControl({ value: this._activatedRoute.snapshot.queryParams.email, disabled: true }, Validators.required),
       resetPasscode: ['', Validators.required],
       passwords: this._fb.group({
-        password: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.minLength(6), Validators.maxLength(50)]],
-        confirmPassword: ['', [Validators.required, this._systemSvc.nonSpaceString, Validators.minLength(6), Validators.maxLength(50)]]
+        password: ['', [Validators.pattern(/^.{6,50}$/)]],
+        confirmPassword: ['', [Validators.pattern(/^.{6,50}$/)]]
       }, { validator: this.checkPasswords })
     });
   }
@@ -63,10 +65,10 @@ export class ResetPasswordFormComponent implements OnInit {
     }
     this._userSvc.resetPassword(obj).subscribe(res => {
       if (!res) {
-        this.error = "Can't update password. Your input data is invalid!";
+        this.error = this._translate.instant("login.password.reset.error");
       } else {
         this.error = null;
-        this._toastr.success("Password has been reset successfully");
+        this._toastr.success(this._translate.instant("login.password.reset.success"));
         this._router.navigate(["/login"]);
       }
     }, err => {

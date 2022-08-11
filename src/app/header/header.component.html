@@ -19,10 +19,10 @@
           aria-haspopup="true" aria-expanded="false">{{authSvc.user.username}}
         </button>
         <div class="dropdown-menu">
-          <a routerLink="/user/profile" class="ml-1 d-block">My profile</a>
-          <a routerLink="/user/items" class="ml-1 d-block">My posts</a>
+          <a routerLink="/user/profile" class="ml-1 d-block">{{"common.label.profile" | translate}}</a>
+          <a routerLink="/user/items" class="ml-1 d-block">{{"common.label.posts" | translate}}</a>
           <div class="dropdown-divider"></div>
-          <a href="" (click)="logout()" class="ml-1">Logout</a>
+          <a href="" (click)="logout()" class="ml-1">{{"common.label.logout" | translate}}</a>
         </div>
       </div>
       <app-notification></app-notification>

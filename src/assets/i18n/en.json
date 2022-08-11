@@ -1,9 +1,318 @@
 {
+  "common": {
+    "audio": {
+      "warning": "Your browser does not support the audio element."
+    },
+    "blob": {
+      "error": "Your browser does not support Blob URLs."
+    },
+    "video": {
+      "error": "I'm sorry; your browser doesn't support this video format."
+    },
+    "label": {
+      "edit": "Edit",
+      "create": "Create",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "policies": "Policies",
+      "terms": "Terms",
+      "rules": "Rules",
+      "profile": "My profile",
+      "posts": "My posts",
+      "logout": "Logout",
+      "register": "Register",
+      "myItems": "My collections",
+      "next": "Next",
+      "submit": "Submit",
+      "update": "Update",
+      "item": "Item",
+      "comment": "Comment",
+      "reason": "Reason",
+      "title": "Title",
+      "business": "Business",
+      "category": "Category",
+      "price": "Price",
+      "address": "Address",
+      "zipcode": "Zip Code",
+      "country": "Country",
+      "state": "State",
+      "city": "City"
+    }
+  },
+  "policy": {
+    "term": {
+      "doNotSellPart1": "Send email to",
+      "doNotSellPart2:": "with subject \"DO NOT SELL\" to unsubsribe from sell."
+    }
+  },
+  "notificatoin": {
+    "label": {
+      "more": "More..."
+    }
+  },
+  "uploading": {
+    "media": {
+      "error": "Failed to upload picture. Please try again!"
+    }
+  },
+  "login": {
+    "label": "Login",
+    "username": {
+      "label": "Username/Email",
+      "registerUsername": "Username",
+      "validate": {
+        "between": "Username must contain 1 to 50 characters!",
+        "whitespace": "Username can't contain only white spaces!",
+        "invalidData": "Invalid Fields!"
+      }
+    },
+    "email": {
+      "label": "Email",
+      "validate": {
+        "between": "Email must contain 5 to 50 characters!",
+        "emailFormat": "Email must be a valid email address format!",
+        "whitespace": "Email can't contain only white spaces!",
+        "notExist": "Email is not existing!"
+      },
+      "reset": {
+        "success": "A temporary password has been sent to your email"
+      }
+    },
+    "password": {
+      "label": "Password",
+      "forget": "Forget password?",
+      "validate": {
+        "notmatched": "Password is not matched!",
+        "between": "Password must contain 6 to 50 characters!"
+      },
+      "reset": {
+        "label": "Reset Password",
+        "success": "Password has been reset successfully",
+        "error": "Can't update password. Your input data is invalid!"
+      }
+    },
+    "passcode": {
+      "label": "Reset Passcode",
+      "validate": {
+        "required": "Reset Passcode is required!"
+      }
+    },
+    "confirmPassword": {
+      "label": "Confirm password",
+      "validate": {
+        "notmatched": "Password is not matched!",
+        "between": "Confirm password must contain 6 to 50 characters!"        
+      }
+    },
+    "resetPassword": {
+      "label": "Request Reset Password"
+    },
+    "google": {
+      "label": "Sign in with Google"
+    },
+    "facebook": {
+      "label": "Sign in with Facebook"
+    }
+  },
+  "item": {
+    "delete": {
+      "success": "Item deleted!",
+      "error": "Deleting item failed!"
+    },
+    "upload": {
+      "address": {
+        "address1": "Address",
+        "address2": "Address 2",
+        "city": "City",
+        "state": "State",
+        "country": "Country",
+        "validate": {
+          "required": "Address must contain 1 to 50 characters!",
+          "zipcodeRequired": "Zip code must contain 1 to 10 characters!",
+          "countryRequired": "Country must contain 1 to 20 characters!",
+          "stateRequired": "State must contain 1 to 20 characters!",
+          "cityRequired": "City must contain 1 to 20 characters!"
+        }
+      },
+      "price": {
+        "validate": {
+          "negative": "Price can't be a negative number!"
+        }
+      },
+      "income": {
+        "label": "Income/month",
+        "validate": {
+          "min": "Income can't be a negative number!"
+        }
+      },
+      "rent": {
+        "label": "Rent/month",
+        "validate": {
+          "min": "Rent can't be a negative number!"
+        }
+      },
+      "area": {
+        "label": "Area (sq.ft)",
+        "validate": {
+          "min": "Area can't be a negative number!"
+        }
+      },
+      "otherCost": {
+        "label": "Other cost/month",
+        "validate": {
+          "min": "Other cost can't be negative number!"
+        }
+      },
+      "noOfEmployees": {
+        "label": "Number of employees",
+        "validate": {
+          "min": "Number of employess can't be a negative number!"
+        }
+      },
+      "noOfTables": {
+        "label": "Number of tables",
+        "validate": {
+          "min": "Number of tables can't be a negative number!"
+        }
+      },
+      "noOfChairs": {
+        "label": "Number of chairs",
+        "validate": {
+          "min": "Number of chairs can't be a negative number!"
+        }
+      },
+      "leaseEnd": {
+        "label": "Lease end"
+      },
+      "yearsOld": {
+        "label": "Years in business",
+        "yearLabel": "year",
+        "yearLabels": "year",
+        "orMore": "or more"
+      },
+      "contactPhone": {
+        "label": "Contact phone",
+        "validate": {
+          "mask": "Phone number must have this format +xx (xxx) xxx-xxxx. Example USA phone number is +01 (987) 654-3210"
+        }
+      },
+      "contactEmail": {
+        "label": "Contact email",
+        "validate": {
+          "emailFormat": "Email must be a valid email address format!",
+          "pattern": "Email must be not longer than 50 characters!"
+        }
+      },
+      "title": {
+        "validate": {
+          "required": "Title must contain 5 to 50 characters!"
+        }
+      },
+      "business": {
+        "validate": {
+          "required": "Title must contain 1 to 50 characters!"
+        }
+      },
+      "category": {
+        "nailSalon": "Nail Salon",
+        "hairSalon": "Hair Salon",
+        "restaurent": "Restaurent",
+        "house": "House",
+        "otherBusiness": "Other Business"
+      },
+      "tag": {
+        "label": "Tag"
+      },
+      "overview": {
+        "label": "Overview",
+        "validate": {
+          "maxLength": "Overview can't have more than 180 characters!"
+        }
+      },
+      "description": {
+        "label": "Description",
+        "validate": {
+          "maxLength": "Description can't have more than 1000 characters!"
+        }
+      },
+      "picture": {
+        "label": "Picture/Video",
+        "validate": {
+          "required": "Please select files!",
+          "largeFile": "File can't be larger than 1GB!"
+        },
+        "select": {
+          "label": "Select files"
+        }
+      },
+      "duration": {
+        "label": "Duration",
+        "monthLabel": "month",
+        "monthsLabel": "months"
+      }
+    }
+  },
+  "comment": {
+    "reply": {
+      "more": "More replies"
+    },
+    "add": {
+      "error": "Failed to add comment. Please try again!",
+      "emptyError": "Please enter non-empty comment!"
+    },
+    "update": {
+      "error": "Failed to update comment. Please try again!"
+    },
+    "more": {
+      "label": "More comments"
+    },
+    "delete": {
+      "success": "Comment deleted!",
+      "error": "Deleting comment failed!"
+    }
+  },
   "home": {
     "topHeader": {
       "business": "Business",
       "hiring": "Hiring",
       "forSale": "Sales"
+    }
+  },
+  "admin": {
+    "report": {
+      "label": "Report",
+      "cancel": {
+        "label": "Cancel report",
+        "success": "Report canceled!",
+        "error": "Couldn't cancel report!"
+      },
+      "delete": {
+        "label": "Delete reported item",
+        "success": "Accepted report and deleted!",
+        "error": "Deleting report failed!"
+      },
+      "create": {
+        "label": "Create report",
+        "success": "Report created!",
+        "error": "Creating report failed!"
+      }
+    },
+    "comment": {
+      "delete": {
+        "success": "Accepted report and deleted!",
+        "error": "Deleting comment failed!"
+      }
+    }
+  },
+  "user": {
+    "update": {
+      "error": "Update failed. Something wrong happened!",
+      "birthDay": "Birthday",
+      "gender": "Gender",
+      "genderMale": "Male",
+      "genderFemale": "Female",
+      "nationality": "Nationality",
+      "updateError": "Failed to update profile!. Please try again later."
     }
   }
 }

@@ -8,6 +8,7 @@ import { IItem } from '../shared/model/item';
 import { CommentComponent } from '../comment/comment.component';
 import { ItemService } from '../shared/services/item.services';
 import { CommentService } from '../shared/services/comment.services';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comments',
@@ -32,6 +33,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private _commentSvc: CommentService,
     private _commSvc: CommunicateService,
     public authSvc: AuthService,
+    private _translate: TranslateService,
     private _toastr: ToastrService) {
 
   }
@@ -81,7 +83,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
       if (this.edittingCommentIdx > index) {
         this.edittingCommentIdx--;
       }
-      this._toastr.success("Comment deleted!");
+      this._toastr.success(this._translate.instant("comment.delete.success"));
+    }, err => {
+      this._toastr.error(this._translate.instant("comment.delete.error"));
     });
   }
 

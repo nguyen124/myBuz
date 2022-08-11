@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../shared/services/security/auth.service';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +11,7 @@ export class HeaderComponent {
 
   @Output() languageEmitter: EventEmitter<any> = new EventEmitter();
   language: string = 'Tiếng Việt';
-  constructor(public authSvc: AuthService, private _router: Router, private translate: TranslateService) {
-    this.translate.setDefaultLang('vn');
-    this.translate.use('vn');
+  constructor(public authSvc: AuthService, private _router: Router) {
   }
 
   logout() {
@@ -26,7 +23,6 @@ export class HeaderComponent {
 
   useLanguage(value: string) {
     this.language = value === 'en' ? 'English' : 'Tiếng Việt';
-    this.translate.setDefaultLang(value);
-    this.translate.use(value);
+    this.languageEmitter.emit(value);
   }
 }
