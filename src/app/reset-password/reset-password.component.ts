@@ -36,6 +36,9 @@ export class ResetPasswordComponent implements OnInit {
 
   requestResetPassword() {
     this.submitted = true;
+    if (this.resetPasswordForm.invalid) {
+      return;
+    }
     this.error = null;
     this._userSvc.requestResetPassword(this.f.email.value).subscribe(res => {
       if (!res) {

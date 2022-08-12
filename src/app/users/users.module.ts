@@ -5,6 +5,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../app.module';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,14 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animation: false
-    })
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   exports: [
 

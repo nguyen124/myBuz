@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
       username: ['', [this._systemSvc.nonSpaceString, Validators.pattern(/^.{1,50}$/)]],
-      password: ['', [Validators.required]]
+      password: ['', []]
     })
   }
 

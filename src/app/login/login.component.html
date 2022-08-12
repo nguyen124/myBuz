@@ -18,11 +18,7 @@
 
             <div class="form-label-group mb-3">
               <label class="text-primary" for="password">{{"login.password.label" | translate}}</label>
-              <input type="password" formControlName="password" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="on" />
-              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">{{"login.password.validate.required" | translate}}</div>
-              </div>
+              <input type="password" formControlName="password" class="form-control"/>
             </div>
 
             <div class="row">
