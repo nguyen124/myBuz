@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 import { GoogleMapService } from '../shared/services/google-map.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var firebase: any;
 declare var google: any;
@@ -44,7 +45,8 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _router: Router,
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,
-    private _toastr: ToastrService) {
+    private _toastr: ToastrService,
+    private _translate: TranslateService) {
     this.itemForm = this._fb.group({});
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
   }
@@ -67,7 +69,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       noOfChairs: [0, []],
       noOfTables: [0, []],
       contactPhoneNo: ['', []],
-      contactEmail: ['', ],
+      contactEmail: ['',],
       income: [0, []],
       rentCost: [0, []],
       otherCost: [0, []],
@@ -275,7 +277,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {      
     // });
     if (uploadTask) {
-      that._toastr.success("Upload finished!")
+      that._toastr.success(this._translate.instant("uploading.validate.success"));
       let bucketName = isDevMode() ? environment.bucketname : prodEnvironment.bucketname;
       let downloadURL = 'https://storage.googleapis.com/' + bucketName + '/' + uploadTask.snapshot.metadata.fullPath;
 
@@ -316,9 +318,8 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       };
       //append charge info into item
 
-      that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {
-        console.log(newItem);
-        that._toastr.success("Thông Tin Mới Đã Được Cập Nhật!");
+      that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {        
+        that._toastr.success(this._translate.instant("item.update.validate.success"));
         that._router.navigate(["/user/items"]);
       }, (err: any) => {
         that.handleError(err, that);
@@ -334,7 +335,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
 
     switch (snapshot.state) {
       case firebase.storage.TaskState.PAUSED: // or 'paused'
-        that._toastr.info('Upload is paused');
+        that._toastr.info(this._translate.instant("item.update.validate.uploadingPaused"));
         break;
       case firebase.storage.TaskState.RUNNING: // or 'running'
         //this._toastr.info('Upload is running');
@@ -343,7 +344,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   }
 
   handleError(err, that) {
-    that._toastr.error("Oops! Không Thể Cập Nhật!");
+    that._toastr.error(this._translate.instant("item.update.validate.error"));
     console.log(err);
   }
 
@@ -352,15 +353,15 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
     switch (error.code) {
       case 'storage/unauthorized':
-        that._toastr.error("Storage permission denied!");
+        that._toastr.error(this._translate.instant("item.update.validate.storageUnauthorized"));
         break;
 
       case 'storage/canceled':
-        that._toastr.error("Upload canceled!");
+        that._toastr.error(this._translate.instant("item.update.validate.uploadCancel"));
         break;
 
       case 'storage/unknown':
-        that._toastr.error("Unknown error in storage!");
+        that._toastr.error(this._translate.instant("item.update.validate.unknownError"));
         break;
     }
   }

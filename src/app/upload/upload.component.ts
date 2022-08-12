@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 import { CheckoutService } from '../shared/services/checkout.service';
 import { GoogleMapService } from '../shared/services/google-map.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var firebase: any;
 declare var google: any;
@@ -51,6 +52,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     private _fb: FormBuilder,
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,
+    private _translate: TranslateService,
     @Inject(JQ_TOKEN) private $: any) {
 
   }
@@ -308,7 +310,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
     switch (snapshot.state) {
       case firebase.storage.TaskState.PAUSED: // or 'paused'
-        that._toastr.info('Upload is paused');
+        that._toastr.info(this._translate.instant("item.update.validate.uploadingPaused"));
         break;
       case firebase.storage.TaskState.RUNNING: // or 'running'
         //this._toastr.info('Upload is running');
@@ -319,7 +321,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
   handleSuccess(uploadTask, uploadedResults, that) {
     // Upload completed successfully, now we can get the download URL
     that.isUploading = false;
-    that._toastr.success("Upload finished!")
+    that._toastr.success(this._translate.instant("uploading.validate.success"));
     // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
 
     // });
@@ -366,7 +368,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
       //append charge info into item
 
       that._itemSvc.createItem(item).subscribe((newItem: any) => {
-        that._toastr.success("Bài Đăng Đã Được Tạo!");
+        that._toastr.success(this._translate.instant("item.upload.validate.success"));
         that._router.navigate(["/user/items"]);
       }, (err: any) => {
         that.cancelCharge(that);
@@ -380,21 +382,21 @@ export class UploadComponent implements OnInit, AfterViewInit {
     // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
     switch (error.code) {
       case 'storage/unauthorized':
-        that._toastr.error("Storage permission denied!");
+        that._toastr.error(this._translate.instant("item.update.validate.storageUnauthorized"));
         break;
 
       case 'storage/canceled':
-        that._toastr.error("Upload canceled!");
+        that._toastr.error(this._translate.instant("item.update.validate.uploadCancel"));
         break;
 
       case 'storage/unknown':
-        that._toastr.error("Unknown error in storage!");
+        that._toastr.error(this._translate.instant("item.update.validate.unknownError"));
         break;
     }
   }
 
   handleError(err, that) {
-    that._toastr.error("Oops! Failed to create post!");
+    that._toastr.error(this._translate.instant("item.upload.validate.error"));
     console.log(err);
   }
 

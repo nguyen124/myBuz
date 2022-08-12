@@ -53,6 +53,9 @@
   "uploading": {
     "media": {
       "error": "Không thể úp hình. Vui lòng thử lại!"
+    },
+    "validate": {
+      "success": "Tải lên hoàn thành!"
     }
   },
   "login": {
@@ -101,7 +104,7 @@
       "label": "Mật khẩu xác nhận",
       "validate": {
         "notmatched": "Mật khẩu không khớp!",
-        "between": "Mật khẩu xác nhận phải chứa 6 đến 50 kí tự!"        
+        "between": "Mật khẩu xác nhận phải chứa 6 đến 50 kí tự!"
       }
     },
     "resetPassword": {
@@ -255,6 +258,20 @@
         "label": "Thời hạn",
         "monthLabel": "tháng",
         "monthsLabel": "tháng"
+      },
+      "validate": {
+        "success": "Bài đăng đã được tạo!",
+        "error": "Đăng bài không thành công!"
+      }
+    },
+    "update": {
+      "validate": {
+        "success": "Bài đăng đã được cập nhật!",
+        "error": "Cập nhật bài đăng không thành công!",
+        "storageUnauthorized": "Không có quyền cập nhật vào kho lưu trữ!",
+        "uploadCancel": "Hủy tải lên!",
+        "unknownError": "Lỗi xảy ra trong kho lưu trữ!",
+        "uploadingPaused": "Tạm dừng tải lên!"
       }
     }
   },
@@ -318,7 +335,8 @@
       "genderMale": "Name",
       "genderFemale": "Nữ",
       "nationality": "Quốc gia",
-      "updateError": "Không thể cập nhật thông tin. Vui lòng thử lại!"
+      "updateError": "Không thể cập nhật thông tin. Vui lòng thử lại!",
+      "uploadingAvatarError": "Không thể thay đổi ảnh đại diện. Vui lòng thử lại"
     }
   }
 }

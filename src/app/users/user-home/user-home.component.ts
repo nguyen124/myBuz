@@ -140,14 +140,14 @@ export class UserHomeComponent implements OnInit {
       }, err => {
         this.isUploading = false;
         this.error = err;
-        this._toastr.error("Failed to upload profile avatar to server!. Please try again later.")
+        this._toastr.error(this._translate.instant("user.update.uploadingAvatarError"));        
       })
     } else {
       this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
         this.afterUpdate(result);
       }, err => {
         this.error = err;
-        this._toastr.error("Failed to update profile!. Please try again later.")
+        this._toastr.error(this._translate.instant("user.update.updateError"));
       });
     }
   }

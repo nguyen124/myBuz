@@ -53,6 +53,9 @@
   "uploading": {
     "media": {
       "error": "Failed to upload picture. Please try again!"
+    },
+    "validate": {
+      "success": "Upload finished!"
     }
   },
   "login": {
@@ -255,6 +258,20 @@
         "label": "Duration",
         "monthLabel": "month",
         "monthsLabel": "months"
+      },
+      "validate": {
+        "success": "Your post has been created!",
+        "error": "Creating post failed!"
+      }
+    },
+    "update": {
+      "validate": {
+        "success": "Your post has been updated!",
+        "error": "Updating post failed!",
+        "storageUnauthorized": "Storage permission denied!",
+        "uploadCancel": "Upload canceled!",
+        "unknownError": "Unknown error in storage!",
+        "uploadingPaused": "Uploading is paused!"
       }
     }
   },
@@ -318,7 +335,8 @@
       "genderMale": "Male",
       "genderFemale": "Female",
       "nationality": "Nationality",
-      "updateError": "Failed to update profile!. Please try again later."
+      "updateError": "Failed to update profile!. Please try again later.",
+      "uploadingAvatarError": "Failed to upload profile avatar to server!. Please try again later."
     }
   }
 }
