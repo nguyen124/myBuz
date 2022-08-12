@@ -36,13 +36,13 @@ const appRoutes: Routes = [
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     },
-    {
-        path: 'nodes',
-        loadChildren: () => import('./nodes-module/nodes.module').then(m => m.NodesModule)
-    },
+    // {
+    //     path: 'nodes',
+    //     loadChildren: () => import('./nodes-module/nodes.module').then(m => m.NodesModule)
+    // },
     {
         path: '',
-        redirectTo: 'items',
+        redirectTo: 'items?temp=cold&page=0&perPage=40',
         pathMatch: 'full'
     }
 ];

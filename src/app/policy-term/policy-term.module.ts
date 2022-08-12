@@ -8,6 +8,9 @@ import { DoNotSellComponent } from './do-not-sell/do-not-sell.component';
 import { TosComponent } from './tos/tos.component';
 import { RulesComponent } from './rules/rules.component';
 import { ReferencesComponent } from './references/references.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../app.module';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -23,7 +26,14 @@ import { ReferencesComponent } from './references/references.component';
   ],
   imports: [
     CommonModule,
-    PolicyTermRoutingModule
+    PolicyTermRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
 

@@ -1,93 +1,324 @@
 {
   "common": {
-    "edit": {
-      "label": "Edit"
-    },
-    "delete": {
-      "label": "Delete"
-    },
     "audio": {
-      "warning": "Your browser does not support the audio element."
+      "warning": "Trình duyệt của bạn không hổ trợ âm thanh."
     },
     "blob": {
-      "error": "Your browser does not support Blob URLs."
+      "error": "Trình duyệt của bạn không hổ trợ Blob URLs."
     },
-    "policies": {
-      "label": "Policies"
-    },
-    "terms": {
-      "label": "Terms"
-    },
-    "rules": {
-      "label": "Rules"
+    "video": {
+      "error": "Trình duyệt của bạn không hổ trợ định dạng video này."
     },
     "label": {
-      "profile": "Thông Tin",
-      "posts": "Bài Đăng",
-      "logout": "Đăng Xuất"
+      "edit": "Chỉnh",
+      "create": "Tạo",
+      "delete": "Xóa",
+      "cancel": "Hủy",
+      "policies": "Quy tắc",
+      "terms": "Điều lệ",
+      "rules": "Luật lệ",
+      "profile": "Thông tin cá nhân",
+      "posts": "Bài đăng của tôi",
+      "logout": "Đăng xuất",
+      "register": "Đăng kí",
+      "myItems": "Các bài đăng của tôi",
+      "next": "Tiếp",
+      "submit": "Gửi",
+      "update": "Cập nhật",
+      "item": "Bài",
+      "comment": "Bình luận",
+      "reason": "Lý do",
+      "title": "Tiêu đề",
+      "business": "Tiệm",
+      "category": "Loại",
+      "price": "Giá",
+      "address": "Địa chỉ",
+      "zipcode": "Mã vùng",
+      "country": "Quốc gia",
+      "state": "Bang/Tỉnh",
+      "city": "Thành phố"
+    }
+  },
+  "policy": {
+    "term": {
+      "doNotSellPart1": "Gửi email đến",
+      "doNotSellPart2:": "với tiêu đề \"DO NOT SELL\" để hủy đăng kí bán thông tin."
+    }
+  },
+  "notificatoin": {
+    "label": {
+      "more": "Thêm..."
     }
   },
   "uploading": {
     "media": {
-      "error": "Failed to upload picture. Please try again!"
+      "error": "Không thể úp hình. Vui lòng thử lại!"
+    }
+  },
+  "login": {
+    "label": "Đăng nhập",
+    "username": {
+      "label": "Tài khoản/Email",
+      "registerUsername": "Tài khoản",
+      "validate": {
+        "between": "Tài khoản phải chứa 1 đến 50 kí tự!",
+        "whitespace": "Tài khoản không được chứa mỗi khoản trắng!",
+        "invalidData": "Dữ liệu không hợp lệ!"
+      }
+    },
+    "email": {
+      "label": "Email",
+      "validate": {
+        "between": "Email phải chứa 5 đến 50 kí tự!",
+        "emailFormat": "Email phải đúng định dạng!",
+        "whitespace": "Email không được chứa mỗi khoản trắng!",
+        "notExist": "Email không tồn tại!"
+      },
+      "reset": {
+        "success": "Mật khẩu tạm đã được gửi đến email của bạn."
+      }
+    },
+    "password": {
+      "label": "Mật khẩu",
+      "forget": "Quên mật khẩu?",
+      "validate": {
+        "notmatched": "Mật khẩu không khớp!",
+        "between": "Mật khẩu phải chứa 6 đến 50 kí tự!"
+      },
+      "reset": {
+        "label": "Tạo mật khẩu mới",
+        "success": "Mật khẩu mới đã được cập nhật thành công",
+        "error": "Xin lỗi không thể hoàn thành yêu cầu tạo mới mật khẩu của bạn!"
+      }
+    },
+    "passcode": {
+      "label": "Mã xác nhận",
+      "validate": {
+        "required": "Vui lòng điền mã xác nhận!"
+      }
+    },
+    "confirmPassword": {
+      "label": "Mật khẩu xác nhận",
+      "validate": {
+        "notmatched": "Mật khẩu không khớp!",
+        "between": "Mật khẩu xác nhận phải chứa 6 đến 50 kí tự!"        
+      }
+    },
+    "resetPassword": {
+      "label": "Yêu cầu khôi phục mật khẩu"
+    },
+    "google": {
+      "label": "Đăng nhập bằng Google"
+    },
+    "facebook": {
+      "label": "Đăng nhập bằng Facebook"
+    }
+  },
+  "register": {
+    "validate": {
+      "error": "Xin lỗi không thể đăng kí. Vui lòng thử lại!",
+      "invalidData": "Dữ liệu không hợp lệ!"
     }
   },
   "item": {
-    "label": "Item"
+    "delete": {
+      "success": "Bài đã được xóa!",
+      "error": "Xóa bài không thành công!"
+    },
+    "upload": {
+      "address": {
+        "address1": "Địa chỉ",
+        "address2": "Địa chỉ 2",
+        "city": "Thành phố",
+        "state": "Bang/Tỉnh",
+        "country": "Quốc gia",
+        "validate": {
+          "required": "Địa chỉ phải chứa 1 đến 50 kí tự!",
+          "zipcodeRequired": "Mã vùng phải chứa 1 đến 10 kí tự!",
+          "countryRequired": "Quốc gia phải chứa 1 đến 20 kí tự!",
+          "stateRequired": "Bang/tỉnh phải chứa 1 đến 20 kí tự!",
+          "cityRequired": "Thành phố phải chứa 1 đến 20 kí tự!"
+        }
+      },
+      "price": {
+        "validate": {
+          "negative": "Giá không thể là số âm!"
+        }
+      },
+      "income": {
+        "label": "Thu nhập/tháng",
+        "validate": {
+          "min": "Thu nhập không thể là số âm!"
+        }
+      },
+      "rent": {
+        "label": "Tiền thuê/tháng",
+        "validate": {
+          "min": "Tiền thuê không thể là số âm!"
+        }
+      },
+      "area": {
+        "label": "Diện tích (sq.ft)",
+        "validate": {
+          "min": "Diện tích không thể là số âm!"
+        }
+      },
+      "otherCost": {
+        "label": "Chi phí khác/tháng",
+        "validate": {
+          "min": "Chi phí khác can't be negative number!"
+        }
+      },
+      "noOfEmployees": {
+        "label": "Số nhân viên",
+        "validate": {
+          "min": "Số nhân viên không thể là số âm!"
+        }
+      },
+      "noOfTables": {
+        "label": "Số bàn",
+        "validate": {
+          "min": "Số bàn không thể là số âm!"
+        }
+      },
+      "noOfChairs": {
+        "label": "Số ghế",
+        "validate": {
+          "min": "Số ghế không thể là số âm!"
+        }
+      },
+      "leaseEnd": {
+        "label": "Hợp đồng thuê hết vào"
+      },
+      "yearsOld": {
+        "label": "Tuổi tiệm",
+        "yearLabel": "năm",
+        "yearsLabel": "năm",
+        "orMore": "hoặc hơn"
+      },
+      "contactPhone": {
+        "label": "Điện thoại",
+        "validate": {
+          "mask": "Điện thoại phải có định dạng +xx (xxx) xxx-xxxx. Ví dụ số đt USA là +01 (987) 654-3210"
+        }
+      },
+      "contactEmail": {
+        "label": "Email liên lạc",
+        "validate": {
+          "emailFormat": "Email phải đúng định dạng!",
+          "pattern": "Email không được dài hơn 50 kí tự!"
+        }
+      },
+      "title": {
+        "validate": {
+          "required": "Tiêu đề phải chứa 5 đến 50 kí tự!"
+        }
+      },
+      "business": {
+        "validate": {
+          "required": "Tên tiệm phải chứa 1 đến 50 kí tự!"
+        }
+      },
+      "category": {
+        "nailSalon": "Tiệm nail",
+        "hairSalon": "Tiệm tóc",
+        "restaurent": "Nhà hàng",
+        "house": "Nhà cửa",
+        "otherBusiness": "Tiệm khác"
+      },
+      "tag": {
+        "label": "Thẻ"
+      },
+      "overview": {
+        "label": "Sơ lược",
+        "validate": {
+          "maxLength": "Sơ lược không dài quá 180 kí tự!"
+        }
+      },
+      "description": {
+        "label": "Chi tiết",
+        "validate": {
+          "maxLength": "Chi tiết không dài quá 1000 kí tự!"
+        }
+      },
+      "picture": {
+        "label": "Ảnh/Video",
+        "validate": {
+          "required": "Vui lòng chọn tập tin!",
+          "largeFile": "Tập tin không được lớn hơn 1GB!"
+        },
+        "select": {
+          "label": "Chọn tập tin"
+        }
+      },
+      "duration": {
+        "label": "Thời hạn",
+        "monthLabel": "tháng",
+        "monthsLabel": "tháng"
+      }
+    }
   },
   "comment": {
-    "label": "Comment",
     "reply": {
-      "more": "More replies"
+      "more": "Thêm..."
     },
     "add": {
-      "error": "Failed to add comment. Please try again!",
-      "emptyError": "Please enter non-empty comment!"
+      "error": "Không thể đăng bình luận. Vui lòng thử lại!",
+      "emptyError": "Vui lòng không đăng bình luận trống!"
     },
     "update": {
-      "error": "Failed to update comment. Please try again!"
+      "error": "Không thể cập nhật bình luận. Vui lòng thử lại!"
     },
     "more": {
-      "label": "More comments"
+      "label": "Thêm..."
     },
     "delete": {
-      "success": "Comment deleted!",
-      "error": "Deleting comment failed!"
+      "success": "Đã xóa bình luận!",
+      "error": "Xóa bình luận không thành công!"
     }
   },
   "home": {
     "topHeader": {
-      "business": "Bán Tiệm",
-      "hiring": "Tuyển Dụng",
-      "forSale": "Rao Vặt"
+      "business": "Bán tiệm",
+      "hiring": "Tuyển dụng",
+      "forSale": "Rao vặt"
     }
   },
   "admin": {
     "report": {
-      "reason": {
-        "label": "Reason"
-      },
+      "label": "Tố",
       "cancel": {
-        "label": "Cancel report",
-        "success": "Report canceled!",
-        "error": "Couldn't cancel report!"
+        "label": "Hủy bài tố",
+        "success": "Bài tố đã hủy!",
+        "error": "Không thể hủy bài tố!"
       },
       "delete": {
-        "label": "Delete reported item",
-        "success": "Accepted report and deleted!",
-        "error": "Deleting report failed!"
+        "label": "Xóa bài bị tố",
+        "success": "Đã chấp nhận bài tố và xóa!",
+        "error": "Không thể xóa bài tố!"
       },
       "create": {
-        "label": "Create report",
-        "success": "Report created!",
-        "error": "Creating report failed!"
+        "label": "Tạo bài tố",
+        "success": "Bài tố đã được tạo!",
+        "error": "Không thể taojn bài tố!"
       }
     },
     "comment": {
       "delete": {
-        "success": "Accepted report and deleted!",
-        "error": "Deleting comment failed!"
+        "success": "Đã chấp nhận bài tố và xóa!",
+        "error": "Không thể xóa bình luận!"
       }
+    }
+  },
+  "user": {
+    "update": {
+      "error": "Không thể cập nhật!",
+      "birthDay": "Ngày sinh",
+      "gender": "Giới tính",
+      "genderMale": "Name",
+      "genderFemale": "Nữ",
+      "nationality": "Quốc gia",
+      "updateError": "Không thể cập nhật thông tin. Vui lòng thử lại!"
     }
   }
 }

@@ -51,13 +51,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) {
-      this.error = { error: this._translate.instant("login.username.validate.invalidData") };
+      this.error = this._translate.instant("register.validate.invalidData");
       return;
     }
     this._userSvc.register(this.registerForm.value).subscribe(res => {
       this._router.navigate(["/login"]);
     }, err => {
-      this.error = err;
+      this.error = this._translate.instant("register.validate.error");
     });
   }
 }

@@ -5,7 +5,7 @@
     <div class="card card-signin my-5">
       <div class="card-body">
         <h5 class="card-title text-center text-success">{{"common.label.register" | translate}}</h5>
-        <h5 *ngIf="error" class="text-center text-danger">{{error.error}}</h5>
+        <h5 *ngIf="error" class="text-center text-danger">{{error}}</h5>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="on">
           <div class="form-group">
             <label class="text-primary">{{"login.username.registerUsername" | translate}}</label>
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="form-group">
-            <button class="btn btn-success" type="submit">{{"common.label.register"}}</button>
+            <button class="btn btn-success" type="submit">{{"common.label.register" | translate}}</button>
           </div>
         </form>
       </div>

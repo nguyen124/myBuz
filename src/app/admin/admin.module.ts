@@ -5,6 +5,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { AdminComponent } from './admin/admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ReasonPipe } from '../shared/pipe/reason.pipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../app.module';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,14 @@ import { ReasonPipe } from '../shared/pipe/reason.pipe';
     ReactiveFormsModule,
     FormsModule,
     ToastrModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
 

@@ -7,7 +7,7 @@
       "error": "Your browser does not support Blob URLs."
     },
     "video": {
-      "error": "I'm sorry; your browser doesn't support this video format."
+      "error": "Your browser does not support this video format."
     },
     "label": {
       "edit": "Edit",
@@ -63,7 +63,7 @@
       "validate": {
         "between": "Username must contain 1 to 50 characters!",
         "whitespace": "Username can't contain only white spaces!",
-        "invalidData": "Invalid Fields!"
+        "invalidData": "Invalid data!"
       }
     },
     "email": {
@@ -88,7 +88,7 @@
       "reset": {
         "label": "Reset Password",
         "success": "Password has been reset successfully",
-        "error": "Can't update password. Your input data is invalid!"
+        "error": "Sorry can't complete your password reset request!"
       }
     },
     "passcode": {
@@ -101,7 +101,7 @@
       "label": "Confirm password",
       "validate": {
         "notmatched": "Password is not matched!",
-        "between": "Confirm password must contain 6 to 50 characters!"        
+        "between": "Confirm password must contain 6 to 50 characters!"
       }
     },
     "resetPassword": {
@@ -112,6 +112,12 @@
     },
     "facebook": {
       "label": "Sign in with Facebook"
+    }
+  },
+  "register": {
+    "validate": {
+      "error": "Sorry can't complete your register. Please try again!",
+      "invalidData": "Invalid data!"
     }
   },
   "item": {
@@ -187,7 +193,7 @@
       "yearsOld": {
         "label": "Years in business",
         "yearLabel": "year",
-        "yearLabels": "year",
+        "yearsLabel": "years",
         "orMore": "or more"
       },
       "contactPhone": {
