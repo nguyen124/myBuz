@@ -36,6 +36,10 @@ const appRoutes: Routes = [
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     },
+    {
+        path: 'hiring',
+        loadChildren: () => import('./hiring/hiring.module').then(m => m.HiringModule)
+    },
     // {
     //     path: 'nodes',
     //     loadChildren: () => import('./nodes-module/nodes.module').then(m => m.NodesModule)
