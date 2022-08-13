@@ -9,6 +9,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  itemsActive: boolean = true;
+  hiringActive: boolean = false;
+  licenseActive: boolean = false;
+  PER_PAGE = 40;
 
   @Output() languageEmitter: EventEmitter<any> = new EventEmitter();
   language: string = 'Tiếng Việt';
@@ -27,5 +31,11 @@ export class HeaderComponent {
   useLanguage(value: string) {
     this.language = value === 'en' ? 'English' : 'Tiếng Việt';
     this.languageEmitter.emit(value);
+  }
+
+  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
+    this.itemsActive = flag1;
+    this.hiringActive = flag2;
+    this.licenseActive = flag3;
   }
 }

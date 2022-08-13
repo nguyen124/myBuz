@@ -20,9 +20,7 @@ export class HomeComponent implements OnInit {
   currentLength: number;
   offset: number;
   actualPage: any = 0;
-  itemsActive: boolean = true;
-  hiringActive: boolean = false;
-  licenseActive: boolean = false;
+
   lastParams: any = null;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
@@ -40,12 +38,6 @@ export class HomeComponent implements OnInit {
       this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
     });
-  }
-
-  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
-    this.itemsActive = flag1;
-    this.hiringActive = flag2;
-    this.licenseActive = flag3;
   }
 
   getItems(params) {
