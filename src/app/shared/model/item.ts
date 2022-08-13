@@ -11,7 +11,6 @@ export interface IItem {
   noOfViews?: number;
   noOfComments?: number;
   hasUpvoted?: boolean;
-  hasDownvoted?: boolean;
   hasReported?: boolean;
   price: number;
   address: string;
