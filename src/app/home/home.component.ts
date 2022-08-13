@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
+import { LoggingService } from '../shared/services/system/logging.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _commSvc: CommunicateService,
+    private _logSvc: LoggingService,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -81,7 +83,7 @@ export class HomeComponent implements OnInit {
     }
     this.actualPage = this.offset + this.nextPage;
     var sending = Object.assign({}, this.params, { page: this.actualPage });
-    console.log("Offset: " + this.offset);
+    this._logSvc.log("Offset: " + this.offset);
     this._itemService.getItems(sending).subscribe((newItems: IItem[]) => {
       for (var i = 0; i < newItems.length; i++) {
         this.items[this.nextPage * this.params.perPage + i] = newItems[i];

@@ -13,6 +13,7 @@ import { environment as prodEnvironment } from '../../environments/environment.p
 import { CheckoutService } from '../shared/services/checkout.service';
 import { GoogleMapService } from '../shared/services/google-map.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LoggingService } from '../shared/services/system/logging.service';
 
 declare var firebase: any;
 declare var google: any;
@@ -53,6 +54,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,
     private _translate: TranslateService,
+    private _logSvc: LoggingService,
     @Inject(JQ_TOKEN) private $: any) {
 
   }
@@ -209,7 +211,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
           key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
           locale: 'auto',
           token: function (stripeToken: any) {
-            console.log(stripeToken)
+            this._logSvc.log(stripeToken);
           }
         });
       };
@@ -397,7 +399,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
   handleError(err, that) {
     that._toastr.error(this._translate.instant("item.upload.validate.error"));
-    console.log(err);
+    this._logSvc.log(err);
   }
 
   goBackToHomePage() {

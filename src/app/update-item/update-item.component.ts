@@ -10,6 +10,7 @@ import { environment as prodEnvironment } from '../../environments/environment.p
 import { GoogleMapService } from '../shared/services/google-map.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { LoggingService } from '../shared/services/system/logging.service';
 
 declare var firebase: any;
 declare var google: any;
@@ -46,7 +47,8 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,
     private _toastr: ToastrService,
-    private _translate: TranslateService) {
+    private _translate: TranslateService,
+    private _logSvc: LoggingService) {
     this.itemForm = this._fb.group({});
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
   }
@@ -318,7 +320,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       };
       //append charge info into item
 
-      that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {        
+      that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {
         that._toastr.success(this._translate.instant("item.update.validate.success"));
         that._router.navigate(["/user/items"]);
       }, (err: any) => {
@@ -345,7 +347,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
 
   handleError(err, that) {
     that._toastr.error(this._translate.instant("item.update.validate.error"));
-    console.log(err);
+    this._logSvc.log(err);
   }
 
   handleFirebaseUploadError(error, that) {
