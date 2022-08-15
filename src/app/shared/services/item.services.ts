@@ -13,30 +13,30 @@ export class ItemService {
     }
 
     getItems(params): Observable<IItem[]> {
-        return this._http.get<IItem[]>("/svc/items", { params: params });
+        return this._http.get<IItem[]>("/svc/business", { params: params });
     }
 
     deleteItem(id: string): Observable<any> {
-        return this._http.delete("/svc/items/" + id + "/delete");
+        return this._http.delete("/svc/business/" + id + "/delete");
     }
 
     updateItem(itemId: string, item: any): Observable<any> {
-        return this._http.put("/svc/items/" + itemId + "/update", item);
+        return this._http.put("/svc/business/" + itemId + "/update", item);
     }
 
     getItemById(itemId: string): Observable<IItem> {
-        return this._http.get<IItem>("/svc/items/" + itemId);
+        return this._http.get<IItem>("/svc/business/" + itemId);
     }
 
     upview(itemId: string): Observable<IItem> {
-        return this._http.post<IItem>("/svc/items/" + itemId + "/upview", {});
+        return this._http.post<IItem>("/svc/business/" + itemId + "/upview", {});
     }
 
     createItem(item): Observable<IItem> {
-        return this._http.post<IItem>("/svc/items/create", item);
+        return this._http.post<IItem>("/svc/business/create", item);
     }
 
     getCommentsOfItem(itemId: string, params): Observable<IComment[]> {
-        return this._http.get<IComment[]>("/svc/items/" + itemId + "/comments", { params: params });
+        return this._http.get<IComment[]>("/svc/business/" + itemId + "/comments", { params: params });
     }
 }

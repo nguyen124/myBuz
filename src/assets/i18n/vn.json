@@ -29,7 +29,7 @@
       "comment": "Bình luận",
       "reason": "Lý do",
       "title": "Tiêu đề",
-      "business": "Tiệm",
+      "business": "Tên tiệm",
       "category": "Loại",
       "price": "Giá",
       "address": "Địa chỉ",
@@ -45,7 +45,7 @@
       "doNotSellPart2:": "với tiêu đề \"DO NOT SELL\" để hủy đăng kí bán thông tin."
     }
   },
-  "notificatoin": {
+  "notification": {
     "label": {
       "more": "Thêm..."
     }

@@ -322,7 +322,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
 
       that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {
         that._toastr.success(this._translate.instant("item.update.validate.success"));
-        that._router.navigate(["/user/items"]);
+        that._router.navigate(["/user/business"]);
       }, (err: any) => {
         that.handleError(err, that);
       });
@@ -369,6 +369,6 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   }
 
   goBackToHomePage() {
-    this._router.navigate(["/items"]);
+    this._router.navigate(["/business"]);
   }
 }

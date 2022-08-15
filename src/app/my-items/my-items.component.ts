@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 })
 export class MyItemsComponent implements OnInit {
   items: IItem[];
-  baseUrl: string = "/user/items";
+  baseUrl: string = "/user/business";
   nextPage = 0;
   PER_PAGE = 40;
   params: any = {};

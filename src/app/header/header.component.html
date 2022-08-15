@@ -9,7 +9,7 @@
     <div class="d-inline" *ngIf="authSvc.isLoggedIn()">
       <!-- <create-node></create-node> -->
       <div class="btn-group">
-        <a id="createItemBtn" class="btn btn-xs btn-success mr-2" routerLink="/user/upload"><i
+        <a id="createItemBtn" class="btn btn-xs btn-success mr-2" [routerLink]="getPostLink()"><i
             class="fa fa-plus"></i></a>
         <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
             class="fa fa-plus"></i></button> -->
@@ -20,7 +20,7 @@
         </button>
         <div class="dropdown-menu">
           <a routerLink="/user/profile" class="ml-1 d-block">{{"common.label.profile" | translate}}</a>
-          <a routerLink="/user/items" class="ml-1 d-block">{{"common.label.posts" | translate}}</a>
+          <a routerLink="/user/business" class="ml-1 d-block">{{"common.label.posts" | translate}}</a>
           <div class="dropdown-divider"></div>
           <a href="" (click)="logout()" class="ml-1">{{"common.label.logout" | translate}}</a>
         </div>
@@ -41,7 +41,7 @@
 
 <div class="row pb-1">
   <div class="col-md-4 col-xs-4 hot">
-    <a [routerLink]="'/items'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
+    <a [routerLink]="'/business'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
       (click)="setFlag(true, false, false)"><button class="btn w-100 pr-0 pl-0 rounded-0 border-0 hot"
         [ngClass]="{'font-weight-bold text-white font-24 round-right-16' : itemsActive}">
         {{'home.topHeader.business' | translate}}

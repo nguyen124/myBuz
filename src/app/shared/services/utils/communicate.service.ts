@@ -7,6 +7,11 @@ import { IComment } from '../../model/comment';
   providedIn: 'root'
 })
 export class CommunicateService {
+
+  itemsActive: boolean = true;
+  hiringActive: boolean = false;
+  saleActive: boolean = false;
+
   // Observable navItem source
   private _newItemSource = new BehaviorSubject<IItem>(null);
   private _newUploadedItemSource = new BehaviorSubject<IItem>(null);
@@ -31,5 +36,11 @@ export class CommunicateService {
   changeComment(comment: IComment) {
     this._newCommentSource.next(comment);
     this._newCommentSource.next(null);// trick to clear out comment being sending again
+  }
+
+  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
+    this.itemsActive = flag1;
+    this.hiringActive = flag2;
+    this.saleActive = flag3;
   }
 }

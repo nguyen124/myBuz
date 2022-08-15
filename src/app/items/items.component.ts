@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ItemsComponent {
   @Input() items: IItem[];
-  @Input() baseUrl: string = "/items";
+  @Input() baseUrl: string = "/business";
   @Input() isShowingTag: boolean = true;
   @Input() showMap = true;
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
@@ -39,6 +39,6 @@ export class ItemsComponent {
   }
 
   editItem(itemId: string) {
-    this._router.navigate(['/items/' + itemId + '/update']);
+    this._router.navigate(['/business/' + itemId + '/update']);
   }
 }

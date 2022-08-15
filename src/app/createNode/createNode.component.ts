@@ -171,7 +171,7 @@ export class CreateNodeComponent implements OnInit {
         if (modalDismiss && modalDismiss[0]) { modalDismiss.click(); }
         that._commSvc.uploadItem(newItem);
         that.resetFormValues();
-        that._router.navigate(["/user/items"]);
+        that._router.navigate(["/user/business"]);
       }, err => {
         that.handleError(err, that);
       });

@@ -52,7 +52,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   setMetaTags() {
     this.titleTagService.setTitle(this.item.title);
     this.titleTagService.setSocialMediaTags(
-      "https://me2meme.com/items?id=" + this.item._id,
+      "https://me2meme.com/business?id=" + this.item._id,
       this.item.title,
       this.item.description,
       this.getThumbNailImage());

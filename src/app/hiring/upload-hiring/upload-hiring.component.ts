@@ -1,29 +1,28 @@
-import { Component, OnInit, Inject, isDevMode, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ItemService } from '../shared/services/item.services';
-import { JQ_TOKEN } from '../shared/services/jQuery.service';
+import { Component, OnInit, Inject, isDevMode, ViewChild, ElementRef, } from '@angular/core';
+
 import { Router } from '@angular/router';
-import { SystemService } from '../shared/services/utils/system.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { CommunicateService } from '../shared/services/utils/communicate.service';
-import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
-import { AuthService } from '../shared/services/security/auth.service';
-import { environment } from '../../environments/environment';
-import { environment as prodEnvironment } from '../../environments/environment.prod';
-import { CheckoutService } from '../shared/services/checkout.service';
-import { GoogleMapService } from '../shared/services/google-map.service';
+import { SystemService } from 'src/app/shared/services/utils/system.service';
+import { CommunicateService } from 'src/app/shared/services/utils/communicate.service';
+import { CheckoutService } from 'src/app/shared/services/checkout.service';
+import { AuthService } from 'src/app/shared/services/security/auth.service';
+import { GoogleMapService } from 'src/app/shared/services/google-map.service';
 import { TranslateService } from '@ngx-translate/core';
-import { LoggingService } from '../shared/services/system/logging.service';
-
+import { LoggingService } from 'src/app/shared/services/system/logging.service';
+import { JQ_TOKEN } from 'src/app/shared/services/jQuery.service';
+import { FileValidatorDirective } from 'src/app/shared/directive/file-validator.directive';
+import { environment } from '../../../environments/environment';
+import { environment as prodEnvironment } from '../../../environments/environment.prod';
 declare var firebase: any;
 declare var google: any;
 
 @Component({
-  selector: 'app-upload',
-  templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.css']
+  selector: 'app-upload-hiring',
+  templateUrl: './upload-hiring.component.html',
+  styleUrls: ['./upload-hiring.component.css']
 })
-export class UploadComponent implements OnInit, AfterViewInit {
+export class UploadHiringComponent implements OnInit {
   parsedTags: string[] = [];
   itemForm: FormGroup;
   submitted = false;
@@ -44,7 +43,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
   @ViewChild('address2', { static: false }) address2: ElementRef;
 
   constructor(
-    private _itemSvc: ItemService,
     private _systemSvc: SystemService,
     private _commSvc: CommunicateService,
     private _toastr: ToastrService,
@@ -410,4 +408,5 @@ export class UploadComponent implements OnInit, AfterViewInit {
     this.toUploadFiles.splice(index, 1);
     return false;
   }
+
 }
