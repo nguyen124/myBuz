@@ -17,7 +17,8 @@
           <input type="text" formControlName="title" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('title') }">
           <div *ngIf="checkError('title')" class="invalid-feedback">
-            <div *ngIf="f.title.errors.pattern || f.title.errors.whitespace">{{"item.upload.title.validate.required" | translate}}</div>
+            <div *ngIf="f.title.errors.pattern || f.title.errors.whitespace">{{"item.upload.title.validate.required" |
+              translate}}</div>
           </div>
         </div>
       </div>
@@ -27,7 +28,8 @@
           <input type="text" formControlName="businessName" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('businessName') }">
           <div *ngIf="checkError('businessName')" class="invalid-feedback">
-            <div *ngIf="f.businessName.errors.pattern || f.businessName.errors.whitespace">{{"item.upload.business.validate.required" | translate}}</div>
+            <div *ngIf="f.businessName.errors.pattern || f.businessName.errors.whitespace">
+              {{"item.upload.business.validate.required" | translate}}</div>
           </div>
         </div>
       </div>
@@ -54,17 +56,19 @@
       <div class="row mb-1">
         <div class="col-md-9 mb-1">
           <label class="text-primary" for="address"><strong>{{"common.label.address" | translate}}</strong></label>
-          <input #autoAddress formControlName="address" class="form-control"
+          <input #autoAddress formControlName="address" class="form-control">
+          <!-- <input #autoAddress formControlName="address" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('address') }">
-          <div *ngIf="checkError('address')" class="invalid-feedback">
-            <div *ngIf="f.address.errors.pattern || f.address.errors.whitespace">{{"item.upload.address.validate.required" | translate}}</div>
-          </div>
+            <div *ngIf="checkError('address')" class="invalid-feedback">
+            <div *ngIf="f.address.errors.pattern">{{"item.upload.address.validate.required" | translate}}</div>
+          </div> -->
         </div>
         <div class="col-md-3 mb-1">
           <label class="text-primary" for="zipcode"><strong>{{"common.label.zipcode" | translate}}</strong></label>
           <input formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': checkError('zipcode') }">
           <div *ngIf="checkError('zipcode')" class="invalid-feedback">
-            <div *ngIf="f.zipcode.errors.pattern || f.zipcode.errors.whitespace">{{"item.upload.address.validate.zipcodeRequired" | translate}}</div>
+            <div *ngIf="f.zipcode.errors.pattern || f.zipcode.errors.whitespace">
+              {{"item.upload.address.validate.zipcodeRequired" | translate}}</div>
           </div>
         </div>
       </div>
@@ -81,21 +85,24 @@
           <label class="text-primary" for="country"><strong>{{"common.label.country" | translate}}</strong></label>
           <input formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': checkError('country') }">
           <div *ngIf="checkError('country')" class="invalid-feedback">
-            <div *ngIf="f.country.errors.pattern || f.country.errors.whitespace">{{"item.upload.address.validate.countryRequired" | translate}}</div>
+            <div *ngIf="f.country.errors.pattern || f.country.errors.whitespace">
+              {{"item.upload.address.validate.countryRequired" | translate}}</div>
           </div>
         </div>
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="state"><strong>{{"common.label.state" | translate}}</strong></label>
           <input #state formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': checkError('state') }">
           <div *ngIf="checkError('state')" class="invalid-feedback">
-            <div *ngIf="f.state.errors.pattern || f.state.errors.whitespace">{{"item.upload.address.validate.stateRequired" | translate}}</div>
+            <div *ngIf="f.state.errors.pattern || f.state.errors.whitespace">
+              {{"item.upload.address.validate.stateRequired" | translate}}</div>
           </div>
         </div>
         <div class="col-md-4 mb-1">
           <label class="text-primary" for="city"><strong>{{"common.label.city" | translate}}</strong></label>
           <input #city formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': checkError('city') }">
           <div *ngIf="checkError('city')" class="invalid-feedback">
-            <div *ngIf="f.city.errors.pattern || f.city.errors.whitespace">{{"item.upload.address.validate.cityRequired" | translate}}</div>
+            <div *ngIf="f.city.errors.pattern || f.city.errors.whitespace">{{"item.upload.address.validate.cityRequired"
+              | translate}}</div>
           </div>
         </div>
       </div>
@@ -195,8 +202,9 @@
           <input formControlName="contactPhoneNo" mask="+00 (000) 000-0000" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
           <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">
-            <div *ngIf="f.contactPhoneNo.errors.mask || f.contactPhoneNo.errors.whitespace">{{"item.upload.contactPhone.validate.mask" | translate}}
-            </div>            
+            <div *ngIf="f.contactPhoneNo.errors.mask || f.contactPhoneNo.errors.whitespace">
+              {{"item.upload.contactPhone.validate.mask" | translate}}
+            </div>
           </div>
         </div>
         <div class="col-md-6 mb-1">
@@ -205,7 +213,8 @@
           <input type="email" formControlName="contactEmail" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('contactEmail') }">
           <div *ngIf="checkError('contactEmail')" class="invalid-feedback">
-            <div *ngIf="f.contactEmail.errors.emailFormat">{{"item.upload.contactEmail.validate.emailFormat" | translate}}</div>
+            <div *ngIf="f.contactEmail.errors.emailFormat">{{"item.upload.contactEmail.validate.emailFormat" |
+              translate}}</div>
             <div *ngIf="f.contactEmail.errors.pattern">{{"item.upload.contactEmail.validate.pattern" | translate}}</div>
           </div>
         </div>
@@ -223,9 +232,11 @@
         </div>
       </div>
       <div class="row mb-1">
-        <div class="col-md-12 mb-1">          
-          <label class="text-primary" for="overview"><strong>{{"item.upload.overview.label" | translate}}</strong></label>          
-          <textarea rows="2" type="text" formControlName="overview" class="form-control" [ngClass]="{ 'is-invalid': checkError('overview') }"></textarea>
+        <div class="col-md-12 mb-1">
+          <label class="text-primary" for="overview"><strong>{{"item.upload.overview.label" |
+              translate}}</strong></label>
+          <textarea rows="2" type="text" formControlName="overview" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('overview') }"></textarea>
           <div *ngIf="checkError('overview')" class="invalid-feedback">
             <div *ngIf="f.overview.errors.pattern">{{"item.upload.overview.validate.maxLength" | translate}}</div>
           </div>
@@ -233,7 +244,8 @@
       </div>
       <div class="row mb-1">
         <div class="col-md-12 mb-1">
-          <label class="text-primary" for="description"><strong>{{"item.upload.description.label" | translate}}</strong></label>
+          <label class="text-primary" for="description"><strong>{{"item.upload.description.label" |
+              translate}}</strong></label>
           <ckeditor formControlName="description" [ngClass]="{ 'is-invalid': checkError('description') }"></ckeditor>
           <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
             <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" | translate}}</div>

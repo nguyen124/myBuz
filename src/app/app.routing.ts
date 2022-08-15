@@ -15,6 +15,7 @@ import { UpdateItemComponent } from './update-item/update-item.component';
 
 const appRoutes: Routes = [
     { path: 'business', component: HomeComponent },
+    { path: 'hiring', component: HomeComponent },
     { path: 'business/:itemId/update', component: UpdateItemComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },
@@ -35,10 +36,6 @@ const appRoutes: Routes = [
     {
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-    },
-    {
-        path: 'hiring',
-        loadChildren: () => import('./hiring/hiring.module').then(m => m.HiringModule)
     },
     // {
     //     path: 'nodes',

@@ -101,4 +101,20 @@ export class HomeComponent implements OnInit {
     this.nextPage = +event.target.value;
     this.loadNext();
   }
+
+  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
+    this._commSvc.setFlag(flag1, flag2, flag3);
+  }
+
+  get itemsActive(): boolean {
+    return this._commSvc.itemsActive;
+  }
+
+  get hiringActive(): boolean {
+    return this._commSvc.hiringActive;
+  }
+
+  get saleActive(): boolean {
+    return this._commSvc.saleActive;
+  }
 }

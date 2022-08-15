@@ -9,7 +9,7 @@
     <div class="d-inline" *ngIf="authSvc.isLoggedIn()">
       <!-- <create-node></create-node> -->
       <div class="btn-group">
-        <a id="createItemBtn" class="btn btn-xs btn-success mr-2" [routerLink]="getPostLink()"><i
+        <a id="createItemBtn" class="btn btn-xs btn-success mr-2" routerLink="/business/post"><i
             class="fa fa-plus"></i></a>
         <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#uploadModal"><i
             class="fa fa-plus"></i></button> -->
@@ -36,32 +36,5 @@
       <a class="ml-1 d-block" href="javascript:void(0)" (click)="useLanguage('vn')">Tiếng Việt</a>
       <a class="ml-1 d-block" href="javascript:void(0)" (click)="useLanguage('en')">English</a>
     </div>
-  </div>
-</div>
-
-<div class="row pb-1">
-  <div class="col-md-4 col-xs-4 hot">
-    <a [routerLink]="'/business'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
-      (click)="setFlag(true, false, false)"><button class="btn w-100 pr-0 pl-0 rounded-0 border-0 hot"
-        [ngClass]="{'font-weight-bold text-white font-24 round-right-16' : itemsActive}">
-        {{'home.topHeader.business' | translate}}
-      </button>
-    </a>
-  </div>
-  <div class="col-md-4 col-xs-4 warm">
-    <a [routerLink]="'/hiring'" (click)="setFlag(false, true, false)">
-      <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 warm"
-        [ngClass]="{'font-weight-bold text-white font-24 round-right-left-16' : hiringActive}">
-        {{'home.topHeader.hiring' | translate}}
-      </button>
-    </a>
-  </div>
-  <div class="col-md-4 col-xs-4 cold">
-    <a [routerLink]="'/hiring'" (click)="setFlag(false, false, true)">
-      <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 cold"
-        [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : licenseActive}">
-        {{'home.topHeader.forSale' | translate}}
-      </button>
-    </a>
   </div>
 </div>

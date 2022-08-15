@@ -142,7 +142,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
       categories: ['Nail_Salon'],
       tags: [''],
       price: [0, [Validators.min(0)]],
-      address: ['', [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
+      address: ['', [Validators.pattern(/^.{0,50}$/)]],
       address2: ['', [Validators.pattern(/^.{0,50}$/)]],
       zipcode: ['', [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
       city: ['', [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],

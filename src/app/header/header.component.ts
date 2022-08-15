@@ -24,8 +24,8 @@ export class HeaderComponent {
     this._translate.setDefaultLang('vn');
     this._translate.use('vn');
     this._router.events.subscribe((val: any) => {
-      if (val && val.route) {
-        switch (val.route.path) {
+      if (val.url) {
+        switch (val.url.split("\/")[1]) {
           case 'business': this._commSvc.setFlag(true, false, false); return;
           case 'hiring': this._commSvc.setFlag(false, true, false); return;
           case 'sale': this._commSvc.setFlag(false, false, true); return;
@@ -44,26 +44,5 @@ export class HeaderComponent {
   useLanguage(value: string) {
     this.language = value === 'en' ? 'English' : 'Tiếng Việt';
     this.languageEmitter.emit(value);
-  }
-
-  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
-    this._commSvc.setFlag(flag1, flag2, flag3);
-  }
-
-  get itemsActive(): boolean {
-    return this._commSvc.itemsActive;
-  }
-
-  get hiringActive(): boolean {
-    return this._commSvc.hiringActive;
-  }
-
-  get saleActive(): boolean {
-    return this._commSvc.saleActive;
-  }
-
-  getPostLink() {
-    if (this.itemsActive) return "/business/post";
-    if (this.hiringActive) return "/hiring/post"
   }
 }
