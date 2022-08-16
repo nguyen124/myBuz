@@ -38,7 +38,10 @@
       "country": "Country",
       "state": "State",
       "city": "City",
-      "wage": "Estimated pay/month"
+      "wage": "Estimated pay/month",
+      "createAds": "Create Ads",
+      "updateAds": "Update Ads",
+      "notice1": "(* is required fields)"
     }
   },
   "policy": {
@@ -196,7 +199,7 @@
         "label": "Lease end"
       },
       "yearsOld": {
-        "label": "Years in business",
+        "label": "Years of business/house",
         "yearLabel": "year",
         "yearsLabel": "years",
         "orMore": "or more"
@@ -227,7 +230,7 @@
       "category": {
         "nailSalon": "Nail Salon",
         "hairSalon": "Hair Salon",
-        "restaurent": "Restaurent",
+        "restaurant": "Restaurant",
         "house": "House",
         "lending": "Lending",
         "tax": "Tax",
@@ -238,17 +241,24 @@
         "otherBusiness": "Other Business/Services"
       },
       "needs": {
-        "forSale": "For sale",
+        "forSale": "Business for sale",
+        "houseForSale": "House for sale",
         "hiring": "Hiring",
         "buying": "Buying",
         "forLease": "For lease",
         "forShare": "For share",
+        "repair": "Repairing service",
+        "tax": "Tax service",
+        "insurance": "Insurance service",
+        "lending": "Lending service",
+        "babysit": "Babysitting service",
+        "teaching": "Teaching service",
         "validate": {
           "required": "Please select your needs!"
         }
       },
       "tag": {
-        "label": "Tag (skills, properties..)"
+        "label": "Tag (skills, properties... Ex: Power, Dip, Regular_Mani_Pedi)"
       },
       "overview": {
         "label": "Overview",

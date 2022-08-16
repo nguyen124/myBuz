@@ -40,6 +40,14 @@ export class UploadComponent implements OnInit, AfterViewInit {
   countryRestrict: any = { country: 'us' };
   autocompleteAddress: any;
   autocompleteZipcode: any;
+  needsOption = [];
+  needsMap: any = {
+    "forSale": false,
+    "forLease": false,
+    "forShare": false,
+    "hiring": false
+  };
+  categoriesMap: any = {};
 
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
@@ -157,7 +165,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
       title: ['', [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
       businessName: ['', [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-      categories: ['Nail_Salon'],
+      categories: [''],
       needs: [[], [Validators.required]],
       tags: [''],
       price: [0, [Validators.min(0)]],
@@ -177,15 +185,216 @@ export class UploadComponent implements OnInit, AfterViewInit {
       rentCost: [0, [Validators.min(0)]],
       otherCost: [0, [Validators.min(0)]],
       leaseEnd: [''],
-      yearOld: [1],
+      yearOld: [''],
       area: [0, [Validators.min(0)]],
       description: ['', [Validators.pattern(/^[\s\S]{0,1000}$/)]],
       overview: ['', [Validators.pattern(/^[\s\S]{0,180}$/)]],
       duration: [1]
     });
+    this.initCategoriesMap();
+    this.itemForm.get('categories').valueChanges.subscribe(value => {
+      this.initCategoriesMap();
+      this.populateNeeds(value);
+      this.categoriesMap[value] = true;
+    });
+    this.itemForm.get('needs').valueChanges.subscribe(value => {
+      this.initNeedsMap();
+      for (let v of value) {
+        this.needsMap[v] = true;
+      }
+    });
+  }
+
+  initCategoriesMap() {
+    this.categoriesMap = {
+      "Nail_Salon": false,
+      "Hair_Salon": false,
+      "Restaurant": false,
+      "House": false,
+      "Repair": false,
+      "Tax": false,
+      "Insurance": false,
+      "Lending": false,
+      "Babysit": false,
+      "Teaching": false,
+      "Other_Business": false,
+    };
+  }
+  initNeedsMap() {
+    this.needsMap = {
+      "forSale": false,
+      "forLease": false,
+      "forShare": false,
+      "hiring": false
+    };
+  }
+
+  populateNeeds(value) {
+    switch (value) {
+      case 'House': {
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.houseForSale" });
+        this.needsOption.push({ "key": "forLease", "value": "item.upload.needs.forLease" });
+        this.needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
+        break;
+      }
+      case 'Repair':
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.repair" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      case 'Tax':
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.tax" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      case 'Insurance':
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.insurance" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      case 'Lending': {
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.lending" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      }
+      case 'Babysit': {
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.babysit" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      }
+      case 'Teaching': {
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.teaching" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      }
+      default: {
+        this.needsOption = [];
+        this.f["needs"].reset([]);
+        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.forSale" });
+        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        this.needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
+      }
+    }
   }
 
   get f() { return this.itemForm.controls; }
+
+  get showPrice(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['House'] || this.categoriesMap['Restaurant'] ||
+      this.categoriesMap['Other_Business]']) && this.needsMap['forSale']) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showWage(): boolean {
+    return this.needsMap.hiring;
+  }
+
+  get showNoOfEmployees(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showNoOfChairs(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showNoOfTables(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showOfIncome(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showOfRent(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showOfOtherCost(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showOfLeaseEnd(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showOfArea(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['House']
+      || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
+
+  get showOfYearsOld(): boolean {
+    let result = false;
+    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
+      this.categoriesMap['Restaurant'] || this.categoriesMap['House']
+      || this.categoriesMap['Other_Business']) &&
+      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
+      result = true;
+    }
+    return result;
+  }
 
   checkError(field: string) {
     return this._systemSvc.checkError(this.itemForm, field, this.submitted);
@@ -431,18 +640,5 @@ export class UploadComponent implements OnInit, AfterViewInit {
   removePreviewMedia(index) {
     this.toUploadFiles.splice(index, 1);
     return false;
-  }
-
-  get showPrice(): boolean {
-    let result = false;
-    if (this.f && this.f.categories) {
-      let categories = this.f.categories.value;
-      if (categories === 'Nail_Salon' || categories === 'Hair_Salon' ||
-        categories === 'House' || categories === 'Restaurent' ||
-        categories === 'Other Business') {
-        result = true;
-      }
-    }
-    return result;
   }
 }

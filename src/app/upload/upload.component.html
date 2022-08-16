@@ -7,13 +7,14 @@
     </div>
   </div>
 </div> -->
-
+<h1 class="text-center text-primary pb-3">{{"common.label.createAds" | translate}}</h1>
 <form class="needs-validation" [formGroup]="itemForm" (ngSubmit)="createPost()" autocomplete="on">
   <div class="form-row">
     <div class="col-md-5 mb-1">
       <div class="form-row mb-1">
         <div class="col-md-12 mb-1">
-          <label class="text-primary"><strong>{{"common.label.title" | translate}}</strong></label>
+          <label class="text-primary"><strong>{{"common.label.title" | translate}}*</strong></label>
+          <label class="text-danger ml-2">{{"common.label.notice1" | translate}}</label>
           <input type="text" formControlName="title" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('title') }">
           <div *ngIf="checkError('title')" class="invalid-feedback">
@@ -24,7 +25,7 @@
       </div>
       <div class="form-row mb-1">
         <div class="col-md-12 mb-1">
-          <label class="text-primary"><strong>{{"common.label.business" | translate}}</strong></label>
+          <label class="text-primary"><strong>{{"common.label.business" | translate}}*</strong></label>
           <input type="text" formControlName="businessName" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('businessName') }">
           <div *ngIf="checkError('businessName')" class="invalid-feedback">
@@ -35,11 +36,11 @@
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-1">
-          <label class="text-primary" for="categories"><strong>{{"common.label.category" | translate}}</strong></label>
+          <label class="text-primary" for="categories"><strong>{{"common.label.category" | translate}}*</strong></label>
           <select formControlName="categories" class="custom-select">
             <option value="Nail_Salon">{{"item.upload.category.nailSalon" | translate}}</option>
             <option value="Hair_Salon">{{"item.upload.category.hairSalon" | translate}}</option>
-            <option value="Restaurent">{{"item.upload.category.restaurent" | translate}}</option>
+            <option value="Restaurant">{{"item.upload.category.restaurant" | translate}}</option>
             <option value="House">{{"item.upload.category.house" | translate}}</option>
             <option value="Repair">{{"item.upload.category.repair" | translate}}</option>
             <option value="Tax">{{"item.upload.category.tax" | translate}}</option>
@@ -50,15 +51,13 @@
             <option value="Other_Business">{{"item.upload.category.otherBusiness" | translate}}</option>
           </select>
         </div>
-        <div class="col-md-6 mb-1">        
-          <label class="text-primary" for="needs"><strong>{{"common.label.needs" | translate}}</strong></label>
+        <div class="col-md-6 mb-1">
+          <label class="text-primary" for="needs"><strong>{{"common.label.needs" | translate}}*</strong></label>
           <mat-select formControlName="needs" multiple class="form-control"
             [ngClass]="{ 'is-invalid': checkError('needs') }">
-            <mat-option value="forSale">{{"item.upload.needs.forSale" | translate}}</mat-option>
-            <mat-option value="hiring">{{"item.upload.needs.hiring" | translate}}</mat-option>
-            <mat-option value="buying">{{"item.upload.needs.buying" | translate}}</mat-option>
-            <mat-option value="forLease">{{"item.upload.needs.forLease" | translate}}</mat-option>
-            <mat-option value="forShare">{{"item.upload.needs.forShare" | translate}}</mat-option>
+            <ng-container *ngFor="let option of needsOption">
+              <mat-option value="{{option.key}}">{{option.value | translate}}</mat-option>
+            </ng-container>
           </mat-select>
           <div *ngIf="checkError('needs')" class="invalid-feedback">
             <div *ngIf="f.needs.errors.required">
@@ -83,15 +82,11 @@
         <div class="col-md-7 mb-1">
           <label class="text-primary" for="address"><strong>{{"common.label.address" | translate}}</strong></label>
           <input #autoAddress formControlName="address" class="form-control">
-          <!-- <input #autoAddress formControlName="address" class="form-control"
-            [ngClass]="{ 'is-invalid': checkError('address') }">
-            <div *ngIf="checkError('address')" class="invalid-feedback">
-            <div *ngIf="f.address.errors.pattern">{{"item.upload.address.validate.required" | translate}}</div>
-          </div> -->
         </div>
         <div class="col-md-5 mb-1">
-          <label class="text-primary" for="zipcode"><strong>{{"common.label.zipcode" | translate}}</strong></label>
-          <input #autoZipcode formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': checkError('zipcode') }">
+          <label class="text-primary" for="zipcode"><strong>{{"common.label.zipcode" | translate}}*</strong></label>
+          <input #autoZipcode formControlName="zipcode" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('zipcode') }">
           <div *ngIf="checkError('zipcode')" class="invalid-feedback">
             <div *ngIf="f.zipcode.errors.pattern || f.zipcode.errors.whitespace">
               {{"item.upload.address.validate.zipcodeRequired" | translate}}</div>
@@ -108,7 +103,7 @@
 
       <div class="row mb-1">
         <div class="col-md-4 mb-1">
-          <label class="text-primary" for="country"><strong>{{"common.label.country" | translate}}</strong></label>
+          <label class="text-primary" for="country"><strong>{{"common.label.country" | translate}}*</strong></label>
           <input formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': checkError('country') }">
           <div *ngIf="checkError('country')" class="invalid-feedback">
             <div *ngIf="f.country.errors.pattern || f.country.errors.whitespace">
@@ -116,7 +111,7 @@
           </div>
         </div>
         <div class="col-md-4 mb-1">
-          <label class="text-primary" for="state"><strong>{{"common.label.state" | translate}}</strong></label>
+          <label class="text-primary" for="state"><strong>{{"common.label.state" | translate}}*</strong></label>
           <input #state formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': checkError('state') }">
           <div *ngIf="checkError('state')" class="invalid-feedback">
             <div *ngIf="f.state.errors.pattern || f.state.errors.whitespace">
@@ -124,7 +119,7 @@
           </div>
         </div>
         <div class="col-md-4 mb-1">
-          <label class="text-primary" for="city"><strong>{{"common.label.city" | translate}}</strong></label>
+          <label class="text-primary" for="city"><strong>{{"common.label.city" | translate}}*</strong></label>
           <input #city formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': checkError('city') }">
           <div *ngIf="checkError('city')" class="invalid-feedback">
             <div *ngIf="f.city.errors.pattern || f.city.errors.whitespace">{{"item.upload.address.validate.cityRequired"
@@ -143,7 +138,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-1">
+        <div *ngIf="showWage" class="col-md-6 mb-1">
           <label class="text-primary" for="price"><strong>{{"common.label.wage" | translate}}</strong></label>
           <input type="number" formControlName="wage" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('wage') }">
@@ -154,7 +149,7 @@
       </div>
 
       <div class="row mb-1">
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showNoOfEmployees" class="col-md-4 mb-1">
           <label class="text-primary" for="noOfEmployees"><strong>{{"item.upload.noOfEmployees.label" |
               translate}}</strong></label>
           <input type="number" formControlName="noOfEmployees" class="form-control"
@@ -163,7 +158,7 @@
             <div *ngIf="f.noOfEmployees.errors.min">{{"item.upload.noOfEmployees.validate.min" | translate}}</div>
           </div>
         </div>
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showNoOfChairs" class="col-md-4 mb-1">
           <label class="text-primary" for="noOfChairs"><strong>{{"item.upload.noOfChairs.label" |
               translate}}</strong></label>
           <input type="number" formControlName="noOfChairs" class="form-control"
@@ -172,7 +167,7 @@
             <div *ngIf="f.noOfChairs.errors.min">{{"item.upload.noOfChairs.validate.min" | translate}}</div>
           </div>
         </div>
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showNoOfTables" class="col-md-4 mb-1">
           <label class="text-primary" for="noOfTables"><strong>{{"item.upload.noOfTables.label" |
               translate}}</strong></label>
           <input type="number" formControlName="noOfTables" class="form-control"
@@ -185,7 +180,7 @@
 
       <div class="row mb-1">
 
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showOfIncome" class="col-md-4 mb-1">
           <label class="text-primary" for="income"><strong>{{"item.upload.income.label" | translate}}</strong></label>
           <input type="number" formControlName="income" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('income') }">
@@ -194,7 +189,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showOfRent" class="col-md-4 mb-1">
           <label class="text-primary" for="rentCost"><strong>{{"item.upload.rent.label" | translate}}</strong></label>
           <input type="number" formControlName="rentCost" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('rentCost') }">
@@ -202,7 +197,7 @@
             <div *ngIf="f.rentCost.errors.min">{{"item.upload.rent.validate.min" | translate}}</div>
           </div>
         </div>
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showOfOtherCost" class="col-md-4 mb-1">
           <label class="text-primary" for="otherCost"><strong>{{"item.upload.otherCost.label" |
               translate}}</strong></label>
           <input type="number" formControlName="otherCost" class="form-control"
@@ -214,7 +209,7 @@
       </div>
 
       <div class="row mb-1">
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showOfArea" class="col-md-4 mb-1">
           <label class="text-primary" for="area"><strong>{{"item.upload.area.label" | translate}}</strong></label>
           <input type="number" formControlName="area" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('area') }">
@@ -222,12 +217,12 @@
             <div *ngIf="f.area.errors.min">{{"item.upload.area.validate.min" | translate}}!</div>
           </div>
         </div>
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showOfLeaseEnd" class="col-md-4 mb-1">
           <label class="text-primary" for="leaseEnd"><strong>{{"item.upload.leaseEnd.label" |
               translate}}</strong></label>
           <input type="date" formControlName="leaseEnd" class="form-control">
         </div>
-        <div class="col-md-4 mb-1">
+        <div *ngIf="showOfYearsOld" class="col-md-4 mb-1">
           <label class="text-primary" for="yearOld"><strong>{{"item.upload.yearsOld.label" |
               translate}}</strong></label>
           <select formControlName="yearOld" class="custom-select">
@@ -244,7 +239,7 @@
       <div class="row mb-1">
         <div class="col-md-6 mb-1">
           <label class="text-primary" for="contactPhoneNo"><strong>{{"item.upload.contactPhone.label" |
-              translate}}</strong></label>
+              translate}}*</strong></label>
           <input formControlName="contactPhoneNo" mask="+00 (000) 000-0000" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
           <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">

@@ -38,7 +38,10 @@
       "country": "Quốc gia",
       "state": "Bang/Tỉnh",
       "city": "Thành phố",
-      "wage": "Lương ước tính/tháng"
+      "wage": "Lương ước tính/tháng",
+      "createAds": "Tạo Quảng Cáo",
+      "updateAds": "Chỉnh Sửa Quảng Cáo",
+      "notice1": "(* thông tin bắt buộc)"
     }
   },
   "policy": {
@@ -196,7 +199,7 @@
         "label": "Hợp đồng thuê hết vào"
       },
       "yearsOld": {
-        "label": "Tuổi tiệm",
+        "label": "Tuổi tiệm/nhà",
         "yearLabel": "năm",
         "yearsLabel": "năm",
         "orMore": "hoặc hơn"
@@ -227,7 +230,7 @@
       "category": {
         "nailSalon": "Tiệm nail",
         "hairSalon": "Tiệm tóc",
-        "restaurent": "Nhà hàng",
+        "restaurant": "Nhà hàng",
         "house": "Nhà cửa",
         "lending": "Cho vay",
         "tax": "Khai thuế",
@@ -238,17 +241,24 @@
         "otherBusiness": "Tiệm/dịch vụ khác"
       },
       "needs": {
-        "forSale": "Cần bán",
+        "forSale": "Cần bán tiệm",
+        "houseForSale": "Cần bán nhà",
         "hiring": "Cần tuyển người",
         "buying": "Cần mua",
-        "forLease": "Cho thuê",
+        "forLease": "Cần cho thuê",
         "forShare": "Cần tìm partner",
+        "repair": "Nhận sửa chữa",
+        "tax": "Nhận khai thuế",
+        "insurance": "Bán bảo hiểm",
+        "lending": "Cho vay",
+        "babysit": "Nhận giữ trẻ",
+        "teaching": "Nhận dạy kèm",
         "validate": {
           "required": "Vui lòng cho biết bạn cần gì!"
         }
       },
       "tag": {
-        "label": "Gắn thẻ (Kĩ năng, đặc tính ..)"
+        "label": "Gắn thẻ (Kĩ năng, đặc tính cần tìm...Ví dụ: Bột, Tay_Chân_Nước)"
       },
       "overview": {
         "label": "Sơ lược",
