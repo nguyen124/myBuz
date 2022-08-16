@@ -31,12 +31,14 @@
       "title": "Title",
       "business": "Business",
       "category": "Category",
+      "needs": "Needs",
       "price": "Price",
       "address": "Address",
       "zipcode": "Zip Code",
       "country": "Country",
       "state": "State",
-      "city": "City"
+      "city": "City",
+      "wage": "Estimated pay/month"
     }
   },
   "policy": {
@@ -227,10 +229,26 @@
         "hairSalon": "Hair Salon",
         "restaurent": "Restaurent",
         "house": "House",
-        "otherBusiness": "Other Business"
+        "lending": "Lending",
+        "tax": "Tax",
+        "insurance": "Insurance",
+        "repair": "Repair",
+        "babysit": "Babysit",
+        "teaching": "Teaching",
+        "otherBusiness": "Other Business/Services"
+      },
+      "needs": {
+        "forSale": "For sale",
+        "hiring": "Hiring",
+        "buying": "Buying",
+        "forLease": "For lease",
+        "forShare": "For share",
+        "validate": {
+          "required": "Please select your needs!"
+        }
       },
       "tag": {
-        "label": "Tag"
+        "label": "Tag (skills, properties..)"
       },
       "overview": {
         "label": "Overview",

@@ -1,4 +1,4 @@
-import { Component, OnInit, isDevMode, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, isDevMode, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
@@ -33,9 +33,11 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   itemId: string;
   countryRestrict: any = { country: 'us' };
   autocompleteAddress: any;
+  autocompleteZipcode: any;
   geometry: any;
   isUploading: boolean = false;
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
+  @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
   @ViewChild('address2', { static: false }) address2: ElementRef;
 
   constructor(
@@ -48,7 +50,8 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _apiService: GoogleMapService,
     private _toastr: ToastrService,
     private _translate: TranslateService,
-    private _logSvc: LoggingService) {
+    private _logSvc: LoggingService,
+    private cdr: ChangeDetectorRef) {
     this.itemForm = this._fb.group({});
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
   }
@@ -59,8 +62,10 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       businessName: ['', []],
       file: ['', []],
       categories: [''],
+      needs: [''],
       tags: [''],
       price: [0, []],
+      wage: [0, []],
       address: ['', []],
       address2: ['', []],
       zipcode: ['', []],
@@ -99,9 +104,11 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
           title: [item.title, [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
           businessName: [item.businessName, [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
           file: [, [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-          categories: [item.categories],
+          categories: [...item.categories],
+          needs: [item.needs, [Validators.required]],
           tags: [item.tags],
           price: [item.price, [Validators.min(0)]],
+          wage: [item.wage, [Validators.min(0)]],
           address: [item.address, [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
           address2: [item.address2, []],
           zipcode: [item.zipcode, [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
@@ -112,7 +119,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
           noOfChairs: [item.noOfChairs, [Validators.min(0)]],
           noOfTables: [item.noOfTables, [Validators.min(0)]],
           contactPhoneNo: [item.contactPhoneNo, [this._systemSvc.nonSpaceString]],
-          contactEmail: [item.contactEmail, [this._systemSvc.validateEmail, this._systemSvc.nonSpaceString, Validators.pattern(/^.{0,50}$/)]],
+          contactEmail: [item.contactEmail, [this._systemSvc.validateEmail, Validators.pattern(/^.{0,50}$/)]],
           income: [item.income, [Validators.min(0)]],
           rentCost: [item.rentCost, [Validators.min(0)]],
           otherCost: [item.otherCost, [Validators.min(0)]],
@@ -124,6 +131,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
         });
         this.geometry = item.geometry;
         this.toUploadFiles = item.files;
+        //this.cdr.detectChanges();
       });
     });
   }
@@ -139,13 +147,29 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
         componentRestrictions: this.countryRestrict
       }
     );
+    this.autocompleteZipcode = new google.maps.places.Autocomplete(
+      this.autoZipcode.nativeElement,
+      {
+        componentRestrictions: this.countryRestrict
+      }
+    );
     this.autocompleteAddress.addListener('place_changed', this.autoFillAddress);
+    this.autocompleteZipcode.addListener('place_changed', this.autoFillAddress2);
   }
 
   autoFillAddress = () => {
-    let that = this;
     // Get the place details from the autocomplete object.
-    const place = that.autocompleteAddress.getPlace();
+    const place = this.autocompleteAddress.getPlace();
+    this.fill(place);
+  }
+
+  autoFillAddress2 = () => {
+    // Get the place details from the autocomplete object.
+    const place = this.autocompleteZipcode.getPlace();
+    this.fill(place);
+  }
+
+  fill(place) {
     this.geometry = place.geometry;
     let address1 = "";
     let postcode = "";
@@ -183,11 +207,11 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       }
     }
 
-    that.f.address.setValue(address1);
-    that.f.zipcode.setValue(postcode);
-    that.f.city.setValue(city);
-    that.f.state.setValue(state);
-    that.f.country.setValue(country);
+    this.f.address.setValue(address1);
+    this.f.zipcode.setValue(postcode);
+    this.f.city.setValue(city);
+    this.f.state.setValue(state);
+    this.f.country.setValue(country);
 
     // After filling the form with address components from the Autocomplete
     // prediction, set cursor focus on the second address line to encourage
@@ -293,9 +317,11 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       let item = {
         tags: that.parsedTags,
         categories: that.f.categories.value,
+        needs: that.f.needs.value,
         title: that.f.title.value.trim(),
         businessName: that.f.businessName.value.trim(),
         price: that.f.price.value,
+        wage: that.f.wage.value,
         address: that.f.address.value.trim(),
         address2: that.f.address2.value.trim(),
         zipcode: that.f.zipcode.value.trim(),
@@ -370,5 +396,18 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
 
   goBackToHomePage() {
     this._router.navigate(["/business"]);
+  }
+
+  get showPrice(): boolean {
+    let result = false;
+    if (this.f && this.f.categories) {
+      let categories = this.f.categories.value;
+      if (categories === 'Nail_Salon' || categories === 'Hair_Salon' ||
+        categories === 'House' || categories === 'Restaurent' ||
+        categories === 'Other Business') {
+        result = true;
+      }
+    }
+    return result;
   }
 }

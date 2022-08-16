@@ -41,20 +41,46 @@
             <option value="Hair_Salon">{{"item.upload.category.hairSalon" | translate}}</option>
             <option value="Restaurent">{{"item.upload.category.restaurent" | translate}}</option>
             <option value="House">{{"item.upload.category.house" | translate}}</option>
+            <option value="Repair">{{"item.upload.category.repair" | translate}}</option>
+            <option value="Tax">{{"item.upload.category.tax" | translate}}</option>
+            <option value="Insurance">{{"item.upload.category.insurance" | translate}}</option>
+            <option value="Lending">{{"item.upload.category.lending" | translate}}</option>
+            <option value="Babysit">{{"item.upload.category.babysit" | translate}}</option>
+            <option value="Teaching">{{"item.upload.category.teaching" | translate}}</option>
             <option value="Other_Business">{{"item.upload.category.otherBusiness" | translate}}</option>
           </select>
         </div>
-        <div class="col-md-6 mb-1">
-          <label class="text-primary" for="price"><strong>{{"common.label.price" | translate}}</strong></label>
-          <input type="number" formControlName="price" class="form-control"
-            [ngClass]="{ 'is-invalid': checkError('price') }">
-          <div *ngIf="checkError('price')" class="invalid-feedback">
-            <div *ngIf="f.price.errors.min">{{"item.upload.price.validate.negative" | translate}}</div>
+        <div class="col-md-6 mb-1">        
+          <label class="text-primary" for="needs"><strong>{{"common.label.needs" | translate}}</strong></label>
+          <mat-select formControlName="needs" multiple class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('needs') }">
+            <mat-option value="forSale">{{"item.upload.needs.forSale" | translate}}</mat-option>
+            <mat-option value="hiring">{{"item.upload.needs.hiring" | translate}}</mat-option>
+            <mat-option value="buying">{{"item.upload.needs.buying" | translate}}</mat-option>
+            <mat-option value="forLease">{{"item.upload.needs.forLease" | translate}}</mat-option>
+            <mat-option value="forShare">{{"item.upload.needs.forShare" | translate}}</mat-option>
+          </mat-select>
+          <div *ngIf="checkError('needs')" class="invalid-feedback">
+            <div *ngIf="f.needs.errors.required">
+              {{"item.upload.needs.validate.required" | translate}}</div>
           </div>
         </div>
       </div>
+
       <div class="row mb-1">
-        <div class="col-md-9 mb-1">
+        <div class="col-md-12 mb-1">
+          <label class="text-primary" for="tags"><strong>{{"item.upload.tag.label" | translate}}</strong></label>
+          <div>
+            <ng-container *ngFor="let tag of parsedTags;">
+              <a href="" class="mr-1">#{{tag}}</a>
+            </ng-container>
+          </div>
+          <input id="tags" type="text" formControlName="tags" class="w-100" (input)="onTagsChange($event.target.value)">
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-md-7 mb-1">
           <label class="text-primary" for="address"><strong>{{"common.label.address" | translate}}</strong></label>
           <input #autoAddress formControlName="address" class="form-control">
           <!-- <input #autoAddress formControlName="address" class="form-control"
@@ -63,9 +89,9 @@
             <div *ngIf="f.address.errors.pattern">{{"item.upload.address.validate.required" | translate}}</div>
           </div> -->
         </div>
-        <div class="col-md-3 mb-1">
+        <div class="col-md-5 mb-1">
           <label class="text-primary" for="zipcode"><strong>{{"common.label.zipcode" | translate}}</strong></label>
-          <input formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': checkError('zipcode') }">
+          <input #autoZipcode formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': checkError('zipcode') }">
           <div *ngIf="checkError('zipcode')" class="invalid-feedback">
             <div *ngIf="f.zipcode.errors.pattern || f.zipcode.errors.whitespace">
               {{"item.upload.address.validate.zipcodeRequired" | translate}}</div>
@@ -103,6 +129,26 @@
           <div *ngIf="checkError('city')" class="invalid-feedback">
             <div *ngIf="f.city.errors.pattern || f.city.errors.whitespace">{{"item.upload.address.validate.cityRequired"
               | translate}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div *ngIf="showPrice" class="col-md-6 mb-1">
+          <label class="text-primary" for="price"><strong>{{"common.label.price" | translate}}</strong></label>
+          <input type="number" formControlName="price" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('price') }">
+          <div *ngIf="checkError('price')" class="invalid-feedback">
+            <div *ngIf="f.price.errors.min">{{"item.upload.price.validate.negative" | translate}}</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-1">
+          <label class="text-primary" for="price"><strong>{{"common.label.wage" | translate}}</strong></label>
+          <input type="number" formControlName="wage" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('wage') }">
+          <div *ngIf="checkError('wage')" class="invalid-feedback">
+            <div *ngIf="f.wage.errors.min">{{"item.upload.wage.validate.negative" | translate}}</div>
           </div>
         </div>
       </div>
@@ -220,17 +266,6 @@
         </div>
       </div>
 
-      <div class="row mb-1">
-        <div class="col-md-12 mb-1">
-          <label class="text-primary" for="tags"><strong>{{"item.upload.tag.label" | translate}}</strong></label>
-          <div>
-            <ng-container *ngFor="let tag of parsedTags;">
-              <a href="" class="mr-1">#{{tag}}</a>
-            </ng-container>
-          </div>
-          <input id="tags" type="text" formControlName="tags" class="w-100" (input)="onTagsChange($event.target.value)">
-        </div>
-      </div>
       <div class="row mb-1">
         <div class="col-md-12 mb-1">
           <label class="text-primary" for="overview"><strong>{{"item.upload.overview.label" |

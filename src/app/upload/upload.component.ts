@@ -3,7 +3,7 @@ import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
@@ -39,8 +39,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
   charge = null;
   countryRestrict: any = { country: 'us' };
   autocompleteAddress: any;
+  autocompleteZipcode: any;
 
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
+  @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
   @ViewChild('address2', { static: false }) address2: ElementRef;
 
   constructor(
@@ -78,13 +80,29 @@ export class UploadComponent implements OnInit, AfterViewInit {
         componentRestrictions: this.countryRestrict
       }
     );
+    this.autocompleteZipcode = new google.maps.places.Autocomplete(
+      this.autoZipcode.nativeElement,
+      {
+        componentRestrictions: this.countryRestrict
+      }
+    );
     this.autocompleteAddress.addListener('place_changed', this.autoFillAddress);
+    this.autocompleteZipcode.addListener('place_changed', this.autoFillAddress2);
   }
 
   autoFillAddress = () => {
-    let that = this;
     // Get the place details from the autocomplete object.
-    const place = that.autocompleteAddress.getPlace();
+    const place = this.autocompleteAddress.getPlace();
+    this.fill(place);
+  }
+
+  autoFillAddress2 = () => {
+    // Get the place details from the autocomplete object.
+    const place = this.autocompleteZipcode.getPlace();
+    this.fill(place);
+  }
+
+  fill(place) {
     this.geometry = place.geometry;
     let address1 = "";
     let postcode = "";
@@ -122,11 +140,11 @@ export class UploadComponent implements OnInit, AfterViewInit {
       }
     }
 
-    that.f.address.setValue(address1);
-    that.f.zipcode.setValue(postcode);
-    that.f.city.setValue(city);
-    that.f.state.setValue(state);
-    that.f.country.setValue(country);
+    this.f.address.setValue(address1);
+    this.f.zipcode.setValue(postcode);
+    this.f.city.setValue(city);
+    this.f.state.setValue(state);
+    this.f.country.setValue(country);
 
     // After filling the form with address components from the Autocomplete
     // prediction, set cursor focus on the second address line to encourage
@@ -140,8 +158,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
       businessName: ['', [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
       categories: ['Nail_Salon'],
+      needs: [[], [Validators.required]],
       tags: [''],
       price: [0, [Validators.min(0)]],
+      wage: [0, [Validators.min(0)]],
       address: ['', [Validators.pattern(/^.{0,50}$/)]],
       address2: ['', [Validators.pattern(/^.{0,50}$/)]],
       zipcode: ['', [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
@@ -151,8 +171,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
       noOfEmployees: [0, [Validators.min(0)]],
       noOfChairs: [0, [Validators.min(0)]],
       noOfTables: [0, [Validators.min(0)]],
-      contactPhoneNo: ['', []],
-      contactEmail: ['', [this._systemSvc.validateEmail, this._systemSvc.nonSpaceString, Validators.pattern(/^.{0,50}$/)]],
+      contactPhoneNo: ['', [this._systemSvc.nonSpaceString]],
+      contactEmail: ['', [this._systemSvc.validateEmail, Validators.pattern(/^.{0,50}$/)]],
       income: [0, [Validators.min(0)]],
       rentCost: [0, [Validators.min(0)]],
       otherCost: [0, [Validators.min(0)]],
@@ -340,9 +360,11 @@ export class UploadComponent implements OnInit, AfterViewInit {
       let item = {
         tags: that.parsedTags,
         categories: [that.f.categories.value],
+        needs: that.f.needs.value,
         title: that.f.title.value.trim(),
         businessName: that.f.businessName.value.trim(),
         price: that.f.price.value,
+        wage: that.f.price.wage,
         address: that.f.address.value.trim(),
         address2: that.f.address2.value.trim(),
         zipcode: that.f.zipcode.value.trim(),
@@ -409,5 +431,18 @@ export class UploadComponent implements OnInit, AfterViewInit {
   removePreviewMedia(index) {
     this.toUploadFiles.splice(index, 1);
     return false;
+  }
+
+  get showPrice(): boolean {
+    let result = false;
+    if (this.f && this.f.categories) {
+      let categories = this.f.categories.value;
+      if (categories === 'Nail_Salon' || categories === 'Hair_Salon' ||
+        categories === 'House' || categories === 'Restaurent' ||
+        categories === 'Other Business') {
+        result = true;
+      }
+    }
+    return result;
   }
 }

@@ -61,7 +61,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { UpdateItemComponent } from './update-item/update-item.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { MatSelectModule } from '@angular/material/select';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -132,7 +132,7 @@ let jQuery: any = window['$'];
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
+    }),   
     BrowserAnimationsModule,
     BrowserModule,
     FileUtils,
@@ -144,6 +144,7 @@ let jQuery: any = window['$'];
     UsersModule,
     AdminModule,
     ShareModule,
+    MatSelectModule,
     ToastrModule.forRoot(),
     routing
   ],

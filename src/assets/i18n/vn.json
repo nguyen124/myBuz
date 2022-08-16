@@ -29,14 +29,16 @@
       "comment": "Bình luận",
       "reason": "Lý do",
       "title": "Tiêu đề",
-      "business": "Tên tiệm",
-      "category": "Tiệm gì",
+      "business": "Tên tiệm/tên dịch vụ",
+      "category": "Tiệm/dịch vụ gì",
+      "needs": "Cần gì",
       "price": "Giá",
       "address": "Địa chỉ",
       "zipcode": "Mã vùng",
       "country": "Quốc gia",
       "state": "Bang/Tỉnh",
-      "city": "Thành phố"
+      "city": "Thành phố",
+      "wage": "Lương ước tính/tháng"
     }
   },
   "policy": {
@@ -227,10 +229,26 @@
         "hairSalon": "Tiệm tóc",
         "restaurent": "Nhà hàng",
         "house": "Nhà cửa",
-        "otherBusiness": "Tiệm khác"
+        "lending": "Cho vay",
+        "tax": "Khai thuế",
+        "insurance": "Bảo hiểm",
+        "repair": "Sửa chữa",
+        "babysit": "Trông trẻ",
+        "teaching": "Dạy học",
+        "otherBusiness": "Tiệm/dịch vụ khác"
+      },
+      "needs": {
+        "forSale": "Cần bán",
+        "hiring": "Cần tuyển người",
+        "buying": "Cần mua",
+        "forLease": "Cho thuê",
+        "forShare": "Cần tìm partner",
+        "validate": {
+          "required": "Vui lòng cho biết bạn cần gì!"
+        }
       },
       "tag": {
-        "label": "Thẻ"
+        "label": "Gắn thẻ (Kĩ năng, đặc tính ..)"
       },
       "overview": {
         "label": "Sơ lược",
