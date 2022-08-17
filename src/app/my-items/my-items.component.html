@@ -1,23 +1,30 @@
 <div id="myListItems">
-    <h2 class="text-center text-success mb-5">{{"common.label.myItems" | translate}}</h2>
-    <div class="row pb-3">
-        <div class="col-12">
-          <ng-container *ngFor="let key of params | keyPipe">
-            <ng-container>
-              <button class="mr-2" [ngClass]="{'btn-success': key=='tag', 'btn-primary': key=='category'}"
-                (click)="removeFilter(key)">
-                <span>{{params[key]}}</span>
-                <span class="ml-1">(X)</span>
-              </button>
-            </ng-container>
-          </ng-container>
-        </div>
-      </div>
-    <app-items [items]="items" [showMap]="false"></app-items>
+  <h2 class="text-center text-success mb-5">{{"common.label.myItems" | translate}}</h2>
+  <div class="row pb-3">
+    <div class="col-12">
+      <ng-container *ngFor="let key of params | keyPipe">
+        <ng-container>
+          <button class="mr-2" [ngClass]="{'btn-success': key=='tag', 'btn-primary': key=='category'}"
+            (click)="removeFilter(key)">
+            <span>{{params[key]}}</span>
+            <span class="ml-1">(X)</span>
+          </button>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <app-items [items]="items" [showMap]="false"></app-items>
 </div>
 
-<div class="row">
-    <div class="input-group col-md-2">
-        <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">{{"common.label.next" | translate}}</a>
+<div class="row mb-5">
+  <div class="col-12">
+    <div class="float-left pt-1">
+      <a class="btn btn-primary d-inline text-white" (click)="loadNext()">Next</a>
     </div>
+    <div class="float-right">
+      <a class="btn btn-primary d-inline mr-1" [routerLink]="[]" queryParamsHandling="merge"
+        [queryParams]="{page: actualPage}">Page</a>
+      <input class="d-inline w-25" min="0" autofocus [(ngModel)]="actualPage" />
+    </div>
+  </div>
 </div>

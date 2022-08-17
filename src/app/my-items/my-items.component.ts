@@ -24,13 +24,17 @@ export class MyItemsComponent implements OnInit {
     private _router: Router,
     private _commSvc: CommunicateService,
     @Inject(JQ_TOKEN) private $: any) {
-
+    let params = this._activatedRoute.snapshot.queryParams;
+    this._router.navigate([], {
+      queryParams: Object.assign({ page: 0, perPage: 40 }, params),
+      queryParamsHandling: "merge"
+    });
   }
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(newParams => {
       this.params = Object.assign({}, newParams);
-      this.getItems(Object.assign({ page: this.nextPage, createdBy: this._authSvc.user._id }, this.params));
+      this.getItems(Object.assign({ createdBy: this._authSvc.user._id }, this.params));
     });
   }
 

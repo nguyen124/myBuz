@@ -11,6 +11,7 @@ import { GoogleMapService } from '../shared/services/google-map.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from '../shared/services/system/logging.service';
+import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 declare var firebase: any;
 declare var google: any;
@@ -60,6 +61,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _toastr: ToastrService,
     private _translate: TranslateService,
     private _logSvc: LoggingService,
+    private _commSvc: CommunicateService,
     private cdr: ChangeDetectorRef) {
     this.itemForm = this._fb.group({});
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
@@ -616,6 +618,14 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   }
 
   goBackToHomePage() {
-    this._router.navigate(["/business"]);
+    if (this._commSvc.hiringActive) {
+      this._router.navigate(['/business/hiring']);
+      return;
+    } else if (this._commSvc.otherForSaleActive) {
+      this._router.navigate(['/business/other']);
+      return;
+    }
+    this._router.navigate(['/business/forSale']);
+    return;
   }
 }

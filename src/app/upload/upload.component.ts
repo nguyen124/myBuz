@@ -634,7 +634,15 @@ export class UploadComponent implements OnInit, AfterViewInit {
   }
 
   goBackToHomePage() {
-    this._router.navigate(["/business"]);
+    if (this._commSvc.hiringActive) {
+      this._router.navigate(['/business/hiring']);
+      return;
+    } else if (this._commSvc.otherForSaleActive) {
+      this._router.navigate(['/business/other']);
+      return;
+    }
+    this._router.navigate(['/business/forSale']);
+    return;
   }
 
   removePreviewMedia(index) {
