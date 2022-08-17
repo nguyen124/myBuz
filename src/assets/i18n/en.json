@@ -324,9 +324,9 @@
   },
   "home": {
     "topHeader": {
-      "business": "Business",
+      "business": "Business for sale",
       "hiring": "Hiring",
-      "forSale": "Sales"
+      "other": "Other for sale"
     }
   },
   "admin": {

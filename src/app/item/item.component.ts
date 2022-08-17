@@ -8,9 +8,7 @@ import { MemeVideoComponent } from '../meme-video/meme-video.component';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent {
-  @Input() item: IItem;
-  @Input() baseUrl: string;
-  @Input() isShowingTag: boolean;
+  @Input() item: IItem;  
   @ViewChildren(MemeVideoComponent) memeVideos: QueryList<MemeVideoComponent>;
 
   constructor() {

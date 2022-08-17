@@ -37,8 +37,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
+      let need = this._activatedRoute.snapshot.params['need'];
       this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
-      this.getItems(this.params);
+      this.getItems(Object.assign({ need }, this.params));
     });
   }
 
@@ -106,15 +107,15 @@ export class HomeComponent implements OnInit {
     this._commSvc.setFlag(flag1, flag2, flag3);
   }
 
-  get itemsActive(): boolean {
-    return this._commSvc.itemsActive;
+  get businessForSaleActive(): boolean {
+    return this._commSvc.businessForSaleActive;
   }
 
   get hiringActive(): boolean {
     return this._commSvc.hiringActive;
   }
 
-  get saleActive(): boolean {
-    return this._commSvc.saleActive;
+  get otherForSaleActive(): boolean {
+    return this._commSvc.otherForSaleActive;
   }
 }

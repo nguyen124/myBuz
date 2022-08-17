@@ -14,8 +14,9 @@ import { UploadComponent } from './upload/upload.component';
 import { UpdateItemComponent } from './update-item/update-item.component';
 
 const appRoutes: Routes = [
-    { path: 'business', component: HomeComponent },
-    { path: 'hiring', component: HomeComponent },
+    { path: 'business/:need', component: HomeComponent },
+    { path: 'business/hiring', component: HomeComponent },
+    { path: 'business/other', component: HomeComponent },
     { path: 'business/:itemId/update', component: UpdateItemComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },
@@ -43,7 +44,7 @@ const appRoutes: Routes = [
     // },
     {
         path: '',
-        redirectTo: 'business?temp=cold&page=0&perPage=40',
+        redirectTo: 'business/forSale',
         pathMatch: 'full'
     }
 ];

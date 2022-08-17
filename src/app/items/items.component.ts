@@ -13,9 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent {
-  @Input() items: IItem[];
-  @Input() baseUrl: string = "/business";
-  @Input() isShowingTag: boolean = true;
+  @Input() items: IItem[];  
   @Input() showMap = true;
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   nextPage = 0;

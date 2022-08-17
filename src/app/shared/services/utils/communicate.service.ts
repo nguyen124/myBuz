@@ -8,9 +8,9 @@ import { IComment } from '../../model/comment';
 })
 export class CommunicateService {
 
-  itemsActive: boolean = true;
+  businessForSaleActive: boolean = true;
   hiringActive: boolean = false;
-  saleActive: boolean = false;
+  otherForSaleActive: boolean = false;
 
   // Observable navItem source
   private _newItemSource = new BehaviorSubject<IItem>(null);
@@ -39,8 +39,8 @@ export class CommunicateService {
   }
 
   setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
-    this.itemsActive = flag1;
+    this.businessForSaleActive = flag1;
     this.hiringActive = flag2;
-    this.saleActive = flag3;
+    this.otherForSaleActive = flag3;
   }
 }

@@ -14,12 +14,12 @@
         </div>
     </div>
     <div>
-        <ng-container *ngIf="isShowingTag">
+        <ng-container>
             <div class="row overflow-hidden">
                 <div class="col-12">
-                    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="baseUrl"
+                    <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="[]"
                         [queryParams]="{category: cate, id: null}" class="mr-1">@{{cate}}</a>
-                    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="baseUrl"
+                    <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="[]"
                         [queryParams]="{tag: tag, id: null}" class="mr-1">#{{tag}}</a>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <app-react [item]="item" [baseUrl]="baseUrl">
+                <app-react [item]="item">
                     <ng-content></ng-content>
                 </app-react>
             </div>
@@ -36,7 +36,7 @@
     </div>
     <ng-container *ngIf="item.files && item.files.length > 0">
         <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.overview}}">
-            <a class="d-block" [routerLink]="baseUrl" queryParamsHandling="merge" [queryParams]="{id:item._id}">
+            <a class="d-block" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{id:item._id}">
                 <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail mh-480"
                     [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
                 <app-meme-video *ngIf="item.files[0].fileType.match('video*')" [link]="item.files[0].url"

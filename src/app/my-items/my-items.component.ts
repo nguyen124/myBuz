@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
@@ -13,7 +13,6 @@ import * as _ from 'lodash';
 })
 export class MyItemsComponent implements OnInit {
   items: IItem[];
-  baseUrl: string = "/user/business";
   nextPage = 0;
   PER_PAGE = 40;
   params: any = {};
@@ -22,6 +21,7 @@ export class MyItemsComponent implements OnInit {
     private _itemService: ItemService,
     private _authSvc: AuthService,
     private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     private _commSvc: CommunicateService,
     @Inject(JQ_TOKEN) private $: any) {
 
@@ -29,8 +29,8 @@ export class MyItemsComponent implements OnInit {
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(newParams => {
-      this.params = Object.assign({ page: this.nextPage, createdBy: this._authSvc.user._id }, newParams);
-      this.getItems(this.params);
+      this.params = Object.assign({}, newParams);
+      this.getItems(Object.assign({ page: this.nextPage, createdBy: this._authSvc.user._id }, this.params));
     });
   }
 
@@ -72,5 +72,10 @@ export class MyItemsComponent implements OnInit {
         this.items[this.nextPage * this.PER_PAGE + i] = newItems[i];
       }
     });
+  }
+
+  removeFilter(key) {
+    delete this.params[key];
+    this._router.navigate([], { queryParams: this.params });
   }
 }

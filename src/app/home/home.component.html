@@ -1,14 +1,14 @@
 <div class="row pb-1">
   <div class="col-md-4 col-xs-4 hot">
-    <a [routerLink]="'/business'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
+    <a [routerLink]="'/business/forSale'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
       (click)="setFlag(true, false, false)"><button class="btn w-100 pr-0 pl-0 rounded-0 border-0 hot"
-        [ngClass]="{'font-weight-bold text-white font-24 round-right-16' : itemsActive}">
+        [ngClass]="{'font-weight-bold text-white font-24 round-right-16' : businessForSaleActive}">
         {{'home.topHeader.business' | translate}}
       </button>
     </a>
   </div>
   <div class="col-md-4 col-xs-4 warm">
-    <a [routerLink]="'/hiring'" (click)="setFlag(false, true, false)">
+    <a [routerLink]="'/business/hiring'" (click)="setFlag(false, true, false)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 warm"
         [ngClass]="{'font-weight-bold text-white font-24 round-right-left-16' : hiringActive}">
         {{'home.topHeader.hiring' | translate}}
@@ -16,10 +16,10 @@
     </a>
   </div>
   <div class="col-md-4 col-xs-4 cold">
-    <a [routerLink]="'/sale'" (click)="setFlag(false, false, true)">
+    <a [routerLink]="'/business/other'" (click)="setFlag(false, false, true)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 cold"
-        [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : licenseActive}">
-        {{'home.topHeader.forSale' | translate}}
+        [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : otherForSaleActive}">
+        {{'home.topHeader.other' | translate}}
       </button>
     </a>
   </div>
@@ -51,7 +51,7 @@
   </div>
   <div class="input-group col-md-3">
     <div class="form-label-group">
-      <a routerLink="." queryParamsHandling="merge" [queryParams]="{page: actualPage}"
+      <a [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{page: actualPage}"
         class="btn text-primary d-inline mr-1"> Go to page </a>
       <input class="form-control mt-2 d-inline w-25" type="number" min="0" autofocus [(ngModel)]="actualPage" />
     </div>

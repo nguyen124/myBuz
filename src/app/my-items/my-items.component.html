@@ -1,6 +1,19 @@
 <div id="myListItems">
     <h2 class="text-center text-success mb-5">{{"common.label.myItems" | translate}}</h2>
-    <app-items [items]="items" [baseUrl]="baseUrl" [showMap]="false" [isShowingTag]="false"></app-items>
+    <div class="row pb-3">
+        <div class="col-12">
+          <ng-container *ngFor="let key of params | keyPipe">
+            <ng-container>
+              <button class="mr-2" [ngClass]="{'btn-success': key=='tag', 'btn-primary': key=='category'}"
+                (click)="removeFilter(key)">
+                <span>{{params[key]}}</span>
+                <span class="ml-1">(X)</span>
+              </button>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    <app-items [items]="items" [showMap]="false"></app-items>
 </div>
 
 <div class="row">

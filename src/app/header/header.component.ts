@@ -25,10 +25,13 @@ export class HeaderComponent {
     this._translate.use('vn');
     this._router.events.subscribe((val: any) => {
       if (val.url) {
-        switch (val.url.split("\/")[1]) {
-          case 'business': this._commSvc.setFlag(true, false, false); return;
-          case 'hiring': this._commSvc.setFlag(false, true, false); return;
-          case 'sale': this._commSvc.setFlag(false, false, true); return;
+        let splits = val.url.split("\/");
+        if (splits.length > 2) {
+          switch (splits[2]) {
+            case 'forSale': this._commSvc.setFlag(true, false, false); return;
+            case 'hiring': this._commSvc.setFlag(false, true, false); return;
+            case 'other': this._commSvc.setFlag(false, false, true); return;
+          }
         }
       }
     });

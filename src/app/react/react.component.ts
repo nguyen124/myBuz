@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./react.component.css']
 })
 export class ReactComponent implements OnInit {
-  @Input() baseUrl: string;
   @Input() item: IItem;
   shareUrl: String;
   options = [];
