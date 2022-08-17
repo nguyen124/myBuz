@@ -6,6 +6,7 @@
         </div>
         <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} .
             {{item.createdBy?.username}}
+            <span *ngIf="showExpired && item.expired" class="text-danger">Expired</span>
         </div>
     </div>
     <div class="row text-overflow">

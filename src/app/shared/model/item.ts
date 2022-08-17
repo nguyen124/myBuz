@@ -38,4 +38,6 @@ export interface IItem {
   charge?: any;
   geometry?: any;
   status?: string;
+  expired?: boolean;
+  refundable?: boolean;
 }

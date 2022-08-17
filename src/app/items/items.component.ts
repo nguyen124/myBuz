@@ -13,8 +13,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent {
-  @Input() items: IItem[];  
+  @Input() items: IItem[];
   @Input() showMap = true;
+  @Input() showExpired: boolean = false;
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   nextPage = 0;
   constructor(

@@ -9,6 +9,7 @@ import { MemeVideoComponent } from '../meme-video/meme-video.component';
 })
 export class ItemComponent {
   @Input() item: IItem;  
+  @Input() showExpired: boolean = false;
   @ViewChildren(MemeVideoComponent) memeVideos: QueryList<MemeVideoComponent>;
 
   constructor() {

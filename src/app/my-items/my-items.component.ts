@@ -34,11 +34,11 @@ export class MyItemsComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(newParams => {
       this.params = Object.assign({}, newParams);
-      this.getItems(Object.assign({ createdBy: this._authSvc.user._id }, this.params));
+      this.getMyItems(Object.assign({ createdBy: this._authSvc.user._id }, this.params));
     });
   }
 
-  getItems(params) {
+  getMyItems(params) {
     let itemId = this._activatedRoute.snapshot.queryParams['id'];
     if (itemId) {
       this._itemService.getItemById(itemId).subscribe(newItem => {
@@ -52,12 +52,12 @@ export class MyItemsComponent implements OnInit {
     delete obj.id;
     if (!_.isEqual(this.lastParams, obj)) {
       this.lastParams = obj;
-      this.getItemsHelper(this, obj);
+      this.getMyItemsHelper(this, obj);
     }
   }
 
-  private getItemsHelper(that, params) {
-    that._itemService.getItems(params).subscribe((newItems: IItem[]) => {
+  private getMyItemsHelper(that, params) {
+    that._itemService.getMyItems(params).subscribe((newItems: IItem[]) => {
       that.items = newItems;
       that.currentLength = that.items.length;
       that.actualPage = params.page ? +params.page : 0;
