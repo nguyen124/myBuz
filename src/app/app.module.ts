@@ -62,6 +62,8 @@ import { UpdateItemComponent } from './update-item/update-item.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatSelectModule } from '@angular/material/select';
+import { HiringComponent } from './hiring/hiring.component';
+import { OtherComponent } from './other/other.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -105,7 +107,9 @@ let jQuery: any = window['$'];
     ResetPasswordFormComponent,
     DefaultImageDirective,
     PlaceSearchComponent,
-    UpdateItemComponent
+    UpdateItemComponent,
+    HiringComponent,
+    OtherComponent
   ],
   entryComponents: [TooltipComponent],
   imports: [

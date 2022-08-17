@@ -1,43 +1,57 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { IItem } from '../shared/model/item';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
-import { AuthService } from '../shared/services/security/auth.service';
+import { IItem } from '../shared/model/item';
+import { ItemsComponent } from '../items/items.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
+import { LoggingService } from '../shared/services/system/logging.service';
+
 @Component({
-  selector: 'app-my-items',
-  templateUrl: './my-items.component.html',
-  styleUrls: ['./my-items.component.css']
+  selector: 'app-other',
+  templateUrl: './other.component.html',
+  styleUrls: ['./other.component.css']
 })
-export class MyItemsComponent implements OnInit {
+export class OtherComponent implements OnInit {
+
   items: IItem[];
+  params: any = {};
   nextPage = 0;
   PER_PAGE = 40;
-  params: any = {};
-  lastParams = null;
+  MAX_ITEMS = this.PER_PAGE * 4;
+  currentLength: number;
+  actualPage: any = 0;
+
+  lastParams: any = null;
+
+  @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
+
   constructor(
     private _itemService: ItemService,
-    private _authSvc: AuthService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _commSvc: CommunicateService,
+    private _logSvc: LoggingService,
     @Inject(JQ_TOKEN) private $: any) {
-
+    let params = this._activatedRoute.snapshot.queryParams;
+    this._router.navigate([], {
+      queryParams: Object.assign({ page: 0, perPage: 40 }, params),
+      queryParamsHandling: "merge"
+    });
   }
 
   ngOnInit() {
-    this._activatedRoute.queryParams.subscribe(newParams => {
-      this.params = Object.assign({}, newParams);
-      this.getItems(Object.assign({ page: this.nextPage, createdBy: this._authSvc.user._id }, this.params));
+    this._activatedRoute.queryParams.subscribe(params => {
+      this.params = Object.assign({ need: 'other' }, this._activatedRoute.snapshot.queryParams);
+      this.getItems(this.params);
     });
   }
 
   getItems(params) {
     let itemId = this._activatedRoute.snapshot.queryParams['id'];
     if (itemId) {
-      this._itemService.getItemById(itemId).subscribe(newItem => {
+      this._itemService.upview(itemId).subscribe(newItem => {
         this._commSvc.changeItem(newItem);
       });
     } else {
@@ -52,7 +66,7 @@ export class MyItemsComponent implements OnInit {
     }
   }
 
-  private getItemsHelper(that, params) {
+  private getItemsHelper(that: any, params: any) {
     that._itemService.getItems(params).subscribe((newItems: IItem[]) => {
       that.items = newItems;
       that.currentLength = that.items.length;
@@ -68,5 +82,10 @@ export class MyItemsComponent implements OnInit {
   removeFilter(key) {
     delete this.params[key];
     this._router.navigate([], { queryParams: this.params });
+  }
+
+  loadPage(event) {
+    this.nextPage = +event.target.value;
+    this.loadNext();
   }
 }

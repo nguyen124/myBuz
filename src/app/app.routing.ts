@@ -12,11 +12,13 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { UploadComponent } from './upload/upload.component';
 import { UpdateItemComponent } from './update-item/update-item.component';
+import { HiringComponent } from './hiring/hiring.component';
+import { OtherComponent } from './other/other.component';
 
 const appRoutes: Routes = [
-    { path: 'business/:need', component: HomeComponent },
-    { path: 'business/hiring', component: HomeComponent },
-    { path: 'business/other', component: HomeComponent },
+    { path: 'business/forSale', component: HomeComponent },
+    { path: 'business/hiring', component: HiringComponent },
+    { path: 'business/other', component: OtherComponent },
     { path: 'business/:itemId/update', component: UpdateItemComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },

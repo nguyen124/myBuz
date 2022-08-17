@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../shared/services/security/auth.service';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 
@@ -24,13 +24,15 @@ export class HeaderComponent {
     this._translate.setDefaultLang('vn');
     this._translate.use('vn');
     this._router.events.subscribe((val: any) => {
-      if (val.url) {
-        let splits = val.url.split("\/");
-        if (splits.length > 2) {
-          switch (splits[2]) {
-            case 'forSale': this._commSvc.setFlag(true, false, false); return;
-            case 'hiring': this._commSvc.setFlag(false, true, false); return;
-            case 'other': this._commSvc.setFlag(false, false, true); return;
+      if (val instanceof NavigationStart) {
+        if (val.url) {
+          let splits = val.url.split("?");
+          if (splits.length > 0) {
+            switch (splits[0]) {
+              case '/business/forSale': this._commSvc.setFlag(true, false, false); return;
+              case '/business/hiring': this._commSvc.setFlag(false, true, false); return;
+              case '/business/other': this._commSvc.setFlag(false, false, true); return;
+            }
           }
         }
       }
@@ -47,5 +49,21 @@ export class HeaderComponent {
   useLanguage(value: string) {
     this.language = value === 'en' ? 'English' : 'Tiếng Việt';
     this.languageEmitter.emit(value);
+  }
+
+  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
+    this._commSvc.setFlag(flag1, flag2, flag3);
+  }
+
+  get businessForSaleActive(): boolean {
+    return this._commSvc.businessForSaleActive;
+  }
+
+  get hiringActive(): boolean {
+    return this._commSvc.hiringActive;
+  }
+
+  get otherForSaleActive(): boolean {
+    return this._commSvc.otherForSaleActive;
   }
 }

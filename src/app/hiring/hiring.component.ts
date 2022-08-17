@@ -9,11 +9,11 @@ import * as _ from 'lodash';
 import { LoggingService } from '../shared/services/system/logging.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-hiring',
+  templateUrl: './hiring.component.html',
+  styleUrls: ['./hiring.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HiringComponent implements OnInit {
   items: IItem[];
   params: any = {};
   nextPage = 0;
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
-      this.params = Object.assign({ need: 'forSale' }, this._activatedRoute.snapshot.queryParams);
+      this.params = Object.assign({ need: 'hiring' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
     });
   }
@@ -86,5 +86,21 @@ export class HomeComponent implements OnInit {
   loadPage(event) {
     this.nextPage = +event.target.value;
     this.loadNext();
+  }
+
+  setFlag(flag1: boolean, flag2: boolean, flag3: boolean) {
+    this._commSvc.setFlag(flag1, flag2, flag3);
+  }
+
+  get businessForSaleActive(): boolean {
+    return this._commSvc.businessForSaleActive;
+  }
+
+  get hiringActive(): boolean {
+    return this._commSvc.hiringActive;
+  }
+
+  get otherForSaleActive(): boolean {
+    return this._commSvc.otherForSaleActive;
   }
 }
