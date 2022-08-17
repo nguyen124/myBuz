@@ -1,6 +1,6 @@
 <div class="row pb-1">
   <div class="col-md-4 col-xs-4 hot">
-    <a [routerLink]="'/business/forSale'" [queryParams]="{temp: 'cold', page: 0, perPage: PER_PAGE}"
+    <a [routerLink]="'/business/forSale'" [queryParams]="{page: 0, perPage: PER_PAGE}"
       (click)="setFlag(true, false, false)"><button class="btn w-100 pr-0 pl-0 rounded-0 border-0 hot"
         [ngClass]="{'font-weight-bold text-white font-24 round-right-16' : businessForSaleActive}">
         {{'home.topHeader.business' | translate}}
@@ -8,7 +8,8 @@
     </a>
   </div>
   <div class="col-md-4 col-xs-4 warm">
-    <a [routerLink]="'/business/hiring'" (click)="setFlag(false, true, false)">
+    <a [routerLink]="'/business/hiring'" [queryParams]="{page: 0, perPage: PER_PAGE}"
+      (click)="setFlag(false, true, false)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 warm"
         [ngClass]="{'font-weight-bold text-white font-24 round-right-left-16' : hiringActive}">
         {{'home.topHeader.hiring' | translate}}
@@ -16,7 +17,8 @@
     </a>
   </div>
   <div class="col-md-4 col-xs-4 cold">
-    <a [routerLink]="'/business/other'" (click)="setFlag(false, false, true)">
+    <a [routerLink]="'/business/other'" [queryParams]="{page: 0, perPage: PER_PAGE}"
+      (click)="setFlag(false, false, true)">
       <button class="btn w-100 pr-0 pl-0 rounded-0 border-0 cold"
         [ngClass]="{'font-weight-bold text-white font-24 round-left-16' : otherForSaleActive}">
         {{'home.topHeader.other' | translate}}

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { IItem } from '../shared/model/item';
 import { ItemsComponent } from '../items/items.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
@@ -33,9 +33,19 @@ export class HomeComponent implements OnInit {
     private _commSvc: CommunicateService,
     private _logSvc: LoggingService,
     @Inject(JQ_TOKEN) private $: any) {
+    this._router.navigate([], {
+      queryParams: { page: 0, perPage: 40 },
+      queryParamsHandling: "merge"
+    });
   }
 
   ngOnInit() {
+    this._router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        let need = this._activatedRoute.snapshot.params['need'];
+        this.getItems({ need });
+      }
+    });
     this._activatedRoute.queryParams.subscribe(params => {
       let need = this._activatedRoute.snapshot.params['need'];
       this.params = Object.assign({}, this._activatedRoute.snapshot.queryParams);
