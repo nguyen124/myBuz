@@ -43,17 +43,15 @@
   <app-items [items]="items"></app-items>
 </div>
 
-<div class="row mb-3">
-  <div class="input-group col-md-9">
-    <div>
-      <a (click)="loadNext()" class="btn btn-primary d-inline text-white" role="button">Next</a>
+<div class="row mb-5">
+  <div class="col-12">
+    <div class="float-left pt-1">
+      <a class="btn btn-primary d-inline text-white" (click)="loadNext()">Next</a>
     </div>
-  </div>
-  <div class="input-group col-md-3">
-    <div class="form-label-group">
-      <a [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{page: actualPage}"
-        class="btn text-primary d-inline mr-1"> Go to page </a>
-      <input class="form-control mt-2 d-inline w-25" type="number" min="0" autofocus [(ngModel)]="actualPage" />
+    <div class="float-right">
+      <a class="btn btn-primary d-inline mr-1" [routerLink]="[]" queryParamsHandling="merge"
+        [queryParams]="{page: actualPage}">Page</a>
+      <input class="d-inline w-25" min="0" autofocus [(ngModel)]="actualPage" />
     </div>
   </div>
 </div>

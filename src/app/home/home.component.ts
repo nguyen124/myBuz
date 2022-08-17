@@ -71,31 +71,13 @@ export class HomeComponent implements OnInit {
   }
 
   loadNext() {
-    this.params.perPage = this.params.perPage || this.PER_PAGE;
-    if (this.items.length >= this.MAX_ITEMS) {
-      this.offset = Math.floor((this.items.length + this.offset * this.params.perPage) / this.params.perPage);
-      this.items = [];
-      this.nextPage = 0;
-    }
-    if (this.items) {
-      this.nextPage = Math.floor(this.items.length / this.params.perPage);
-    } else {
-      this.nextPage = 0;
-    }
-    this.actualPage = this.offset + this.nextPage;
-    var sending = Object.assign({}, this.params, { page: this.actualPage });
-    this._logSvc.log("Offset: " + this.offset);
-    this._itemService.getItems(sending).subscribe((newItems: IItem[]) => {
-      for (var i = 0; i < newItems.length; i++) {
-        this.items[this.nextPage * this.params.perPage + i] = newItems[i];
-      }
-      this.currentLength = this.items.length;
-    });
+    var sending = Object.assign({}, this.params, { page: ++this.nextPage });
+    this._router.navigate([], { queryParams: sending });
   }
 
   removeFilter(key) {
     delete this.params[key];
-    this._router.navigate(['.'], { queryParams: this.params });
+    this._router.navigate([], { queryParams: this.params });
   }
 
   loadPage(event) {

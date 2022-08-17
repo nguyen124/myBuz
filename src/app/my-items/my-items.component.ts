@@ -62,16 +62,8 @@ export class MyItemsComponent implements OnInit {
   }
 
   loadNext() {
-    if (this.items) {
-      this.nextPage = Math.floor(this.items.length / this.PER_PAGE);
-    } else {
-      this.nextPage = 0;
-    }
-    this._itemService.getItems({ page: this.nextPage, createdBy: this._authSvc.user._id }).subscribe((newItems: IItem[]) => {
-      for (var i = 0; i < newItems.length; i++) {
-        this.items[this.nextPage * this.PER_PAGE + i] = newItems[i];
-      }
-    });
+    var sending = Object.assign({}, this.params, { page: ++this.nextPage });
+    this._router.navigate([], { queryParams: sending });
   }
 
   removeFilter(key) {
