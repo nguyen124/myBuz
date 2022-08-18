@@ -8,6 +8,7 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { CommentsComponent } from '../comments/comments.component';
 import { MetaTagService } from '../shared/services/meta-tag.services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RenderService } from '../shared/services/utils/render.service';
 
 @Component({
   selector: 'app-itemModal',
@@ -19,6 +20,8 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   item: IItem;
   comment: IComment
   subScription: Subscription;
+  needsMap: any = {};
+  categoriesMap: any = {};
 
   @ViewChild(CommentsComponent, { static: true }) commentsComp: CommentsComponent;
   @ViewChild('closeModalBtn', { static: false }) closeModalBtn: ElementRef;
@@ -34,13 +37,42 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     private titleTagService: MetaTagService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
+    private _renderSvc: RenderService,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
   ngOnInit() {
-    this.subScription = this._commSvc.currentItemInModal$.subscribe(item => {
+    this.subScription = this._commSvc.currentItemInModal$.subscribe((item?: any) => {
       if (item) {
         this.item = item;
+        this.needsMap = {
+          "forSale": false,
+          "forLease": false,
+          "forShare": false,
+          "hiring": false
+        };
+        if (item) {
+          for (let need of item.needs) {
+            this.needsMap[need] = true;
+          }
+        }
+        this.categoriesMap = {
+          "Nail_Salon": false,
+          "Hair_Salon": false,
+          "Restaurant": false,
+          "House": false,
+          "Repair": false,
+          "Tax": false,
+          "Insurance": false,
+          "Lending": false,
+          "Babysit": false,
+          "Teaching": false,
+          "Other_Business": false,
+        };
+        if (item) {
+          this.categoriesMap[item.categories] = true;
+        }
+
         setTimeout(() => {
           this.$("#openModalBtn").click();
         }, 0);
@@ -102,5 +134,49 @@ export class ItemModalComponent implements OnInit, OnDestroy {
 
   getPoster(url) {
     return url.replace(/\.[^.]+$/, "_poster.jpg");
+  }
+
+  get showPrice(): boolean {
+    return this._renderSvc.showPrice(this.needsMap, this.categoriesMap);
+  }
+
+  get showWage(): boolean {
+    return this._renderSvc.showWage(this.needsMap, this.categoriesMap);
+  }
+
+  get showNoOfEmployees(): boolean {
+    return this._renderSvc.showNoOfEmployees(this.needsMap, this.categoriesMap);
+  }
+
+  get showNoOfChairs(): boolean {
+    return this._renderSvc.showNoOfChairs(this.needsMap, this.categoriesMap);
+  }
+
+  get showNoOfTables(): boolean {
+    return this._renderSvc.showNoOfTables(this.needsMap, this.categoriesMap);
+  }
+
+  get showIncome(): boolean {
+    return this._renderSvc.showIncome(this.needsMap, this.categoriesMap);
+  }
+
+  get showRent(): boolean {
+    return this._renderSvc.showRent(this.needsMap, this.categoriesMap);
+  }
+
+  get showOtherCost(): boolean {
+    return this._renderSvc.showOtherCost(this.needsMap, this.categoriesMap);
+  }
+
+  get showLeaseEnd(): boolean {
+    return this._renderSvc.showLeaseEnd(this.needsMap, this.categoriesMap);
+  }
+
+  get showArea(): boolean {
+    return this._renderSvc.showArea(this.needsMap, this.categoriesMap);
+  }
+
+  get showYearsOld(): boolean {
+    return this._renderSvc.showYearsOld(this.needsMap, this.categoriesMap);
   }
 }

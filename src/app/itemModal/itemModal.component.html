@@ -42,7 +42,7 @@
             </div>
             <div class="row">
               <div class="col-12 mb-1">
-                <app-react [item]="item"></app-react>
+                <app-react *ngIf="!item.expired" [item]="item"></app-react>
               </div>
             </div>
             <div class="row">
@@ -54,43 +54,47 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-6 mb-1">
+              <div *ngIf="showPrice" class="col-6 mb-1">
                 <label><strong>{{"common.label.price" | translate}}: </strong></label> <span> {{item.price | currency:'USD'}}</span>
               </div>
-              <div class="col-6 mb-1">
+              <div *ngIf="showIncome" class="col-6 mb-1">
                 <label><strong>{{"item.upload.income.label" | translate}}: </strong></label> <span> {{item.income | currency:'USD'}}</span>
               </div>
-
             </div>
             <div class="row">
-              <div class="col-6 mb-1">
+              <div *ngIf="showWage" class="col-6 mb-1">
+                <label><strong>{{"common.label.wage" | translate}}: </strong></label> <span> {{item.wage | currency:'USD'}}</span>
+              </div>              
+            </div>
+            <div class="row">
+              <div *ngIf="showRent" class="col-6 mb-1">
                 <label><strong>{{"item.upload.rent.label" | translate}}: </strong></label> <span> {{item.rentCost | currency:'USD'}}</span>
               </div>
-              <div class="col-6 mb-1">
+              <div *ngIf="showOtherCost" class="col-6 mb-1">
                 <label><strong>{{"item.upload.otherCost.label" | translate}}: </strong></label> <span> {{item.otherCost | currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
-              <div class="col-6 mb-1">
+              <div *ngIf="showNoOfEmployees" class="col-6 mb-1">
                 <label><strong>{{"item.upload.noOfEmployees.label" | translate}}: </strong></label> <span> {{item.noOfEmployees}}</span>
               </div>
-              <div class="col-6 mb-1">
+              <div *ngIf="showArea" class="col-6 mb-1">
                 <label><strong>{{"item.upload.area.label" | translate}}: </strong></label> <span> {{item.area}} Sq.ft</span>
               </div>
             </div>
             <div class="row">
-              <div class="col-6 mb-1">
+              <div *ngIf="showNoOfTables" class="col-6 mb-1">
                 <label><strong>{{"item.upload.noOfTables.label" | translate}}: </strong></label> <span> {{item.noOfTables}}</span>
               </div>
-              <div class="col-6 mb-1">
+              <div *ngIf="showNoOfChairs" class="col-6 mb-1">
                 <label><strong>{{"item.upload.noOfChairs.label" | translate}}: </strong></label> <span> {{item.noOfChairs}}</span>
               </div>
             </div>
             <div class="row">
-              <div class="col-6 mb-1">
+              <div *ngIf="showLeaseEnd" class="col-6 mb-1">
                 <label><strong>{{"item.upload.leaseEnd.label" | translate}}: </strong></label> <span> {{item.leaseEnd | date:'longDate'}}</span>
               </div>
-              <div class="col-6 mb-1">
+              <div *ngIf="showYearsOld" class="col-6 mb-1">
                 <label><strong>{{"item.upload.yearsOld.label" | translate}}: </strong></label> <span> {{item.yearOld}}</span>
               </div>
             </div>
@@ -133,7 +137,7 @@
 
           <div class="col-md-6 overflow-scroll">
             <app-comments [item]="item"></app-comments>
-            <app-comment-box [item]="item" [isTopCommentBox]="true" [isShowing]="true"
+            <app-comment-box *ngIf="!item.expired" [item]="item" [isTopCommentBox]="true" [isShowing]="true"
               (commentBoxFocused)="handleTopCommentBoxFocus($event)">
             </app-comment-box>
           </div>

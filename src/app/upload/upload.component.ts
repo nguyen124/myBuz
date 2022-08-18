@@ -14,6 +14,7 @@ import { CheckoutService } from '../shared/services/checkout.service';
 import { GoogleMapService } from '../shared/services/google-map.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from '../shared/services/system/logging.service';
+import { RenderService } from '../shared/services/utils/render.service';
 
 declare var firebase: any;
 declare var google: any;
@@ -41,12 +42,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
   autocompleteAddress: any;
   autocompleteZipcode: any;
   needsOption = [];
-  needsMap: any = {
-    "forSale": false,
-    "forLease": false,
-    "forShare": false,
-    "hiring": false
-  };
+  needsMap: any = {};
   categoriesMap: any = {};
 
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
@@ -65,6 +61,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     private _apiService: GoogleMapService,
     private _translate: TranslateService,
     private _logSvc: LoggingService,
+    private _renderSvc: RenderService,
     @Inject(JQ_TOKEN) private $: any) {
 
   }
@@ -291,109 +288,47 @@ export class UploadComponent implements OnInit, AfterViewInit {
   get f() { return this.itemForm.controls; }
 
   get showPrice(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['House'] || this.categoriesMap['Restaurant'] ||
-      this.categoriesMap['Other_Business]']) && this.needsMap['forSale']) {
-      result = true;
-    }
-    return result;
+    return this._renderSvc.showPrice(this.needsMap, this.categoriesMap);
   }
 
   get showWage(): boolean {
-    return this.needsMap.hiring;
+    return this._renderSvc.showWage(this.needsMap, this.categoriesMap);
   }
 
   get showNoOfEmployees(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+    return this._renderSvc.showNoOfEmployees(this.needsMap, this.categoriesMap);
   }
 
   get showNoOfChairs(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+    return this._renderSvc.showNoOfChairs(this.needsMap, this.categoriesMap);
   }
 
   get showNoOfTables(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+    return this._renderSvc.showNoOfTables(this.needsMap, this.categoriesMap);
   }
 
-  get showOfIncome(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+  get showIncome(): boolean {
+    return this._renderSvc.showIncome(this.needsMap, this.categoriesMap);
   }
 
-  get showOfRent(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+  get showRent(): boolean {
+    return this._renderSvc.showRent(this.needsMap, this.categoriesMap);
   }
 
-  get showOfOtherCost(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+  get showOtherCost(): boolean {
+    return this._renderSvc.showOtherCost(this.needsMap, this.categoriesMap);
   }
 
-  get showOfLeaseEnd(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+  get showLeaseEnd(): boolean {
+    return this._renderSvc.showLeaseEnd(this.needsMap, this.categoriesMap);
   }
 
-  get showOfArea(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['House']
-      || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+  get showArea(): boolean {
+    return this._renderSvc.showArea(this.needsMap, this.categoriesMap);
   }
 
-  get showOfYearsOld(): boolean {
-    let result = false;
-    if ((this.categoriesMap['Nail_Salon'] || this.categoriesMap['Hair_Salon'] ||
-      this.categoriesMap['Restaurant'] || this.categoriesMap['House']
-      || this.categoriesMap['Other_Business']) &&
-      (this.needsMap['forSale'] || this.needsMap['forShare'])) {
-      result = true;
-    }
-    return result;
+  get showYearsOld(): boolean {
+    return this._renderSvc.showYearsOld(this.needsMap, this.categoriesMap);
   }
 
   checkError(field: string) {

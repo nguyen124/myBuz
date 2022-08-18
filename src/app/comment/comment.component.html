@@ -17,7 +17,7 @@
             <app-comment-voice *ngIf="obj.fileType == 'sound'" [voicePreviewSrc]="obj.url">
             </app-comment-voice>
         </div>
-        <div>
+        <div *ngIf="!item.expired">
             <app-comment-react [comment]="comment"></app-comment-react>
             <i class="btn btn-xs fa fa-comment text-success"
                 (click)="showReplies(comment._id)">{{comment.noOfReplies}}</i>
@@ -62,7 +62,7 @@
                     {{"common.audio.warning" | translate}}
                 </audio>
             </div>
-            <div>
+            <div *ngIf="!item.expired">
                 <app-comment-react [comment]="reply">
                 </app-comment-react>
                 <i class="btn-xs fa fa-star mr-1 text-primary">{{reply.noOfPoints}}</i>
@@ -79,7 +79,7 @@
                         *ngIf="authSvc.user && (authSvc.user?.username == reply.writtenBy?.username || authSvc.user?.role === 'ADMIN')">{{"common.label.delete" | translate}}</a>
                     <app-report [comment]="reply"></app-report>
                 </div>
-                <app-comment-box [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
+                <app-comment-box *ngIf="!item.expired" [item]="item" [comment]="reply" [isShowing]="reply.showCommentBox"
                     [isEditting]="reply.isEditting" (editingCommentDone)="handleEditingReplyCommentDone($event)">
                     <app-reply-to [replyToUsername]="replyToUsername"></app-reply-to>
                 </app-comment-box>
