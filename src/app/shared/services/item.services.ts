@@ -20,8 +20,12 @@ export class ItemService {
         return this._http.get<IItem[]>("/svc/user/business", { params: params });
     }
 
+    // deleteItem(id: string): Observable<any> {
+    //     return this._http.delete("/svc/business/" + id + "/delete");
+    // }
+
     deleteItem(id: string): Observable<any> {
-        return this._http.delete("/svc/business/" + id + "/delete");
+        return this._http.put("/svc/business/" + id + "/fakedelete", {});
     }
 
     updateItem(itemId: string, item: any): Observable<any> {

@@ -16,7 +16,9 @@ export class MyItemsComponent implements OnInit {
   nextPage = 0;
   PER_PAGE = 40;
   params: any = {};
+  actualPage: any = 0;
   lastParams = null;
+
   constructor(
     private _itemService: ItemService,
     private _authSvc: AuthService,
