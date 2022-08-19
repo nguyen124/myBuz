@@ -6,7 +6,8 @@
         </div>
         <div class="col-sm-10 col-md-9 text-success">{{item.modifiedDate | date:'shortDate'}} .
             {{item.createdBy?.username}}
-            <span *ngIf="showExpired && item.expired" class="text-danger font-weight-bold float-right">Expired</span>
+            <span *ngIf="showExpired && item.expired" class="text-danger font-weight-bold float-right">{{"common.label.expired" | translate}}</span>
+            <span *ngIf="showExpired && item.status==='REFUNDED'" class="text-danger font-weight-bold float-right">{{"common.label.refunded" | translate}}</span>
         </div>
     </div>
     <div class="row text-overflow">

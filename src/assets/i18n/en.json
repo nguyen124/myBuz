@@ -13,6 +13,7 @@
       "edit": "Edit",
       "create": "Create",
       "delete": "Delete",
+      "deleteRefund": "Delete & refund",
       "cancel": "Cancel",
       "policies": "Policies",
       "terms": "Terms",
@@ -41,7 +42,12 @@
       "wage": "Estimated pay/month",
       "createAds": "Create Ads",
       "updateAds": "Update Ads",
-      "notice1": "(* is required fields)"
+      "notice1": "(* is required fields)",
+      "error": {
+        "invalidInput": "Invalid input"
+      },
+      "expired": "Expired",
+      "refunded": "Refunded"
     }
   },
   "policy": {

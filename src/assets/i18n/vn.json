@@ -13,6 +13,7 @@
       "edit": "Chỉnh",
       "create": "Tạo",
       "delete": "Xóa",
+      "deleteRefund": "Xóa & hoàn tiền",
       "cancel": "Hủy",
       "policies": "Quy tắc",
       "terms": "Điều lệ",
@@ -41,7 +42,12 @@
       "wage": "Lương ước tính/tháng",
       "createAds": "Tạo Quảng Cáo",
       "updateAds": "Chỉnh Sửa Quảng Cáo",
-      "notice1": "(* thông tin bắt buộc)"
+      "notice1": "(* thông tin bắt buộc)",
+      "error": {
+        "invalidInput": "Dữ liệu vào không phù hợp"
+      },
+      "expired": "Đã hết hạn",
+      "refunded": "Đã hoàn tiền"
     }
   },
   "policy": {

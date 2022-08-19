@@ -28,6 +28,10 @@ export class ItemService {
         return this._http.put("/svc/business/" + id + "/fakedelete", {});
     }
 
+    deleteRefundItem(id: string): Observable<any> {
+        return this._http.put("/svc/business/" + id + "/deleteRefund", {});
+    }
+
     updateItem(itemId: string, item: any): Observable<any> {
         return this._http.put("/svc/business/" + itemId + "/update", item);
     }

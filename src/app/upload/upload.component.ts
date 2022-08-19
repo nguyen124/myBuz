@@ -391,11 +391,14 @@ export class UploadComponent implements OnInit, AfterViewInit {
     this.makePayment(this.f.duration.value);
   }
 
-  makePayment(duration: string) {
+  makePayment(duration: any) {
     let that = this;
     let cost = 0;
     let description = "";
     duration += "";
+    if (!duration || isNaN(duration)) {
+      that._toastr.error(this._translate.instant("common.label.error.invalidInput"));
+    }
     switch (duration) {
       case "1":
         cost = 20;
@@ -434,30 +437,34 @@ export class UploadComponent implements OnInit, AfterViewInit {
   }
 
   startPostingAfterChargeSuccessfully() {
-    let uploadedResults = [];
     let that = this;
-    let storage = firebase.storage().ref();
-    this.toUploadFiles.forEach(file => {
-      let storageRef = storage.child(file.pathName);
-      let uploadTask = storageRef.putString(file.url, 'data_url', {
-        contentType: file.fileType,
-      });
-      this.currentUploadTasks.push(uploadTask);
-      // Listen for state changes, errors, and completion of the upload.
-      uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot: any) => {
-          that.handleSnapshot(snapshot, that);
-        },
-        (error: any) => {
-          that.handleFirebaseUploadError(error, that);
-          that.cancelCharge(that);
-        },
-        () => {
-          that.handleSuccess(uploadTask, uploadedResults, that);
-        }
-      );
-    });
+    try {
+      let uploadedResults = [];
+      let storage = firebase.storage().ref();
+      for (let file of this.toUploadFiles) {
+        let storageRef = storage.child(file.pathName);
+        let uploadTask = storageRef.putString(file.url, 'data_url', {
+          contentType: file.fileType,
+        });
+        this.currentUploadTasks.push(uploadTask);
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(
+          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot: any) => {
+            that.handleSnapshot(snapshot, that);
+          },
+          (error: any) => {
+            that.cancelCharge(that);
+            that.handleFirebaseUploadError(error, that);
+          },
+          () => {
+            that.handleSuccess(uploadTask, uploadedResults, that);
+          }
+        );
+      }
+    } catch (error) {
+      that.cancelCharge(that);
+    }
   }
 
   cancelCharge(that) {
@@ -470,78 +477,87 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
   handleSnapshot(snapshot, that) {
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    that.isUploading = true;
-    that.uploadingProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-    // this._toastr.info('Upload is ' + this.uploadingProgress + '% done');
+    try {
+      that.isUploading = true;
+      that.uploadingProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      // this._toastr.info('Upload is ' + this.uploadingProgress + '% done');
 
-    switch (snapshot.state) {
-      case firebase.storage.TaskState.PAUSED: // or 'paused'
-        that._toastr.info(this._translate.instant("item.update.validate.uploadingPaused"));
-        break;
-      case firebase.storage.TaskState.RUNNING: // or 'running'
-        //this._toastr.info('Upload is running');
-        break;
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          that._toastr.info(this._translate.instant("item.update.validate.uploadingPaused"));
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          //this._toastr.info('Upload is running');
+          break;
+      }
+    } catch (err) {
+      that.cancelCharge(that);
     }
+
   }
 
   handleSuccess(uploadTask, uploadedResults, that) {
-    // Upload completed successfully, now we can get the download URL
-    that.isUploading = false;
-    that._toastr.success(this._translate.instant("uploading.validate.success"));
-    // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
+    try {
+      // Upload completed successfully, now we can get the download URL
+      that.isUploading = false;
+      that._toastr.success(this._translate.instant("uploading.validate.success"));
+      // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
 
-    // });
-    let bucketName = isDevMode() ? environment.bucketname : prodEnvironment.bucketname;
-    let downloadURL = 'https://storage.googleapis.com/' + bucketName + '/' + uploadTask.snapshot.metadata.fullPath;
+      // });
+      let bucketName = isDevMode() ? environment.bucketname : prodEnvironment.bucketname;
+      let downloadURL = 'https://storage.googleapis.com/' + bucketName + '/' + uploadTask.snapshot.metadata.fullPath;
 
-    uploadedResults.push({
-      url: downloadURL,
-      filename: uploadTask.snapshot.metadata.fullPath,
-      fileType: uploadTask.snapshot.metadata.contentType
-    });
-
-    if (uploadedResults.length == that.toUploadFiles.length) {
-      let item = {
-        tags: that.parsedTags,
-        categories: [that.f.categories.value],
-        needs: that.f.needs.value,
-        title: that.f.title.value.trim(),
-        businessName: that.f.businessName.value.trim(),
-        price: that.f.price.value,
-        wage: that.f.price.wage,
-        address: that.f.address.value.trim(),
-        address2: that.f.address2.value.trim(),
-        zipcode: that.f.zipcode.value.trim(),
-        city: that.f.city.value.trim(),
-        state: that.f.state.value.trim(),
-        country: that.f.country.value.trim(),
-        noOfEmployees: that.f.noOfEmployees.value,
-        noOfChairs: that.f.noOfChairs.value,
-        noOfTables: that.f.noOfTables.value,
-        contactPhoneNo: that.f.contactPhoneNo.value,
-        contactEmail: that.f.contactEmail.value.trim(),
-        income: that.f.income.value,
-        rentCost: that.f.rentCost.value,
-        otherCost: that.f.otherCost.value,
-        leaseEnd: that.f.leaseEnd.value,
-        yearOld: that.f.yearOld.value,
-        area: that.f.area.value,
-        duration: +that.f.duration.value,
-        description: that.f.description.value == null ? '' : that.f.description.value.trim(),
-        files: uploadedResults,
-        overview: that.f.overview.value == null ? '' : that.f.overview.value.trim(),
-        charge: that.charge,
-        geometry: that.geometry
-      };
-      //append charge info into item
-
-      that._itemSvc.createItem(item).subscribe((newItem: any) => {
-        that._toastr.success(this._translate.instant("item.upload.validate.success"));
-        that._router.navigate(["/user/business"]);
-      }, (err: any) => {
-        that.cancelCharge(that);
-        that.handleError(err, that);
+      uploadedResults.push({
+        url: downloadURL,
+        filename: uploadTask.snapshot.metadata.fullPath,
+        fileType: uploadTask.snapshot.metadata.contentType
       });
+
+      if (uploadedResults.length == that.toUploadFiles.length) {
+        let item = {
+          tags: that.parsedTags,
+          categories: [that.f.categories.value],
+          needs: that.f.needs.value,
+          title: that.f.title.value.trim(),
+          businessName: that.f.businessName.value.trim(),
+          price: that.f.price.value,
+          wage: that.f.price.wage,
+          address: that.f.address.value.trim(),
+          address2: that.f.address2.value.trim(),
+          zipcode: that.f.zipcode.value.trim(),
+          city: that.f.city.value.trim(),
+          state: that.f.state.value.trim(),
+          country: that.f.country.value.trim(),
+          noOfEmployees: that.f.noOfEmployees.value,
+          noOfChairs: that.f.noOfChairs.value,
+          noOfTables: that.f.noOfTables.value,
+          contactPhoneNo: that.f.contactPhoneNo.value,
+          contactEmail: that.f.contactEmail.value.trim(),
+          income: that.f.income.value,
+          rentCost: that.f.rentCost.value,
+          otherCost: that.f.otherCost.value,
+          leaseEnd: that.f.leaseEnd.value,
+          yearOld: that.f.yearOld.value,
+          area: that.f.area.value,
+          duration: +that.f.duration.value,
+          description: that.f.description.value == null ? '' : that.f.description.value.trim(),
+          files: uploadedResults,
+          overview: that.f.overview.value == null ? '' : that.f.overview.value.trim(),
+          charge: that.charge,
+          geometry: that.geometry
+        };
+        //append charge info into item
+
+        that._itemSvc.createItem(item).subscribe((newItem: any) => {
+          that._toastr.success(this._translate.instant("item.upload.validate.success"));
+          that._router.navigate(["/user/business"]);
+        }, (err: any) => {
+          that.cancelCharge(that);
+          that.handleError(err, that);
+        });
+      }
+    } catch (error) {
+      that.cancelCharge(that);
     }
   }
 

@@ -37,6 +37,16 @@ export class ItemsComponent {
     });
   }
 
+  
+  deleteRefundItem(index: number, itemId: string) {
+    this._itemSvc.deleteRefundItem(itemId).subscribe(res => {
+      this.items[index].status = res.status;
+      this._toastr.success(this._translate.instant("item.delete.success"));
+    }, err => {
+      this._toastr.error(this._translate.instant("item.delete.error"));
+    });
+  }
+
   editItem(itemId: string) {
     this._router.navigate(['/business/' + itemId + '/update']);
   }

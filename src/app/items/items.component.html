@@ -10,9 +10,11 @@
         <div
           *ngIf="authSvc?.user && (authSvc?.user?.username == item?.createdBy?.username || authSvc?.user?.role === 'ADMIN')">
           <div class="dropdown-divider"></div>
-          <button class="btn dropdown-item text-primary pl-0 ml-1 w-75"
+          <button *ngIf="!item.refundable || item.status==='REFUNDED'" class="btn dropdown-item text-primary pl-0 ml-1 w-75"
             (click)="deleteItem(i, item._id)">{{"common.label.delete" | translate}}</button>
-          <button *ngIf="authSvc?.user?.username == item?.createdBy?.username && !item.expired"
+          <button *ngIf="item.refundable && item.status!=='REFUNDED'" class="btn dropdown-item text-primary pl-0 ml-1 w-75"
+            (click)="deleteRefundItem(i, item._id)">{{"common.label.deleteRefund" | translate}}</button>
+          <button *ngIf="authSvc?.user?.username == item?.createdBy?.username && !item.expired && item.status!=='REFUNDED'"
             class="btn dropdown-item text-primary pl-0 ml-1 w-75" (click)="editItem(item._id)">
             {{"common.label.edit" | translate}}
           </button>
