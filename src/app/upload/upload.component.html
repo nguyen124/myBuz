@@ -180,7 +180,7 @@
 
       <div class="row mb-1">
 
-        <div *ngIf="showOfIncome" class="col-md-4 mb-1">
+        <div *ngIf="showIncome" class="col-md-4 mb-1">
           <label class="text-primary" for="income"><strong>{{"item.upload.income.label" | translate}}</strong></label>
           <input type="number" formControlName="income" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('income') }">
@@ -189,7 +189,7 @@
           </div>
         </div>
 
-        <div *ngIf="showOfRent" class="col-md-4 mb-1">
+        <div *ngIf="showRent" class="col-md-4 mb-1">
           <label class="text-primary" for="rentCost"><strong>{{"item.upload.rent.label" | translate}}</strong></label>
           <input type="number" formControlName="rentCost" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('rentCost') }">
@@ -197,7 +197,7 @@
             <div *ngIf="f.rentCost.errors.min">{{"item.upload.rent.validate.min" | translate}}</div>
           </div>
         </div>
-        <div *ngIf="showOfOtherCost" class="col-md-4 mb-1">
+        <div *ngIf="showOtherCost" class="col-md-4 mb-1">
           <label class="text-primary" for="otherCost"><strong>{{"item.upload.otherCost.label" |
               translate}}</strong></label>
           <input type="number" formControlName="otherCost" class="form-control"
@@ -209,7 +209,7 @@
       </div>
 
       <div class="row mb-1">
-        <div *ngIf="showOfArea" class="col-md-4 mb-1">
+        <div *ngIf="showArea" class="col-md-4 mb-1">
           <label class="text-primary" for="area"><strong>{{"item.upload.area.label" | translate}}</strong></label>
           <input type="number" formControlName="area" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('area') }">
@@ -217,7 +217,7 @@
             <div *ngIf="f.area.errors.min">{{"item.upload.area.validate.min" | translate}}!</div>
           </div>
         </div>
-        <div *ngIf="showOfLeaseEnd" class="col-md-4 mb-1">
+        <div *ngIf="showLeaseEnd" class="col-md-4 mb-1">
           <label class="text-primary" for="leaseEnd"><strong>{{"item.upload.leaseEnd.label" |
               translate}}</strong></label>
           <input type="date" formControlName="leaseEnd" class="form-control">
