@@ -133,21 +133,19 @@ export class UserHomeComponent implements OnInit {
           this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
             this.afterUpdate(result);
           }, err => {
-            this.error = err;
-            this._toastr.error(this._translate.instant("user.update.updateError"));
+            this.error = this._translate.instant("user.update.updateError");
           });
         }
       }, err => {
         this.isUploading = false;
-        this.error = err;
-        this._toastr.error(this._translate.instant("user.update.uploadingAvatarError"));        
+        this.error = this._translate.instant("user.update.uploadingAvatarError");
       })
     } else {
       this._userSvc.updateUser(this.user._id, newInfo).subscribe(result => {
         this.afterUpdate(result);
       }, err => {
-        this.error = err;
-        this._toastr.error(this._translate.instant("user.update.updateError"));
+        this.error = this._translate.instant("user.update.updateError");
+
       });
     }
   }

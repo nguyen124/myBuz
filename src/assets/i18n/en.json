@@ -72,6 +72,9 @@
   },
   "login": {
     "label": "Login",
+    "validate": {
+      "error": "Can't login. Please try again!"
+    },
     "username": {
       "label": "Username/Email",
       "registerUsername": "Username",
@@ -131,8 +134,16 @@
   },
   "register": {
     "validate": {
-      "error": "Sorry can't complete your register. Please try again!",
+      "existingUsername": "Username has been used!",
+      "existingEmail": "Email has been used!",
+      "error": "Error happened! Please try again!",
       "invalidData": "Invalid data!"
+    }
+  },
+  "resetPassword": {
+    "validate": {
+      "error": "Can't reset password!",
+      "sendTempPassError": "Can't send temporary password to this email!"
     }
   },
   "item": {

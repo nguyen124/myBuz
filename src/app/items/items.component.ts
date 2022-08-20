@@ -30,7 +30,7 @@ export class ItemsComponent {
 
   deleteItem(index: number, id: string) {
     this._itemSvc.deleteItem(id).subscribe(res => {
-      this.items[index].status = res.status;
+      this.items.splice(index, 1);
       this._toastr.success(this._translate.instant("item.delete.success"));
     }, err => {
       this._toastr.error(this._translate.instant("item.delete.error"));

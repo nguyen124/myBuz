@@ -72,6 +72,9 @@
   },
   "login": {
     "label": "Đăng nhập",
+    "validate": {
+      "error": "Không thể đăng nhập. Vui lòng thử lại!"
+    },
     "username": {
       "label": "Tài khoản/Email",
       "registerUsername": "Tài khoản",
@@ -131,8 +134,16 @@
   },
   "register": {
     "validate": {
-      "error": "Xin lỗi không thể đăng kí. Vui lòng thử lại!",
+      "existingUsername": "Tên tài khoản đã được sử dụng!",
+      "existingEmail": "Email đã được sử dụng!",
+      "error": "Lỗi xảy ra. Vui lòng thử lại!",
       "invalidData": "Dữ liệu không hợp lệ!"
+    }
+  },
+  "resetPassword": {
+    "validate": {
+      "error": "Lỗi xảy ra không thể tạo mới mật khẩu!",
+      "sendTempPassError": "Không thể gửi mật khẩu tạm đến email này!"
     }
   },
   "item": {

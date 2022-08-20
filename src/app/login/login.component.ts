@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/security/auth.service';
 import { SystemService } from '../shared/services/utils/system.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _authSvc: AuthService,
-    private _systemSvc: SystemService) {
+    private _systemSvc: SystemService,
+    private _translate: TranslateService) {
     this.returnUrl = this._route.snapshot.queryParamMap.get('returnUrl') || '/';
   }
 
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
     this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
       this._router.navigate([this.returnUrl])
     }, err => {
-      this.error = err.statusText;
+      this.error = this._translate.instant(err.error);
     });
   }
 
