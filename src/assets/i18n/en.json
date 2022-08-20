@@ -256,7 +256,10 @@
         "repair": "Repair",
         "babysit": "Babysit",
         "teaching": "Teaching",
-        "otherBusiness": "Other Business/Services"
+        "otherBusiness": "Other Business/Services",
+        "validate": {
+          "required": "Please select your category!"
+        }
       },
       "needs": {
         "forSale": "Business for sale",

@@ -3,7 +3,7 @@ import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
@@ -162,7 +162,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
       title: ['', [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
       businessName: ['', [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-      categories: [''],
+      categories: ['', [Validators.required]],
       needs: [[], [Validators.required]],
       tags: [''],
       price: [0, [Validators.min(0)]],
@@ -386,6 +386,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
   createPost() {
     this.submitted = true;
     if (this.itemForm.invalid) {
+      this._renderSvc.scrollIntoError();
       return;
     }
     this.makePayment(this.f.duration.value);

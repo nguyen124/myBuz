@@ -117,7 +117,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
           title: [item.title, [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
           businessName: [item.businessName, [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
           file: [, [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
-          categories: [...item.categories],
+          categories: [...item.categories, [Validators.required]],
           needs: [item.needs, [Validators.required]],
           tags: [item.tags],
           price: [item.price, [Validators.min(0)]],
@@ -424,6 +424,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       this.itemForm.controls.file.setValue(true);
     }
     if (this.itemForm.invalid) {
+      this._renderSvc.scrollIntoError();
       return;
     }
     this.startPostingAfterChargeSuccessfully();

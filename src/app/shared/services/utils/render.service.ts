@@ -114,4 +114,12 @@ export class RenderService {
     }
     return result;
   }
+
+  scrollIntoError() {
+    const firstElementWithError = document.querySelector('.ng-invalid')[0];
+    if (firstElementWithError) {
+      let scrollTopPosition = firstElementWithError.getBoundingClientRect().top;
+      firstElementWithError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
 }

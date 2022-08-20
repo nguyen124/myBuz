@@ -256,7 +256,10 @@
         "repair": "Sửa chữa",
         "babysit": "Trông trẻ",
         "teaching": "Dạy học",
-        "otherBusiness": "Tiệm/dịch vụ khác"
+        "otherBusiness": "Tiệm/dịch vụ khác",
+        "validate": {
+          "required": "Vui lòng chọn dịch vụ!"
+        }
       },
       "needs": {
         "forSale": "Cần bán tiệm",
