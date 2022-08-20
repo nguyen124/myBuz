@@ -430,7 +430,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
       }
     });
     paymentHandler.open({
-      name: 'Me2Meme',
+      name: 'TroiViet',
       description: description,
       amount: cost * 100
     });

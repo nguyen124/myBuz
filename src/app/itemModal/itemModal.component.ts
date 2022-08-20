@@ -84,7 +84,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   setMetaTags() {
     this.titleTagService.setTitle(this.item.title);
     this.titleTagService.setSocialMediaTags(
-      "https://me2meme.com/business?id=" + this.item._id,
+      "https://troiviet.com/business?id=" + this.item._id,
       this.item.title,
       this.item.description,
       this.getThumbNailImage());
@@ -129,7 +129,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         return this.item.files[0].url;
       }
     }
-    return "https://me2meme.com/assets/image/logo256x215.png";
+    return "https://troiviet.com/assets/image/logo256x215.png";
   }
 
   getPoster(url) {

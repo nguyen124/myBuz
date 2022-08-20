@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
   imports: [
     CommonModule,
     PolicyTermRoutingModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
