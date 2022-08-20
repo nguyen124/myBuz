@@ -4,7 +4,7 @@
 <url><loc>https://me2meme.com/business</loc><priority>0.5</priority></url>
 <url><loc>https://me2meme.com/login</loc><priority>0.5</priority></url>
 <url><loc>https://me2meme.com/register</loc><priority>0.5</priority></url>
-<url><loc>https://me2meme.com/user/business</loc><priority>0.5</priority></url>
+<url><loc>https://me2meme.com/business/user</loc><priority>0.5</priority></url>
 <url><loc>https://me2meme.com/user/profile</loc><priority>0.5</priority></url>
 <url><loc>https://me2meme.com/legal/policy</loc><priority>0.5</priority></url>
 <url><loc>https://me2meme.com/legal/term-of-services</loc><priority>0.5</priority></url>

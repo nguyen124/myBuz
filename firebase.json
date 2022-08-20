@@ -8,7 +8,7 @@
       ],
       "rewrites": [
         {
-          "source": "/svc/items{,/**}",
+          "source": "/svc/business{,/**}",
           "function": "itemController"
         },
         {

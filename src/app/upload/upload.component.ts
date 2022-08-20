@@ -550,7 +550,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
         that._itemSvc.createItem(item).subscribe((newItem: any) => {
           that._toastr.success(this._translate.instant("item.upload.validate.success"));
-          that._router.navigate(["/user/business"]);
+          that._router.navigate(["/business/user"]);
         }, (err: any) => {
           that.cancelCharge(that);
           that.handleError(err, that);

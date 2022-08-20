@@ -17,7 +17,7 @@ export class ItemService {
     }
 
     getMyItems(params): Observable<IItem[]> {
-        return this._http.get<IItem[]>("/svc/user/business", { params: params });
+        return this._http.get<IItem[]>("/svc/business/user", { params: params });
     }
 
     // deleteItem(id: string): Observable<any> {

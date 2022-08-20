@@ -19,6 +19,7 @@ const appRoutes: Routes = [
     { path: 'business/forSale', component: HomeComponent },
     { path: 'business/hiring', component: HiringComponent },
     { path: 'business/other', component: OtherComponent },
+    { path: 'business/user', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     { path: 'business/:itemId/update', component: UpdateItemComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
     { path: 'login', component: LoginComponent },
@@ -26,7 +27,7 @@ const appRoutes: Routes = [
     { path: 'requestResetPassword', component: ResetPasswordComponent },
     { path: 'resetPassword', component: ResetPasswordFormComponent },
     { path: 'savelogin', component: SaveLoginComponent },
-    { path: 'user/business', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
+    
     { path: 'business/post', component: UploadComponent, canActivate: [ParentAuthGuard] },
     {
         path: 'user/profile',

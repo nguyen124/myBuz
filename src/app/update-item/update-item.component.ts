@@ -511,7 +511,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
 
       that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {
         that._toastr.success(this._translate.instant("item.update.validate.success"));
-        that._router.navigate(["/user/business"]);
+        that._router.navigate(["/business/user"]);
       }, (err: any) => {
         that.handleError(err, that);
       });

@@ -21,7 +21,7 @@
         </button>
         <div class="dropdown-menu">
           <a routerLink="/user/profile" class="ml-1 d-block">{{"common.label.profile" | translate}}</a>
-          <a routerLink="/user/business" [queryParams]="{page: 0, perPage: PER_PAGE}" class="ml-1
+          <a routerLink="/business/user" [queryParams]="{page: 0, perPage: PER_PAGE}" class="ml-1
             d-block">{{"common.label.posts" | translate}}</a>
           <div class="dropdown-divider"></div>
           <a href="" (click)="logout()" class="ml-1">{{"common.label.logout" | translate}}</a>
