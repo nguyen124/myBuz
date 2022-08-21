@@ -46,7 +46,7 @@ const appRoutes: Routes = [
     //     loadChildren: () => import('./nodes-module/nodes.module').then(m => m.NodesModule)
     // },
     {
-        path: '',
+        path: '**',
         redirectTo: 'business/forSale',
         pathMatch: 'full'
     }
