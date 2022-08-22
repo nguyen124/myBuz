@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { RenderService } from '../shared/services/utils/render.service';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 declare var firebase: any;
 declare var google: any;
@@ -64,6 +65,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _logSvc: LoggingService,
     private _commSvc: CommunicateService,
     private _renderSvc: RenderService,
+    private recaptchaV3Service: ReCaptchaV3Service,
     private cdr: ChangeDetectorRef) {
     this.itemForm = this._fb.group({});
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
@@ -427,7 +429,10 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       this._renderSvc.scrollIntoError();
       return;
     }
-    this.startPostingAfterChargeSuccessfully();
+    this.recaptchaV3Service.execute('/svc/validate_captcha')
+    .subscribe((token: string) => {
+      this.startPostingAfterChargeSuccessfully();
+    });    
   }
 
   startPostingAfterChargeSuccessfully() {
