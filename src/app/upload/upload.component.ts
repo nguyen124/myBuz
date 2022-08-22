@@ -15,6 +15,7 @@ import { GoogleMapService } from '../shared/services/google-map.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { RenderService } from '../shared/services/utils/render.service';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 declare var firebase: any;
 declare var google: any;
@@ -62,6 +63,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     private _translate: TranslateService,
     private _logSvc: LoggingService,
     private _renderSvc: RenderService,
+    private recaptchaV3Service: ReCaptchaV3Service,
     @Inject(JQ_TOKEN) private $: any) {
 
   }
@@ -389,7 +391,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
       this._renderSvc.scrollIntoError();
       return;
     }
-    this.makePayment(this.f.duration.value);
+    this.recaptchaV3Service.execute('/svc/validate_captcha')
+      .subscribe((token: string) => {
+        this.makePayment(this.f.duration.value);
+      });
   }
 
   makePayment(duration: any) {

@@ -64,6 +64,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatSelectModule } from '@angular/material/select';
 import { HiringComponent } from './hiring/hiring.component';
 import { OtherComponent } from './other/other.component';
+import { environment } from 'src/environments/environment';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -136,7 +138,8 @@ let jQuery: any = window['$'];
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),   
+    }),
+    RecaptchaV3Module,
     BrowserAnimationsModule,
     BrowserModule,
     FileUtils,
@@ -156,6 +159,10 @@ let jQuery: any = window['$'];
     ChildrenAuthGuard,
     ParentAuthGuard,
     AdminAuthGuard,
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.recaptcha.siteKey,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     { provide: JQ_TOKEN, useValue: jQuery }
   ],

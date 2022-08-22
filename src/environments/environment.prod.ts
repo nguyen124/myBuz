@@ -5,5 +5,8 @@ export const environment = {
     authDomain: 'm2meme.firebaseapp.com',
     projectId: 'm2meme'
   },
+  recaptcha: {
+    siteKey: '6LfDDpQhAAAAAD6Ml2f3AKAj4HGQPUBrQ8upGUCp',
+  },
   bucketname: 'm2meme.appspot.com'
 };

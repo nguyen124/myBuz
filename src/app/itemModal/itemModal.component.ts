@@ -129,7 +129,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         return this.item.files[0].url;
       }
     }
-    return "https://troiviet.com/assets/image/logo256x215.png";
+    return "https://troiviet.com/assets/image/newlogo256x187.png";
   }
 
   getPoster(url) {
