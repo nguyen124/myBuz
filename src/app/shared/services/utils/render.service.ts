@@ -115,6 +115,43 @@ export class RenderService {
     return result;
   }
 
+  shakeoutItem(item, needsMap, categoriesMap) {
+    if (!this.showPrice(needsMap, categoriesMap)) {
+      item.price = "";
+    }
+    if (!this.showWage(needsMap, categoriesMap)) {
+      item.wage = "";
+    }
+    if (!this.showNoOfEmployees(needsMap, categoriesMap)) {
+      item.noOfEmployees = "";
+    }
+    if (!this.showNoOfChairs(needsMap, categoriesMap)) {
+      item.noOfChairs = "";
+    }
+    if (!this.showNoOfTables(needsMap, categoriesMap)) {
+      item.noOfTables = "";
+    }
+    if (!this.showIncome(needsMap, categoriesMap)) {
+      item.income = "";
+    }
+    if (!this.showRent(needsMap, categoriesMap)) {
+      item.rentCost = "";
+    }
+    if (!this.showOtherCost(needsMap, categoriesMap)) {
+      item.otherCost = "";
+    }
+    if (!this.showLeaseEnd(needsMap, categoriesMap)) {
+      item.leaseEnd = "";
+    }
+    if (!this.showYearsOld(needsMap, categoriesMap)) {
+      item.yearOld = "";
+    }
+    if (!this.showArea(needsMap, categoriesMap)) {
+      item.area = "";
+    }
+    return item;
+  }
+
   scrollIntoError() {
     const firstElementWithError = document.querySelector('.ng-invalid')[0];
     if (firstElementWithError) {

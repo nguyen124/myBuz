@@ -533,12 +533,13 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
       };
       //append charge info into item
 
-      that._itemSvc.updateItem(this.itemId, item).subscribe((newItem: any) => {
-        that._toastr.success(this._translate.instant("item.update.validate.success"));
-        that._router.navigate(["/business/user"]);
-      }, (err: any) => {
-        that.handleError(err, that);
-      });
+      that._itemSvc.updateItem(this.itemId, this._renderSvc.shakeoutItem(item, this.needsMap, this.categoriesMap))
+        .subscribe((newItem: any) => {
+          that._toastr.success(this._translate.instant("item.update.validate.success"));
+          that._router.navigate(["/business/user"]);
+        }, (err: any) => {
+          that.handleError(err, that);
+        });
     }
   }
 

@@ -571,7 +571,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
         };
         //append charge info into item
 
-        that._itemSvc.createItem(item).subscribe((newItem: any) => {
+        that._itemSvc.createItem(this._renderSvc.shakeoutItem(item, this.needsMap, this.categoriesMap)).subscribe((newItem: any) => {
           that._toastr.success(this._translate.instant("item.upload.validate.success"));
           that._router.navigate(["/business/user"]);
         }, (err: any) => {
