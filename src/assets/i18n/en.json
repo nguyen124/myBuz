@@ -60,7 +60,7 @@
   },
   "stripe": {
     "label": {
-      "chargeDescription": "Tạo Quảng Cáo Cho {{month}} Tháng"
+      "chargeDescription": "Create ads for {{month}} month(s)"
     }
   },
   "notification": {
