@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, isDevMode, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, isDevMode, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { RenderService } from '../shared/services/utils/render.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { Editor, Toolbar } from 'ngx-editor';
 
 declare var firebase: any;
 declare var google: any;
@@ -23,9 +24,9 @@ declare var google: any;
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.css']
+  styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent implements OnInit, AfterViewInit {
+export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
   parsedTags: string[] = [];
   itemForm: UntypedFormGroup;
   submitted = false;
@@ -45,6 +46,17 @@ export class UploadComponent implements OnInit, AfterViewInit {
   needsOption = [];
   needsMap: any = {};
   categoriesMap: any = {};
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
@@ -75,9 +87,14 @@ export class UploadComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.editor = new Editor();
     this.invokeStripe();
     this.initForm();
     this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   buildAutoCompleteAddressForm() {
