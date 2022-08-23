@@ -3,7 +3,7 @@ import { NodeService } from '../shared/services/node.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
@@ -20,7 +20,7 @@ declare var firebase: any;
 })
 export class CreateNodeComponent implements OnInit {
   parsedTags: string[] = [];
-  itemForm: FormGroup;
+  itemForm: UntypedFormGroup;
   submitted = false;
   isUploading = false;
   uploadingProgress: number;
@@ -35,7 +35,7 @@ export class CreateNodeComponent implements OnInit {
     private _commSvc: CommunicateService,
     private _toastr: ToastrService,
     private _router: Router,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _authSvc: AuthService,
     @Inject(JQ_TOKEN) private $: any) { }
 

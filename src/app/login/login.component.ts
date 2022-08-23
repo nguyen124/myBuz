@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/security/auth.service';
 import { SystemService } from '../shared/services/utils/system.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,13 +12,13 @@ import { TranslateService } from '@ngx-translate/core';
 
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
   error: string;
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private _route: ActivatedRoute,
     private _router: Router,
     private _authSvc: AuthService,

@@ -1,5 +1,5 @@
 import { Component, OnInit, isDevMode, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
 import { ItemService } from '../shared/services/item.services';
@@ -25,7 +25,7 @@ declare var google: any;
 })
 export class UpdateItemComponent implements OnInit, AfterViewInit {
   parsedTags: string[] = [];
-  itemForm: FormGroup;
+  itemForm: UntypedFormGroup;
   submitted: boolean = false;
   currentUploadTasks: any[] = [];
   toUploadFiles: any[] = [];
@@ -56,7 +56,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     private _route: ActivatedRoute,
     private _itemSvc: ItemService,
     private _systemSvc: SystemService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _router: Router,
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,

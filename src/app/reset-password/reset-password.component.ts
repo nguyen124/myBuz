@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -12,12 +12,12 @@ import { SystemService } from '../shared/services/utils/system.service';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  resetPasswordForm: FormGroup;
+  resetPasswordForm: UntypedFormGroup;
   submitted: boolean;
   error: String;
   params: any;
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _userSvc: UserService,
     private _toastr: ToastrService,
     private _translate: TranslateService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,12 +13,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ResetPasswordFormComponent implements OnInit {
 
-  resetPasswordForm: FormGroup;
+  resetPasswordForm: UntypedFormGroup;
   submitted: boolean;
   error: String;
 
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _userSvc: UserService,
     private _toastr: ToastrService,
     private _router: Router,
@@ -28,7 +28,7 @@ export class ResetPasswordFormComponent implements OnInit {
 
   ngOnInit() {
     this.resetPasswordForm = this._fb.group({
-      email: new FormControl({ value: this._activatedRoute.snapshot.queryParams.email, disabled: true }, Validators.required),
+      email: new UntypedFormControl({ value: this._activatedRoute.snapshot.queryParams.email, disabled: true }, Validators.required),
       resetPasscode: ['', Validators.required],
       passwords: this._fb.group({
         password: ['', [Validators.pattern(/^.{6,50}$/)]],
@@ -50,7 +50,7 @@ export class ResetPasswordFormComponent implements OnInit {
       && this.f.passwords['controls'][field].errors
   }
 
-  checkPasswords(group: FormGroup) {
+  checkPasswords(group: UntypedFormGroup) {
     var pass = group.get('password').value;
     var confirmPass = group.get("confirmPassword").value;
     return pass === confirmPass ? null : { matched: true }

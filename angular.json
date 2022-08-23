@@ -125,5 +125,7 @@
       }
     }
   },
-  "defaultProject": "architecture"
+  "cli": {
+    "analytics": "412af148-d4b8-4451-bdbf-30c026d5282c"
+  }
 }

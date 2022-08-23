@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from '../../shared/services/user-service.service';
 import { IUser } from '../../shared/model/user';
 import { AuthService } from '../../shared/services/security/auth.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { SystemService } from '../../shared/services/utils/system.service';
 import { JQ_TOKEN } from '../../shared/services/jQuery.service';
 import { HttpEventType } from '@angular/common/http';
@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class UserHomeComponent implements OnInit {
   user: IUser;
   uploadedFile: File = null;
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   submitted = false;
   error = null;
   isUploading: boolean;
@@ -28,7 +28,7 @@ export class UserHomeComponent implements OnInit {
     private _authSvc: AuthService,
     private _systemSvc: SystemService,
     private _toastr: ToastrService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _translate: TranslateService,
     @Inject(JQ_TOKEN) private $: any) {
   }

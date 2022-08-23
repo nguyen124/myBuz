@@ -87,7 +87,7 @@ export class VoiceMessageServiceService {
           }
         }, () => {
           this.stopMedia();
-          this._recordingFailed.next();
+          this._recordingFailed.next("");
         });
       }
     });

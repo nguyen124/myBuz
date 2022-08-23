@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MAX_FILE } from '../../constants';
 
 @Injectable({
@@ -65,13 +65,13 @@ export class SystemService {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
-  nonSpaceString(control: FormControl) {
+  nonSpaceString(control: UntypedFormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { whitespace: true };
   }
 
-  validateEmail(email: FormControl) {
+  validateEmail(email: UntypedFormControl) {
     if (!email || !email.value || email.value.trim() === "") return null;
     const isValid = email.value.match(
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -80,7 +80,7 @@ export class SystemService {
   };
 
 
-  checkFileMaxSize(control: FormControl) {
+  checkFileMaxSize(control: UntypedFormControl) {
     let files = control.value;
     if (files) {
       for (let i = 0; i < files.length; i++) {
@@ -92,7 +92,7 @@ export class SystemService {
     return null;
   }
 
-  checkError(form: FormGroup, field: string, submitted: boolean) {
+  checkError(form: UntypedFormGroup, field: string, submitted: boolean) {
     var f = form.controls;
     return ((form.pristine && f[field].touched) || submitted) && f[field].errors;
   }

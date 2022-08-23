@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/user-service.service';
 import { SystemService } from '../shared/services/utils/system.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,11 +10,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   submitted = false;
   error: any;
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _router: Router,
     private _userSvc: UserService,
     private _systemSvc: SystemService,
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  checkPasswords(group: FormGroup) {
+  checkPasswords(group: UntypedFormGroup) {
     var pass = group.get('password').value;
     var confirmPass = group.get("confirmPassword").value;
     return pass === confirmPass ? null : { matched: true }

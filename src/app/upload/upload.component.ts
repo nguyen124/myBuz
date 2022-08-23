@@ -3,7 +3,7 @@ import { ItemService } from '../shared/services/item.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import { Router } from '@angular/router';
 import { SystemService } from '../shared/services/utils/system.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { FileValidatorDirective } from '../shared/directive/file-validator.directive';
@@ -27,7 +27,7 @@ declare var google: any;
 })
 export class UploadComponent implements OnInit, AfterViewInit {
   parsedTags: string[] = [];
-  itemForm: FormGroup;
+  itemForm: UntypedFormGroup;
   submitted = false;
   isUploading = false;
   uploadingProgress: number;
@@ -57,7 +57,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     private _toastr: ToastrService,
     private _checkoutSvc: CheckoutService,
     private _router: Router,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _authSvc: AuthService,
     private _apiService: GoogleMapService,
     private _translate: TranslateService,

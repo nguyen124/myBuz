@@ -72,101 +72,100 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 let jQuery: any = window['$'];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CommentComponent,
-    CommentBoxComponent,
-    CommentsComponent,
-    CommentReactComponent,
-    DatePipe,
-    KeyPipe,
-    NumberPipe,
-    ImageMobileLinkPipe,
-    FooterComponent,
-    HeaderComponent,
-    HomeComponent,
-    ItemComponent,
-    ItemModalComponent,
-    ItemsComponent,
-    LoginComponent,
-    MyItemsComponent,
-    NotificationComponent,
-    UploadComponent,
-    CreateNodeComponent,
-    ReactComponent,
-    RegisterComponent,
-    ReportComponent,
-    SaveLoginComponent,
-    CommentPicComponent,
-    CommentVoiceComponent,
-    TooltipComponent,
-    ReplyToComponent,
-    TooltipDirective,
-    MergeQueryParamsDirective,
-    FileValueAccessor,
-    FileValidatorDirective,
-    ResetPasswordComponent,
-    ResetPasswordFormComponent,
-    DefaultImageDirective,
-    PlaceSearchComponent,
-    UpdateItemComponent,
-    HiringComponent,
-    OtherComponent
-  ],
-  entryComponents: [TooltipComponent],
-  imports: [
-    NgxMaskModule.forRoot(),
-    ShareButtonsModule.withConfig({
-      debug: true
-    }),
-    AdsenseModule.forRoot({
-      adClient: 'ca-pub-7640562161899788',
-      adSlot: 7259870550,
-    }),
-    NgCircleProgressModule.forRoot({
-      // set defaults here
-      radius: 100,
-      outerStrokeWidth: 16,
-      innerStrokeWidth: 8,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
-      animation: false
-    }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    RecaptchaV3Module,
-    BrowserAnimationsModule,
-    BrowserModule,
-    FileUtils,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    ShareButtonsModule,
-    ShareIconsModule,
-    UsersModule,
-    AdminModule,
-    ShareModule,
-    MatSelectModule,
-    ToastrModule.forRoot(),
-    routing
-  ],
-  providers: [
-    ChildrenAuthGuard,
-    ParentAuthGuard,
-    AdminAuthGuard,
-    {
-      provide: RECAPTCHA_V3_SITE_KEY,
-      useValue: environment.recaptcha.siteKey,
-    },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
-    { provide: JQ_TOKEN, useValue: jQuery }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        CommentComponent,
+        CommentBoxComponent,
+        CommentsComponent,
+        CommentReactComponent,
+        DatePipe,
+        KeyPipe,
+        NumberPipe,
+        ImageMobileLinkPipe,
+        FooterComponent,
+        HeaderComponent,
+        HomeComponent,
+        ItemComponent,
+        ItemModalComponent,
+        ItemsComponent,
+        LoginComponent,
+        MyItemsComponent,
+        NotificationComponent,
+        UploadComponent,
+        CreateNodeComponent,
+        ReactComponent,
+        RegisterComponent,
+        ReportComponent,
+        SaveLoginComponent,
+        CommentPicComponent,
+        CommentVoiceComponent,
+        TooltipComponent,
+        ReplyToComponent,
+        TooltipDirective,
+        MergeQueryParamsDirective,
+        FileValueAccessor,
+        FileValidatorDirective,
+        ResetPasswordComponent,
+        ResetPasswordFormComponent,
+        DefaultImageDirective,
+        PlaceSearchComponent,
+        UpdateItemComponent,
+        HiringComponent,
+        OtherComponent
+    ],
+    imports: [
+        NgxMaskModule.forRoot(),
+        ShareButtonsModule.withConfig({
+            debug: true
+        }),
+        AdsenseModule.forRoot({
+            adClient: 'ca-pub-7640562161899788',
+            adSlot: 7259870550,
+        }),
+        NgCircleProgressModule.forRoot({
+            // set defaults here
+            radius: 100,
+            outerStrokeWidth: 16,
+            innerStrokeWidth: 8,
+            outerStrokeColor: "#78C000",
+            innerStrokeColor: "#C7E596",
+            animation: false
+        }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        RecaptchaV3Module,
+        BrowserAnimationsModule,
+        BrowserModule,
+        FileUtils,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        ShareButtonsModule,
+        ShareIconsModule,
+        UsersModule,
+        AdminModule,
+        ShareModule,
+        MatSelectModule,
+        ToastrModule.forRoot(),
+        routing
+    ],
+    providers: [
+        ChildrenAuthGuard,
+        ParentAuthGuard,
+        AdminAuthGuard,
+        {
+            provide: RECAPTCHA_V3_SITE_KEY,
+            useValue: environment.recaptcha.siteKey,
+        },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+        { provide: JQ_TOKEN, useValue: jQuery }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
 // required for AOT compilation
