@@ -14,6 +14,8 @@ import { LoggingService } from '../shared/services/system/logging.service';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { RenderService } from '../shared/services/utils/render.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { OnDestroy } from '@angular/core';
+import { Editor, Toolbar } from 'ngx-editor';
 
 declare var firebase: any;
 declare var google: any;
@@ -23,7 +25,7 @@ declare var google: any;
   templateUrl: './update-item.component.html',
   styleUrls: ['./update-item.component.css']
 })
-export class UpdateItemComponent implements OnInit, AfterViewInit {
+export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   parsedTags: string[] = [];
   itemForm: UntypedFormGroup;
   submitted: boolean = false;
@@ -47,6 +49,17 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
     "hiring": false
   };
   categoriesMap: any = {};
+  editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
@@ -110,6 +123,7 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.editor = new Editor();
     this.initForm();
     this._route.params.subscribe(params => {
       this.itemId = params.itemId;
@@ -162,6 +176,10 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
         });
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   initCategoriesMap(item?: any) {
@@ -430,9 +448,9 @@ export class UpdateItemComponent implements OnInit, AfterViewInit {
       return;
     }
     this.recaptchaV3Service.execute('/svc/validate_captcha')
-    .subscribe((token: string) => {
-      this.startPostingAfterChargeSuccessfully();
-    });    
+      .subscribe((token: string) => {
+        this.startPostingAfterChargeSuccessfully();
+      });
   }
 
   startPostingAfterChargeSuccessfully() {

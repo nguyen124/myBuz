@@ -36,7 +36,6 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^5.1.3",
-    "ckeditor4-angular": "^2.3.0",
     "core-js": "^2.5.4",
     "emoji-regex": "^10.0.0",
     "firebase": ">= 5.5.7 <8",

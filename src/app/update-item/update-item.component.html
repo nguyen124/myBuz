@@ -293,8 +293,15 @@
                 <div class="col-md-12 mb-1">
                     <label class="text-primary" for="description"><strong>{{"item.upload.description.label" |
                             translate}}</strong></label>
-                    <ckeditor formControlName="description" [ngClass]="{ 'is-invalid': checkError('description') }">
-                    </ckeditor>
+                    <div class="editor">
+                        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                        </ngx-editor-menu>
+                        <ngx-editor [editor]="editor" formControlName="description" height="200px" [ngClass]="{ 'is-invalid': checkError('description') }">
+                        </ngx-editor>
+                        </div>
+                        <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" | translate}}</div>
+                    </div>
                     <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
                         <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" |
                             translate}}</div>
