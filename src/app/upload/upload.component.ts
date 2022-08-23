@@ -425,19 +425,19 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
     switch (duration) {
       case "1":
         cost = 20;
-        description = "Tạo Quảng Cáo Cho 1 Tháng";
+        description = this._translate.instant("stripe.label.chargeDescription", { month: 1 });
         break;
       case "3":
         cost = 40;
-        description = "Tạo Quảng Cáo Cho 3 Tháng";
+        description = this._translate.instant("stripe.label.chargeDescription", { month: 3 });
         break;
       case "6":
         cost = 60;
-        description = "Tạo Quảng Cáo Cho 6 Tháng";
+        description = this._translate.instant("stripe.label.chargeDescription", { month: 6 });
         break;
       case "12":
         cost = 80;
-        description = "Tạo Quảng Cáo Cho 12 Tháng";
+        description = this._translate.instant("stripe.label.chargeDescription", { month: 12 });
         break;
     }
     const paymentHandler = (<any>window).StripeCheckout.configure({
@@ -453,7 +453,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
     paymentHandler.open({
-      name: 'TroiViet',
+      name: this._translate.instant("common.label.troiviet"),
       description: description,
       amount: cost * 100
     });

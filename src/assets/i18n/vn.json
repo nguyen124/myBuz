@@ -10,6 +10,7 @@
       "error": "Trình duyệt của bạn không hổ trợ định dạng video này."
     },
     "label": {
+      "troiviet": "Troi Viet",
       "companyEmail": "troivietcompany@gmail.com",
       "edit": "Chỉnh",
       "create": "Tạo",
@@ -49,6 +50,11 @@
       },
       "expired": "Đã hết hạn",
       "refunded": "Đã hoàn tiền"
+    }
+  },
+  "stripe": {
+    "label": {
+      "chargeDescription": "Tạo Quảng Cáo Cho {{month}} Tháng"
     }
   },
   "policy": {

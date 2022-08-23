@@ -10,6 +10,7 @@
       "error": "Your browser does not support this video format."
     },
     "label": {
+      "troiviet": "Troi Viet",
       "companyEmail": "troivietcompany@gmail.com",
       "edit": "Edit",
       "create": "Create",
@@ -55,6 +56,11 @@
     "term": {
       "doNotSellPart1": "Send email to",
       "doNotSellPart2:": "with subject \"DO NOT SELL\" to unsubsribe from sell."
+    }
+  },
+  "stripe": {
+    "label": {
+      "chargeDescription": "Tạo Quảng Cáo Cho {{month}} Tháng"
     }
   },
   "notification": {
