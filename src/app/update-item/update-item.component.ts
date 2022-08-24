@@ -133,7 +133,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
       this._itemSvc.getItemById(this.itemId).subscribe(item => {
         this.parsedTags = item.tags;
         this.itemForm = this._fb.group({
-          title: [item.title, [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
+          title: [item.title, [Validators.pattern(/^.{5,100}$/), this._systemSvc.nonSpaceString]],
           businessName: [item.businessName, [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
           file: [, [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
           categories: [...item.categories, [Validators.required]],

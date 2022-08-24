@@ -181,7 +181,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
 
   initForm() {
     this.itemForm = this._fb.group({
-      title: ['', [Validators.pattern(/^.{5,50}$/), this._systemSvc.nonSpaceString]],
+      title: ['', [Validators.pattern(/^.{5,100}$/), this._systemSvc.nonSpaceString]],
       businessName: ['', [Validators.pattern(/^.{1,50}$/), this._systemSvc.nonSpaceString]],
       file: ['', [FileValidatorDirective.validate, this._systemSvc.checkFileMaxSize]],
       categories: ['', [Validators.required]],
