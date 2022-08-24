@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MAX_FILE } from '../../constants';
 
@@ -88,7 +88,7 @@ export class SystemService {
           return { largeFile: true };
         }
       }
-    }
+    }  
     return null;
   }
 

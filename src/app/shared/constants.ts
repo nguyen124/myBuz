@@ -1,1 +1,1 @@
-export const MAX_FILE = 1024;
+export const MAX_FILE = 5; //5MB

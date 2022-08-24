@@ -303,7 +303,8 @@
         "label": "Picture/Video",
         "validate": {
           "required": "Please select files!",
-          "largeFile": "File can't be larger than 1GB!"
+          "largeFile": "File can't be larger than 5MB!",
+          "tooMany": "Can't create post with more than 10 media files."
         },
         "select": {
           "label": "Select files"

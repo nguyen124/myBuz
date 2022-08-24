@@ -303,7 +303,8 @@
         "label": "Ảnh/Video",
         "validate": {
           "required": "Vui lòng chọn tập tin!",
-          "largeFile": "Tập tin không được lớn hơn 1GB!"
+          "largeFile": "Tập tin không được lớn hơn 5MB!",
+          "tooMany": "Không thể tạo được bài với hơn 10 tập tin."
         },
         "select": {
           "label": "Chọn tập tin"

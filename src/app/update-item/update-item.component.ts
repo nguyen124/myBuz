@@ -26,6 +26,7 @@ declare var google: any;
   styleUrls: ['./update-item.component.css']
 })
 export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
+  MAX_ALLOWED_FILES: number = 10;
   parsedTags: string[] = [];
   itemForm: UntypedFormGroup;
   submitted: boolean = false;
@@ -50,6 +51,8 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   categoriesMap: any = {};
   editor: Editor;
+  tooManyFilesError = false;
+
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -402,6 +405,20 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
     this.address2.nativeElement.focus();
   }
 
+  checkTooManyFiles() {
+    if (!this.submitted) {
+      return;
+    }
+    if (this.toUploadFiles.length > this.MAX_ALLOWED_FILES) {
+      this.f['file'].setErrors({ 'tooMany': true });
+      this.tooManyFilesError = true;
+    } else {
+      this.f['file'].setErrors({ 'tooMany': null });
+      this.f['file'].updateValueAndValidity();
+      this.tooManyFilesError = false;
+    }
+  }
+
   get f() { return this.itemForm.controls; }
 
   handleFileInput(files: FileList) {
@@ -423,6 +440,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
             fileType: toUploadFile.type,
             pathName: that.destination + toUploadFile.name
           });
+          that.checkTooManyFiles();
         }
         reader.readAsDataURL(toUploadFile);
       }
@@ -431,6 +449,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
 
   removePreviewMedia(index) {
     this.toUploadFiles.splice(index, 1);
+    this.checkTooManyFiles();
     return false;
   }
 
@@ -442,6 +461,10 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
     this.submitted = true;
     if (this.toUploadFiles && this.toUploadFiles.length) {
       this.itemForm.controls.file.setValue(true);
+    }
+    this.checkTooManyFiles();
+    if (this.tooManyFilesError) {
+      return;
     }
     if (this.itemForm.invalid) {
       this._renderSvc.scrollIntoError();

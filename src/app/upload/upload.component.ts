@@ -27,6 +27,7 @@ declare var google: any;
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
+  MAX_ALLOWED_FILES: number = 10;
   parsedTags: string[] = [];
   itemForm: UntypedFormGroup;
   submitted = false;
@@ -47,6 +48,8 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
   needsMap: any = {};
   categoriesMap: any = {};
   editor: Editor;
+  tooManyFilesError = false;
+
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -304,6 +307,20 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  checkTooManyFiles() {
+    if (!this.submitted) {
+      return;
+    }
+    if (this.toUploadFiles.length > this.MAX_ALLOWED_FILES) {
+      this.f['file'].setErrors({ 'tooMany': true });
+      this.tooManyFilesError = true;
+    } else {
+      this.f['file'].setErrors({ 'tooMany': null });
+      this.f['file'].updateValueAndValidity();
+      this.tooManyFilesError = false;
+    }
+  }
+
   get f() { return this.itemForm.controls; }
 
   get showPrice(): boolean {
@@ -373,6 +390,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
             fileType: toUploadFile.type,
             pathName: that.destination + toUploadFile.name
           });
+          that.checkTooManyFiles();
         }
         reader.readAsDataURL(toUploadFile);
       }
@@ -404,6 +422,10 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
 
   createPost() {
     this.submitted = true;
+    this.checkTooManyFiles();
+    if (this.tooManyFilesError) {
+      return;
+    }
     if (this.itemForm.invalid) {
       this._renderSvc.scrollIntoError();
       return;
@@ -621,6 +643,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
 
   removePreviewMedia(index) {
     this.toUploadFiles.splice(index, 1);
+    this.checkTooManyFiles();
     return false;
   }
 }

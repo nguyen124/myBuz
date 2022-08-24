@@ -30,7 +30,8 @@
                 <div class="col-md-6 mb-1">
                     <label class="text-primary" for="categories"><strong>{{"common.label.category" |
                             translate}}*</strong></label>
-                    <select formControlName="categories" class="form-control" [ngClass]="{ 'is-invalid': checkError('categories') }">
+                    <select formControlName="categories" class="form-control"
+                        [ngClass]="{ 'is-invalid': checkError('categories') }">
                         <option value="Nail_Salon">{{"item.upload.category.nailSalon" | translate}}</option>
                         <option value="Hair_Salon">{{"item.upload.category.hairSalon" | translate}}</option>
                         <option value="Restaurant">{{"item.upload.category.restaurant" | translate}}</option>
@@ -44,8 +45,8 @@
                         <option value="Other_Business">{{"item.upload.category.otherBusiness" | translate}}</option>
                     </select>
                     <div *ngIf="checkError('categories')" class="invalid-feedback">
-                    <div *ngIf="f.categories.errors.required">
-                        {{"item.upload.category.validate.required" | translate}}</div>
+                        <div *ngIf="f.categories.errors.required">
+                            {{"item.upload.category.validate.required" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-6 mb-1">
@@ -296,11 +297,13 @@
                     <div class="editor">
                         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
                         </ngx-editor-menu>
-                        <ngx-editor [editor]="editor" formControlName="description" height="200px" [ngClass]="{ 'is-invalid': checkError('description') }">
+                        <ngx-editor [editor]="editor" formControlName="description"
+                            [ngClass]="{ 'is-invalid': checkError('description') }">
                         </ngx-editor>
-                        </div>
-                        <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
-                        <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" | translate}}</div>
+                    </div>
+                    <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" |
+                            translate}}</div>
                     </div>
                     <div *ngIf="checkError('description')" class="invalid-feedback" style="display: block;">
                         <div *ngIf="f.description.errors.pattern">{{"item.upload.description.validate.maxLength" |
@@ -324,9 +327,13 @@
                             <div *ngIf="f.file.errors.required">{{"item.upload.picture.validate.required" | translate}}
                             </div>
                             <ng-container *ngIf="f.file.errors.largeFile">
-                                <div *ngIf="f.file.errors.largeFile">{{"item.upload.picture.largeFile" | translate}}
+                                <div *ngIf="f.file.errors.largeFile">{{"item.upload.picture.validate.largeFile" |
+                                    translate}}
                                 </div>
                             </ng-container>
+                        </div>
+                        <div *ngIf="tooManyFilesError" class="invalid-feedback" style="display: block;">
+                            <div>{{"item.upload.picture.validate.tooMany" | translate}}</div>
                         </div>
                     </div>
                 </div>
