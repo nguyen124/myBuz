@@ -79,7 +79,8 @@
   "login": {
     "label": "Login",
     "validate": {
-      "error": "Can't login. Please try again!"
+      "error": "Can't login. Please try again!",
+      "emailNotValidated": "Your email has not been activated!"
     },
     "username": {
       "label": "Username/Email",

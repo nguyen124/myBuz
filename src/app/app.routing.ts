@@ -14,6 +14,7 @@ import { UploadComponent } from './upload/upload.component';
 import { UpdateItemComponent } from './update-item/update-item.component';
 import { HiringComponent } from './hiring/hiring.component';
 import { OtherComponent } from './other/other.component';
+import { ActivateEmailComponent } from './activate-email/activate-email.component';
 
 const appRoutes: Routes = [
     { path: 'business/forSale', component: HomeComponent },
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     { path: 'requestResetPassword', component: ResetPasswordComponent },
     { path: 'resetPassword', component: ResetPasswordFormComponent },
     { path: 'savelogin', component: SaveLoginComponent },
-    
+    { path: 'activate', component: ActivateEmailComponent },
+
     { path: 'business/post', component: UploadComponent, canActivate: [ParentAuthGuard] },
     {
         path: 'user/profile',

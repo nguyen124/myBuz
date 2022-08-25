@@ -66,6 +66,7 @@ import { HiringComponent } from './hiring/hiring.component';
 import { OtherComponent } from './other/other.component';
 import { environment } from 'src/environments/environment';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { ActivateEmailComponent } from './activate-email/activate-email.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -111,7 +112,8 @@ let jQuery: any = window['$'];
         PlaceSearchComponent,
         UpdateItemComponent,
         HiringComponent,
-        OtherComponent
+        OtherComponent,
+        ActivateEmailComponent
     ],
     imports: [
         NgxMaskModule.forRoot(),

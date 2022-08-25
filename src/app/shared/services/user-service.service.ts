@@ -25,4 +25,8 @@ export class UserService {
   resetPassword(obj): Observable<boolean> {
     return this._http.post<boolean>("/svc/users/password/reset", obj);
   }
+  
+  activateEmail(hashStatus) {
+    return this._http.post("/svc/activate", { hashStatus });
+  }
 }

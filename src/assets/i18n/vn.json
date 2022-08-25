@@ -79,7 +79,8 @@
   "login": {
     "label": "Đăng nhập",
     "validate": {
-      "error": "Không thể đăng nhập. Vui lòng thử lại!"
+      "error": "Không thể đăng nhập. Vui lòng thử lại!",
+      "emailNotValidated": "Email chưa xác thực!"
     },
     "username": {
       "label": "Tài khoản/Email",
