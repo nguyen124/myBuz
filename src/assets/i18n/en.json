@@ -145,6 +145,10 @@
       "existingEmail": "Email has been used!",
       "error": "Error happened! Please try again!",
       "invalidData": "Invalid data!"
+    },
+    "message": {
+      "activateNeed": "Please activate your account from your email.",
+      "activateSuccess": "Account activated. Please login."
     }
   },
   "resetPassword": {

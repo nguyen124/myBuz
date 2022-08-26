@@ -145,6 +145,10 @@
       "existingEmail": "Email đã được sử dụng!",
       "error": "Lỗi xảy ra. Vui lòng thử lại!",
       "invalidData": "Dữ liệu không hợp lệ!"
+    },
+    "message": {
+      "activateNeed": "Vui lòng kích hoạt tài khoản trong email của bạn.",
+      "activateSuccess": "Tài khoản đã kích hoạt. Mời đăng nhập."
     }
   },
   "resetPassword": {

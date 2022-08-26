@@ -17,21 +17,25 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error: string;
+  infoMessage: string;
   constructor(
     private _formBuilder: UntypedFormBuilder,
-    private _route: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _authSvc: AuthService,
     private _systemSvc: SystemService,
     private _translate: TranslateService) {
-    this.returnUrl = this._route.snapshot.queryParamMap.get('returnUrl') || '/';
+    this.returnUrl = this._activatedRoute.snapshot.queryParamMap.get('returnUrl') || '/';
   }
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
       username: ['', [this._systemSvc.nonSpaceString, Validators.pattern(/^.{1,50}$/)]],
       password: ['', []]
-    })
+    });
+    this._activatedRoute.queryParams.subscribe(params => {
+      this.infoMessage = params.message;
+    });
   }
 
   get f() {

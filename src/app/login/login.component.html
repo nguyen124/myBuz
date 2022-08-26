@@ -4,7 +4,8 @@
       <div class="card card-signin my-5">
         <div class="card-body">
           <h5 class="card-title text-center text-success">{{"login.label" | translate}}</h5>
-          <h5 *ngIf="error" class="alert-danger">{{error}}</h5>
+          <h5 *ngIf="error" class="alert-danger">{{error | translate}}</h5>
+          <h5 *ngIf="infoMessage" class="alert-warning text-success">{{infoMessage | translate}}</h5>          
           <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="on">
             <div class="form-label-group">
               <label class="text-primary" for="username">{{"login.username.label" | translate}}</label>

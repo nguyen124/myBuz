@@ -15,7 +15,7 @@ export class ActivateEmailComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       var hashStatus = params['hashStatus'];
       this._userSvc.activateEmail(hashStatus).subscribe((ok) => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], { queryParams : { message : "register.message.activateSuccess"}});
       })
     });
   }
