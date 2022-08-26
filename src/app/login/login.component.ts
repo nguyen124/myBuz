@@ -51,7 +51,11 @@ export class LoginComponent implements OnInit {
     this._authSvc.localLogIn(this.f.username.value, this.f.password.value).subscribe(res => {
       this._router.navigate([this.returnUrl])
     }, err => {
-      this.error = this._translate.instant(err.error);
+      if (err.status === 500 || err.status === 401) {
+        this.error = this._translate.instant(err.error);
+      } else {
+        this.error = this._translate.instant("login.validate.error");
+      }
     });
   }
 

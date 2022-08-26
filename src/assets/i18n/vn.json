@@ -100,7 +100,8 @@
         "notExist": "Email không tồn tại!"
       },
       "reset": {
-        "success": "Mật khẩu tạm đã được gửi đến email của bạn."
+        "success": "Mật khẩu tạm đã được gửi đến email của bạn.",
+        "error": "Xin lỗi, không thể gửi yêu cầu tạo đến email của bạn!"
       }
     },
     "password": {

@@ -52,7 +52,11 @@ export class ResetPasswordComponent implements OnInit {
         this._router.navigate(["resetPassword"], { queryParams: this.params });
       }
     }, err => {
-      this.error = this._translate.instant(err.error);;
+      if (err.status === 500 || err.status === 401) {
+        this.error = this._translate.instant(err.error);
+      } else {
+        this.error = this._translate.instant("login.email.reset.error");
+      }
     });
   }
 }

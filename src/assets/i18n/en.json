@@ -79,7 +79,7 @@
   "login": {
     "label": "Login",
     "validate": {
-      "error": "Can't login. Please try again!",
+      "error": "Couldn't login. Please try again!",
       "emailNotValidated": "Your email has not been activated!"
     },
     "username": {
@@ -100,7 +100,8 @@
         "notExist": "Email is not existing!"
       },
       "reset": {
-        "success": "A temporary password has been sent to your email"
+        "success": "A temporary password has been sent to your email",
+        "error": "Sorry, couldn't send reset request to your email!"
       }
     },
     "password": {
@@ -113,7 +114,7 @@
       "reset": {
         "label": "Reset Password",
         "success": "Password has been reset successfully",
-        "error": "Sorry can't complete your password reset request!"
+        "error": "Sorry, couldn't complete your password reset request!"
       }
     },
     "passcode": {
@@ -153,8 +154,8 @@
   },
   "resetPassword": {
     "validate": {
-      "error": "Can't reset password!",
-      "sendTempPassError": "Can't send temporary password to this email!"
+      "error": "Sorry, couldn't reset your password!",
+      "sendTempPassError": "Sorry, couldn't send temporary password to this email!"
     }
   },
   "item": {

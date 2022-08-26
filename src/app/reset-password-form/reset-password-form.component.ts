@@ -72,7 +72,11 @@ export class ResetPasswordFormComponent implements OnInit {
         this._router.navigate(["/login"]);
       }
     }, err => {
-      this.error = this._translate.instant("login.password.reset.error");
+      if (err.status === 500 || err.status === 401) {
+        this.error = this._translate.instant(err.error);
+      } else {
+        this.error = this._translate.instant("login.password.reset.error");
+      }
     });
   }
 }

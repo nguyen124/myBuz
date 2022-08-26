@@ -55,9 +55,13 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this._userSvc.register(this.registerForm.value).subscribe(res => {
-      this._router.navigate(["/login"], { queryParams : { message : "register.message.activateNeed"}});
+      this._router.navigate(["/login"], { queryParams: { message: "register.message.activateNeed" } });
     }, err => {
-      this.error = this._translate.instant(err.error);
+      if (err.status === 500 || err.status === 401) {
+        this.error = this._translate.instant(err.error);
+      } else {
+        this.error = this._translate.instant("register.validate.error");
+      }
     });
   }
 }
