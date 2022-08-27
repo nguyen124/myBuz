@@ -7,6 +7,7 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
 import { LoggingService } from '../shared/services/system/logging.service';
+import { GoogleMapService } from '../shared/services/google-map.service';
 
 @Component({
   selector: 'app-home',
@@ -23,20 +24,32 @@ export class HomeComponent implements OnInit {
   actualPage: any = 0;
   lastParams: any = null;
 
-  @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent
+  @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent;
 
+  userLocation = null;
   constructor(
     private _itemService: ItemService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _commSvc: CommunicateService,
     private _logSvc: LoggingService,
+    private _apiService: GoogleMapService,
     @Inject(JQ_TOKEN) private $: any) {
     let params = this._activatedRoute.snapshot.queryParams;
-    this._router.navigate([], {
-      queryParams: Object.assign({ page: 0, perPage: 40 }, params),
-      queryParamsHandling: "merge"
-    });
+
+    if (!this.userLocation) {
+      this._apiService.getUserLocation().then((userLocation) => {
+        this.userLocation = userLocation;
+        if (Object.keys(userLocation).length > 0) {
+          this.itemsComponent.placeSearchComp.searchItemWithinLocation(userLocation);
+        } else {
+          this._router.navigate([], {
+            queryParams: Object.assign({ page: 0, perPage: 40 }, userLocation, params),
+            queryParamsHandling: "merge"
+          });
+        }
+      });
+    }
   }
 
   ngOnInit() {

@@ -6,6 +6,8 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { ItemComponent } from '../item/item.component';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ViewChild } from '@angular/core';
+import { PlaceSearchComponent } from '../place-search/place-search.component';
 
 @Component({
   selector: 'app-items',
@@ -17,6 +19,7 @@ export class ItemsComponent {
   @Input() showMap = true;
   @Input() showExpired: boolean = false;
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
+  @ViewChild(PlaceSearchComponent, { static: false }) placeSearchComp: PlaceSearchComponent;
   nextPage = 0;
   constructor(
     private _itemSvc: ItemService,
@@ -37,7 +40,7 @@ export class ItemsComponent {
     });
   }
 
-  
+
   deleteRefundItem(index: number, itemId: string) {
     this._itemSvc.deleteRefundItem(itemId).subscribe(res => {
       this.items[index].status = res.status;
