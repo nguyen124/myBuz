@@ -23,10 +23,10 @@ export class HomeComponent implements OnInit {
   currentLength: number;
   actualPage: any = 0;
   lastParams: any = null;
+  userLocation = null;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent;
 
-  userLocation = null;
   constructor(
     private _itemService: ItemService,
     private _activatedRoute: ActivatedRoute,
