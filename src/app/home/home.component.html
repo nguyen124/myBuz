@@ -5,7 +5,7 @@
         <button class="mr-2"
           [ngClass]="{'btn-success': key=='tag', 'btn-primary': key=='category', 'btn-warning': key=='minPrice', 'btn-info': key=='maxPrice', 'btn-dark': key=='keyword'}"
           [title]="key" (click)="removeFilter(key)">
-          <span>{{key}}:{{params[key]}}</span>
+          <span>{{params[key]}}</span>
           <span class="ml-1">(X)</span>
         </button>
       </ng-container>

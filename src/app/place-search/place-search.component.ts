@@ -11,6 +11,11 @@ declare let google: any;
 })
 export class PlaceSearchComponent implements AfterViewInit {
 
+  @Input() showMinPrice: boolean = true;
+  @Input() showMaxPrice: boolean = true;
+  @Input() showKeyword: boolean = true;
+  @Input() showLocationSearch: boolean = true;
+
   countryRestrict: any = { country: 'us' };
   MARKER_PATH: any = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
   hostnameRegexp: any = new RegExp('^https?://.+?/');
@@ -115,6 +120,7 @@ export class PlaceSearchComponent implements AfterViewInit {
     this._apiService.api.then((maps) => {
       this.buildAutoComplete();
       this.buildMap();
+      this.dropMarkers();
     });
   }
 

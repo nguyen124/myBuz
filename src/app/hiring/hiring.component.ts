@@ -8,13 +8,14 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { GoogleMapService } from '../shared/services/google-map.service';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-hiring',
   templateUrl: './hiring.component.html',
   styleUrls: ['./hiring.component.css']
 })
-export class HiringComponent implements OnInit {
+export class HiringComponent implements OnInit, AfterViewInit {
   items: IItem[];
   params: any = {};
   nextPage = 0;
@@ -57,6 +58,11 @@ export class HiringComponent implements OnInit {
       this.params = Object.assign({ need: 'hiring' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
     });
+  }
+
+  ngAfterViewInit() {
+    this.itemsComponent.placeSearchComp.showMaxPrice = false;
+    this.itemsComponent.placeSearchComp.showMinPrice = false;
   }
 
   getItems(params) {
