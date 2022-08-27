@@ -45,10 +45,9 @@ export class GoogleMapService {
     return `//maps.googleapis.com/maps/api/js?${params}`;
   }
 
-  userLocation: any;
-  getUserLocation() {
+  getUserLocation(inputLocation?: string) {
     return new Promise((resolve, reject) => {
-      if (!this.userLocation) {
+      if (!inputLocation) {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
             this.api.then(() => {
@@ -69,7 +68,17 @@ export class GoogleMapService {
           });
         }
       } else {
-        return resolve(this.userLocation);
+        this.api.then(() => {
+          const geocoder = new google.maps.Geocoder();
+          geocoder
+            .geocode({ address: inputLocation })
+            .then(res => {
+              if (res && res.results && res.results.length > 0) {
+                return resolve(res.results[0]);
+              }
+              return resolve({});
+            });
+        });
       }
     });
   }

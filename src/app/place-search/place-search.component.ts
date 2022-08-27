@@ -103,7 +103,7 @@ export class PlaceSearchComponent implements AfterViewInit {
     }
     //put this navigation inside ngZone because this code is external javascript
     this._ngZone.run(() => {
-      params = Object.assign(params, this._activatedRoute.snapshot.queryParams, { id: null });
+      params = Object.assign({}, this._activatedRoute.snapshot.queryParams, params, { id: null });
       this._router.navigate([], {
         queryParams: params,
         queryParamsHandling: 'merge'
@@ -147,12 +147,27 @@ export class PlaceSearchComponent implements AfterViewInit {
   }
 
   ngOnChanges() {
-    let that = this;
-    if (that.map) {
-      that.map.panTo(this.panTo);
-      that.map.setZoom(this.zoomLevel);
-      that.dropMarkers();
+    //drop the marker when @Input items changed
+    if (this.map) {
+      this.dropMarkers();
     }
+  }
+
+  onMinPriceChange(event) {
+    let minPrice = Number(event.target.value);
+    if (minPrice < 0) minPrice = 0;
+    this.goToNewPath({ minPrice });
+  }
+
+  onMaxPriceChange(event) {
+    let maxPrice = Number(event.target.value);
+    if (maxPrice < 0) maxPrice = 0;
+    this.goToNewPath({ maxPrice });
+  }
+
+  onTextSearchChange(event) {
+    let keyword = event.target.value;
+    this.goToNewPath({ keyword });
   }
 
   searchItemWithinLocation(place) {
@@ -173,6 +188,8 @@ export class PlaceSearchComponent implements AfterViewInit {
           this.goToNewPath({ address });
           this.panTo = place.geometry.location;
           this.zoomLevel = 15;
+          this.map.panTo(this.panTo);
+          this.map.setZoom(this.zoomLevel);          
           return;
         }
         case "postal_code": {
@@ -180,6 +197,8 @@ export class PlaceSearchComponent implements AfterViewInit {
           this.goToNewPath({ zipcode });
           this.panTo = place.geometry.location;
           this.zoomLevel = 10;
+          this.map.panTo(this.panTo);
+          this.map.setZoom(this.zoomLevel);          
           return;
         }
         case "locality": {
@@ -187,13 +206,15 @@ export class PlaceSearchComponent implements AfterViewInit {
           this.goToNewPath({ city });
           this.panTo = place.geometry.location;
           this.zoomLevel = 8;
+          this.map.panTo(this.panTo);
+          this.map.setZoom(this.zoomLevel);          
           return;
         }
         case "administrative_area_level_1": {
           state = component.short_name;
           this.goToNewPath({ state });
           this.panTo = place.geometry.location;
-          this.zoomLevel = 5;
+          this.zoomLevel = 5;          
           return;
         }
         case "country": {
@@ -201,6 +222,8 @@ export class PlaceSearchComponent implements AfterViewInit {
           this.goToNewPath({ country });
           this.panTo = place.geometry.location;
           this.zoomLevel = 3;
+          this.map.panTo(this.panTo);
+          this.map.setZoom(this.zoomLevel);          
           return;
         }
       }

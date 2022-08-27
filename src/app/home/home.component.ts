@@ -36,9 +36,17 @@ export class HomeComponent implements OnInit {
     private _apiService: GoogleMapService,
     @Inject(JQ_TOKEN) private $: any) {
     let params = this._activatedRoute.snapshot.queryParams;
-
+    let constructedLocation = null;
+    if (params.address || params.city || params.state || params.zipcode || params.country) {
+      let address = params.address ? params.address.trim() : '';
+      let city = params.city ? params.city.trim() : '';
+      let state = params.state ? params.state.trim() : '';
+      let zipcode = params.zipcode ? params.zipcode.trim() : '';
+      let country = params.country ? params.country.trim() : '';
+      constructedLocation = `${address}, ${city}, ${state} ${zipcode}, ${country}`;
+    }
     if (!this.userLocation) {
-      this._apiService.getUserLocation().then((userLocation) => {
+      this._apiService.getUserLocation(constructedLocation).then((userLocation) => {
         this.userLocation = userLocation;
         if (Object.keys(userLocation).length > 0) {
           this.itemsComponent.placeSearchComp.searchItemWithinLocation(userLocation);

@@ -1,6 +1,17 @@
-<div class="mt-2 mb-2 input-group input-group-sm">
-    <input #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area" type="text" class="form-control"
-        aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="text-align: right">
+<div class="mt-2 mb-2">
+    <div class="input-group input-group-sm mb-1">
+        <input id="minPrice" placeholder="Min price" type="number" min="0" value="0" class="form-control col-2 mr-1"
+            aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="text-align: right" (change)="onMinPriceChange($event)"/>
+        <input id="maxPrice" placeholder="Max price" type="number" class="form-control col-2 mr-1" aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm" style="text-align: right" (change)="onMaxPriceChange($event)"/>
+        <input id="keyWord" placeholder="Enter key word" type="text" class="form-control col-8" aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm" style="text-align: right" (change)="onTextSearchChange($event)"/>
+    </div>
+    <div class="">
+        <input #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area" type="text"
+            class="form-control col-12" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+            style="text-align: right">
+    </div>
 </div>
 <div #map id="map" style="width: 100%; height: 500px;"></div>
 

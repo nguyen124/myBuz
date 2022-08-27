@@ -9,7 +9,8 @@ export class KeyPipe implements PipeTransform {
         for (let key in value) {
             if (key !== 'tag' && key !== 'category'
                 && key !== "address" && key !== "zipcode" && key !== "city"
-                && key !== "state" && key !== "country") {
+                && key !== "state" && key !== "country"
+                && key !== "minPrice" && key !== "maxPrice" && key !== "keyword") {
                 continue;
             }
             keys.push(key);
