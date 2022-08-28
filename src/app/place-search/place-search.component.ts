@@ -93,19 +93,6 @@ export class PlaceSearchComponent implements AfterViewInit {
   }
 
   goToNewPath(params) {
-    // changes the route without moving from the current view or
-    // triggering a navigation event,
-    if (params.address) {
-      Object.assign(params, { country: null, state: null, city: null, zipcode: null });
-    } else if (params.zipcode) {
-      Object.assign(params, { country: null, state: null, city: null, address: null });
-    } else if (params.city) {
-      Object.assign(params, { country: null, state: null, zipcode: null, address: null });
-    } else if (params.state) {
-      Object.assign(params, { country: null, city: null, zipcode: null, address: null });
-    } else if (params.country) {
-      Object.assign(params, { state: null, city: null, zipcode: null, address: null });
-    }
     //put this navigation inside ngZone because this code is external javascript
     this._ngZone.run(() => {
       params = Object.assign({}, this._activatedRoute.snapshot.queryParams, params, { id: null });
@@ -149,7 +136,10 @@ export class PlaceSearchComponent implements AfterViewInit {
   zoonInAndSearch = () => {
     let that = this;
     that.place = that.autocomplete.getPlace();
-    that.searchItemWithinLocation(that.place);
+
+    that.getLocationParams(that.place).then(locationParams => {
+      this.goToNewPath(locationParams);
+    });
   }
 
   ngOnChanges() {
@@ -176,91 +166,87 @@ export class PlaceSearchComponent implements AfterViewInit {
     this.goToNewPath({ keyword });
   }
 
-  searchItemWithinLocation(place) {
-    let address = "";
-    let zipcode = "";
-    let city = "";
-    let state = "";
-    let country = ""
-    for (const component of place.address_components as any[]) {
-      const componentType = component.types[0];
-      switch (componentType) {
-        case "street_number": {
-          address = `${component.long_name} ${address}`;
-          break;
-        }
-        case "route": {
-          address += component.short_name;
-          this.goToNewPath({ address });
-          this.panTo = place.geometry.location;
-          this.zoomLevel = 15;
-          this.map.panTo(this.panTo);
-          this.map.setZoom(this.zoomLevel);          
-          return;
-        }
-        case "postal_code": {
-          zipcode = `${component.long_name}${zipcode}`;
-          this.goToNewPath({ zipcode });
-          this.panTo = place.geometry.location;
-          this.zoomLevel = 10;
-          this.map.panTo(this.panTo);
-          this.map.setZoom(this.zoomLevel);          
-          return;
-        }
-        case "locality": {
-          city = component.long_name;
-          this.goToNewPath({ city });
-          this.panTo = place.geometry.location;
-          this.zoomLevel = 8;
-          this.map.panTo(this.panTo);
-          this.map.setZoom(this.zoomLevel);          
-          return;
-        }
-        case "administrative_area_level_1": {
-          state = component.short_name;
-          this.goToNewPath({ state });
-          this.panTo = place.geometry.location;
-          this.zoomLevel = 5;          
-          return;
-        }
-        case "country": {
-          country = component.long_name;
-          this.goToNewPath({ country });
-          this.panTo = place.geometry.location;
-          this.zoomLevel = 3;
-          this.map.panTo(this.panTo);
-          this.map.setZoom(this.zoomLevel);          
-          return;
+  getLocationParams(place) {
+    let address = null;
+    let zipcode = null;
+    let city = null;
+    let state = null;
+    let country = null;
+    return new Promise((resolve, reject) => {
+      for (let i = place.address_components.length - 1; i--; i >= 0) {
+        let component = place.address_components[i];
+        const componentType = component.types[0];
+        switch (componentType) {
+          case "street_number": {
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 15;
+            address = address ? component.long_name + ' ' + address : component.long_name;
+            break;
+          }
+          case "route": {
+            address = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 15;
+            break;
+          }
+          case "postal_code": {
+            zipcode = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 10;
+            break;
+          }
+          case "locality": {
+            city = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 8;
+            break;
+          }
+          case "administrative_area_level_1": {
+            state = component.short_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 5;
+            break;
+          }
+          case "country": {
+            country = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 3;
+            break;
+          }
         }
       }
-    }
+      this.map.panTo(this.panTo);
+      this.map.setZoom(this.zoomLevel);
+      resolve({ address, zipcode, city, state, country });
+    });
   }
 
   // Search for hotels in the selected city, within the viewport of the map.
   dropMarkers() {
     let that = this;
     that.clearMarkers();
+    if (that.items) {
+      // assign a letter of the alphabetic to each marker icon.
+      for (let i = 0; i < that.items.length; i++) {
+        const markerLetter = String.fromCharCode(
+          'A'.charCodeAt(0) + (i % 26)
+        );
+        const markerIcon = that.MARKER_PATH + markerLetter + '.png';
 
-    // assign a letter of the alphabetic to each marker icon.
-    for (let i = 0; i < that.items.length; i++) {
-      const markerLetter = String.fromCharCode(
-        'A'.charCodeAt(0) + (i % 26)
-      );
-      const markerIcon = that.MARKER_PATH + markerLetter + '.png';
-
-      // Use marker animation to drop the icons incrementally on the map.
-      that.markers[i] = new google.maps.Marker({
-        position: that.items[i].geometry.location,
-        animation: google.maps.Animation.DROP,
-        icon: markerIcon,
-      });
-      // If the user clicks a  marker, show the details of that
-      // in an info window.
-      // @ts-ignore TODO refactor to avoid storing on marker      
-      google.maps.event.addListener(that.markers[i], 'click', () => {
-        that.showInfoWindow(that, that.markers[i], that.items[i]);
-      });
-      setTimeout(that.dropMarker(i), i * 100);
+        // Use marker animation to drop the icons incrementally on the map.
+        that.markers[i] = new google.maps.Marker({
+          position: that.items[i].geometry.location,
+          animation: google.maps.Animation.DROP,
+          icon: markerIcon,
+        });
+        // If the user clicks a  marker, show the details of that
+        // in an info window.
+        // @ts-ignore TODO refactor to avoid storing on marker      
+        google.maps.event.addListener(that.markers[i], 'click', () => {
+          that.showInfoWindow(that, that.markers[i], that.items[i]);
+        });
+        setTimeout(that.dropMarker(i), i * 100);
+      }
     }
   }
 

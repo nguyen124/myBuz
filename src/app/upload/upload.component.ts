@@ -146,13 +146,13 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
 
       switch (componentType) {
         case "street_number": {
-          address1 = `${component.long_name} ${address1}`; break;
+          address1 = component.long_name; break;
         }
         case "route": {
-          address1 += component.short_name; break;
+          address1 = (address1 !== "") ? (address1 + ' ' + component.long_name) : component.long_name; break;
         }
         case "postal_code": {
-          postcode = `${component.long_name}${postcode}`; break;
+          postcode = component.long_name; break;
         }
         // case "postal_code_suffix": {
         //   postcode = `${postcode}-${component.long_name}`;
@@ -189,7 +189,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       tags: [''],
       price: [0, [Validators.min(0)]],
       wage: [0, [Validators.min(0)]],
-      address: ['', [Validators.pattern(/^.{0,50}$/)]],
+      address: ['', [Validators.pattern(/^.{0,100}$/)]],
       address2: ['', [Validators.pattern(/^.{0,50}$/)]],
       zipcode: ['', [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
       city: ['', [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],

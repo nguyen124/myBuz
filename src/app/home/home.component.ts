@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
   currentLength: number;
   actualPage: any = 0;
   lastParams: any = null;
-  userLocation = null;
 
   @ViewChild(ItemsComponent, { static: false }) itemsComponent: ItemsComponent;
 
@@ -36,7 +35,15 @@ export class HomeComponent implements OnInit {
     private _apiService: GoogleMapService,
     @Inject(JQ_TOKEN) private $: any) {
     let params = this._activatedRoute.snapshot.queryParams;
+    this._router.navigate([], {
+      queryParams: Object.assign({ page: 0, perPage: 40 }, params),
+      queryParamsHandling: "merge"
+    });
+  }
+
+  async ngOnInit() {
     let constructedLocation = null;
+    let params = this._activatedRoute.snapshot.queryParams;
     if (params.address || params.city || params.state || params.zipcode || params.country) {
       let address = params.address ? params.address.trim() : '';
       let city = params.city ? params.city.trim() : '';
@@ -45,22 +52,11 @@ export class HomeComponent implements OnInit {
       let country = params.country ? params.country.trim() : '';
       constructedLocation = `${address}, ${city}, ${state} ${zipcode}, ${country}`;
     }
-    if (!this.userLocation) {
-      this._apiService.getUserLocation(constructedLocation).then((userLocation) => {
-        this.userLocation = userLocation;
-        if (Object.keys(userLocation).length > 0) {
-          this.itemsComponent.placeSearchComp.searchItemWithinLocation(userLocation);
-        } else {
-          this._router.navigate([], {
-            queryParams: Object.assign({ page: 0, perPage: 40 }, userLocation, params),
-            queryParamsHandling: "merge"
-          });
-        }
-      });
-    }
-  }
 
-  ngOnInit() {
+    const userLocation = await this._apiService.getUserLocation(constructedLocation);
+    const locationParams = await this.itemsComponent.placeSearchComp.getLocationParams(userLocation);
+    this.itemsComponent.placeSearchComp.goToNewPath(locationParams);
+
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'forSale' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);

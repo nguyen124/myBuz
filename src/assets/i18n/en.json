@@ -171,7 +171,7 @@
         "state": "State",
         "country": "Country",
         "validate": {
-          "required": "Address must contain 1 to 50 characters!",
+          "pattern": "Address can't have more than 100 characters!",
           "zipcodeRequired": "Zip code must contain 1 to 10 characters!",
           "countryRequired": "Country must contain 1 to 20 characters!",
           "stateRequired": "State must contain 1 to 20 characters!",

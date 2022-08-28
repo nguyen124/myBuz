@@ -86,8 +86,8 @@
                     <input #autoAddress formControlName="address" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('address') }">
                     <div *ngIf="checkError('address')" class="invalid-feedback">
-                        <div *ngIf="f.address.errors.pattern || f.address.errors.whitespace">
-                            {{"item.upload.address.validate.required" | translate}}</div>
+                        <div *ngIf="f.address.errors.pattern">
+                            {{"item.upload.address.validate.pattern" | translate}}</div>
                     </div>
                 </div>
                 <div class="col-md-5 mb-1">

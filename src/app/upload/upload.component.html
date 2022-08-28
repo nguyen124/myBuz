@@ -76,8 +76,14 @@
 
       <div class="row mb-1">
         <div class="col-md-7 mb-1">
-          <label class="text-primary" for="address"><strong>{{"common.label.address" | translate}}</strong></label>
-          <input #autoAddress formControlName="address" class="form-control">
+          <label class="text-primary" for="address"><strong>{{"common.label.address" |
+              translate}}</strong></label>
+          <input #autoAddress formControlName="address" class="form-control"
+            [ngClass]="{ 'is-invalid': checkError('address') }">
+          <div *ngIf="checkError('address')" class="invalid-feedback">
+            <div *ngIf="f.address.errors.pattern">
+              {{"item.upload.address.validate.pattern" | translate}}</div>
+          </div>
         </div>
         <div class="col-md-5 mb-1">
           <label class="text-primary" for="zipcode"><strong>{{"common.label.zipcode" | translate}}*</strong></label>
