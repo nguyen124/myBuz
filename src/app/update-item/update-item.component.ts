@@ -66,7 +66,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
-  @ViewChild('address2', { static: false }) address2: ElementRef;
+  @ViewChild('phone', { static: false }) phone: ElementRef;
 
   constructor(
     private _route: ActivatedRoute,
@@ -402,7 +402,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
     // After filling the form with address components from the Autocomplete
     // prediction, set cursor focus on the second address line to encourage
     // entry of subpremise information such as apartment, unit, or floor number.
-    this.address2.nativeElement.focus();
+    this.phone.nativeElement.focus();
   }
 
   checkTooManyFiles() {
