@@ -34,29 +34,9 @@ export class HomeComponent implements OnInit {
     private _logSvc: LoggingService,
     private _apiService: GoogleMapService,
     @Inject(JQ_TOKEN) private $: any) {
-    let params = this._activatedRoute.snapshot.queryParams;
-    this._router.navigate([], {
-      queryParams: Object.assign({ page: 0, perPage: 40 }, params),
-      queryParamsHandling: "merge"
-    });
   }
 
-  async ngOnInit() {
-    let constructedLocation = null;
-    let params = this._activatedRoute.snapshot.queryParams;
-    if (params.address || params.city || params.state || params.zipcode || params.country) {
-      let address = params.address ? params.address.trim() : '';
-      let city = params.city ? params.city.trim() : '';
-      let state = params.state ? params.state.trim() : '';
-      let zipcode = params.zipcode ? params.zipcode.trim() : '';
-      let country = params.country ? params.country.trim() : '';
-      constructedLocation = `${address}, ${city}, ${state} ${zipcode}, ${country}`;
-    }
-
-    const userLocation = await this._apiService.getUserLocation(constructedLocation);
-    const locationParams = await this.itemsComponent.placeSearchComp.getLocationParams(userLocation);
-    this.itemsComponent.placeSearchComp.goToNewPath(locationParams);
-
+  ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'forSale' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);

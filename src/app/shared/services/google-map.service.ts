@@ -12,6 +12,8 @@ export type Maps = typeof google.maps;
 export class GoogleMapService {
 
   public readonly api = this.load();
+  public panTo: any = null;
+  public zoomLevel: number = null;
 
   private load(): Promise<Maps> {
     const script = document.createElement('script');
@@ -64,7 +66,7 @@ export class GoogleMapService {
                 });
             });
           }, (err) => {
-            return reject(err);
+            return resolve(null);
           });
         }
       } else {
@@ -80,6 +82,59 @@ export class GoogleMapService {
             });
         });
       }
+    });
+  }
+
+  getLocationParams(place) {
+    let address = null;
+    let zipcode = null;
+    let city = null;
+    let state = null;
+    let country = null;
+    return new Promise((resolve, reject) => {
+      for (let i = place.address_components.length - 1; i--; i >= 0) {
+        let component = place.address_components[i];
+        const componentType = component.types[0];
+        switch (componentType) {
+          case "street_number": {
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 15;
+            address = address ? component.long_name + ' ' + address : component.long_name;
+            break;
+          }
+          case "route": {
+            address = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 15;
+            break;
+          }
+          case "postal_code": {
+            zipcode = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 10;
+            break;
+          }
+          case "locality": {
+            city = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 8;
+            break;
+          }
+          case "administrative_area_level_1": {
+            state = component.short_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 5;
+            break;
+          }
+          case "country": {
+            country = component.long_name;
+            this.panTo = place.geometry.location;
+            this.zoomLevel = 3;
+            break;
+          }
+        }
+      }
+      resolve(Object.assign({}, address ? { address } : null, zipcode ? { zipcode } : null, city ? { city } : null, state ? { state } : null, country ? { country } : null));
     });
   }
 }

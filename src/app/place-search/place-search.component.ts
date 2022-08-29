@@ -79,8 +79,6 @@ export class PlaceSearchComponent implements AfterViewInit {
   infoWindow: any;
   markers: any = [];
   autocomplete: any;
-  panTo: any;
-  zoomLevel: any;
   @Input() items: IItem[];
   @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
   @ViewChild('infoContentRef', { static: false }) infoContentRef: ElementRef;
@@ -121,23 +119,29 @@ export class PlaceSearchComponent implements AfterViewInit {
   }
 
   buildMap() {
-    let that = this;
-    that.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
-      zoom: that.countries['us'].zoom,
-      center: that.countries['us'].center,
+    this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
+      zoom: this.countries['us'].zoom,
+      center: this.countries['us'].center,
       mapTypeControl: false,
       panControl: false,
       zoomControl: false,
       streetViewControl: false,
     });
-    that.autocomplete.addListener('place_changed', that.zoonInAndSearch);
+
+    if (this._apiService.panTo) {
+      this.map.panTo(this._apiService.panTo);
+    }
+    if (this._apiService.zoomLevel) {
+      this.map.setZoom(this._apiService.zoomLevel);
+    }
+    this.autocomplete.addListener('place_changed', this.zoonInAndSearch);
   }
 
   zoonInAndSearch = () => {
-    let that = this;
-    that.place = that.autocomplete.getPlace();
-
-    that.getLocationParams(that.place).then(locationParams => {
+    this.place = this.autocomplete.getPlace();
+    this._apiService.getLocationParams(this.place).then(locationParams => {
+      this.map.panTo(this._apiService.panTo);
+      this.map.setZoom(this._apiService.zoomLevel);
       this.goToNewPath(locationParams);
     });
   }
@@ -166,61 +170,6 @@ export class PlaceSearchComponent implements AfterViewInit {
     this.goToNewPath({ keyword });
   }
 
-  getLocationParams(place) {
-    let address = null;
-    let zipcode = null;
-    let city = null;
-    let state = null;
-    let country = null;
-    return new Promise((resolve, reject) => {
-      for (let i = place.address_components.length - 1; i--; i >= 0) {
-        let component = place.address_components[i];
-        const componentType = component.types[0];
-        switch (componentType) {
-          case "street_number": {
-            this.panTo = place.geometry.location;
-            this.zoomLevel = 15;
-            address = address ? component.long_name + ' ' + address : component.long_name;
-            break;
-          }
-          case "route": {
-            address = component.long_name;
-            this.panTo = place.geometry.location;
-            this.zoomLevel = 15;
-            break;
-          }
-          case "postal_code": {
-            zipcode = component.long_name;
-            this.panTo = place.geometry.location;
-            this.zoomLevel = 10;
-            break;
-          }
-          case "locality": {
-            city = component.long_name;
-            this.panTo = place.geometry.location;
-            this.zoomLevel = 8;
-            break;
-          }
-          case "administrative_area_level_1": {
-            state = component.short_name;
-            this.panTo = place.geometry.location;
-            this.zoomLevel = 5;
-            break;
-          }
-          case "country": {
-            country = component.long_name;
-            this.panTo = place.geometry.location;
-            this.zoomLevel = 3;
-            break;
-          }
-        }
-      }
-      this.map.panTo(this.panTo);
-      this.map.setZoom(this.zoomLevel);
-      resolve({ address, zipcode, city, state, country });
-    });
-  }
-
   // Search for hotels in the selected city, within the viewport of the map.
   dropMarkers() {
     let that = this;
@@ -245,15 +194,15 @@ export class PlaceSearchComponent implements AfterViewInit {
         google.maps.event.addListener(that.markers[i], 'click', () => {
           that.showInfoWindow(that, that.markers[i], that.items[i]);
         });
-        setTimeout(that.dropMarker(i), i * 100);
+        setTimeout(that.dropMarker(that.markers[i]), i * 100);
       }
     }
   }
 
-  dropMarker(i) {
+  dropMarker(marker) {
     let that = this;
     return function () {
-      that.markers[i].setMap(that.map);
+      marker.setMap(that.map);
     };
   }
 

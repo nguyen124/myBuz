@@ -15,11 +15,12 @@ import { UpdateItemComponent } from './update-item/update-item.component';
 import { HiringComponent } from './hiring/hiring.component';
 import { OtherComponent } from './other/other.component';
 import { ActivateEmailComponent } from './activate-email/activate-email.component';
+import { RedirectGuard } from './redirect.guard';
 
 const appRoutes: Routes = [
-    { path: 'business/forSale', component: HomeComponent },
-    { path: 'business/hiring', component: HiringComponent },
-    { path: 'business/other', component: OtherComponent },
+    { path: 'business/forSale', component: HomeComponent, canActivate: [RedirectGuard] },
+    { path: 'business/hiring', component: HiringComponent, canActivate: [RedirectGuard] },
+    { path: 'business/other', component: OtherComponent, canActivate: [RedirectGuard] },
     { path: 'business/user', component: MyItemsComponent, canActivate: [ParentAuthGuard] },
     { path: 'business/:itemId/update', component: UpdateItemComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
