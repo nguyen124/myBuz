@@ -1,63 +1,61 @@
 <div class="mt-2 mb-2">
     <div class="input-group input-group-sm mb-1">
-        <input *ngIf="showMinPrice" id="minPrice" placeholder="Min price" type="number" min="0" value="0" class="form-control col-3 mr-1"
-            aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="text-align: right" (change)="onMinPriceChange($event)"/>
-        <input *ngIf="showMaxPrice" id="maxPrice" placeholder="Max price" type="number" class="form-control col-3 mr-1" aria-label="Small"
-            aria-describedby="inputGroup-sizing-sm" style="text-align: right" (change)="onMaxPriceChange($event)"/>
-        <input *ngIf="showKeyword" id="keyWord" placeholder="Enter key word" type="text" class="form-control col-12" aria-label="Small"
-            aria-describedby="inputGroup-sizing-sm" style="text-align: right" (change)="onTextSearchChange($event)"/>
+        <input *ngIf="showMinPrice" id="minPrice" placeholder="Min price" type="number" min="0" value="0"
+            class="form-control col-3 pl-1 pr-1 mr-1" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+            style="text-align: right" (change)="onMinPriceChange($event)" />
+        <input *ngIf="showMaxPrice" id="maxPrice" placeholder="Max price" type="number"
+            class="form-control col-3 pl-1 pr-1 mr-1" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+            style="text-align: right" (change)="onMaxPriceChange($event)" />
+        <input *ngIf="showKeyword" id="keyWord" placeholder="Enter key word" type="text" class="form-control col-12"
+            aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="text-align: right"
+            (change)="onTextSearchChange($event)" />
     </div>
     <div class="">
-        <input *ngIf="showLocationSearch" #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area" type="text"
-            class="form-control col-12" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+        <input *ngIf="showLocationSearch" #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area"
+            type="text" class="form-control col-12" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
             style="text-align: right">
     </div>
 </div>
 <div *ngIf="showLocationSearch" #map id="map" style="width: 100%; height: 500px;"></div>
 
 <div #infoContentRef id="info-content">
-    <table>
-        <tr id="iw-url-row" class="iw_table_row">
-            <td class="header iw_table_icon"><i class="fa fa-store"></i></td>
-            <td class="data" id="iw-url"><img [src]="url" style="width: 200px; height: 100px; object-fit: scale-down;">
-            </td>
-        </tr>
-        <tr id="iw-address-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.address.address1" | translate}}:</td>
-            <td class="data" id="iw-address">
-                {{address}}</td>
-        </tr>
-        <tr id="iw-phone-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.contactPhone.label" | translate}}:</td>
-            <td class="data" id="iw-phone">{{contactPhoneNo | mask: '(000) 000-0000'}}</td>
-        </tr>
-        <tr id="iw-income-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.income.label" | translate}}:</td>
-            <td class="data" id="iw-income">{{income}}</td>
-        </tr>
-        <tr id="iw-rentCost-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.rent.label" | translate}}:</td>
-            <td class="data" id="iw-rentCost">{{rentCost}}</td>
-        </tr>
-        <tr id="iw-otherCost-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.otherCost.label" | translate}}:</td>
-            <td class="data" id="iw-otherCost">{{otherCost}}</td>
-        </tr>
-        <tr id="iw-otherCost-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.area.label" | translate}}:</td>
-            <td class="data" id="iw-area">{{area}}</td>
-        </tr>
-        <tr id="iw-noOfEmployees-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.noOfEmployees.label" | translate}}:</td>
-            <td class="data" id="iw-noOfEmployees">{{noOfEmployees}}</td>
-        </tr>
-        <tr id="iw-noOfTables-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.noOfTables.label" | translate}}:</td>
-            <td class="data" id="iw-noOfTables">{{noOfTables}}</td>
-        </tr>
-        <tr id="iw-noOfChairs-row" class="iw_table_row">
-            <td class="header iw_attribute_name">{{"item.upload.noOfChairs.label" | translate}}:</td>
-            <td class="data" id="iw-noOfChairs">{{noOfChairs}}</td>
-        </tr>
-    </table>
+
+    <div class="row m-0">
+        <div class="col-3 pl-1 pr-1 iw_table_icon"><i class="fa fa-store"></i></div>
+        <div class="col-9" id="iw-url"><img [src]="url" style="width: 200px; height: 100px; object-fit: scale-down;">
+        </div>
+    </div>
+    <div class="row m-0" id="iw-address-row">
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.address.address1" | translate}}:</div>
+        <div class="col-8 p-0" id="iw-address">
+            {{address}}</div>
+    </div>
+    <div class="row m-0" id="iw-phone-row">
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.contactPhone.label" | translate}}:</div>
+        <div class="col-8 p-0" id="iw-phone">{{contactPhoneNo | mask: '+00 (000) 000-0000'}}</div>
+    </div>
+    <div class="row m-0" id="iw-phone-row">
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.income.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-income">{{income}}</div>
+    </div>
+    <div class="row m-0" id="iw-rentCost-row">
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.rent.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-rentCost">{{rentCost}}</div>
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.otherCost.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-otherCost">{{otherCost}}</div>
+    </div>
+
+    <div class="row m-0" id="iw-otherCost-row">
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.area.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-area">{{area}}</div>
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.noOfEmployees.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-noOfEmployees">{{noOfEmployees}}</div>
+    </div>
+
+    <div class="row m-0" id="iw-noOfTables-row">
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.noOfTables.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-noOfTables">{{noOfTables}}</div>
+        <div class="col-4 pl-1 pr-1 iw_attribute_name">{{"item.upload.noOfChairs.label" | translate}}:</div>
+        <div class="col-2 p-0" id="iw-noOfChairs">{{noOfChairs}}</div>
+    </div>
 </div>
