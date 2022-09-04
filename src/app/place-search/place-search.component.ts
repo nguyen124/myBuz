@@ -118,8 +118,8 @@ export class PlaceSearchComponent implements AfterViewInit {
     );
   }
 
-  buildMap() {
-    this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
+  async buildMap() {
+    this.map = await new google.maps.Map(document.getElementById('map') as HTMLElement, {
       zoom: this.countries['us'].zoom,
       center: this.countries['us'].center,
       mapTypeControl: false,
