@@ -8,6 +8,7 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
 import { LoggingService } from '../shared/services/system/logging.service';
 import { GoogleMapService } from '../shared/services/google-map.service';
+import { GoogleSeoService } from '../google-seo.service';
 
 @Component({
   selector: 'app-home',
@@ -33,14 +34,20 @@ export class HomeComponent implements OnInit {
     private _commSvc: CommunicateService,
     private _logSvc: LoggingService,
     private _apiService: GoogleMapService,
+    private _seoService: GoogleSeoService,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
   ngOnInit() {
+    this.createLinkForCanonicalURL();
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'forSale' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
     });
+  }
+
+  createLinkForCanonicalURL() {
+    this._seoService.createLinkForCanonicalURL();
   }
 
   getItems(params) {
