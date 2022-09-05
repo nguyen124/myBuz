@@ -4,9 +4,33 @@
 
 .iw_attribute_name {
   font-weight: bold;
+  text-align: right;
+}
+
+@media (max-width: 570px) {
+  .iw_attribute_name {
+    text-align: left;
+  }
 }
 
 .iw_table_icon {
+  text-align: right;
   width: 24px;
   height: 24px;
+}
+
+@media (max-width: 570px) {
+  .iw_table_icon {
+    text-align: left;
+  }
+  .next-img {
+    position: absolute;
+    z-index: 1;
+    top: -100px;
+    right: -100px;
+  }
+}
+
+.next-img {
+  height: 100px;
 }

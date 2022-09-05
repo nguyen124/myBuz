@@ -228,8 +228,13 @@ export class PlaceSearchComponent implements AfterViewInit {
   noOfChairs: number;
   lastElement: any;
   area: number;
+  imgIdx: number = 0;
+  noOfImg: number = 0;
+  showingItem: any;
   showInfoWindow(that: any, marker: any, item: any) {
     if (item) {
+      this.showingItem = item;
+      this.imgIdx = 0; //reset imgIdx
       if (that.lastElement) {
         that.lastElement.style.border = "";
       }
@@ -242,7 +247,8 @@ export class PlaceSearchComponent implements AfterViewInit {
       that.address = item.address + ', ' + item.city + ', ' + item.state + ' ' + item.zipcode + ', ' +
         item.country;
       that.contactPhoneNo = item.contactPhoneNo;
-      that.url = item.files[0].url;
+      that.url = item.files[this.imgIdx].url;
+      that.noOfImg = item.files.length;
       that.income = item.income;
       that.rentCost = item.rentCost;
       that.otherCost = item.otherCost;
@@ -263,5 +269,12 @@ export class PlaceSearchComponent implements AfterViewInit {
       }
     });
     that.infoWindow.open(that.map, marker);
+  }
+
+  nextImg() {
+    if (this.showingItem) {
+      this.imgIdx = (this.imgIdx + 1) % this.noOfImg;
+      this.url = this.showingItem.files[this.imgIdx].url;
+    }
   }
 }
