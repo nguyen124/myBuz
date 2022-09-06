@@ -11,11 +11,13 @@ export class SaveLoginComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private _authSvc: AuthService) { }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(params => {
-      var user = params['user'];
+    let user = this.activatedRoute.snapshot.queryParams['user'];
+    if (user) {
       this._authSvc.saveThirdPartyLogin(user);
-      this.router.navigate(['/']);
+    }
+    this.router.navigate(['/business/forSale'], {
+      queryParams: { user: null },
+      queryParamsHandling: "merge"
     });
   }
-
 }

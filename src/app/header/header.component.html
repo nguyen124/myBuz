@@ -17,7 +17,7 @@
         <!-- <button id="createItemBtn" class="btn btn-xs btn-success mr-2" data-toggle="modal" data-target="#createNodeModal"><i
           class="fa fa-plus"></i></button> -->
         <button type="button" class="btn btn-xs btn-success dropdown-toggle mr-2" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">{{authSvc.user.username}}
+          aria-haspopup="true" aria-expanded="false">{{authSvc.user?.username}}
         </button>
         <div class="dropdown-menu">
           <a routerLink="/user/profile" class="ml-1 d-block">{{"common.label.profile" | translate}}</a>

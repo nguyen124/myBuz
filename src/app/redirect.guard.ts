@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { GoogleMapService } from './shared/services/google-map.service';
+import { AuthService } from './shared/services/security/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedirectGuard implements CanActivate {
 
-  constructor(private _router: Router, private _apiService: GoogleMapService) { }
+  constructor(private _router: Router, private _apiService: GoogleMapService, private _authSvc: AuthService) { }
   async canActivate(route: ActivatedRouteSnapshot) {
     let constructedLocation = null;
-    let params = route.queryParams;
+    let params = Object.assign({}, route.queryParams, { user: null });
     if (params.address || params.city || params.state || params.zipcode || params.country) {
       let address = params.address ? params.address.trim() : '';
       let city = params.city ? params.city.trim() : '';
