@@ -40,7 +40,7 @@ export class ReactComponent implements OnInit {
   }
 
   buildShareUrl() {
-    this.shareUrl = 'https://troivet.com/svc/metatags?id=' + this.item._id;
+    this.shareUrl = 'https://troiviet.com/svc/metatags?id=' + this.item._id;
   }
 
   upvote(): void {
