@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "m2meme",
-      "public": "dist/architecture",
+      "public": "./dist/architecture",
       "ignore": [
         "**/node_modules/**"
       ],
@@ -47,13 +47,13 @@
     },
     {
       "target": "m2meme-dev",
-      "public": "dist/dev",
+      "public": "./dist/dev",
       "ignore": [
         "**/node_modules/**"
       ],
       "rewrites": [
         {
-          "source": "/svc/items{,/**}",
+          "source": "/svc/business{,/**}",
           "function": "itemController"
         },
         {

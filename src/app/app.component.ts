@@ -48,3 +48,4 @@ export class AppComponent implements OnInit {
     this.translate.use(value);
   }
 }
+//remmber to set "Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass" before running deploy
