@@ -8,5 +8,8 @@ export const environment = {
   recaptcha: {
     siteKey: '6LfDDpQhAAAAAD6Ml2f3AKAj4HGQPUBrQ8upGUCp',
   },
-  bucketname: 'm2meme.appspot.com'
+  bucketname: 'm2meme.appspot.com',
+  stripe: {
+    pk: 'pk_live_51LSD2fJbUrktT3xjLdrEqaiihlsAcsX0p0NDAdY7OoewOMJ3J1q6SH6Fw6P11Tac88rKVHFWVOb4yI7O09XH5doi00bC5zdWOS'
+  }
 };

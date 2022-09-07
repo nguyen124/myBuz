@@ -409,7 +409,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       script.src = 'https://checkout.stripe.com/checkout.js';
       script.onload = () => {
         this.paymentHandler = (<any>window).StripeCheckout.configure({
-          key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
+          key: isDevMode() ? environment.stripe.pk : prodEnvironment.stripe.pk,
           locale: 'auto',
           token: function (stripeToken: any) {
             this._logSvc.log(stripeToken);
@@ -463,7 +463,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
     }
     const paymentHandler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz',
+      key: isDevMode() ? environment.stripe.pk : prodEnvironment.stripe.pk,
       locale: 'auto',
       token: function (stripeToken: any) {
         that._checkoutSvc.makePayment({ duration, stripeToken }).subscribe((data: any) => {

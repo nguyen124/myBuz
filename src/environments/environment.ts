@@ -12,7 +12,10 @@ export const environment = {
   recaptcha: {
     siteKey: '6LfDDpQhAAAAAD6Ml2f3AKAj4HGQPUBrQ8upGUCp',
   },
-  bucketname: 'm2meme-dev.appspot.com'
+  bucketname: 'm2meme-dev.appspot.com',
+  stripe: {
+    pk: 'pk_test_51LSD2fJbUrktT3xj6s57seUsslyiQidJwLpl63lEeqjZN1XNh2PsVuCNncoRTqOSKElEWkU5s8JhHW4vPaAUU8VT00PnJIt8pz'
+  }
 };
 
 /*
