@@ -27,6 +27,6 @@ export class UserService {
   }
   
   activateEmail(hashStatus) {
-    return this._http.post("/svc/activate", { hashStatus });
+    return this._http.post("/svc/users/activate", { hashStatus });
   }
 }
