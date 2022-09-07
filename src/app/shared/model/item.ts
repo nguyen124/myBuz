@@ -40,4 +40,5 @@ export interface IItem {
   status?: string;
   expired?: boolean;
   refundable?: boolean;
+  coupon?: any;
 }

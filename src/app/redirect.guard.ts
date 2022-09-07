@@ -19,9 +19,11 @@ export class RedirectGuard implements CanActivate {
       let zipcode = params.zipcode ? params.zipcode.trim() : '';
       let country = params.country ? params.country.trim() : '';
       constructedLocation = `${address}, ${city}, ${state} ${zipcode}, ${country}`;
+    } else if (this._apiService.firstTimeShowingLocation) {
+      return true;
     }
     const userLocation = await this._apiService.getUserLocation(constructedLocation);
-    let locationParams = null
+    let locationParams = null;
     if (userLocation) {
       locationParams = await this._apiService.getLocationParams(userLocation);
     }
@@ -35,6 +37,7 @@ export class RedirectGuard implements CanActivate {
       }
     }
     if (locationParams && Object.keys(locationParams).length > 0) {
+      this._apiService.firstTimeShowingLocation = true;
       return this._router.navigate([route.routeConfig.path], {
         queryParams: Object.assign({ page: 0, perPage: 40 }, params, locationParams),
         queryParamsHandling: "merge"

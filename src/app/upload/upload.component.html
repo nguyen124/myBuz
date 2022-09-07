@@ -295,11 +295,17 @@
           <label class="text-primary" for="duration"><strong>{{"item.upload.duration.label" |
               translate}}</strong></label>
           <select formControlName="duration" class="custom-select">
-            <option value="1">1 {{"item.upload.duration.monthLabel" | translate}} ($20)</option>
-            <option value="3">3 {{"item.upload.duration.monthsLabel" | translate}} ($40)</option>
-            <option value="6">6 {{"item.upload.duration.monthsLabel" | translate}} ($60)</option>
-            <option value="12">12 {{"item.upload.duration.monthsLabel" | translate}} ($80)</option>
+            <option value="1">1 {{"item.upload.duration.monthLabel" | translate}} (${{price}})</option>
+            <option value="3">3 {{"item.upload.duration.monthsLabel" | translate}} (${{price*2}})</option>
+            <option value="6">6 {{"item.upload.duration.monthsLabel" | translate}} (${{price*3}})</option>
+            <option value="12">12 {{"item.upload.duration.monthsLabel" | translate}} (${{price*4}})</option>
           </select>
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-md-6 mb-1">
+          <button class="btn btn-primary" (click)="applyCoupon($event)"
+            [ngClass]="{'btn-secondary': appliedCoupon}">Apply {{discount*100}}%-OFF coupon</button>
         </div>
       </div>
     </div>

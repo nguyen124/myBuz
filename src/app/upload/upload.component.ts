@@ -49,6 +49,9 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
   categoriesMap: any = {};
   editor: Editor;
   tooManyFilesError = false;
+  price: number = 20;
+  appliedCoupon: boolean = false;
+  discount: number = 0.5;
 
   toolbar: Toolbar = [
     ['bold', 'italic'],
@@ -436,29 +439,41 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  applyCoupon($event) {
+    $event.preventDefault();
+    if (!this.appliedCoupon) {
+      this.price = this.price * this.discount;
+      this.appliedCoupon = true;
+    } else {
+      this.appliedCoupon = false;
+      this.price = this.price / this.discount;
+    }
+  }
+
   makePayment(duration: any) {
     let that = this;
-    let cost = 0;
+    let cost = this.price;
     let description = "";
     duration += "";
+    let appliedCoupon = this.appliedCoupon;
     if (!duration || isNaN(duration)) {
       that._toastr.error(this._translate.instant("common.label.error.invalidInput"));
     }
     switch (duration) {
       case "1":
-        cost = 20;
+        cost = this.price;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 1 });
         break;
       case "3":
-        cost = 40;
+        cost = this.price * 2;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 3 });
         break;
       case "6":
-        cost = 60;
+        cost = this.price * 3;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 6 });
         break;
       case "12":
-        cost = 80;
+        cost = this.price * 4;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 12 });
         break;
     }
@@ -466,7 +481,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       key: isDevMode() ? environment.stripe.pk : prodEnvironment.stripe.pk,
       locale: 'auto',
       token: function (stripeToken: any) {
-        that._checkoutSvc.makePayment({ duration, stripeToken }).subscribe((data: any) => {
+        that._checkoutSvc.makePayment({ duration, stripeToken, appliedCoupon }).subscribe((data: any) => {
           if (data.status === "success") {
             that.charge = data.charge;
             that.startPostingAfterChargeSuccessfully();
@@ -559,7 +574,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
       if (uploadedResults.length == that.toUploadFiles.length) {
-        let item = {
+        let item: any = {
           tags: that.parsedTags,
           categories: [that.f.categories.value],
           needs: that.f.needs.value,
@@ -589,8 +604,11 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
           files: uploadedResults,
           overview: that.f.overview.value == null ? '' : that.f.overview.value.trim(),
           charge: that.charge,
-          geometry: that.geometry
+          geometry: that.geometry,
         };
+        if (this.appliedCoupon) {
+          item.coupon = { appliedCoupon: this.appliedCoupon, discount: this.discount };
+        }
         //append charge info into item
 
         that._itemSvc.createItem(this._renderSvc.shakeoutItem(item, this.needsMap, this.categoriesMap)).subscribe((newItem: any) => {

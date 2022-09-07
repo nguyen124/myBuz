@@ -14,7 +14,7 @@ export class GoogleMapService {
   public readonly api = this.load();
   public panTo: any = null;
   public zoomLevel: number = null;
-
+  public firstTimeShowingLocation = false;
   private load(): Promise<Maps> {
     const script = document.createElement('script');
     script.type = 'text/javascript';
