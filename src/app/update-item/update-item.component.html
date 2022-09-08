@@ -145,7 +145,7 @@
                 <div *ngIf="showPrice" class="col-md-6 mb-1">
                     <label class="text-primary" for="price"><strong>{{"common.label.price" |
                             translate}}</strong></label>
-                    <input type="number" formControlName="price" class="form-control"
+                    <input #price type="number" formControlName="price" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('price') }">
                     <div *ngIf="checkError('price')" class="invalid-feedback">
                         <div *ngIf="f.price.errors.min">{{"item.upload.price.validate.negative" | translate}}</div>
@@ -257,7 +257,7 @@
                 <div class="col-md-6 mb-1">
                     <label class="text-primary" for="contactPhoneNo"><strong>{{"item.upload.contactPhone.label" |
                             translate}}*</strong></label>
-                    <input formControlName="contactPhoneNo" mask="+00 (000) 000-0000" class="form-control"
+                    <input #phone formControlName="contactPhoneNo" mask="+00 (000) 000-0000" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
                     <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">
                         <div *ngIf="f.contactPhoneNo.errors.mask || f.contactPhoneNo.errors.whitespace">

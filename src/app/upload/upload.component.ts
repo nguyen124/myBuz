@@ -67,6 +67,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('autoAddress', { static: false }) autoAddress: ElementRef;
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
   @ViewChild('phone', { static: false }) phone: ElementRef;
+  @ViewChild('price', { static: false }) priceRef: ElementRef;
 
   constructor(
     private _itemSvc: ItemService,
@@ -179,7 +180,11 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
     // After filling the form with address components from the Autocomplete
     // prediction, set cursor focus on the second address line to encourage
     // entry of subpremise information such as apartment, unit, or floor number.
-    this.phone.nativeElement.focus();
+    if (this.showPrice) {
+      this.priceRef.nativeElement.focus();
+    } else {
+      this.phone.nativeElement.focus();
+    }
   }
 
   initForm() {

@@ -133,7 +133,7 @@
       <div class="row mb-1">
         <div *ngIf="showPrice" class="col-md-6 mb-1">
           <label class="text-primary" for="price"><strong>{{"common.label.price" | translate}}</strong></label>
-          <input type="number" formControlName="price" class="form-control"
+          <input #price type="number" formControlName="price" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('price') }">
           <div *ngIf="checkError('price')" class="invalid-feedback">
             <div *ngIf="f.price.errors.min">{{"item.upload.price.validate.negative" | translate}}</div>
