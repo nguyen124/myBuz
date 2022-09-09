@@ -29,13 +29,6 @@ ul#listItemsDetails {
   }
 }
 
-@media (max-width: 575px) {
-  .avatar {
-    width: 25%;
-    max-width: 25%;
-  }
-}
-
 .color-blue-navy {
   color: rgb(22, 129, 218);
 }

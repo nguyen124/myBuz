@@ -18,19 +18,25 @@
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="row text-overflow">
-              <div class="col-md-3 col-sm-2">
+              <div class="col-md-3 col-sm-2 col-4">
                 <img class="rounded w-100-object-fit xs-w-25-object-fit"
                   src="{{item.createdBy.avatar | imageMobileLinkPipe}}" default="{{item.createdBy.avatar}}"
                   alt="Avatar">
               </div>
-              <div class="col-md-9 col-sm-10 text-success mt-1">
-                <strong>{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}</strong>
+              <div class="col-md-9 col-sm-10 col-8 text-success mt-1 p-0">
+                <div class="row m-0">
+                  <strong>{{item.modifiedDate | date:'shortDate'}} . {{item.createdBy.username}}</strong>
+                </div>
+                <div class="row m-0">
+                  <span class="text-primary font-weight-bold font-24">{{ item.businessName }}</span>
+                </div>
+                <div class="row m-0">
+                  <span class="text-success font-weight-bold font-24">{{item.title}}</span>
+                </div>
               </div>
             </div>
             <div class="row text-overflow mb-1">
-              <div class="col-12">
-                <div class="text-success font-weight-bold font-24">{{ item.businessName }} - {{item.title}}</div>
-              </div>
+
             </div>
             <div class="row overflow-hidden">
               <div class="col-12">
@@ -55,57 +61,70 @@
             </div>
             <div class="row">
               <div *ngIf="showPrice" class="col-6 mb-1">
-                <label><strong>{{"common.label.price" | translate}}: </strong></label> <span> {{item.price | currency:'USD'}}</span>
+                <label><strong>{{"common.label.price" | translate}}: </strong></label> <span> {{item.price |
+                  currency:'USD'}}</span>
               </div>
               <div *ngIf="showIncome" class="col-6 mb-1">
-                <label><strong>{{"item.upload.income.label" | translate}}: </strong></label> <span> {{item.income | currency:'USD'}}</span>
+                <label><strong>{{"item.upload.income.label" | translate}}: </strong></label> <span> {{item.income |
+                  currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
               <div *ngIf="showWage" class="col-6 mb-1">
-                <label><strong>{{"common.label.wage" | translate}}: </strong></label> <span> {{item.wage | currency:'USD'}}</span>
-              </div>              
+                <label><strong>{{"common.label.wage" | translate}}: </strong></label> <span> {{item.wage |
+                  currency:'USD'}}</span>
+              </div>
             </div>
             <div class="row">
               <div *ngIf="showRent" class="col-6 mb-1">
-                <label><strong>{{"item.upload.rent.label" | translate}}: </strong></label> <span> {{item.rentCost | currency:'USD'}}</span>
+                <label><strong>{{"item.upload.rent.label" | translate}}: </strong></label> <span> {{item.rentCost |
+                  currency:'USD'}}</span>
               </div>
               <div *ngIf="showOtherCost" class="col-6 mb-1">
-                <label><strong>{{"item.upload.otherCost.label" | translate}}: </strong></label> <span> {{item.otherCost | currency:'USD'}}</span>
+                <label><strong>{{"item.upload.otherCost.label" | translate}}: </strong></label> <span> {{item.otherCost
+                  | currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
               <div *ngIf="showNoOfEmployees" class="col-6 mb-1">
-                <label><strong>{{"item.upload.noOfEmployees.label" | translate}}: </strong></label> <span> {{item.noOfEmployees}}</span>
+                <label><strong>{{"item.upload.noOfEmployees.label" | translate}}: </strong></label> <span>
+                  {{item.noOfEmployees}}</span>
               </div>
               <div *ngIf="showArea" class="col-6 mb-1">
-                <label><strong>{{"item.upload.area.label" | translate}}: </strong></label> <span> {{item.area}} Sq.ft</span>
+                <label><strong>{{"item.upload.area.label" | translate}}: </strong></label> <span> {{item.area}}
+                  Sq.ft</span>
               </div>
             </div>
             <div class="row">
               <div *ngIf="showNoOfTables" class="col-6 mb-1">
-                <label><strong>{{"item.upload.noOfTables.label" | translate}}: </strong></label> <span> {{item.noOfTables}}</span>
+                <label><strong>{{"item.upload.noOfTables.label" | translate}}: </strong></label> <span>
+                  {{item.noOfTables}}</span>
               </div>
               <div *ngIf="showNoOfChairs" class="col-6 mb-1">
-                <label><strong>{{"item.upload.noOfChairs.label" | translate}}: </strong></label> <span> {{item.noOfChairs}}</span>
+                <label><strong>{{"item.upload.noOfChairs.label" | translate}}: </strong></label> <span>
+                  {{item.noOfChairs}}</span>
               </div>
             </div>
             <div class="row">
               <div *ngIf="showLeaseEnd" class="col-6 mb-1">
-                <label><strong>{{"item.upload.leaseEnd.label" | translate}}: </strong></label> <span> {{item.leaseEnd | date:'longDate'}}</span>
+                <label><strong>{{"item.upload.leaseEnd.label" | translate}}: </strong></label> <span> {{item.leaseEnd |
+                  date:'longDate'}}</span>
               </div>
               <div *ngIf="showYearsOld" class="col-6 mb-1">
-                <label><strong>{{"item.upload.yearsOld.label" | translate}}: </strong></label> <span> {{item.yearOld}}</span>
+                <label><strong>{{"item.upload.yearsOld.label" | translate}}: </strong></label> <span>
+                  {{item.yearOld}}</span>
               </div>
             </div>
             <div class="row">
 
               <div class="col-6 mb-1">
-                <label><strong>{{"item.upload.contactPhone.label" | translate}}: </strong></label> <a href="tel:{{item.contactPhoneNo}}">
+                <label><strong>{{"item.upload.contactPhone.label" | translate}}: </strong></label> <a
+                  href="tel:{{item.contactPhoneNo}}">
                   {{item.contactPhoneNo | mask: '+00 (000) 000-0000'}}</a>
               </div>
               <div class="col-6 mb-1">
-                <label><strong>{{"item.upload.contactEmail.label" | translate}}: </strong></label> <a href="mailto:{{item.contactEmail}}">
+                <label><strong>{{"item.upload.contactEmail.label" | translate}}: </strong></label> <a
+                  href="mailto:{{item.contactEmail}}">
                   {{item.contactEmail}}</a>
               </div>
 
@@ -137,8 +156,8 @@
 
           <div class="col-md-6 overflow-scroll">
             <app-comments [item]="item"></app-comments>
-            <app-comment-box *ngIf="!item.expired && item.status!=='REFUNDED'" [item]="item" [isTopCommentBox]="true" [isShowing]="true"
-              (commentBoxFocused)="handleTopCommentBoxFocus($event)">
+            <app-comment-box *ngIf="!item.expired && item.status!=='REFUNDED'" [item]="item" [isTopCommentBox]="true"
+              [isShowing]="true" (commentBoxFocused)="handleTopCommentBoxFocus($event)">
             </app-comment-box>
           </div>
         </div>
