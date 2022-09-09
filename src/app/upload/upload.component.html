@@ -305,7 +305,8 @@
       <div class="row mb-1">
         <div class="col-md-6 mb-1">
           <button class="btn btn-primary" (click)="applyCoupon($event)"
-            [ngClass]="{'btn-secondary': appliedCoupon}">Apply {{discount*100}}%-OFF coupon</button>
+            [ngClass]="{'btn-secondary': appliedCoupon}">{{"item.upload.coupon" | translate : {discount:
+            discount*100} }}</button>
         </div>
       </div>
     </div>

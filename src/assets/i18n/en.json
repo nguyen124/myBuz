@@ -164,6 +164,7 @@
       "error": "Deleting item failed!"
     },
     "upload": {
+      "coupon": "Apply {{discount}}%-OFF coupon",
       "address": {
         "address1": "Address",
         "address2": "Address 2",

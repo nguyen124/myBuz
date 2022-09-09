@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';

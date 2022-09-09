@@ -164,6 +164,7 @@
       "error": "Xóa bài không thành công!"
     },
     "upload": {
+      "coupon": "Coupon giảm giá {{discount}}%",
       "address": {
         "address1": "Địa chỉ",
         "address2": "Địa chỉ 2",
