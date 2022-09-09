@@ -68,7 +68,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('autoZipcode', { static: false }) autoZipcode: ElementRef;
   @ViewChild('phone', { static: false }) phone: ElementRef;
   @ViewChild('price', { static: false }) priceRef: ElementRef;
-  
+
   constructor(
     private _route: ActivatedRoute,
     private _itemSvc: ItemService,
@@ -165,7 +165,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
         this.geometry = item.geometry;
         this.toUploadFiles = item.files;
         this.initCategoriesMap(item);
-        this.populateNeeds(item.categories);
+        this.populateNeeds(item.categories[0]);
         this.initNeedsMap(item);
         this.itemForm.get('categories').valueChanges.subscribe(value => {
           this.initCategoriesMap();
@@ -221,62 +221,8 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   populateNeeds(value) {
-    switch (value) {
-      case 'House': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.houseForSale" });
-        this.needsOption.push({ "key": "forLease", "value": "item.upload.needs.forLease" });
-        this.needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
-        break;
-      }
-      case 'Repair':
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.repair" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      case 'Tax':
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.tax" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      case 'Insurance':
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.insurance" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      case 'Lending': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.lending" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      }
-      case 'Babysit': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.babysit" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      }
-      case 'Teaching': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.teaching" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      }
-      default: {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.forSale" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        this.needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
-      }
-    }
+    this.f["needs"].reset([]);
+    this.needsOption = this._renderSvc.populateNeeds(value);
   }
 
   get showPrice(): boolean {

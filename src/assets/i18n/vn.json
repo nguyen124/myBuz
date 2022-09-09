@@ -32,8 +32,8 @@
       "comment": "Bình luận",
       "reason": "Lý do",
       "title": "Tiêu đề",
-      "business": "Tên tiệm/tên dịch vụ",
-      "category": "Tiệm/dịch vụ gì",
+      "business": "Tên business",
+      "category": "Loại hình",
       "needs": "Cần gì",
       "price": "Giá",
       "address": "Địa chỉ",
@@ -230,7 +230,7 @@
         "label": "Hợp đồng thuê hết vào"
       },
       "yearsOld": {
-        "label": "Tuổi năm của tiệm/nhà",
+        "label": "Tuổi năm của business",
         "yearLabel": "năm",
         "yearsLabel": "năm",
         "orMore": "hoặc hơn"
@@ -255,7 +255,7 @@
       },
       "business": {
         "validate": {
-          "required": "Tên tiệm phải chứa 1 đến 50 kí tự!"
+          "required": "Tên business phải chứa 1 đến 50 kí tự!"
         }
       },
       "category": {
@@ -269,16 +269,15 @@
         "repair": "Sửa chữa",
         "babysit": "Trông trẻ",
         "teaching": "Dạy học",
-        "otherBusiness": "Tiệm/dịch vụ khác",
+        "otherBusiness": "Các business khác",
         "validate": {
           "required": "Vui lòng chọn dịch vụ!"
         }
       },
       "needs": {
-        "forSale": "Cần bán tiệm",
+        "forSale": "Cần bán business",
         "houseForSale": "Cần bán nhà",
-        "hiring": "Cần tuyển người",
-        "buying": "Cần mua",
+        "hiring": "Cần tuyển người",        
         "forLease": "Cần cho thuê",
         "forShare": "Cần tìm partner",
         "repair": "Nhận sửa chữa",
@@ -359,7 +358,7 @@
   },
   "home": {
     "topHeader": {
-      "business": "Bán tiệm",
+      "business": "Bán business",
       "hiring": "Tuyển dụng",
       "other": "Rao vặt"
     }

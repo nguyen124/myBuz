@@ -2,27 +2,20 @@
     <div class="input-group input-group-sm mb-1">
         <input *ngIf="showMinPrice" id="minPrice" placeholder="Min price" type="number" min="0" value="0"
             class="form-control col-3 pl-1 pr-1 mr-1" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-            style="text-align: right" (change)="onMinPriceChange($event)" />
+            style="text-align: right" (change)="onMinPriceChange($event.target.value)" />
         <input *ngIf="showMaxPrice" id="maxPrice" placeholder="Max price" type="number"
             class="form-control col-3 pl-1 pr-1 mr-1" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-            style="text-align: right" (change)="onMaxPriceChange($event)" />
+            style="text-align: right" (change)="onMaxPriceChange($event.target.value)" />
         <input *ngIf="showKeyword" id="keyWord" placeholder="Enter key word" type="text" class="form-control col-12"
             aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="text-align: right"
-            (change)="onTextSearchChange($event)" />
+            (change)="onTextSearchChange($event.target.value)" />
     </div>
     <div class="input-group input-group-sm mb-1">
-        <select class="form-control col-3 pl-1 pr-1 mr-1">
-            <option value="Nail_Salon">{{"item.upload.category.nailSalon" | translate}}</option>
-            <option value="Hair_Salon">{{"item.upload.category.hairSalon" | translate}}</option>
-            <option value="Restaurant">{{"item.upload.category.restaurant" | translate}}</option>
-            <option value="House">{{"item.upload.category.house" | translate}}</option>
-            <option value="Repair">{{"item.upload.category.repair" | translate}}</option>
-            <option value="Tax">{{"item.upload.category.tax" | translate}}</option>
-            <option value="Insurance">{{"item.upload.category.insurance" | translate}}</option>
-            <option value="Lending">{{"item.upload.category.lending" | translate}}</option>
-            <option value="Babysit">{{"item.upload.category.babysit" | translate}}</option>
-            <option value="Teaching">{{"item.upload.category.teaching" | translate}}</option>
-            <option value="Other_Business">{{"item.upload.category.otherBusiness" | translate}}</option>
+        <select class="form-control col-3 pl-1 pr-1 mr-1" (change)="onCategoryChange($event.target.value)">
+            <option value=""></option>
+            <option *ngFor="let category of categories" value="{{category.key}}">
+                {{category.value | translate}}
+            </option>
         </select>
         <input *ngIf="showLocationSearch" #autocompleteSearchBox id="autocomplete" placeholder="Enter searching area"
             type="text" class="form-control col-12" aria-label="Small" aria-describedby="inputGroup-sizing-sm"

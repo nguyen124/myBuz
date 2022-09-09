@@ -257,62 +257,8 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   populateNeeds(value) {
-    switch (value) {
-      case 'House': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.houseForSale" });
-        this.needsOption.push({ "key": "forLease", "value": "item.upload.needs.forLease" });
-        this.needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
-        break;
-      }
-      case 'Repair':
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.repair" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      case 'Tax':
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.tax" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      case 'Insurance':
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.insurance" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      case 'Lending': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.lending" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      }
-      case 'Babysit': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.babysit" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      }
-      case 'Teaching': {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.teaching" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        break;
-      }
-      default: {
-        this.needsOption = [];
-        this.f["needs"].reset([]);
-        this.needsOption.push({ "key": "forSale", "value": "item.upload.needs.forSale" });
-        this.needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
-        this.needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
-      }
-    }
+    this.f["needs"].reset([]);
+    this.needsOption = this._renderSvc.populateNeeds(value);
   }
 
   checkTooManyFiles() {

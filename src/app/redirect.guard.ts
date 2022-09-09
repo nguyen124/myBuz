@@ -18,7 +18,7 @@ export class RedirectGuard implements CanActivate {
       let state = params.state ? params.state.trim() : '';
       let zipcode = params.zipcode ? params.zipcode.trim() : '';
       let country = params.country ? params.country.trim() : '';
-      constructedLocation = `${address}, ${city}, ${state} ${zipcode}, ${country}`;
+      constructedLocation = `${address} ${city} ${state} ${zipcode} ${country}`;
     } else if (this._apiService.firstTimeShowingLocation) {
       return true;
     }

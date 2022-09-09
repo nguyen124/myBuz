@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { IItem } from '../shared/model/item';
 import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
@@ -9,7 +10,7 @@ declare let google: any;
   templateUrl: './place-search.component.html',
   styleUrls: ['./place-search.component.css']
 })
-export class PlaceSearchComponent implements AfterViewInit {
+export class PlaceSearchComponent implements OnInit, AfterViewInit {
 
   @Input() showMinPrice: boolean = true;
   @Input() showMaxPrice: boolean = true;
@@ -79,6 +80,7 @@ export class PlaceSearchComponent implements AfterViewInit {
   infoWindow: any;
   markers: any = [];
   autocomplete: any;
+  categories: any = [];
   @Input() items: IItem[];
   @ViewChild('autocompleteSearchBox', { static: false }) autocompleteSearchBox: ElementRef;
   @ViewChild('infoContentRef', { static: false }) infoContentRef: ElementRef;
@@ -88,6 +90,112 @@ export class PlaceSearchComponent implements AfterViewInit {
     private _route: ActivatedRoute,
     private _activatedRoute: ActivatedRoute,
     private _router: Router) {
+  }
+
+  ngOnInit() {
+    let base = this._router.url.split("?")[0];
+    if (base === "/business/forSale") {
+      this.categories.push(
+        {
+          key: "Nail_Salon",
+          value: "item.upload.category.nailSalon"
+        },
+        {
+          key: "Hair_Salon",
+          value: "item.upload.category.hairSalon"
+        },
+        {
+          key: "Restaurant",
+          value: "item.upload.category.restaurant"
+        },
+        {
+          key: "House",
+          value: "item.upload.category.house"
+        },
+        {
+          key: "Other_Business",
+          value: "item.upload.category.otherBusiness"
+        }
+      )
+    } else if (base === "/business/other") {
+      this.categories.push(
+        {
+          key: "Repair",
+          value: "item.upload.category.repair"
+        },
+        {
+          key: "Tax",
+          value: "item.upload.category.tax"
+        },
+        {
+          key: "Insurance",
+          value: "item.upload.category.insurance"
+        },
+        {
+          key: "Lending",
+          value: "item.upload.category.lending"
+        },
+        {
+          key: "Babysit",
+          value: "item.upload.category.babysit"
+        },
+        {
+          key: "Teaching",
+          value: "item.upload.category.teaching"
+        },
+        {
+          key: "Other_Business",
+          value: "item.upload.category.otherBusiness"
+        }
+      )
+    } else if (base === "/business/hiring") {
+      this.categories.push(
+        {
+          key: "Nail_Salon",
+          value: "item.upload.category.nailSalon"
+        },
+        {
+          key: "Hair_Salon",
+          value: "item.upload.category.hairSalon"
+        },
+        {
+          key: "Restaurant",
+          value: "item.upload.category.restaurant"
+        },
+        {
+          key: "House",
+          value: "item.upload.category.house"
+        },
+        {
+          key: "Repair",
+          value: "item.upload.category.repair"
+        },
+        {
+          key: "Tax",
+          value: "item.upload.category.tax"
+        },
+        {
+          key: "Insurance",
+          value: "item.upload.category.insurance"
+        },
+        {
+          key: "Lending",
+          value: "item.upload.category.lending"
+        },
+        {
+          key: "Babysit",
+          value: "item.upload.category.babysit"
+        },
+        {
+          key: "Teaching",
+          value: "item.upload.category.teaching"
+        },
+        {
+          key: "Other_Business",
+          value: "item.upload.category.otherBusiness"
+        }
+      )
+    }
   }
 
   goToNewPath(params) {
@@ -153,21 +261,25 @@ export class PlaceSearchComponent implements AfterViewInit {
     }
   }
 
-  onMinPriceChange(event) {
-    let minPrice = Number(event.target.value);
+  onMinPriceChange(value) {
+    let minPrice = Number(value);
     if (minPrice < 0) minPrice = 0;
     this.goToNewPath({ minPrice });
   }
 
-  onMaxPriceChange(event) {
-    let maxPrice = Number(event.target.value);
+  onMaxPriceChange(value) {
+    let maxPrice = Number(value);
     if (maxPrice < 0) maxPrice = 0;
     this.goToNewPath({ maxPrice });
   }
 
-  onTextSearchChange(event) {
-    let keyword = event.target.value;
+  onTextSearchChange(keyword) {
     this.goToNewPath({ keyword });
+  }
+
+
+  onCategoryChange(category) {
+    this.goToNewPath({ category })
   }
 
   // Search for hotels in the selected city, within the viewport of the map.

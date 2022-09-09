@@ -115,6 +115,51 @@ export class RenderService {
     return result;
   }
 
+  populateNeeds(value) {
+    let needsOption = [];
+    switch (value) {    
+      case 'House': {
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.houseForSale" });
+        needsOption.push({ "key": "forLease", "value": "item.upload.needs.forLease" });
+        needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
+        break;
+      }
+      case 'Repair':
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.repair" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      case 'Tax':
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.tax" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      case 'Insurance':
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.insurance" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      case 'Lending': {
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.lending" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      }
+      case 'Babysit': {
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.babysit" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      }
+      case 'Teaching': {
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.teaching" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        break;
+      }
+      default: {
+        needsOption.push({ "key": "forSale", "value": "item.upload.needs.forSale" });
+        needsOption.push({ "key": "hiring", "value": "item.upload.needs.hiring" });
+        needsOption.push({ "key": "forShare", "value": "item.upload.needs.forShare" });
+      }
+    }
+    return needsOption;
+  }
+
   shakeoutItem(item, needsMap, categoriesMap) {
     if (!this.showPrice(needsMap, categoriesMap)) {
       item.price = "";
