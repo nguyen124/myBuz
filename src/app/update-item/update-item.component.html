@@ -260,7 +260,7 @@
                 <div class="col-md-6 mb-1">
                     <label class="text-primary" for="contactPhoneNo"><strong>{{"item.upload.contactPhone.label" |
                             translate}}*</strong></label>
-                    <input #phone formControlName="contactPhoneNo" mask="+00 (000) 000-0000"
+                    <input #phone formControlName="contactPhoneNo" mask="(000) 000-0000"
                         placeholder="{{'item.upload.contactPhone.placeHolder' | translate}}" class="form-control"
                         [ngClass]="{ 'is-invalid': checkError('contactPhoneNo') }">
                     <div *ngIf="checkError('contactPhoneNo')" class="invalid-feedback">

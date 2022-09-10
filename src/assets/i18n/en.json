@@ -237,8 +237,8 @@
         "orMore": "or more"
       },
       "contactPhone": {
-        "label": "Contact phone (USA: +01 (999) 999-9999)",
-        "placeHolder": "Country Code + Phone number",
+        "label": "Contact phone",        
+        "placeHolder": "Phone number",
         "validate": {
           "mask": "Phone number must have this format +xx (xxx) xxx-xxxx. Example USA phone number is +01 (987) 654-3210"
         }

@@ -237,8 +237,8 @@
         "orMore": "hoặc hơn"
       },
       "contactPhone": {
-        "label": "Điện thoại (USA: +01 (999) 999-9999)",
-        "placeHolder": "Mã QG + Số Điện Thoại",
+        "label": "Điện thoại",        
+        "placeHolder": "Số Điện Thoại",
         "validate": {
           "mask": "Điện thoại phải có định dạng +xx (xxx) xxx-xxxx. Ví dụ số đt USA là +01 (987) 654-3210"
         }
