@@ -5,12 +5,14 @@
                 default="{{item.createdBy?.avatar}}" alt="Avatar">
         </div>
         <div class="col-sm-10 col-md-9 col-9 text-success p-0">
+            <div *ngIf="showExpired" class="row m-0">
+                <span *ngIf="item.expired" class="text-danger font-weight-bold">{{"common.label.expired" |
+                    translate}}</span>
+                <span *ngIf="item.status==='REFUNDED'"
+                    class="text-danger font-weight-bold">{{"common.label.refunded" | translate}}</span>
+            </div>
             <div class="row m-0">
                 {{item.modifiedDate | date:'shortDate'}} . {{item.createdBy?.username}}
-                <span *ngIf="showExpired && item.expired"
-                    class="text-danger font-weight-bold float-right">{{"common.label.expired" | translate}}</span>
-                <span *ngIf="showExpired && item.status==='REFUNDED'"
-                    class="text-danger font-weight-bold float-right">{{"common.label.refunded" | translate}}</span>
             </div>
             <div class="row m-0">
                 <span class="text-primary font-weight-bold">{{item.businessName}}</span>
