@@ -299,6 +299,7 @@
           <label class="text-primary" for="duration"><strong>{{"item.upload.duration.label" |
               translate}}</strong></label>
           <select formControlName="duration" class="custom-select">
+            <option value="0.5">1/2 {{"item.upload.duration.monthLabel" | translate}} {{"item.upload.duration.free" | translate}}</option>
             <option value="1">1 {{"item.upload.duration.monthLabel" | translate}} (${{price}})</option>
             <option value="3">3 {{"item.upload.duration.monthsLabel" | translate}} (${{price*2}})</option>
             <option value="6">6 {{"item.upload.duration.monthsLabel" | translate}} (${{price*3}})</option>

@@ -10,7 +10,9 @@
       "error": "Your browser does not support this video format."
     },
     "label": {
-      "discount": "50% OFF FOR 24-MONTH LONG ADVERTISEMENT WITH FREE ATTACHED PICTURES FOR THE FIRST 500 CUSTOMERS",
+      "discount1": "1 FREE 1/2-MONTH LONG POST",
+      "discount2": "50% OFF FOR 1 to 24-MONTH LONG ADVERTISEMENT WITH FREE ATTACHED PICTURES FOR THE FIRST 500 CUSTOMERS",
+      "discount3": "NO EXTRA FEE FOR 10 ATTACHED PHOTOS/VIDEOS",
       "troiviet": "Troi Viet",
       "companyEmail": "troivietcompany@gmail.com",
       "edit": "Edit",
@@ -320,12 +322,14 @@
       },
       "duration": {
         "label": "Duration",
+        "free": "($0) (1 free post only)",
         "monthLabel": "month",
         "monthsLabel": "months"
       },
       "validate": {
         "success": "Your post has been created!",
-        "error": "Creating post failed!"
+        "error": "Creating post failed!",
+        "existingFreePost": "Can't create more than 2 free post!"
       }
     },
     "update": {

@@ -51,4 +51,8 @@ export class ItemService {
     getCommentsOfItem(itemId: string, params): Observable<IComment[]> {
         return this._http.get<IComment[]>("/svc/business/" + itemId + "/comments", { params: params });
     }
+
+    checkExistingFreePost(): Observable<boolean> {
+        return this._http.get<boolean>("/svc/business/checkExistingFreePost");
+    }
 }

@@ -17,6 +17,7 @@ import { LoggingService } from '../shared/services/system/logging.service';
 import { RenderService } from '../shared/services/utils/render.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Editor, Toolbar } from 'ngx-editor';
+import { firstValueFrom } from 'rxjs';
 
 declare var firebase: any;
 declare var google: any;
@@ -216,7 +217,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       area: [0, [Validators.min(0)]],
       description: ['', [Validators.pattern(/^[\s\S]{0,1000}$/)]],
       overview: ['', [Validators.pattern(/^[\s\S]{0,180}$/)]],
-      duration: [1]
+      duration: [0.5]
     });
     this.initCategoriesMap();
     this.itemForm.get('categories').valueChanges.subscribe(value => {
@@ -411,6 +412,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       that._toastr.error(this._translate.instant("common.label.error.invalidInput"));
     }
     switch (duration) {
+      case "0.5": return this.freePost()
       case "1":
         cost = this.price;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 1 });
@@ -446,6 +448,15 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       description: description,
       amount: cost * 100
     });
+  }
+
+  async freePost() {
+    let existItem = await firstValueFrom(this._itemSvc.checkExistingFreePost());
+    if (!existItem) {
+      this.startPostingAfterChargeSuccessfully();
+    } else {
+      this._toastr.error(this._translate.instant("item.upload.validate.existingFreePost"));
+    }
   }
 
   startPostingAfterChargeSuccessfully() {
