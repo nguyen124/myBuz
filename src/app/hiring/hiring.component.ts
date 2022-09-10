@@ -18,6 +18,7 @@ import { GoogleSeoService } from '../google-seo.service';
 })
 export class HiringComponent implements OnInit, AfterViewInit {
   items: IItem[];
+  randomItems: IItem[];
   params: any = {};
   nextPage = 0;
   PER_PAGE = 40;
@@ -44,6 +45,13 @@ export class HiringComponent implements OnInit, AfterViewInit {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'hiring' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
+      this.getRandomItems(this.params);
+    });
+  }
+
+  getRandomItems(params) {
+    this._itemService.getRandomItems(params).subscribe((randomItems: IItem[]) => {
+      this.randomItems = randomItems;
     });
   }
 

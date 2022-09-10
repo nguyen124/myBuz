@@ -16,8 +16,8 @@ import { PlaceSearchComponent } from '../place-search/place-search.component';
 })
 export class ItemsComponent {
   @Input() items: IItem[];
-  @Input() showMap = true;
-  @Input() showExpired: boolean = false;
+  @Input() randomItems: IItem[];
+  @Input() showMap = true;  
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   @ViewChild(PlaceSearchComponent, { static: false }) placeSearchComp: PlaceSearchComponent;
   nextPage = 0;

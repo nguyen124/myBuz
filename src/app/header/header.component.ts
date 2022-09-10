@@ -15,6 +15,7 @@ export class HeaderComponent {
 
   @Output() languageEmitter: EventEmitter<any> = new EventEmitter();
   language: string = 'Tiếng Việt';
+  isShowingSecondTopHeader: boolean = false;
   constructor(
     public authSvc: AuthService,
     private _router: Router,
@@ -29,9 +30,24 @@ export class HeaderComponent {
           let splits = val.url.split("?");
           if (splits.length > 0) {
             switch (splits[0]) {
-              case '/business/forSale': this._commSvc.setFlag(true, false, false); return;
-              case '/business/hiring': this._commSvc.setFlag(false, true, false); return;
-              case '/business/other': this._commSvc.setFlag(false, false, true); return;
+              case '/business/forSale': {
+                this.isShowingSecondTopHeader = true;
+                this._commSvc.setFlag(true, false, false);
+                return;
+              }
+              case '/business/hiring': {
+                this.isShowingSecondTopHeader = true;
+                this._commSvc.setFlag(false, true, false);
+                return;
+              }
+              case '/business/other': {
+                this.isShowingSecondTopHeader = true;
+                this._commSvc.setFlag(false, false, true);
+                return;
+              }
+              default:
+                this.isShowingSecondTopHeader = false;
+                return;
             }
           }
         }

@@ -1,0 +1,16 @@
+<div *ngIf="item">
+    <ng-container *ngIf="item.files && item.files.length > 0">
+        <div data-toggle="tooltip" data-placement="bottom" title="{{item.overview}}">
+            <div>
+                <a class="text-success font-weight-bold">{{item.title}}</a>
+                <span class="float-right text-primary font-weight-bold">{{item.price | currency:'USD'}}</span>
+            </div>
+            <a class="d-block" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{id:item._id}">
+                <img *ngIf="item.files[0].fileType.match('image*')" [src]="item.files[0].url | imageMobileLinkPipe"
+                    default="{{item.files[0].url}}" alt="Unavailable" class="frame rounded">
+                <app-meme-video *ngIf="item.files[0].fileType.match('video*')" [link]="item.files[0].url"
+                    [fileType]="item.files[0].fileType" class="frame rounded"></app-meme-video>
+            </a>
+        </div>
+    </ng-container>
+</div>

@@ -19,6 +19,7 @@ import { GoogleSeoService } from '../google-seo.service';
 export class OtherComponent implements OnInit, AfterViewInit {
 
   items: IItem[];
+  randomItems: IItem[];
   params: any = {};
   nextPage = 0;
   PER_PAGE = 40;
@@ -45,6 +46,13 @@ export class OtherComponent implements OnInit, AfterViewInit {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'other' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
+      this.getRandomItems(this.params);
+    });
+  }
+
+  getRandomItems(params) {
+    this._itemService.getRandomItems(params).subscribe((randomItems: IItem[]) => {
+      this.randomItems = randomItems;
     });
   }
 

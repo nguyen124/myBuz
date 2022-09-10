@@ -1,24 +1,36 @@
 <div class="row text-lg-left" id="items-container">
-  <div *ngIf="showMap" class="col-lg-6 pb-3">
-    <app-place-search [items]="items"></app-place-search>
-  </div>
-  <ng-container *ngFor="let item of items; let i = index;">
-    <div id="{{item._id}}" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 hover-high-light overflow">
-      <app-item [item]="item"        
-        [showExpired]="showExpired">
-        <div
-          *ngIf="authSvc?.user && (authSvc?.user?.username == item?.createdBy?.username || authSvc?.user?.role === 'ADMIN')">
-          <div class="dropdown-divider"></div>
-          <button *ngIf="!item.refundable || item.status==='REFUNDED'" class="btn dropdown-item text-primary pl-0 ml-1 w-75"
-            (click)="deleteItem(i, item._id)">{{"common.label.delete" | translate}}</button>
-          <button *ngIf="item.refundable && item.status!=='REFUNDED'" class="btn dropdown-item text-primary pl-0 ml-1 w-75"
-            (click)="deleteRefundItem(i, item._id)">{{"common.label.deleteRefund" | translate}}</button>
-          <button *ngIf="authSvc?.user?._id == item?.createdBy?.userId && !item.expired && item.status!=='REFUNDED'"
-            class="btn dropdown-item text-primary pl-0 ml-1 w-75" (click)="editItem(item._id)">
-            {{"common.label.edit" | translate}}
-          </button>
-        </div>
-      </app-item>
+  <div class="col-lg-4 col-md-6 col-sm-4 col-12">
+    <div *ngIf="showMap">
+      <app-place-search [items]="items"></app-place-search>
     </div>
-  </ng-container>
+    <div>
+      <ng-container *ngFor="let item of randomItems">
+        <app-left-panel-item [item]="item"></app-left-panel-item>
+      </ng-container>
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-6 col-sm-8 col-12">
+    <div class="row">
+      <ng-container *ngFor="let item of items; let i = index;">
+        <div id="{{item._id}}" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-3 hover-high-light overflow">
+          <app-item [item]="item" [showExpired]="false">
+            <div
+              *ngIf="authSvc?.user && (authSvc?.user?.username == item?.createdBy?.username || authSvc?.user?.role === 'ADMIN')">
+              <div class="dropdown-divider"></div>
+              <button *ngIf="!item.refundable || item.status==='REFUNDED'"
+                class="btn dropdown-item text-primary pl-0 ml-1 w-75"
+                (click)="deleteItem(i, item._id)">{{"common.label.delete" | translate}}</button>
+              <button *ngIf="item.refundable && item.status!=='REFUNDED'"
+                class="btn dropdown-item text-primary pl-0 ml-1 w-75"
+                (click)="deleteRefundItem(i, item._id)">{{"common.label.deleteRefund" | translate}}</button>
+              <button *ngIf="authSvc?.user?._id == item?.createdBy?.userId && !item.expired && item.status!=='REFUNDED'"
+                class="btn dropdown-item text-primary pl-0 ml-1 w-75" (click)="editItem(item._id)">
+                {{"common.label.edit" | translate}}
+              </button>
+            </div>
+          </app-item>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>
