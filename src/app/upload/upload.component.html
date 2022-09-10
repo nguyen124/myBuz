@@ -30,6 +30,7 @@
           <label class="text-primary" for="categories"><strong>{{"common.label.category" | translate}}*</strong></label>
           <select formControlName="categories" class="form-control"
             [ngClass]="{ 'is-invalid': checkError('categories') }">
+            <option value=""></option>
             <option value="Nail_Salon">{{"item.upload.category.nailSalon" | translate}}</option>
             <option value="Hair_Salon">{{"item.upload.category.hairSalon" | translate}}</option>
             <option value="Restaurant">{{"item.upload.category.restaurant" | translate}}</option>            
@@ -344,13 +345,13 @@
       <div class="form-row mb-1">
         <ng-container *ngIf="toUploadFiles && toUploadFiles.length">
           <ng-container *ngFor="let previewMediaSrc of toUploadFiles; let i = index">
-            <div class="col-4" *ngIf="previewMediaSrc.fileType.match('image*')">
+            <div class="col-6" *ngIf="previewMediaSrc.fileType.match('image*')">
               <img [src]="previewMediaSrc.url" class="img-thumbnail mh-480 m-2" id="previewImg">
               <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="col-4" *ngIf="previewMediaSrc.fileType.match('video*')">
+            <div class="col-6" *ngIf="previewMediaSrc.fileType.match('video*')">
               <video [src]="previewMediaSrc.url" controls class="img-thumbnail mh-480 m-2">
               </video>
               <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
