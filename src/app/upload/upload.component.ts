@@ -423,9 +423,10 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
         cost = this.price * 3;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 6 });
         break;
-      case "12":
+      //duration
+      case "24":
         cost = this.price * 4;
-        description = this._translate.instant("stripe.label.chargeDescription", { month: 12 });
+        description = this._translate.instant("stripe.label.chargeDescription", { month: 24 });
         break;
     }
     const paymentHandler = (<any>window).StripeCheckout.configure({
