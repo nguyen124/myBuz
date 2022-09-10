@@ -412,7 +412,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       that._toastr.error(this._translate.instant("common.label.error.invalidInput"));
     }
     switch (duration) {
-      case "0.5": return this.freePost()
+      case "0.5": return this.freePost();
       case "1":
         cost = this.price;
         description = this._translate.instant("stripe.label.chargeDescription", { month: 1 });
@@ -451,11 +451,12 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async freePost() {
-    let existItem = await firstValueFrom(this._itemSvc.checkExistingFreePost());
-    if (!existItem) {
-      this.startPostingAfterChargeSuccessfully();
+    let that = this;
+    let existItem = await firstValueFrom(that._itemSvc.checkExistingFreePost());
+    if (that._authSvc.user.role === "ADMIN" || !existItem) {
+      that.startPostingAfterChargeSuccessfully();
     } else {
-      this._toastr.error(this._translate.instant("item.upload.validate.existingFreePost"));
+      that._toastr.error(that._translate.instant("item.upload.validate.existingFreePost"));
     }
   }
 
