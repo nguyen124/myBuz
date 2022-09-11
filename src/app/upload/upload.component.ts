@@ -215,7 +215,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       leaseEnd: [''],
       yearOld: [''],
       area: [0, [Validators.min(0)]],
-      description: ['', [Validators.pattern(/^[\s\S]{0,1000}$/)]],
+      description: ['', [Validators.pattern(/^[\s\S]{0,2000}$/)]],
       overview: ['', [Validators.pattern(/^[\s\S]{0,180}$/)]],
       duration: [0.5]
     });

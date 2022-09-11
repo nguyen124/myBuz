@@ -307,7 +307,7 @@
       "description": {
         "label": "Description",
         "validate": {
-          "maxLength": "Description can't have more than 1000 characters!"
+          "maxLength": "Description can't have more than 2000 characters!"
         }
       },
       "picture": {

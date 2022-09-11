@@ -159,7 +159,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
           leaseEnd: [item.leaseEnd && item.leaseEnd.split("T")[0]],
           yearOld: [item.yearOld],
           area: [item.area, [Validators.min(0)]],
-          description: [item.description, [Validators.pattern(/^[\s\S]{0,1000}$/)]],
+          description: [item.description, [Validators.pattern(/^[\s\S]{0,2000}$/)]],
           overview: [item.overview, [Validators.pattern(/^[\s\S]{0,180}$/)]]
         });
         this.geometry = item.geometry;

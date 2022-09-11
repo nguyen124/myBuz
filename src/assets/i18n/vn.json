@@ -307,7 +307,7 @@
       "description": {
         "label": "Chi tiết",
         "validate": {
-          "maxLength": "Chi tiết không dài quá 1000 kí tự!"
+          "maxLength": "Chi tiết không dài quá 2000 kí tự!"
         }
       },
       "picture": {
