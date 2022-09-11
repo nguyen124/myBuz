@@ -45,7 +45,7 @@
       "country": "Country",
       "state": "State",
       "city": "City",
-      "wage": "Estimated pay/month",
+      "wage": "Estimated employee income/month",
       "createAds": "Create Ads",
       "updateAds": "Update Ads",
       "notice1": "(* is required fields)",
@@ -189,7 +189,7 @@
         }
       },
       "income": {
-        "label": "Income/month",
+        "label": "Business Income/month",
         "validate": {
           "min": "Income can't be a negative number!"
         }

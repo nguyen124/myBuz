@@ -45,7 +45,7 @@
       "country": "Quốc gia",
       "state": "Bang/Tỉnh",
       "city": "Thành phố",
-      "wage": "Thu nhập/tháng",
+      "wage": "Thu nhập thợ/tháng",
       "createAds": "Tạo Quảng Cáo",
       "updateAds": "Chỉnh Sửa Quảng Cáo",
       "notice1": "(* thông tin bắt buộc)",
@@ -189,7 +189,7 @@
         }
       },
       "income": {
-        "label": "Thu nhập/tháng",
+        "label": "Thu nhập tiệm/tháng",
         "validate": {
           "min": "Thu nhập không thể là số âm!"
         }

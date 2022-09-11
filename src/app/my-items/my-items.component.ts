@@ -21,7 +21,7 @@ export class MyItemsComponent implements OnInit {
 
   constructor(
     private _itemService: ItemService,
-    private _authSvc: AuthService,
+    private authSvc: AuthService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _commSvc: CommunicateService,
@@ -36,7 +36,7 @@ export class MyItemsComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(newParams => {
       this.params = Object.assign({}, newParams);
-      this.getMyItems(Object.assign({ createdBy: this._authSvc.user._id }, this.params));
+      this.getMyItems(Object.assign({ createdBy: this.authSvc.user._id }, this.params));
     });
   }
 

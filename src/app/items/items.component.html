@@ -30,7 +30,7 @@
               <button *ngIf="item.refundable && item.status!=='REFUNDED'"
                 class="btn dropdown-item text-primary pl-0 ml-1 w-75"
                 (click)="deleteRefundItem(i, item._id)">{{"common.label.deleteRefund" | translate}}</button>
-              <button *ngIf="authSvc?.user?._id == item?.createdBy?.userId && !item.expired && item.status!=='REFUNDED'"
+              <button *ngIf="authSvc?.user?._id === item?.createdBy?.userId && !item.expired && item.status!=='REFUNDED'"
                 class="btn dropdown-item text-primary pl-0 ml-1 w-75" (click)="editItem(item._id)">
                 {{"common.label.edit" | translate}}
               </button>
