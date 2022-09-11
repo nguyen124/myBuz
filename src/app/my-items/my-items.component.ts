@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-my-items',
   templateUrl: './my-items.component.html',
@@ -20,11 +22,13 @@ export class MyItemsComponent implements OnInit {
   lastParams = null;
 
   constructor(
-    private _itemService: ItemService,
+    private _itemSvc: ItemService,
     private authSvc: AuthService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _commSvc: CommunicateService,
+    private _toastr: ToastrService,
+    private _translate: TranslateService,
     @Inject(JQ_TOKEN) private $: any) {
     let params = this._activatedRoute.snapshot.queryParams;
     this._router.navigate([], {
@@ -43,7 +47,7 @@ export class MyItemsComponent implements OnInit {
   getMyItems(params) {
     let itemId = this._activatedRoute.snapshot.queryParams['id'];
     if (itemId) {
-      this._itemService.getItemById(itemId).subscribe(newItem => {
+      this._itemSvc.getItemById(itemId).subscribe(newItem => {
         this._commSvc.changeItem(newItem);
       });
     } else {
@@ -59,7 +63,7 @@ export class MyItemsComponent implements OnInit {
   }
 
   private getMyItemsHelper(that, params) {
-    that._itemService.getMyItems(params).subscribe((newItems: IItem[]) => {
+    that._itemSvc.getMyItems(params).subscribe((newItems: IItem[]) => {
       that.items = newItems;
       that.currentLength = that.items.length;
       that.actualPage = params.page ? +params.page : 0;
@@ -74,5 +78,27 @@ export class MyItemsComponent implements OnInit {
   removeFilter(key) {
     delete this.params[key];
     this._router.navigate([], { queryParams: this.params });
+  }
+
+  editItem(itemId: string) {
+    this._router.navigate(['/business/' + itemId + '/update']);
+  }
+
+  deleteItem(index: number, id: string) {
+    this._itemSvc.deleteItem(id).subscribe(res => {
+      this.items.splice(index, 1);
+      this._toastr.success(this._translate.instant("item.delete.success"));
+    }, err => {
+      this._toastr.error(this._translate.instant("item.delete.error"));
+    });
+  }
+
+  deleteRefundItem(index: number, itemId: string) {
+    this._itemSvc.deleteRefundItem(itemId).subscribe(res => {
+      this.items[index].status = res.status;
+      this._toastr.success(this._translate.instant("item.delete.success"));
+    }, err => {
+      this._toastr.error(this._translate.instant("item.delete.error"));
+    });
   }
 }

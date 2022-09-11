@@ -243,7 +243,7 @@
         "label": "Contact phone",        
         "placeHolder": "Phone number",
         "validate": {
-          "mask": "Phone number must have this format +xx (xxx) xxx-xxxx. Example USA phone number is +01 (987) 654-3210"
+          "mask": "Phone number must have this format (xxx) xxx-xxxx. Example USA phone number is (987) 654-3210"
         }
       },
       "contactEmail": {
