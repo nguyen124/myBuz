@@ -23,7 +23,7 @@ declare var google: any;
 @Component({
   selector: 'app-update-item',
   templateUrl: './update-item.component.html',
-  styleUrls: ['./update-item.component.css']
+  styleUrls: ['./update-item.component.scss']
 })
 export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   MAX_ALLOWED_FILES: number = 10;

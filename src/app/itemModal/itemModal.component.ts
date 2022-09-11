@@ -9,6 +9,7 @@ import { CommentsComponent } from '../comments/comments.component';
 import { MetaTagService } from '../shared/services/meta-tag.services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RenderService } from '../shared/services/utils/render.service';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-itemModal',
@@ -22,7 +23,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   subScription: Subscription;
   needsMap: any = {};
   categoriesMap: any = {};
-
+  editor: Editor;
   @ViewChild(CommentsComponent, { static: true }) commentsComp: CommentsComponent;
   @ViewChild('closeModalBtn', { static: false }) closeModalBtn: ElementRef;
 
@@ -42,6 +43,7 @@ export class ItemModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.editor = new Editor();
     this.subScription = this._commSvc.currentItemInModal$.subscribe((item?: any) => {
       if (item) {
         this.item = item;

@@ -17,7 +17,7 @@
         </div>
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="row text-overflow">
+            <div class="row">
               <div class="col-md-3 col-sm-2 col-4">
                 <img class="rounded w-100-object-fit xs-w-25-object-fit"
                   src="{{item.createdBy.avatar | imageMobileLinkPipe}}" default="{{item.createdBy.avatar}}"
@@ -148,9 +148,9 @@
                   </ng-container>
                 </div>
               </ng-template>
-              <div *ngIf="item.description.trim().length" id="item-description" [innerHTML]="item.description"
+              <ngx-editor [editor]="editor" *ngIf="item.description.trim().length" id="item-description" disabled [(ngModel)]="item.description"
                 class="col-12 word-break pt-20">
-              </div>
+              </ngx-editor>
             </div>
           </div>
 
