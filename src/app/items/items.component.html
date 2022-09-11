@@ -1,11 +1,18 @@
 <div class="row text-lg-left" id="items-container">
-  <div class="col-lg-4 col-md-6 col-sm-4 col-12">
+  <div class="col-lg-4 col-md-6 col-sm-4 col-12 mb-3">
     <div *ngIf="showMap">
       <app-place-search [items]="items"></app-place-search>
     </div>
-    <div>
+    <div *ngIf="!mobile">
       <ng-container *ngFor="let item of randomItems">
         <app-left-panel-item [item]="item"></app-left-panel-item>
+      </ng-container>
+    </div>
+    <div *ngIf="mobile">
+      <ng-container *ngIf="randomItems && randomItems[movingIdx]">
+        <i class="fas fa-arrow-right right-arrow" (click)="next()"></i>
+        <i class="fas fa-arrow-left left-arrow" (click)="back()"></i>
+        <app-left-panel-item [item]="randomItems[movingIdx]"></app-left-panel-item>
       </ng-container>
     </div>
   </div>

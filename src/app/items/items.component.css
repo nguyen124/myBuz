@@ -1,0 +1,17 @@
+.right-arrow {
+  position: absolute;
+  right: 20px;
+  bottom: 60px;
+  color: dodgerblue;
+  font-size: 50px;
+  opacity: 75%;
+}
+
+.left-arrow {
+  position: absolute;
+  left: 20px;
+  bottom: 60px;
+  color: dodgerblue;
+  font-size: 50px;
+  opacity: 75%;
+}

@@ -17,10 +17,12 @@ import { PlaceSearchComponent } from '../place-search/place-search.component';
 export class ItemsComponent {
   @Input() items: IItem[];
   @Input() randomItems: IItem[];
-  @Input() showMap = true;  
+  @Input() showMap = true;
   @ViewChildren(ItemComponent) childrenItems: QueryList<ItemComponent>;
   @ViewChild(PlaceSearchComponent, { static: false }) placeSearchComp: PlaceSearchComponent;
+  movingIdx = 0;
   nextPage = 0;
+  mobile: boolean = false;
   constructor(
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
@@ -28,7 +30,9 @@ export class ItemsComponent {
     private _translate: TranslateService,
     private _router: Router
   ) {
-
+    if (window.screen.width <= 575) { // 768px portrait
+      this.mobile = true;
+    }
   }
 
   deleteItem(index: number, id: string) {
@@ -40,6 +44,13 @@ export class ItemsComponent {
     });
   }
 
+  next() {
+    this.movingIdx = (++this.movingIdx) % this.randomItems.length;
+  }
+
+  back() {
+    this.movingIdx = (--this.movingIdx) % this.randomItems.length;
+  }
 
   deleteRefundItem(index: number, itemId: string) {
     this._itemSvc.deleteRefundItem(itemId).subscribe(res => {
