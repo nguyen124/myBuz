@@ -10,6 +10,10 @@ import { MetaTagService } from '../shared/services/meta-tag.services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RenderService } from '../shared/services/utils/render.service';
 import { Editor } from 'ngx-editor';
+import { AuthService } from '../shared/services/security/auth.service';
+import { ItemService } from '../shared/services/item.services';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-itemModal',
@@ -39,6 +43,10 @@ export class ItemModalComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _renderSvc: RenderService,
+    private authSvc: AuthService,
+    private _itemSvc: ItemService,
+    private _toastr: ToastrService,
+    private _translate: TranslateService,
     @Inject(JQ_TOKEN) private $: any) {
   }
 
@@ -81,6 +89,29 @@ export class ItemModalComponent implements OnInit, OnDestroy {
         this.setMetaTags();
       }
     });
+  }
+
+  deleteItem(id: string) {
+    this.closeModal();
+    this._itemSvc.deleteItem(id).subscribe(res => {
+      this._toastr.success(this._translate.instant("item.delete.success"));
+    }, err => {
+      this._toastr.error(this._translate.instant("item.delete.error"));
+    });
+  }
+
+  deleteRefundItem(itemId: string) {
+    this.closeModal();
+    this._itemSvc.deleteRefundItem(itemId).subscribe(res => {
+      this._toastr.success(this._translate.instant("item.delete.success"));
+    }, err => {
+      this._toastr.error(this._translate.instant("item.delete.error"));
+    });
+  }
+
+  editItem(itemId: string) {
+    this.closeModal();
+    this._router.navigate(['/business/' + itemId + '/update']);
   }
 
   setMetaTags() {

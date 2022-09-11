@@ -35,6 +35,14 @@ export class ItemsComponent {
     }
   }
 
+  next() {
+    this.movingIdx = (++this.movingIdx) % this.randomItems.length;
+  }
+
+  back() {
+    this.movingIdx = (--this.movingIdx) % this.randomItems.length;
+  }
+
   deleteItem(index: number, id: string) {
     this._itemSvc.deleteItem(id).subscribe(res => {
       this.items.splice(index, 1);
@@ -42,14 +50,6 @@ export class ItemsComponent {
     }, err => {
       this._toastr.error(this._translate.instant("item.delete.error"));
     });
-  }
-
-  next() {
-    this.movingIdx = (++this.movingIdx) % this.randomItems.length;
-  }
-
-  back() {
-    this.movingIdx = (--this.movingIdx) % this.randomItems.length;
   }
 
   deleteRefundItem(index: number, itemId: string) {

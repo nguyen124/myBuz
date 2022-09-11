@@ -145,7 +145,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
           address: [item.address, [Validators.pattern(/^.{0,100}$/)]],
           address2: [item.address2, []],
           zipcode: [item.zipcode, [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
-          city: [item.city, [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
+          city: [item.city, [Validators.pattern(/^.{1,40}$/), this._systemSvc.nonSpaceString]],
           state: [item.state, [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
           country: [item.country, [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
           noOfEmployees: [item.noOfEmployees, [Validators.min(0)]],

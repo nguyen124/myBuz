@@ -201,7 +201,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
       address: ['', [Validators.pattern(/^.{0,100}$/)]],
       address2: ['', [Validators.pattern(/^.{0,50}$/)]],
       zipcode: ['', [Validators.pattern(/^.{1,10}$/), this._systemSvc.nonSpaceString]],
-      city: ['', [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
+      city: ['', [Validators.pattern(/^.{1,40}$/), this._systemSvc.nonSpaceString]],
       state: ['', [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
       country: ['', [Validators.pattern(/^.{1,20}$/), this._systemSvc.nonSpaceString]],
       noOfEmployees: [0, [Validators.min(0)]],
