@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChildren, QueryList, isDevMode } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,8 @@ import { CommentComponent } from '../comment/comment.component';
 import { ItemService } from '../shared/services/item.services';
 import { CommentService } from '../shared/services/comment.services';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
+import { environment as prodEnvironment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-comments',
@@ -19,7 +21,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];
   subscription: Subscription;
   nextPage = 0;
-  PER_PAGE = 10;
+  readonly PER_PAGE: number = isDevMode() ? environment.COMMENT_PER_PAGE : prodEnvironment.COMMENT_PER_PAGE;
   previousIndex = null;
   replyToUsername;
   edittingCommentIdx: number;

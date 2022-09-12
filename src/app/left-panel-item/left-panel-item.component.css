@@ -1,10 +1,27 @@
-.frame {
-  object-fit: scale-down;
+.frame-desktop {
+  object-fit: cover;
+  height: 100px;
   max-width: 100%;
 }
 
+.frame-mobile {
+  object-fit: scale-down;
+  height: 250px;
+  width: 100%;
+}
+
+.small-text {
+  font-size: 10px;
+}
 @media (max-width: 575px) {
   .frame {
     width: 100%;
   }
+}
+
+.text-overflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
 }

@@ -4,15 +4,19 @@
       <app-place-search [items]="items"></app-place-search>
     </div>
     <div *ngIf="!mobile">
-      <ng-container *ngFor="let item of randomItems">
-        <app-left-panel-item [item]="item"></app-left-panel-item>
-      </ng-container>
+      <div class="row">
+        <ng-container *ngFor="let item of randomItems">
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+            <app-left-panel-item [item]="item" [mobile]="mobile"></app-left-panel-item>
+          </div>
+        </ng-container>
+      </div>
     </div>
     <div *ngIf="mobile">
       <ng-container *ngIf="randomItems && randomItems[movingIdx]">
-        <i class="fas fa-arrow-right right-arrow" (click)="next()"></i>
-        <i class="fas fa-arrow-left left-arrow" (click)="back()"></i>
-        <app-left-panel-item [item]="randomItems[movingIdx]"></app-left-panel-item>
+        <i class="fas fa-arrow-right right-arrow" (click)="clickNext()"></i>
+        <i class="fas fa-arrow-left left-arrow" (click)="clickBack()"></i>
+        <app-left-panel-item [item]="randomItems[movingIdx]" [mobile]="mobile"></app-left-panel-item>
       </ng-container>
     </div>
   </div>
@@ -30,7 +34,8 @@
               <button *ngIf="item.refundable && item.status!=='REFUNDED'"
                 class="btn dropdown-item text-primary pl-0 ml-1 w-75"
                 (click)="deleteRefundItem(i, item._id)">{{"common.label.deleteRefund" | translate}}</button>
-              <button *ngIf="authSvc?.user?._id === item?.createdBy?.userId && !item.expired && item.status!=='REFUNDED'"
+              <button
+                *ngIf="authSvc?.user?._id === item?.createdBy?.userId && !item.expired && item.status!=='REFUNDED'"
                 class="btn dropdown-item text-primary pl-0 ml-1 w-75" (click)="editItem(item._id)">
                 {{"common.label.edit" | translate}}
               </button>

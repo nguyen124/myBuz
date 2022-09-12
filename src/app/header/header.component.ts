@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, isDevMode, Output } from '@angular/core';
 import { AuthService } from '../shared/services/security/auth.service';
 import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
+import { environment } from '../../environments/environment';
+import { environment as prodEnvironment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +13,7 @@ import { CommunicateService } from '../shared/services/utils/communicate.service
 })
 export class HeaderComponent {
 
-  PER_PAGE = 40;
+  readonly PER_PAGE: number = isDevMode() ? environment.ITEM_PER_PAGE : prodEnvironment.ITEM_PER_PAGE;
 
   @Output() languageEmitter: EventEmitter<any> = new EventEmitter();
   language: string = 'Tiếng Việt';

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, isDevMode } from '@angular/core';
 import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 import { AuthService } from '../shared/services/security/auth.service';
@@ -8,6 +8,9 @@ import { JQ_TOKEN } from '../shared/services/jQuery.service';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
+import { environment as prodEnvironment } from '../../environments/environment.prod';
+
 @Component({
   selector: 'app-my-items',
   templateUrl: './my-items.component.html',
@@ -15,8 +18,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MyItemsComponent implements OnInit {
   items: IItem[];
-  nextPage = 0;
-  PER_PAGE = 40;
+  nextPage = 0;  
+  readonly PER_PAGE: number = isDevMode() ? environment.ITEM_PER_PAGE : prodEnvironment.ITEM_PER_PAGE;
   params: any = {};
   actualPage: any = 0;
   lastParams = null;
@@ -32,7 +35,7 @@ export class MyItemsComponent implements OnInit {
     @Inject(JQ_TOKEN) private $: any) {
     let params = this._activatedRoute.snapshot.queryParams;
     this._router.navigate([], {
-      queryParams: Object.assign({ page: 0, perPage: 40 }, params),
+      queryParams: Object.assign({ page: 0, perPage: this.PER_PAGE }, params),
       queryParamsHandling: "merge"
     });
   }

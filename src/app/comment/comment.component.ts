@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, isDevMode } from '@angular/core';
 import { IComment } from '../shared/model/comment';
 import { IUser } from '../shared/model/user';
 import { CommentService } from '../shared/services/comment.services';
@@ -8,6 +8,8 @@ import { AuthService } from '../shared/services/security/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { IItem } from '../shared/model/item';
 import { CommentBoxComponent } from '../comment-box/comment-box.component';
+import { environment } from '../../environments/environment';
+import { environment as prodEnvironment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-comment',
@@ -28,7 +30,7 @@ export class CommentComponent implements OnInit {
   subscription: Subscription;
   isShowingReply = false;
   nextPage = 0;
-  PER_PAGE = 5;
+  readonly PER_PAGE: number = isDevMode() ? environment.REPLY_PER_PAGE : prodEnvironment.REPLY_PER_PAGE;
   showToolTip: boolean = false;
   replyToUsername: string;
   edittingCommentIdx: number;

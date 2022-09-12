@@ -5,6 +5,8 @@
   color: dodgerblue;
   font-size: 50px;
   opacity: 75%;
+  background: white;
+  border-radius: 40%;
 }
 
 .left-arrow {
@@ -14,4 +16,6 @@
   color: dodgerblue;
   font-size: 50px;
   opacity: 75%;
+  background: white;
+  border-radius: 40%;
 }

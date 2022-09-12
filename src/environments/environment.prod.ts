@@ -11,5 +11,8 @@ export const environment = {
   bucketname: 'm2meme.appspot.com',
   stripe: {
     pk: 'pk_live_51LSD2fJbUrktT3xjLdrEqaiihlsAcsX0p0NDAdY7OoewOMJ3J1q6SH6Fw6P11Tac88rKVHFWVOb4yI7O09XH5doi00bC5zdWOS'
-  }
+  },
+  ITEM_PER_PAGE: 100,
+  COMMENT_PER_PAGE: 10,
+  REPLY_PER_PAGE: 5
 };

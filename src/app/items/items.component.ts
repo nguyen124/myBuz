@@ -23,6 +23,9 @@ export class ItemsComponent {
   movingIdx = 0;
   nextPage = 0;
   mobile: boolean = false;
+  movingFn: Function;
+  interVal: any;
+  readonly INTERVAL_TIME = 3000;
   constructor(
     private _itemSvc: ItemService,
     private _toastr: ToastrService,
@@ -32,16 +35,44 @@ export class ItemsComponent {
   ) {
     if (window.screen.width <= 575) { // 768px portrait
       this.mobile = true;
+      this.movingFn = this.next;
+      this.interVal = setInterval(() => {
+        this.movingFn(this);
+      }, this.INTERVAL_TIME)
     }
   }
 
-  next() {
-    this.movingIdx = (++this.movingIdx) % this.randomItems.length;
+  next(that) {
+    if (that.randomItems) {
+      that.movingIdx = (++that.movingIdx) % that.randomItems.length;
+    }
   }
 
-  back() {
-    this.movingIdx = (--this.movingIdx) % this.randomItems.length;
+  back(that) {
+    if (that.randomItems) {
+      if (--that.movingIdx < 0) that.movingIdx = that.randomItems.length - 1;
+      that.movingIdx = (that.movingIdx) % that.randomItems.length;
+    }
   }
+
+  clickNext() {
+    this.movingFn = this.next;
+    this.resetInterval();
+  }
+
+  clickBack() {
+    this.movingFn = this.back;
+    this.resetInterval();
+  }
+
+  resetInterval() {
+    this.movingFn(this);
+    clearInterval(this.interVal);
+    this.interVal = setInterval(() => {
+      this.movingFn(this);
+    }, this.INTERVAL_TIME)
+  }
+
 
   deleteItem(index: number, id: string) {
     this._itemSvc.deleteItem(id).subscribe(res => {

@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { GoogleMapService } from './shared/services/google-map.service';
 import { AuthService } from './shared/services/security/auth.service';
+import { environment } from '../environments/environment';
+import { environment as prodEnvironment } from '../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedirectGuard implements CanActivate {
+  readonly PER_PAGE: number = isDevMode() ? environment.ITEM_PER_PAGE : prodEnvironment.ITEM_PER_PAGE;
 
   constructor(private _router: Router, private _apiService: GoogleMapService, private _authSvc: AuthService) { }
   async canActivate(route: ActivatedRouteSnapshot) {
@@ -39,12 +42,12 @@ export class RedirectGuard implements CanActivate {
     if (locationParams && Object.keys(locationParams).length > 0) {
       this._apiService.firstTimeShowingLocation = true;
       return this._router.navigate([route.routeConfig.path], {
-        queryParams: Object.assign({ page: 0, perPage: 40 }, params, locationParams),
+        queryParams: Object.assign({ page: 0, perPage: this.PER_PAGE }, params, locationParams),
         queryParamsHandling: "merge"
       });
     } else {
       this._router.navigate([route.routeConfig.path], {
-        queryParams: Object.assign({ page: 0, perPage: 40 }, params),
+        queryParams: Object.assign({ page: 0, perPage: this.PER_PAGE }, params),
         queryParamsHandling: "merge"
       });
     }

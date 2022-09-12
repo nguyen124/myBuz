@@ -7,9 +7,9 @@ import { IItem } from '../shared/model/item';
   styleUrls: ['./left-panel-item.component.css']
 })
 export class LeftPanelItemComponent implements OnInit {
-  @Input() item: IItem;  
+  @Input() item: IItem;
   constructor() { }
-
+  @Input() mobile: boolean;
   ngOnInit(): void {
   }
 }

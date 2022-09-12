@@ -306,7 +306,7 @@ export class PlaceSearchComponent implements OnInit, AfterViewInit {
         google.maps.event.addListener(that.markers[i], 'click', () => {
           that.showInfoWindow(that, that.markers[i], that.items[i]);
         });
-        setTimeout(that.dropMarker(that.markers[i]), i * 100);
+        setTimeout(that.dropMarker(that.markers[i]), i * 50);
       }
     }
   }
