@@ -14,7 +14,7 @@
       "discount2": "50% OFF FOR 1 to 24-MONTH LONG ADVERTISEMENT WITH FREE ATTACHED PICTURES FOR THE FIRST 500 CUSTOMERS",
       "discount3": "NO EXTRA FEE FOR 10 ATTACHED PHOTOS/VIDEOS",
       "troiviet": "Troi Viet",
-      "companyEmail": "troivietcompany@gmail.com",
+      "companyEmail": "info@troiviet.com",
       "edit": "Edit",
       "create": "Create",
       "delete": "Delete",
@@ -152,7 +152,7 @@
       "invalidData": "Invalid data!"
     },
     "message": {
-      "activateNeed": "Please activate your account from your email.",
+      "activateNeed": "Please activate your account from your email. Please try to check Spam folder if you don't see the activation email sent to you",
       "activateSuccess": "Account activated. Please login."
     }
   },

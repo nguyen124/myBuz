@@ -14,7 +14,7 @@
       "discount2": "50% OFF CHO BÀI ĐĂNG TỪ 1 ĐẾN 24 THÁNG CHO 500 KHÁCH HÀNG ĐẦU TIÊN",
       "discount3": "KHÔNG TÍNH PHỤ PHÍ CHO 10 HÌNH ẢNH/VIDEO ĐÍNH KÈM",
       "troiviet": "Troi Viet",
-      "companyEmail": "troivietcompany@gmail.com",
+      "companyEmail": "info@troiviet.com",
       "edit": "Chỉnh",
       "create": "Tạo",
       "delete": "Xóa",
@@ -152,7 +152,7 @@
       "invalidData": "Dữ liệu không hợp lệ!"
     },
     "message": {
-      "activateNeed": "Vui lòng kích hoạt tài khoản trong email của bạn.",
+      "activateNeed": "Vui lòng kích hoạt tài khoản trong email của bạn. Vui lòng tìm thử trong mục thư Spam nếu bạn không nhận được email kích hoạt",
       "activateSuccess": "Tài khoản đã kích hoạt. Mời đăng nhập."
     }
   },
