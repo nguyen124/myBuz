@@ -12,9 +12,9 @@
                 </div>
                 <a class="d-block" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{id:item._id}">
                     <img *ngIf="item.files[0].fileType.match('image*')" [src]="item.files[0].url | imageMobileLinkPipe"
-                        default="{{item.files[0].url}}" alt="Unavailable" class="frame rounded">
+                        default="{{item.files[0].url}}" alt="Unavailable" class="frame-desktop rounded">
                     <app-meme-video *ngIf="item.files[0].fileType.match('video*')" [link]="item.files[0].url"
-                        [fileType]="item.files[0].fileType" class="frame rounded"></app-meme-video>
+                        [fileType]="item.files[0].fileType" class="frame-desktop rounded"></app-meme-video>
                 </a>
             </div>
         </ng-container>
