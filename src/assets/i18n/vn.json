@@ -372,7 +372,7 @@
   },
   "admin": {
     "report": {
-      "label": "Tố",
+      "label": "Tố cáo",
       "cancel": {
         "label": "Hủy bài tố",
         "success": "Bài tố đã hủy!",

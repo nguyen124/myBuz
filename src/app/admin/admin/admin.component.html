@@ -2,7 +2,7 @@
     <div class="row hover-high-light">
         <div class="col-12">
             <div class="row">
-                <div class="col-3">{{"common.label.item" | translate}}: {{report.reportedItemId}}</div>
+                <div class="col-3"><a target="_blank" href="/?id={{report.reportedItemId}}">{{report.reportedItemId}}</a></div>
                 <div class="col-3" *ngIf="report.reportedCommentId">{{"common.label.comment" | translate}}: {{report.reportedCommentId}}</div>
                 <div class="col-3">{{"common.label.reason" | translate}}: {{report.reasons | reasonPipe}}</div>
                 <div class="col-3">
@@ -14,10 +14,10 @@
             </div>
             <div class="row">
                 <div class="col-3" *ngFor="let file of report.content">
-                    <img *ngIf="file.fileType.match('image*')" class="img-fluid img-thumbnail" [src]="file.url"
+                    <img *ngIf="file.fileType.match('image*')" class="img-fluid img-frame" [src]="file.url"
                         alt="Unavailable">
                     <video *ngIf="file.fileType.match('video*')" controls
-                        class="video img-fluid img-thumbnail not-playable" [src]="file.url" alt="Unavailable">
+                        class="video img-fluid not-playable img-frame" [src]="file.url" alt="Unavailable">
                     </video>
                     <div *ngIf="file.fileType == 'text' && file.url.trim()">
                         {{file.url}}
