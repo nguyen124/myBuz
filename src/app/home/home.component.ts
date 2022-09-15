@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'forSale' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
-      this.getRandomItems(this.params);
+      this.getRandomItems();
     });
   }
 
@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
     this._seoService.createLinkForCanonicalURL();
   }
 
-  getRandomItems(params) {
-    this._itemService.getRandomItems(params).subscribe((randomItems: IItem[]) => {
+  getRandomItems() {
+    this._itemService.getRandomItems().subscribe((randomItems: IItem[]) => {
       this.randomItems = randomItems;
     });
   }

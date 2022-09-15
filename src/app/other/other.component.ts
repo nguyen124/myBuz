@@ -46,12 +46,12 @@ export class OtherComponent implements OnInit, AfterViewInit {
     this._activatedRoute.queryParams.subscribe(params => {
       this.params = Object.assign({ need: 'other' }, this._activatedRoute.snapshot.queryParams);
       this.getItems(this.params);
-      this.getRandomItems(this.params);
+      this.getRandomItems();
     });
   }
 
-  getRandomItems(params) {
-    this._itemService.getRandomItems(params).subscribe((randomItems: IItem[]) => {
+  getRandomItems() {
+    this._itemService.getRandomItems().subscribe((randomItems: IItem[]) => {
       this.randomItems = randomItems;
     });
   }

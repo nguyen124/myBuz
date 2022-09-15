@@ -16,8 +16,8 @@ export class ItemService {
         return this._http.get<IItem[]>("/svc/business", { params: params });
     }
 
-    getRandomItems(params): Observable<IItem[]> {
-        return this._http.get<IItem[]>("/svc/business/random", { params: params });
+    getRandomItems(): Observable<IItem[]> {
+        return this._http.get<IItem[]>("/svc/business/random", { });
     }
 
     getMyItems(params): Observable<IItem[]> {
