@@ -134,7 +134,7 @@ export class GoogleMapService {
           }
         }
       }
-      resolve(Object.assign({}, address ? { address } : null, zipcode ? { zipcode } : null, city ? { city } : null, state ? { state } : null, country ? { country } : null));
+      resolve(Object.assign({}, { address , zipcode , city , state , country }));
     });
   }
 }
