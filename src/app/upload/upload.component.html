@@ -347,13 +347,13 @@
       <div class="form-row mb-1">
         <ng-container *ngIf="toUploadFiles && toUploadFiles.length">
           <ng-container *ngFor="let previewMediaSrc of toUploadFiles; let i = index">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngIf="previewMediaSrc.fileType.match('image*')">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngIf="previewMediaSrc.fileType?.match('image*')">
               <img [src]="previewMediaSrc.url" class="img-thumbnail mh-480 m-2" id="previewImg">
               <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngIf="previewMediaSrc.fileType.match('video*')">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngIf="previewMediaSrc.fileType?.match('video*')">
               <video [src]="previewMediaSrc.url" controls class="img-thumbnail mh-480 m-2">
               </video>
               <button class="btn btn-xs btn-primary upright-corner" (click)="removePreviewMedia(i)">

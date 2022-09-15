@@ -49,9 +49,9 @@
     <ng-container *ngIf="item.files && item.files.length > 0">
         <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.overview}}">
             <a class="d-block" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{id:item._id}">
-                <img *ngIf="item.files[0].fileType.match('image*')" class="img-fluid img-thumbnail mh-480"
+                <img *ngIf="item.files[0].fileType?.match('image*')" class="img-fluid img-thumbnail mh-480"
                     [src]="item.files[0].url | imageMobileLinkPipe" default="{{item.files[0].url}}" alt="Unavailable">
-                <app-meme-video *ngIf="item.files[0].fileType.match('video*')" [link]="item.files[0].url"
+                <app-meme-video *ngIf="item.files[0].fileType?.match('video*')" [link]="item.files[0].url"
                     [fileType]="item.files[0].fileType" [customClass]="'mh-480'"></app-meme-video>
             </a>
         </div>

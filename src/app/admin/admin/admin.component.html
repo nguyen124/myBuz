@@ -14,9 +14,9 @@
             </div>
             <div class="row">
                 <div class="col-3" *ngFor="let file of report.content">
-                    <img *ngIf="file.fileType.match('image*')" class="img-fluid img-frame" [src]="file.url"
+                    <img *ngIf="file.fileType?.match('image*')" class="img-fluid img-frame" [src]="file.url"
                         alt="Unavailable">
-                    <video *ngIf="file.fileType.match('video*')" controls
+                    <video *ngIf="file.fileType?.match('video*')" controls
                         class="video img-fluid not-playable img-frame" [src]="file.url" alt="Unavailable">
                     </video>
                     <div *ngIf="file.fileType == 'text' && file.url.trim()">

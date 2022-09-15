@@ -92,7 +92,7 @@ export class GoogleMapService {
     let state = null;
     let country = null;
     return new Promise((resolve, reject) => {
-      for (let i = place.address_components.length - 1; i--; i >= 0) {
+      for (let i = place.address_components.length - 1; i >= 0; i--) {
         let component = place.address_components[i];
         const componentType = component.types[0];
         switch (componentType) {
