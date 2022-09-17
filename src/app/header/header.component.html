@@ -43,11 +43,12 @@
 <div *ngIf="isShowingSecondTopHeader">
   <div class="text-center m-0 mb-4">
     <div class="text-danger border border-success rounded">
-      <h3> {{"common.label.discount1" | translate}}</h3>
-      <h3> {{"common.label.discount2" | translate}}</h3>
-      <h3> {{"common.label.discount3" | translate}}</h3>
+      <h5> {{"common.label.discount1" | translate}}</h5>
+      <h5> {{"common.label.discount2" | translate}}</h5>
+      <h5> {{"common.label.discount3" | translate}}</h5>
     </div>
   </div>
+  <app-top-panel></app-top-panel>
   <div class="row pb-3">
     <div class="col-md-4 col-xs-4 hot">
       <a [routerLink]="'/business/forSale'" [queryParams]="{page: 0, perPage: PER_PAGE}"

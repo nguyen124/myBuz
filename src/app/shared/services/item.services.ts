@@ -20,6 +20,10 @@ export class ItemService {
         return this._http.get<IItem[]>("/svc/business/random", { });
     }
 
+    getSpecialItem(): Observable<IItem> {
+        return this._http.get<IItem>("/svc/business/special", { });
+    }
+
     getMyItems(params): Observable<IItem[]> {
         return this._http.get<IItem[]>("/svc/business/user", { params: params });
     }

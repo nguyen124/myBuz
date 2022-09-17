@@ -45,7 +45,7 @@
       "country": "Country",
       "state": "State",
       "city": "City",
-      "wage": "Estimated employee income/month",
+      "wage": "Guaranteed income/month",
       "createAds": "Create Ads",
       "updateAds": "Update Ads",
       "notice1": "(* is required fields)",

@@ -41,4 +41,5 @@ export interface IItem {
   expired?: boolean;
   refundable?: boolean;
   coupon?: any;
+  isSpecial?: boolean;
 }

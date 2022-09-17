@@ -8,8 +8,8 @@ import { IItem } from '../shared/model/item';
 })
 export class LeftPanelItemComponent implements OnInit {
   @Input() item: IItem;
-  @Input() mobile: boolean;
   constructor() { }
+  @Input() mobile: boolean;
   ngOnInit(): void {
   }
 }

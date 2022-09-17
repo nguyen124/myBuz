@@ -76,69 +76,69 @@
               </div>
             </div>
             <div class="row">
-              <div *ngIf="showPrice" class="col-6 mb-1">
+              <div *ngIf="showPrice" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"common.label.price" | translate}}: </strong></label> <span> {{item.price |
                   currency:'USD'}}</span>
               </div>
-              <div *ngIf="showIncome" class="col-6 mb-1">
+              <div *ngIf="showIncome" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.income.label" | translate}}: </strong></label> <span> {{item.income |
                   currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
-              <div *ngIf="showWage" class="col-6 mb-1">
+              <div *ngIf="showWage && item.wage" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"common.label.wage" | translate}}: </strong></label> <span> {{item.wage |
                   currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
-              <div *ngIf="showRent" class="col-6 mb-1">
+              <div *ngIf="showRent" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.rent.label" | translate}}: </strong></label> <span> {{item.rentCost |
                   currency:'USD'}}</span>
               </div>
-              <div *ngIf="showOtherCost" class="col-6 mb-1">
+              <div *ngIf="showOtherCost" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.otherCost.label" | translate}}: </strong></label> <span> {{item.otherCost
                   | currency:'USD'}}</span>
               </div>
             </div>
             <div class="row">
-              <div *ngIf="showNoOfEmployees" class="col-6 mb-1">
+              <div *ngIf="showNoOfEmployees" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.noOfEmployees.label" | translate}}: </strong></label> <span>
                   {{item.noOfEmployees}}</span>
               </div>
-              <div *ngIf="showArea" class="col-6 mb-1">
+              <div *ngIf="showArea" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.area.label" | translate}}: </strong></label> <span> {{item.area}}
                   Sq.ft</span>
               </div>
             </div>
             <div class="row">
-              <div *ngIf="showNoOfTables" class="col-6 mb-1">
+              <div *ngIf="showNoOfTables" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.noOfTables.label" | translate}}: </strong></label> <span>
                   {{item.noOfTables}}</span>
               </div>
-              <div *ngIf="showNoOfChairs" class="col-6 mb-1">
+              <div *ngIf="showNoOfChairs" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.noOfChairs.label" | translate}}: </strong></label> <span>
                   {{item.noOfChairs}}</span>
               </div>
             </div>
             <div class="row">
-              <div *ngIf="showLeaseEnd" class="col-6 mb-1">
+              <div *ngIf="showLeaseEnd && item.leaseEnd" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.leaseEnd.label" | translate}}: </strong></label> <span> {{item.leaseEnd |
                   date:'longDate'}}</span>
               </div>
-              <div *ngIf="showYearsOld" class="col-6 mb-1">
+              <div *ngIf="showYearsOld && item.yearOld" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.yearsOld.label" | translate}}: </strong></label> <span>
                   {{item.yearOld}}</span>
               </div>
             </div>
             <div class="row">
 
-              <div class="col-6 mb-1">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.contactPhone.label" | translate}}: </strong></label> <a
                   href="tel:{{item.contactPhoneNo}}">
                   {{item.contactPhoneNo | mask: '(000) 000-0000'}}</a>
               </div>
-              <div class="col-6 mb-1">
+              <div *ngIf="item.contactEmail" class="col-lg-6 col-md-6 col-sm-12 col-12 mb-1">
                 <label><strong>{{"item.upload.contactEmail.label" | translate}}: </strong></label> <a
                   href="mailto:{{item.contactEmail}}">
                   {{item.contactEmail}}</a>
@@ -146,8 +146,11 @@
 
             </div>
             <div *ngIf="item.files" class="row mt-3 high-light">
+              <ngx-editor [editor]="editor" *ngIf="item.description.trim().length" id="item-description" disabled
+                [(ngModel)]="item.description" class="col-12 word-break pt-20">
+              </ngx-editor>
               <ng-container *ngIf="item.files.length >1; else shortPost">
-                <div *ngFor="let file of item.files; let i = index;" class="col-6 mt-2 mb-2 mw-none">
+                <div *ngFor="let file of item.files; let i = index;" class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2 mb-2 mw-none">
                   <img *ngIf="file.fileType?.match('image*')" class="img-thumbnail mh-480 overflow-hidden"
                     [src]="file.url | imageMobileLinkPipe" default="{{file.url}}" alt="Unavailable">
                   <ng-container *ngIf="file.fileType?.match('video*')">
@@ -163,10 +166,7 @@
                     <app-meme-video [link]="item.files[0].url" [fileType]="item.files[0].fileType"></app-meme-video>
                   </ng-container>
                 </div>
-              </ng-template>
-              <ngx-editor [editor]="editor" *ngIf="item.description.trim().length" id="item-description" disabled
-                [(ngModel)]="item.description" class="col-12 word-break pt-20">
-              </ngx-editor>
+              </ng-template>              
             </div>
           </div>
 
