@@ -59,13 +59,12 @@
   height: calc(250px + 4vw);
   width: calc(250px + 4vw);
   margin: 25px;
-  background-image: linear-gradient(to bottom right, #29d819, #87c514, #cac711);
+  background-image: linear-gradient(to bottom right, #398332, #85aa3c, #b1af3b);
 }
 
 .shape-inner {
   height: calc(230px + 4vw);
-  width: calc(230px + 4vw);
-
+  width: calc(230px + 4vw);  
   background-size: cover;
   margin: auto;
 }

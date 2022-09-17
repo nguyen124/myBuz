@@ -11,6 +11,7 @@ export class TopPanelComponent implements OnInit {
   item: IItem;
   perPage: number = 4;
   files = [];
+  opacity: 0.5;
   constructor(private _itemService: ItemService) { }
 
   ngOnInit(): void {

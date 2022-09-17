@@ -11,7 +11,7 @@
                 <div *ngFor="let file of files; let i = index;" class="d-inline">
                     <div class="shape-outer decagon">
                         <div class="shape-inner decagon"
-                            [ngStyle]="{ 'background-image': 'url(' + file.url + '?w=300&h=300&fit=crop&crop=faces)', 'no-repeat': 'center'}">
+                            [ngStyle]="{ 'background-image': 'url(' + file.url + '?w=300&h=300&fit=crop&crop=faces)', 'no-repeat': 'center', 'opacity': opacity}">
                         </div>
                     </div>
                 </div>

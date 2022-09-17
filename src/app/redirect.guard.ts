@@ -15,6 +15,9 @@ export class RedirectGuard implements CanActivate {
   async canActivate(route: ActivatedRouteSnapshot) {
     let constructedLocation = null;
     let params = Object.assign({}, route.queryParams, { user: null });
+    if (this._apiService.firstTimeShowingLocation) {
+      return true;
+    }
     if (params.address || params.city || params.state || params.zipcode || params.country) {
       let address = params.address ? params.address.trim() : '';
       let city = params.city ? params.city.trim() : '';
@@ -22,9 +25,8 @@ export class RedirectGuard implements CanActivate {
       let zipcode = params.zipcode ? params.zipcode.trim() : '';
       let country = params.country ? params.country.trim() : '';
       constructedLocation = `${address} ${city} ${state} ${zipcode} ${country}`;
-    } else if (this._apiService.firstTimeShowingLocation) {
-      return true;
     }
+
     const userLocation = await this._apiService.getUserLocation(constructedLocation);
     let locationParams = null;
     if (userLocation) {
