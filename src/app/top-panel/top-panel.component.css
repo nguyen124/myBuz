@@ -3,68 +3,8 @@
   object-fit: scale-down;
 }
 
-.octagon {
-  -webkit-clip-path: polygon(
-    30% 0%,
-    70% 0%,
-    100% 30%,
-    100% 70%,
-    70% 100%,
-    30% 100%,
-    0% 70%,
-    0% 30%
-  );
-  clip-path: polygon(
-    30% 0%,
-    70% 0%,
-    100% 30%,
-    100% 70%,
-    70% 100%,
-    30% 100%,
-    0% 70%,
-    0% 30%
-  );
-}
-
-.decagon {
-  -webkit-clip-path: polygon(
-    50% 0%,
-    80% 10%,
-    100% 35%,
-    100% 65%,
-    80% 90%,
-    50% 100%,
-    20% 90%,
-    0 65%,
-    0 35%,
-    20% 10%
-  );
-  clip-path: polygon(
-    50% 0%,
-    80% 10%,
-    100% 35%,
-    100% 65%,
-    80% 90%,
-    50% 100%,
-    20% 90%,
-    0 65%,
-    0 35%,
-    20% 10%
-  );
-}
-
-.shape-outer {
-  display: flex;
-  flex-shrink: 0;
-  height: calc(250px + 4vw);
-  width: calc(250px + 4vw);
-  margin: 25px;
-  background-image: linear-gradient(to bottom right, #398332, #85aa3c, #b1af3b);
-}
-
-.shape-inner {
-  height: calc(230px + 4vw);
-  width: calc(230px + 4vw);  
-  background-size: cover;
-  margin: auto;
+.mh-250 {
+  height: 250px;
+  width: 250px;
+  object-fit: scale-down;
 }

@@ -10,12 +10,11 @@ import { ItemService } from '../shared/services/item.services';
 export class TopPanelComponent implements OnInit {
   item: IItem;
   perPage: number = 4;
-  files = [];
-  opacity: 0.5;
+  files = [];  
   constructor(private _itemService: ItemService) { }
 
   ngOnInit(): void {
-    this.perPage = Math.floor(window.screen.width / 390);
+    this.perPage = Math.floor(window.screen.width / 300);
     if (this.perPage === 0) { this.perPage = 1 };
     this._itemService.getSpecialItem().subscribe((newItem: IItem) => {
       if (newItem) {
@@ -27,7 +26,7 @@ export class TopPanelComponent implements OnInit {
           setInterval(() => {
             that.rotate(this.item.files, this.perPage);
             this.files = this.item.files.slice(0, this.perPage);
-          }, 3000);
+          }, 5000);
         } else {
           this.files = this.item.files;
         }

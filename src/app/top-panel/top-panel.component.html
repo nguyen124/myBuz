@@ -1,6 +1,6 @@
 <ng-container *ngIf="item">
     <a [routerLink]="[]" [queryParams]="{id: item?._id}" style="text-decoration:none">
-        <div class="border border-primary rounded mb-2">
+        <div class="mb-2">
             <div class="text-center">
                 <h3>
                     <span class="text-primary">{{item?.businessName}}</span>-<span
@@ -8,11 +8,14 @@
                 </h3>
             </div>
             <div class="row justify-content-center">
-                <div *ngFor="let file of files; let i = index;" class="d-inline">
-                    <div class="shape-outer decagon">
-                        <div class="shape-inner decagon"
-                            [ngStyle]="{ 'background-image': 'url(' + file.url + '?w=300&h=300&fit=crop&crop=faces)', 'no-repeat': 'center', 'opacity': opacity}">
-                        </div>
+                <div *ngFor="let file of files; let i = index;" class="d-inline pr-2">
+                    <div class="picture-frame" data-toggle="tooltip" data-placement="bottom" title="{{item.overview}}">
+                        <a class="d-block" [routerLink]="[]" queryParamsHandling="merge" [queryParams]="{id:item._id}">
+                            <img *ngIf="file.fileType?.match('image*')" class="img-fluid img-thumbnail mh-250"
+                                [src]="file.url | imageMobileLinkPipe" default="{{file.url}}" alt="Unavailable">
+                            <app-meme-video *ngIf="file.fileType?.match('video*')" [link]="file.url"
+                                [fileType]="file.fileType" [customClass]="'mh-250'"></app-meme-video>
+                        </a>
                     </div>
                 </div>
             </div>

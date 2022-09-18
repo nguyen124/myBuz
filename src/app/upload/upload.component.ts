@@ -569,6 +569,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
           overview: that.f.overview.value == null ? '' : that.f.overview.value.trim(),
           charge: that.charge,
           geometry: that.geometry,
+          isSpecial: false
         };
         if (this.appliedCoupon) {
           item.coupon = { appliedCoupon: this.appliedCoupon, discount: this.discount };
