@@ -325,7 +325,7 @@
                         <label class="custom-file-label" for="file">{{"item.upload.picture.select.label" |
                             translate}}</label>
                         <input type="file" class="custom-file-input" formControlName="file" id="upload" multiple
-                            (change)="handleFileInput($event.target.files)" accept="audio/*, video/*, image/*"
+                            (change)="handleFileInput($event)" accept="audio/*, video/*, image/*"
                             [ngClass]="{'is-invalid' : checkError('file')}">
                         <div *ngIf="checkError('file')" class="invalid-feedback">
                             <div *ngIf="f.file.errors.required">{{"item.upload.picture.validate.required" | translate}}

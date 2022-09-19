@@ -373,7 +373,8 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
 
   get f() { return this.itemForm.controls; }
 
-  handleFileInput(files: FileList) {
+  handleFileInput(event) {
+    let files = event.target.files;
     let fileArr = [],
       that = this;
     for (let idx = 0; idx < files.length; idx++) {
@@ -397,6 +398,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
         reader.readAsDataURL(toUploadFile);
       }
     });
+    event.target.value = null;
   }
 
   removePreviewMedia(index) {

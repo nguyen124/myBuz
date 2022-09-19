@@ -326,7 +326,8 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
     return this._systemSvc.checkError(this.itemForm, field, this.submitted);
   }
 
-  handleFileInput(files: FileList) {
+  handleFileInput(event) {
+    let files = event.target.files;
     let fileArr = [],
       that = this;
     for (let idx = 0; idx < files.length; idx++) {
@@ -350,6 +351,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
         reader.readAsDataURL(toUploadFile);
       }
     });
+    event.target.value = null;
   }
 
   onTagsChange(input) {
