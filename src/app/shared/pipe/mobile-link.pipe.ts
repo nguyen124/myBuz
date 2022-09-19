@@ -1,14 +1,16 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { ElementRef, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'imageMobileLinkPipe'
 })
 export class ImageMobileLinkPipe implements PipeTransform {
-
+  constructor(private el: ElementRef) { }
+  
   transform(value: any): any {
     if (value && value.startsWith('http')) {
-      const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      if (vw <= 425) {
+      console.log(this.el.nativeElement);
+      const vw = this.el.nativeElement.width;
+      if (vw <= 768) {
         var x = value.lastIndexOf("/"),
           y = value.lastIndexOf("."),
           filename = value.substring(x + 1, y + 1),

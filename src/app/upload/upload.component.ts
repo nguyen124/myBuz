@@ -98,7 +98,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
     this.editor = new Editor();
     this.invokeStripe();
     this.initForm();
-    this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
+    this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/" + this.today.getTime() + "/";
   }
 
   ngOnDestroy(): void {

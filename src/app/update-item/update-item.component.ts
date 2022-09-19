@@ -32,6 +32,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   submitted: boolean = false;
   currentUploadTasks: any[] = [];
   toUploadFiles: any[] = [];
+  toDeleteFiles: any[] = [];
   today = new Date();
   destination: string = "";
   paymentHandler = null;
@@ -85,7 +86,7 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
     private recaptchaV3Service: ReCaptchaV3Service,
     private cdr: ChangeDetectorRef) {
     this.itemForm = this._fb.group({});
-    this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/";
+    this.destination = this.today.getFullYear() + "/" + this.today.getMonth() + "/" + this.today.getDate() + "/" + this._authSvc.user.username + "/" + this.today.getTime() + "/";
   }
 
   initForm() {
@@ -399,7 +400,10 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   removePreviewMedia(index) {
-    this.toUploadFiles.splice(index, 1);
+    let toRemove = this.toUploadFiles.splice(index, 1)[0];
+    if (toRemove && toRemove.url.startsWith("https")) {
+      this.toDeleteFiles.push(toRemove);
+    }
     this.checkTooManyFiles();
     return false;
   }
@@ -423,8 +427,18 @@ export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.recaptchaV3Service.execute('/svc/validate_captcha')
       .subscribe((token: string) => {
+        this.deleteFiles();
         this.startPostingAfterChargeSuccessfully();
       });
+  }
+
+  deleteFiles() {
+    let that = this;
+    for (let file of this.toDeleteFiles) {
+      that._systemSvc.deleteFileByUrl(file.url, file.fileType).subscribe((result) => {
+        console.log("delete: " + result);
+      });
+    }
   }
 
   startPostingAfterChargeSuccessfully() {
