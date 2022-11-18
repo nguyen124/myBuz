@@ -117,7 +117,7 @@ export class RenderService {
 
   populateNeeds(value) {
     let needsOption = [];
-    switch (value) {    
+    switch (value) {
       case 'House': {
         needsOption.push({ "key": "forSale", "value": "item.upload.needs.houseForSale" });
         needsOption.push({ "key": "forLease", "value": "item.upload.needs.forLease" });
@@ -198,7 +198,8 @@ export class RenderService {
   }
 
   scrollIntoError() {
-    const firstElementWithError = document.querySelector('.ng-invalid')[0];
+    const ele = document.querySelector('.ng-invalid');
+    const firstElementWithError = ele ? ele[0] : null;
     if (firstElementWithError) {
       let scrollTopPosition = firstElementWithError.getBoundingClientRect().top;
       firstElementWithError.scrollIntoView({ behavior: 'smooth', block: 'center' });

@@ -351,7 +351,7 @@ export class UploadComponent implements OnInit, OnDestroy, AfterViewInit {
         reader.readAsDataURL(toUploadFile);
       }
     });
-    event.target.value = null;
+    //event.target.value = null;
   }
 
   onTagsChange(input) {
