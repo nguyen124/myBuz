@@ -63,6 +63,7 @@ export class OtherComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.itemsComponent.placeSearchComp.showMaxPrice = false;
     this.itemsComponent.placeSearchComp.showMinPrice = false;
+    this.itemsComponent.placeSearchComp.showOtherInfo = false;
   }
 
   getItems(params) {

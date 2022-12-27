@@ -49,35 +49,37 @@
         <div class="col-xs-12 col-sm-7 col-lg-8 col-md-8 p-0" id="iw-phone"><a href="tel:{{contactPhoneNo}}">
                 {{contactPhoneNo | mask: '(000) 000-0000'}}</a></div>
     </div>
-    <div class="row m-0" id="iw-phone-row">
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.income.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-income">{{income | currency:'USD'}}</div>
-    </div>
-    <div class="row m-0" id="iw-rentCost-row">
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.rent.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-rentCost">{{rentCost | currency:'USD'}}</div>
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.otherCost.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-otherCost">{{otherCost | currency:'USD'}}</div>
-    </div>
+    <ng-container *ngIf="showOtherInfo">
+        <div class="row m-0" id="iw-phone-row">
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.income.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-income">{{income | currency:'USD'}}</div>
+        </div>
+        <div class="row m-0" id="iw-rentCost-row">
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.rent.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-rentCost">{{rentCost | currency:'USD'}}</div>
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.otherCost.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-otherCost">{{otherCost | currency:'USD'}}</div>
+        </div>
 
-    <div class="row m-0" id="iw-otherCost-row">
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.area.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-area">{{area}}</div>
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.noOfEmployees.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-noOfEmployees">{{noOfEmployees}}</div>
-    </div>
+        <div class="row m-0" id="iw-otherCost-row">
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.area.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-area">{{area}}</div>
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.noOfEmployees.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-noOfEmployees">{{noOfEmployees}}</div>
+        </div>
 
-    <div class="row m-0" id="iw-noOfTables-row">
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.noOfTables.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-noOfTables">{{noOfTables}}</div>
-        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.noOfChairs.label" |
-            translate}}:</div>
-        <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-noOfChairs">{{noOfChairs}}</div>
-    </div>
+        <div class="row m-0" id="iw-noOfTables-row">
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.noOfTables.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-noOfTables">{{noOfTables}}</div>
+            <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 p-0 iw_attribute_name">{{"item.upload.noOfChairs.label" |
+                translate}}:</div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 col-md-2 p-0" id="iw-noOfChairs">{{noOfChairs}}</div>
+        </div>
+    </ng-container>
 </div>

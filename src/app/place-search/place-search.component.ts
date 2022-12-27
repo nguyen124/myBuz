@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { IItem } from '../shared/model/item';
 import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
@@ -16,7 +15,8 @@ export class PlaceSearchComponent implements OnInit, AfterViewInit {
   @Input() showMaxPrice: boolean = true;
   @Input() showKeyword: boolean = true;
   @Input() showLocationSearch: boolean = true;
-
+  @Input() showOtherInfo: boolean = true;
+  
   countryRestrict: any = { country: 'us' };
   MARKER_PATH: any = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
   hostnameRegexp: any = new RegExp('^https?://.+?/');
