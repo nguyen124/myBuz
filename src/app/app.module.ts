@@ -61,7 +61,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { UpdateItemComponent } from './update-item/update-item.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MatSelectModule } from '@angular/material/select';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { HiringComponent } from './hiring/hiring.component';
 import { OtherComponent } from './other/other.component';
 import { environment } from 'src/environments/environment';
