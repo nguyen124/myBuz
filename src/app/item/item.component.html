@@ -30,7 +30,7 @@
             <div class="row overflow-hidden">
                 <div class="col-12">
                     <a *ngFor="let cate of item.categories" queryParamsHandling="merge" [routerLink]="[]"
-                        [queryParams]="{category: cate, id: null}" class="mr-1">@{{cate}}</a>
+                        [queryParams]="{category: cate, id: null}" class="mr-1">&#64;{{cate}}</a>
                     <a *ngFor="let tag of item.tags" queryParamsHandling="merge" [routerLink]="[]"
                         [queryParams]="{tag: tag, id: null}" class="mr-1">#{{tag}}</a>
                 </div>

@@ -42,7 +42,7 @@
             <div>
                 <a *ngIf="reply.replyTo" href='javascript:void()'
                     class='btn m-0 p-0 mb-1 mw-100 reply-comment text-overflow' (mouseenter)='showTooltip(reply)'>
-                    <div>@{{reply.replyTo.writtenBy.username}}:</div>
+                    <div>&#64;{{reply.replyTo.writtenBy.username}}:</div>
                 </a>
                 <app-tooltip [comment]="reply.replyTo" (mouseout)="hideTooltip(reply)" [showToolTip]="reply.showToolTip">
                 </app-tooltip>
