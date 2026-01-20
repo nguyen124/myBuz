@@ -52,12 +52,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ResetPasswordFormComponent } from './reset-password-form/reset-password-form.component';
 import { ImageMobileLinkPipe } from './shared/pipe/mobile-link.pipe';
 import { DefaultImageDirective } from './shared/directive/default-image.directive';
-import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ShareModule } from './shared/share/share.module';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { PlaceSearchComponent } from './place-search/place-search.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { provideNgxMask, IConfig } from 'ngx-mask';
 import { UpdateItemComponent } from './update-item/update-item.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -120,22 +119,13 @@ let jQuery: any = window['$'];
         TopPanelComponent
     ],
     imports: [
-        NgxMaskModule.forRoot(),
+
         ShareButtonsModule.withConfig({
             debug: true
         }),
         AdsenseModule.forRoot({
             adClient: 'ca-pub-7640562161899788',
             adSlot: 7259870550,
-        }),
-        NgCircleProgressModule.forRoot({
-            // set defaults here
-            radius: 100,
-            outerStrokeWidth: 16,
-            innerStrokeWidth: 8,
-            outerStrokeColor: "#78C000",
-            innerStrokeColor: "#C7E596",
-            animation: false
         }),
         TranslateModule.forRoot({
             loader: {
@@ -169,12 +159,13 @@ let jQuery: any = window['$'];
             useValue: environment.recaptcha.siteKey,
         },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
-        { provide: JQ_TOKEN, useValue: jQuery }
+        { provide: JQ_TOKEN, useValue: jQuery },
+        provideNgxMask()
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http);
 }
