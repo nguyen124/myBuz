@@ -3,7 +3,8 @@ import { Observable, of } from 'rxjs';
 import { flatMap, map, pairwise, switchMap, takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: '[canvasNavigator]'
+    selector: '[canvasNavigator]',
+    standalone: false
 })
 export class CanvasNavigatorDirective implements AfterViewInit {
 

@@ -14,9 +14,10 @@ import { CommentService } from '../shared/services/comment.services';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-comment-box',
-  templateUrl: './comment-box.component.html',
-  styleUrls: ['./comment-box.component.css']
+    selector: 'app-comment-box',
+    templateUrl: './comment-box.component.html',
+    styleUrls: ['./comment-box.component.css'],
+    standalone: false
 })
 export class CommentBoxComponent implements OnInit, OnDestroy {
   @Input() item: IItem;

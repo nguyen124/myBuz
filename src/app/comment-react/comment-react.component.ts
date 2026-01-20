@@ -4,9 +4,10 @@ import { CommentService } from '../shared/services/comment.services';
 import { JQ_TOKEN } from '../shared/services/jQuery.service';
 
 @Component({
-  selector: 'app-comment-react',
-  templateUrl: './comment-react.component.html',
-  styleUrls: ['./comment-react.component.css']
+    selector: 'app-comment-react',
+    templateUrl: './comment-react.component.html',
+    styleUrls: ['./comment-react.component.css'],
+    standalone: false
 })
 export class CommentReactComponent implements OnInit {
   @Input() comment: IComment;

@@ -6,9 +6,10 @@ import { ItemService } from '../shared/services/item.services';
 import { CommunicateService } from '../shared/services/utils/communicate.service';
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css']
+    selector: 'app-notification',
+    templateUrl: './notification.component.html',
+    styleUrls: ['./notification.component.css'],
+    standalone: false
 })
 export class NotificationComponent implements OnInit {
   notifications: INotification[]

@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { flatMap, map, takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: '[myDraggable]'
+    selector: '[myDraggable]',
+    standalone: false
 })
 export class DraggableDirective implements OnInit, AfterViewInit {
 

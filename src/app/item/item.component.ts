@@ -3,9 +3,10 @@ import { IItem } from '../shared/model/item';
 import { MemeVideoComponent } from '../meme-video/meme-video.component';
 
 @Component({
-  selector: 'app-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.css']
+    selector: 'app-item',
+    templateUrl: './item.component.html',
+    styleUrls: ['./item.component.css'],
+    standalone: false
 })
 export class ItemComponent {
   @Input() item: IItem;  

@@ -9,9 +9,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
-  selector: 'app-react',
-  templateUrl: './react.component.html',
-  styleUrls: ['./react.component.css']
+    selector: 'app-react',
+    templateUrl: './react.component.html',
+    styleUrls: ['./react.component.css'],
+    standalone: false
 })
 export class ReactComponent implements OnInit {
   @Input() item: IItem;

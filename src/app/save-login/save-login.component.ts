@@ -3,8 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../shared/services/security/auth.service';
 
 @Component({
-  selector: 'app-save-login',
-  template: ''
+    selector: 'app-save-login',
+    template: '',
+    standalone: false
 })
 export class SaveLoginComponent implements OnInit {
 

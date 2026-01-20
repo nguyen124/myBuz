@@ -14,9 +14,10 @@ import { environment as prodEnvironment } from '../../environments/environment.p
 declare var firebase: any;
 
 @Component({
-  selector: 'create-node',
-  templateUrl: './createNode.component.html',
-  styleUrls: ['./createNode.component.css']
+    selector: 'create-node',
+    templateUrl: './createNode.component.html',
+    styleUrls: ['./createNode.component.css'],
+    standalone: false
 })
 export class CreateNodeComponent implements OnInit {
   parsedTags: string[] = [];

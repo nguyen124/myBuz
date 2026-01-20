@@ -13,9 +13,10 @@ import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 
 @Component({
-  selector: 'app-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css']
+    selector: 'app-comments',
+    templateUrl: './comments.component.html',
+    styleUrls: ['./comments.component.css'],
+    standalone: false
 })
 export class CommentsComponent implements OnInit, OnDestroy {
   comments: IComment[];

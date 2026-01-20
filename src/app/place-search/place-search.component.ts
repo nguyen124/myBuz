@@ -5,9 +5,10 @@ import { GoogleMapService } from '../shared/services/google-map.service';
 declare let google: any;
 
 @Component({
-  selector: 'app-place-search',
-  templateUrl: './place-search.component.html',
-  styleUrls: ['./place-search.component.css']
+    selector: 'app-place-search',
+    templateUrl: './place-search.component.html',
+    styleUrls: ['./place-search.component.css'],
+    standalone: false
 })
 export class PlaceSearchComponent implements OnInit, AfterViewInit {
 

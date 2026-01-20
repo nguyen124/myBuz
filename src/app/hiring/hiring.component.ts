@@ -12,9 +12,10 @@ import { AfterViewInit } from '@angular/core';
 import { GoogleSeoService } from '../google-seo.service';
 
 @Component({
-  selector: 'app-hiring',
-  templateUrl: './hiring.component.html',
-  styleUrls: ['./hiring.component.css']
+    selector: 'app-hiring',
+    templateUrl: './hiring.component.html',
+    styleUrls: ['./hiring.component.css'],
+    standalone: false
 })
 export class HiringComponent implements OnInit, AfterViewInit {
   items: IItem[];

@@ -21,9 +21,10 @@ declare var firebase: any;
 declare var google: any;
 
 @Component({
-  selector: 'app-update-item',
-  templateUrl: './update-item.component.html',
-  styleUrls: ['./update-item.component.scss']
+    selector: 'app-update-item',
+    templateUrl: './update-item.component.html',
+    styleUrls: ['./update-item.component.scss'],
+    standalone: false
 })
 export class UpdateItemComponent implements OnInit, OnDestroy, AfterViewInit {
   MAX_ALLOWED_FILES: number = 10;

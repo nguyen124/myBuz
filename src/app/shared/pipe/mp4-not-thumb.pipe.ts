@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'mp4NotThumbPipe'
+    name: 'mp4NotThumbPipe',
+    standalone: false
 })
 export class Mp4NotThumbPipe implements PipeTransform {
     transform(value: string, args: string[]): any {

@@ -1,7 +1,8 @@
 import { ElementRef, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'imageMobileLinkPipe'
+    name: 'imageMobileLinkPipe',
+    standalone: false
 })
 export class ImageMobileLinkPipe implements PipeTransform {
   constructor(private el: ElementRef) { }

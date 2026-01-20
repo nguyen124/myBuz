@@ -2,14 +2,15 @@ import { Directive } from '@angular/core';
 import { NG_VALIDATORS, UntypedFormControl } from '@angular/forms';
 
 @Directive({
-  selector: '[appFileValidator]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: FileValidatorDirective,
-      multi: true
-    }
-  ]
+    selector: '[appFileValidator]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: FileValidatorDirective,
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class FileValidatorDirective {
 

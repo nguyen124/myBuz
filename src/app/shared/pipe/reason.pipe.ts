@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'reasonPipe'
+    name: 'reasonPipe',
+    standalone: false
 })
 export class ReasonPipe implements PipeTransform {
     transform(values: [], args) {

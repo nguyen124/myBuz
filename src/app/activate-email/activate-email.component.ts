@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../shared/services/user-service.service';
 
 @Component({
-  selector: 'app-activate-email',
-  templateUrl: './activate-email.component.html',
-  styleUrls: ['./activate-email.component.css']
+    selector: 'app-activate-email',
+    templateUrl: './activate-email.component.html',
+    styleUrls: ['./activate-email.component.css'],
+    standalone: false
 })
 export class ActivateEmailComponent implements OnInit {
 

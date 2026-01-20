@@ -7,9 +7,10 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-reset-password-form',
-  templateUrl: './reset-password-form.component.html',
-  styleUrls: ['./reset-password-form.component.css']
+    selector: 'app-reset-password-form',
+    templateUrl: './reset-password-form.component.html',
+    styleUrls: ['./reset-password-form.component.css'],
+    standalone: false
 })
 export class ResetPasswordFormComponent implements OnInit {
 

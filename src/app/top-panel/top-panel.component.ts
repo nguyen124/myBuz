@@ -3,9 +3,10 @@ import { IItem } from '../shared/model/item';
 import { ItemService } from '../shared/services/item.services';
 
 @Component({
-  selector: 'app-top-panel',
-  templateUrl: './top-panel.component.html',
-  styleUrls: ['./top-panel.component.css']
+    selector: 'app-top-panel',
+    templateUrl: './top-panel.component.html',
+    styleUrls: ['./top-panel.component.css'],
+    standalone: false
 })
 export class TopPanelComponent implements OnInit {
   item: IItem;

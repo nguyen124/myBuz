@@ -5,9 +5,10 @@ import { UserService } from '../shared/services/user-service.service';
 import { SystemService } from '../shared/services/utils/system.service';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css'],
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
   registerForm: UntypedFormGroup;

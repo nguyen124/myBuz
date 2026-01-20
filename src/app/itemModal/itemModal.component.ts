@@ -16,10 +16,11 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-itemModal',
-  templateUrl: './itemModal.component.html',
-  styleUrls: ['./itemModal.component.css'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-itemModal',
+    templateUrl: './itemModal.component.html',
+    styleUrls: ['./itemModal.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ItemModalComponent implements OnInit, OnDestroy {
   item: IItem;

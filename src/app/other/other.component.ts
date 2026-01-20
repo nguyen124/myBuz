@@ -12,9 +12,10 @@ import { AfterViewInit } from '@angular/core';
 import { GoogleSeoService } from '../google-seo.service';
 
 @Component({
-  selector: 'app-other',
-  templateUrl: './other.component.html',
-  styleUrls: ['./other.component.css']
+    selector: 'app-other',
+    templateUrl: './other.component.html',
+    styleUrls: ['./other.component.css'],
+    standalone: false
 })
 export class OtherComponent implements OnInit, AfterViewInit {
 

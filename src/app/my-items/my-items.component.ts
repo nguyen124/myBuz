@@ -12,9 +12,10 @@ import { environment } from '../../environments/environment';
 import { environment as prodEnvironment } from '../../environments/environment.prod';
 
 @Component({
-  selector: 'app-my-items',
-  templateUrl: './my-items.component.html',
-  styleUrls: ['./my-items.component.css']
+    selector: 'app-my-items',
+    templateUrl: './my-items.component.html',
+    styleUrls: ['./my-items.component.css'],
+    standalone: false
 })
 export class MyItemsComponent implements OnInit {
   items: IItem[];

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'app-meme-video',
-  templateUrl: './meme-video.component.html',
-  styleUrls: ['./meme-video.component.css']
+    selector: 'app-meme-video',
+    templateUrl: './meme-video.component.html',
+    styleUrls: ['./meme-video.component.css'],
+    standalone: false
 })
 export class MemeVideoComponent implements OnInit {
   @Input() link: string;

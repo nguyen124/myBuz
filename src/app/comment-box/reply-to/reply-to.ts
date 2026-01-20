@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-reply-to',
-  templateUrl: './reply-to.component.html'
+    selector: 'app-reply-to',
+    templateUrl: './reply-to.component.html',
+    standalone: false
 })
 export class ReplyToComponent implements OnInit {
   @Input() replyToUsername: string = '';

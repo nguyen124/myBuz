@@ -13,7 +13,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, DefaultValueAccessor } from "@
             useExisting: forwardRef(() => FileValueAccessor),
             multi: true
         }
-    ]
+    ],
+    standalone: false
 })
 export class FileValueAccessor implements ControlValueAccessor {
     value: any;

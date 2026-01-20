@@ -2,9 +2,10 @@ import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-policy-eu',
-  templateUrl: './policy-eu.component.html',
-  styleUrls: ['./policy-eu.component.css']
+    selector: 'app-policy-eu',
+    templateUrl: './policy-eu.component.html',
+    styleUrls: ['./policy-eu.component.css'],
+    standalone: false
 })
 export class PolicyEuComponent implements OnInit, AfterViewChecked {
 

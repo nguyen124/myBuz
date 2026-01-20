@@ -10,9 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-user-home',
-  templateUrl: './user-home.component.html',
-  styleUrls: ['./user-home.component.css']
+    selector: 'app-user-home',
+    templateUrl: './user-home.component.html',
+    styleUrls: ['./user-home.component.css'],
+    standalone: false
 })
 export class UserHomeComponent implements OnInit {
   user: IUser;

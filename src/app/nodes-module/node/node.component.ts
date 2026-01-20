@@ -1,9 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-node',
-  templateUrl: './node.component.html',
-  styleUrls: ['./node.component.css']
+    selector: 'app-node',
+    templateUrl: './node.component.html',
+    styleUrls: ['./node.component.css'],
+    standalone: false
 })
 export class NodeComponent implements OnInit {
   showTooltip: boolean;

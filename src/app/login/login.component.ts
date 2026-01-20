@@ -6,10 +6,10 @@ import { SystemService } from '../shared/services/utils/system.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   loginForm: UntypedFormGroup;
