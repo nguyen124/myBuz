@@ -2,7 +2,7 @@ import { AdsenseModule } from 'ng2-adsense';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { UsersModule } from './users/users.module';
@@ -72,8 +72,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 let jQuery: any = window['$'];
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         CommentComponent,
         CommentBoxComponent,
@@ -117,9 +116,7 @@ let jQuery: any = window['$'];
         LeftPanelItemComponent,
         TopPanelComponent
     ],
-    imports: [
-
-        ShareButtonsModule.withConfig({
+    bootstrap: [AppComponent], imports: [ShareButtonsModule.withConfig({
             debug: true
         }),
         AdsenseModule.forRoot({
@@ -138,7 +135,6 @@ let jQuery: any = window['$'];
         BrowserModule,
         FileUtils,
         FormsModule,
-        HttpClientModule,
         ReactiveFormsModule,
         ShareButtonsModule,
         ShareIconsModule,
@@ -146,9 +142,7 @@ let jQuery: any = window['$'];
         AdminModule,
         ShareModule,
         ToastrModule.forRoot(),
-        routing
-    ],
-    providers: [
+        routing], providers: [
         ChildrenAuthGuard,
         ParentAuthGuard,
         AdminAuthGuard,
@@ -158,10 +152,9 @@ let jQuery: any = window['$'];
         },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
         { provide: JQ_TOKEN, useValue: jQuery },
-        provideNgxMask()
-    ],
-    bootstrap: [AppComponent]
-})
+        provideNgxMask(),
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
