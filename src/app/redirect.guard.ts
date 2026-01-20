@@ -1,5 +1,5 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { GoogleMapService } from './shared/services/google-map.service';
 import { AuthService } from './shared/services/security/auth.service';
 import { environment } from '../environments/environment';
@@ -8,7 +8,7 @@ import { environment as prodEnvironment } from '../environments/environment.prod
 @Injectable({
   providedIn: 'root'
 })
-export class RedirectGuard implements CanActivate {
+export class RedirectGuard  {
   readonly PER_PAGE: number = isDevMode() ? environment.ITEM_PER_PAGE : prodEnvironment.ITEM_PER_PAGE;
 
   constructor(private _router: Router, private _apiService: GoogleMapService, private _authSvc: AuthService) { }
